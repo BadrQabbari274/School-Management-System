@@ -29,7 +29,7 @@ namespace StudentManagementSystem.Service.Implementation
             return await _context.Students
                 .Include(s => s.Class)
                 .ThenInclude(c => c.Field)
-                .ThenInclude(f => f.AcademicYear)
+                .ThenInclude(f => f.Grade)
                 .Include(s => s.TaskEvaluations)
                 .ThenInclude(te => te.Pictures)
                 .Include(s => s.Pictures)
@@ -111,7 +111,7 @@ namespace StudentManagementSystem.Service.Implementation
                 {"Student", student},
                 {"TotalTasks", student.TaskEvaluations.Count(te => !te.IsDeleted)},
                 {"CompletedTasks", student.TaskEvaluations.Count(te => !te.IsDeleted && te.Pictures.Any())},
-                {"AttendanceRate", CalculateAttendanceRate(student.MajorAttendances.ToList())},
+              /*  {"AttendanceRate", CalculateAttendanceRate(student.MajorAttendances.ToList())}*/
                 {"RecentTasks", student.TaskEvaluations.Where(te => !te.IsDeleted).OrderByDescending(te => te.Id).Take(5)},
                 {"TotalPictures", student.Pictures.Count(p => !p.IsDeleted)}
             };
@@ -155,13 +155,13 @@ namespace StudentManagementSystem.Service.Implementation
             }
         }
 
-        private double CalculateAttendanceRate(List<MajorAttendance> attendances)
-        {
-            if (!attendances.Any()) return 0;
+        //private double CalculateAttendanceRate(List<StudentAbsent> attendances)
+        //{
+        //    if (!attendances.Any()) return 0;
 
-            var presentCount = attendances.Count(a => a.Status == "Present");
-            return (double)presentCount / attendances.Count * 100;
-        }
+        //    var presentCount = attendances.Count(a => a == "Present");
+        //    return (double)presentCount / attendances.Count * 100;
+        //}
     }
 
 }

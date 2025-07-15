@@ -1,463 +1,527 @@
-﻿//using Microsoft.AspNetCore.Authentication;
-//using Microsoft.AspNetCore.Authentication.Cookies;
-//using Microsoft.AspNetCore.Authorization;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.Rendering;
-//using System.Security.Claims;
-//using StudentManagementSystem.Service.Interface;
-//using StudentManagementSystem.ViewModels;
-//using StudentManagementSystem.Models;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
+using StudentManagementSystem.Service.Interface;
+using StudentManagementSystem.ViewModels;
+using StudentManagementSystem.Models;
+using StudentManagementSystem.Data;
 
-//namespace StudentManagementSystem.Controllers
-//{
-//    //ValidateAntiForgeryToken ->  CSRF (Cross-Site Request Forgery)
-//    //We use it in the post while we are collecting data from the user
-//    //AllowAnonymous -> Entry is allowed without authentication on the action.
-//    public class AccountController : Controller
-//    {
-//        private readonly IUserService _userService;
-//        private readonly IRoleService _roleService;
 
-//        public AccountController(IUserService userService, IRoleService roleService)
-//        {
-//            _userService = userService;
-//            _roleService = roleService;
-//        }
+namespace StudentManagementSystem.Controllers
+{
+    //ValidateAntiForgeryToken ->  CSRF (Cross-Site Request Forgery)
+    //We use it in the post while we are collecting data from the user
+    //AllowAnonymous -> Entry is allowed without authentication on the action.
+    public class AccountController : Controller
+    {
+        private readonly IUserService _userService;
+        private readonly IRoleService _roleService;
+       
+        public AccountController(IUserService userService, IRoleService roleService)
+        {
+         
+           
+            _userService = userService;
+            _roleService = roleService;
+        }
 
-//        #region Authentication
+        #region Authentication
 
-//        [HttpGet]
-//        [AllowAnonymous]
-//        public IActionResult Login()
-//        {
-//            if (User.Identity.IsAuthenticated)
-//            {
-//                return RedirectToAction("Index", "Home");
-//            }
-//            return View();
-//        }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
+            return View();
+        }
 
-//        [HttpPost]
-//        [AllowAnonymous]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> Login(LoginViewModel model)
-//        {
-//            if (!ModelState.IsValid)
-//            {
-//                return View(model);
-//            }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-//            try
-//            {
-//                var user = await _userService.GetUserByNameAsync(model.Username);
+            try
+            {
+                var user = await _userService.GetUserByNameAsync(model.Username);
 
-//                if (user == null || !user.IsActive)
-//                {
-//                    ModelState.AddModelError(string.Empty, "اسم المستخدم أو كلمة المرور غير صحيحة");
-//                    return View(model);
-//                }
+                if (user == null || !user.IsActive)
+                {
+                    ModelState.AddModelError(string.Empty, "اسم المستخدم أو كلمة المرور غير صحيحة");
+                    return View(model);
+                }
 
-//                // Note: In production, use proper password hashing (BCrypt, Argon2, etc.)
-//                if (user.Password != model.Password)
-//                {
-//                    ModelState.AddModelError(string.Empty, "اسم المستخدم أو كلمة المرور غير صحيحة");
-//                    return View(model);
-//                }
+                // Note: In production, use proper password hashing (BCrypt, Argon2, etc.)
+                if (user.Password != model.Password)
+                {
+                    ModelState.AddModelError(string.Empty, "اسم المستخدم أو كلمة المرور غير صحيحة");
+                    return View(model);
+                }
 
-//                await SignInUserAsync(user, model.RememberMe);
-//                return RedirectToAction("Index", "Home");
-//            }
-//            catch (Exception ex)
-//            {
-//                ModelState.AddModelError(string.Empty, "حدث خطأ أثناء تسجيل الدخول");
-//                return View(model);
-//            }
-//        }
+                if (user.LastLogin == null || user.Password == "0000")
+                {
+                    return RedirectToAction("ForgetPassword", "Account", new { userId = user.Id });
+                }
 
-//        [HttpGet]
-//        [Authorize(Roles = "Admin")]
-//        public async Task<IActionResult> Register()
-//        {
-//            var model = new RegisterViewModel();
-//            await PopulateRolesDropDown();
-//            return View(model);
-//        }
+                await SignInUserAsync(user, model.RememberMe);
+                user.LastLogin = DateTime.Now;
+                await _userService.UpdateUserAsync(user);
+                TempData["login"] = "ok";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "حدث خطأ أثناء تسجيل الدخول");
+                return View(model);
+            }
+        }
 
-//        [HttpPost]
-//        [Authorize(Roles = "Admin")]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> Register(RegisterViewModel model)
-//        {
-//            if (!ModelState.IsValid)
-//            {
-//                await PopulateRolesDropDown();
-//                return View(model);
-//            }
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgetPassword(int userId)
+        {
+            var user = await _userService.GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
 
-//            try
-//            {
-//                // Check if username already exists
-//                var existingUser = await _userService.GetUserByNameAsync(model.Username);
-//                if (existingUser != null)
-//                {
-//                    ModelState.AddModelError("Username", "اسم المستخدم موجود بالفعل");
-//                    await PopulateRolesDropDown();
-//                    return View(model);
-//                }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgetPassword(ForgetPassword forget)
+        {
+            if (forget.Password != forget.ConfirmPassword)
+            {
+                ModelState.AddModelError("", "كلمة المرور وتأكيدها غير متطابقين");
+                var user1 = await _userService.GetUserByIdAsync(forget.Id);
+                return View(user1);
+            }
 
-//                var user = new User
-//                {
-//                    Name = model.Name,
-//                    Username = model.Username,
-//                    Password = model.Password, // Note: Hash password in production
-//                    RoleId = model.RoleId,
-//                    IsActive = true,
-//                    CreatedBy = GetCurrentUserId()
-//                };
+            if (string.IsNullOrWhiteSpace(forget.Password) || forget.Password.Length < 4)
+            {
+                ModelState.AddModelError("", "كلمة المرور يجب أن تكون على الأقل 4 أحرف");
+                var user1 = await _userService.GetUserByIdAsync(forget.Id);
+                return View(user1);
+            }
 
-//                await _userService.CreateUserAsync(user);
-//                TempData["Success"] = "تم إنشاء المستخدم بنجاح";
-//                return RedirectToAction("ManageUsers");
-//            }
-//            catch (Exception ex)
-//            {
-//                ModelState.AddModelError(string.Empty, "حدث خطأ أثناء إنشاء المستخدم");
-//                await PopulateRolesDropDown();
-//                return View(model);
-//            }
-//        }
+            var user = await _userService.GetUserByIdAsync(forget.Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> Logout()
-//        {
-//            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-//            return RedirectToAction("Login");
-//        }
+            user.Password = forget.Password; // هنا يتم تحديث كلمة المرور
+            user.LastLogin = DateTime.Now; // تحديث وقت آخر تسجيل دخول
 
-//        #endregion
+            try
+            {
+                await _userService.UpdateUserAsync(user);
+                return RedirectToAction("Login", "Account");
+            }
+            catch
+            {
+                ModelState.AddModelError("", "حدث خطأ أثناء تحديث كلمة المرور");
+                return View(user);
+            }
+        }
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> Register()
+        {
+            var model = new RegisterViewModel();
+            ViewBag.Roles = await _roleService.GetAllRolesAsync(); // تأكد من وجود هذه الدالة في الخدمة
+            return View(model);
+        }
 
-//        #region User Management
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Roles = await _roleService.GetAllRolesAsync();
+                return View(model);
+            }
 
-//        [HttpGet]
-//        [Authorize(Roles = "Admin")]
-//        public async Task<IActionResult> ManageUsers()
-//        {
-//            try
-//            {
-//                var users = await _userService.GetAllUsersAsync();
-//                var viewModel = users.Select(u => new UserManagementViewModel
-//                {
-//                    Id = u.Id,
-//                    Name = u.Name,
-//                    Username = u.Username,
-//                    RoleName = u.Role?.Name ?? "غير محدد",
-//                    Date = u.Date,
-//                    IsActive = u.IsActive,
-//                    CreatedBy = u.CreatedByUser?.Name ?? "غير محدد"
-//                }).ToList();
+            try
+            {
+                // Check if username already exists
+                var existingUser = await _userService.GetUserByNameAsync(model.Username);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("Username", "اسم المستخدم موجود بالفعل");
+                    ViewBag.Roles = await _roleService.GetAllRolesAsync();
+                    return View(model);
+                }
 
-//                return View(viewModel);
-//            }
-//            catch (Exception ex)
-//            {
-//                TempData["Error"] = "حدث خطأ أثناء تحميل بيانات المستخدمين";
-//                return View(new List<UserManagementViewModel>());
-//            }
-//        }
+                var user = new Employee
+                {
+                    Name = model.Name,
+                    Username = model.Username,
+                    Password = "0000", // Note: Hash password in production
+                    RoleId = model.RoleId,
+                    IsActive = true,
+                    //CreatedBy = GetCurrentUserId()
+                };
 
-//        [HttpGet]
-//        [Authorize(Roles = "Admin")]
-//        public async Task<IActionResult> EditUser(int id)
-//        {
-//            try
-//            {
-//                var user = await _userService.GetUserByIdAsync(id);
-//                if (user == null)
-//                {
-//                    TempData["Error"] = "المستخدم غير موجود";
-//                    return RedirectToAction("ManageUsers");
-//                }
+                await _userService.CreateUserAsync(user);
+                TempData["Success"] = "تم إنشاء المستخدم بنجاح";
+                return RedirectToAction("ManageUsers");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "حدث خطأ أثناء إنشاء المستخدم");
+                ViewBag.Roles = await _roleService.GetAllRolesAsync();
+                return View(model);
+            }
+        }
 
-//                var viewModel = new EditUserViewModel
-//                {
-//                    Id = user.Id,
-//                    Name = user.Name,
-//                    Username = user.Username,
-//                    RoleId = user.RoleId,
-//                    IsActive = user.IsActive
-//                };
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
 
-//                await PopulateRolesDropDown();
-//                return View(viewModel);
-//            }
-//            catch (Exception ex)
-//            {
-//                TempData["Error"] = "حدث خطأ أثناء تحميل بيانات المستخدم";
-//                return RedirectToAction("ManageUsers");
-//            }
-//        }
+        #endregion
 
-//        [HttpPost]
-//        [Authorize(Roles = "Admin")]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> EditUser(EditUserViewModel model)
-//        {
-//            if (!ModelState.IsValid)
-//            {
-//                await PopulateRolesDropDown();
-//                return View(model);
-//            }
+        #region User Management
 
-//            try
-//            {
-//                var user = await _userService.GetUserByIdAsync(model.Id);
-//                if (user == null)
-//                {
-//                    TempData["Error"] = "المستخدم غير موجود";
-//                    return RedirectToAction("ManageUsers");
-//                }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ManageUsers()
+        {
+            try
+            {
+                var users = await _userService.GetAllUsersAsync();
+                var viewModel = users.Select(u => new UserManagementViewModel
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Username = u.Username,
+                    RoleName = u.Role?.Name ?? "غير محدد",
+                    Date = u.Date,
+                    IsActive = u.IsActive,
+                    CreatedBy = u.CreatedByUser?.Name ?? "غير محدد"
+                }).ToList();
 
-//                // Check if username is taken by another user
-//                var existingUser = await _userService.GetUserByNameAsync(model.Username);
-//                if (existingUser != null && existingUser.Id != model.Id)
-//                {
-//                    ModelState.AddModelError("Username", "اسم المستخدم موجود بالفعل");
-//                    await PopulateRolesDropDown();
-//                    return View(model);
-//                }
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "حدث خطأ أثناء تحميل بيانات المستخدمين";
+                return View(new List<UserManagementViewModel>());
+            }
+        }
 
-//                user.Name = model.Name;
-//                user.Username = model.Username;
-//                user.RoleId = model.RoleId;
-//                user.IsActive = model.IsActive;
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditUser(int id)
+        {
+            try
+            {
+                var user = await _userService.GetUserByIdAsync(id);
+                if (user == null)
+                {
+                    TempData["Error"] = "المستخدم غير موجود";
+                    return RedirectToAction("ManageUsers");
+                }
 
-//                // Update password if provided
-//                if (!string.IsNullOrEmpty(model.NewPassword))
-//                {
-//                    user.Password = model.NewPassword; // Note: Hash password in production
-//                }
+                var viewModel = new EditUserViewModel
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Username = user.Username,
+                    RoleId = user.RoleId,
+                    IsActive = user.IsActive
+                };
 
-//                await _userService.UpdateUserAsync(user);
-//                TempData["Success"] = "تم تحديث المستخدم بنجاح";
-//                return RedirectToAction("ManageUsers");
-//            }
-//            catch (Exception ex)
-//            {
-//                ModelState.AddModelError(string.Empty, "حدث خطأ أثناء تحديث المستخدم");
-//                await PopulateRolesDropDown();
-//                return View(model);
-//            }
-//        }
+                await PopulateRolesDropDown();
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "حدث خطأ أثناء تحميل بيانات المستخدم";
+                return RedirectToAction("ManageUsers");
+            }
+        }
 
-//        [HttpPost]
-//        [Authorize(Roles = "Admin")]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> DeleteUser(int id)
-//        {
-//            try
-//            {
-//                var currentUserId = GetCurrentUserId();
-//                if (currentUserId == id)
-//                {
-//                    TempData["Error"] = "لا يمكن حذف المستخدم الحالي";
-//                    return RedirectToAction("ManageUsers");
-//                }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                await PopulateRolesDropDown();
+                return View(model);
+            }
 
-//                var result = await _userService.DeleteUserAsync(id);
-//                if (result)
-//                {
-//                    TempData["Success"] = "تم حذف المستخدم بنجاح";
-//                }
-//                else
-//                {
-//                    TempData["Error"] = "فشل في حذف المستخدم";
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                TempData["Error"] = "حدث خطأ أثناء حذف المستخدم";
-//            }
+            try
+            {
+                var user = await _userService.GetUserByIdAsync(model.Id);
+                if (user == null)
+                {
+                    TempData["Error"] = "المستخدم غير موجود";
+                    return RedirectToAction("ManageUsers");
+                }
 
-//            return RedirectToAction("ManageUsers");
-//        }
+                // Check if username is taken by another user
+                var existingUser = await _userService.GetUserByNameAsync(model.Username);
+                if (existingUser != null && existingUser.Id != model.Id)
+                {
+                    ModelState.AddModelError("Username", "اسم المستخدم موجود بالفعل");
+                    await PopulateRolesDropDown();
+                    return View(model);
+                }
 
-//        [HttpPost]
-//        [Authorize(Roles = "Admin")]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> ToggleUserStatus(int id)
-//        {
-//            try
-//            {
-//                var currentUserId = GetCurrentUserId();
-//                if (currentUserId == id)
-//                {
-//                    TempData["Error"] = "لا يمكن تعطيل المستخدم الحالي";
-//                    return RedirectToAction("ManageUsers");
-//                }
+                user.Name = model.Name;
+                user.Username = model.Username;
+                user.RoleId = model.RoleId;
+                user.IsActive = model.IsActive;
 
-//                var user = await _userService.GetUserByIdAsync(id);
-//                if (user == null)
-//                {
-//                    TempData["Error"] = "المستخدم غير موجود";
-//                    return RedirectToAction("ManageUsers");
-//                }
+                // Update password if provided
+                if (!string.IsNullOrEmpty(model.NewPassword))
+                {
+                    user.Password = model.NewPassword; // Note: Hash password in production
+                }
 
-//                user.IsActive = !user.IsActive;
-//                await _userService.UpdateUserAsync(user);
+                await _userService.UpdateUserAsync(user);
+                TempData["Success"] = "تم تحديث المستخدم بنجاح";
+                return RedirectToAction("ManageUsers");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "حدث خطأ أثناء تحديث المستخدم");
+                await PopulateRolesDropDown();
+                return View(model);
+            }
+        }
 
-//                string status = user.IsActive ? "تم تفعيل" : "تم تعطيل";
-//                TempData["Success"] = $"{status} المستخدم بنجاح";
-//            }
-//            catch (Exception ex)
-//            {
-//                TempData["Error"] = "حدث خطأ أثناء تحديث حالة المستخدم";
-//            }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            try
+            {
+                var currentUserId = GetCurrentUserId();
+                if (currentUserId == id)
+                {
+                    TempData["Error"] = "لا يمكن حذف المستخدم الحالي";
+                    return RedirectToAction("ManageUsers");
+                }
 
-//            return RedirectToAction("ManageUsers");
-//        }
+                var result = await _userService.DeleteUserAsync(id);
+                if (result)
+                {
+                    TempData["Success"] = "تم حذف المستخدم بنجاح";
+                }
+                else
+                {
+                    TempData["Error"] = "فشل في حذف المستخدم";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "حدث خطأ أثناء حذف المستخدم";
+            }
 
-//        #endregion
+            return RedirectToAction("ManageUsers");
+        }
 
-//        #region Profile Management
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleUserStatus(int id)
+        {
+            try
+            {
+                var currentUserId = GetCurrentUserId();
+                if (currentUserId == id)
+                {
+                    TempData["Error"] = "لا يمكن تعطيل المستخدم الحالي";
+                    return RedirectToAction("ManageUsers");
+                }
 
-//        [HttpGet]
-//        [Authorize]
-//        public async Task<IActionResult> Profile()
-//        {
-//            try
-//            {
-//                var userId = GetCurrentUserId();
-//                var user = await _userService.GetUserByIdAsync(userId);
+                var user = await _userService.GetUserByIdAsync(id);
+                if (user == null)
+                {
+                    TempData["Error"] = "المستخدم غير موجود";
+                    return RedirectToAction("ManageUsers");
+                }
 
-//                if (user == null)
-//                {
-//                    return RedirectToAction("Login");
-//                }
+                user.IsActive = !user.IsActive;
+                await _userService.UpdateUserAsync(user);
 
-//                var viewModel = new EditUserViewModel
-//                {
-//                    Id = user.Id,
-//                    Name = user.Name,
-//                    Username = user.Username,
-//                    RoleId = user.RoleId,
-//                    IsActive = user.IsActive
-//                };
+                string status = user.IsActive ? "تم تفعيل" : "تم تعطيل";
+                TempData["Success"] = $"{status} المستخدم بنجاح";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "حدث خطأ أثناء تحديث حالة المستخدم";
+            }
 
-//                return View(viewModel);
-//            }
-//            catch (Exception ex)
-//            {
-//                TempData["Error"] = "حدث خطأ أثناء تحميل الملف الشخصي";
-//                return RedirectToAction("Index", "Home");
-//            }
-//        }
+            return RedirectToAction("ManageUsers");
+        }
 
-//        [HttpPost]
-//        [Authorize]
-//        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> Profile(EditUserViewModel model)
-//        {
-//            if (!ModelState.IsValid)
-//            {
-//                return View(model);
-//            }
+        #endregion
 
-//            try
-//            {
-//                var userId = GetCurrentUserId();
-//                var user = await _userService.GetUserByIdAsync(userId);
+        #region Profile Management
 
-//                if (user == null)
-//                {
-//                    return RedirectToAction("Login");
-//                }
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                var user = await _userService.GetUserByIdAsync(userId);
 
-//                // Check if username is taken by another user
-//                var existingUser = await _userService.GetUserByNameAsync(model.Username);
-//                if (existingUser != null && existingUser.Id != userId)
-//                {
-//                    ModelState.AddModelError("Username", "اسم المستخدم موجود بالفعل");
-//                    return View(model);
-//                }
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
 
-//                user.Name = model.Name;
-//                user.Username = model.Username;
+                var viewModel = new EditUserViewModel
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Username = user.Username,
+                    RoleId = user.RoleId,
+                    IsActive = user.IsActive
+                };
 
-//                // Update password if provided
-//                if (!string.IsNullOrEmpty(model.NewPassword))
-//                {
-//                    user.Password = model.NewPassword; // Note: Hash password in production
-//                }
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "حدث خطأ أثناء تحميل الملف الشخصي";
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
-//                await _userService.UpdateUserAsync(user);
-//                TempData["Success"] = "تم تحديث الملف الشخصي بنجاح";
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile(EditUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-//                // Update claims if username changed
-//                if (User.Identity.Name != model.Username)
-//                {
-//                    await SignInUserAsync(user, false);
-//                }
+            try
+            {
+                var userId = GetCurrentUserId();
+                var user = await _userService.GetUserByIdAsync(userId);
 
-//                return View(model);
-//            }
-//            catch (Exception ex)
-//            {
-//                ModelState.AddModelError(string.Empty, "حدث خطأ أثناء تحديث الملف الشخصي");
-//                return View(model);
-//            }
-//        }
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
 
-//        #endregion
+                // Check if username is taken by another user
+                var existingUser = await _userService.GetUserByNameAsync(model.Username);
+                if (existingUser != null && existingUser.Id != userId)
+                {
+                    ModelState.AddModelError("Username", "اسم المستخدم موجود بالفعل");
+                    return View(model);
+                }
 
-//        #region Access Denied
+                user.Name = model.Name;
+                user.Username = model.Username;
 
-//        [HttpGet]
-//        [AllowAnonymous]
-//        public IActionResult AccessDenied()
-//        {
-//            return View();
-//        }
+                // Update password if provided
+                if (!string.IsNullOrEmpty(model.NewPassword))
+                {
+                    user.Password = model.NewPassword; // Note: Hash password in production
+                }
 
-//        #endregion
+                await _userService.UpdateUserAsync(user);
+                TempData["Success"] = "تم تحديث الملف الشخصي بنجاح";
 
-//        #region Helper Methods
+                // Update claims if username changed
+                if (User.Identity.Name != model.Username)
+                {
+                    await SignInUserAsync(user, false);
+                }
 
-//        private async Task SignInUserAsync(User user, bool isPersistent)
-//        {
-//            var claims = new List<Claim>
-//            {
-//                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-//                new Claim(ClaimTypes.Name, user.Username),
-//                new Claim(ClaimTypes.Role, user.Role?.Name ?? "User"),
-//                new Claim("FullName", user.Name)
-//            };
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "حدث خطأ أثناء تحديث الملف الشخصي");
+                return View(model);
+            }
+        }
 
-//            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-//            var authProperties = new AuthenticationProperties
-//            {
-//                IsPersistent = isPersistent,
-//                ExpiresUtc = isPersistent ? DateTimeOffset.UtcNow.AddDays(30) : DateTimeOffset.UtcNow.AddMinutes(60)
-//            };
+        #endregion
 
-//            await HttpContext.SignInAsync(
-//                CookieAuthenticationDefaults.AuthenticationScheme,
-//                new ClaimsPrincipal(claimsIdentity),
-//                authProperties);
-//        }
+        #region Access Denied
 
-//        private int GetCurrentUserId()
-//        {
-//            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-//            return userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
-//        }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
 
-//        private async Task PopulateRolesDropDown()
-//        {
-//            var roles = await _roleService.GetActiveRolesAsync();
-//            ViewBag.Roles = new SelectList(roles, "Id", "Name");
-//        }
+        #endregion
 
-//        #endregion
-//    }
-//}
+        #region Helper Methods
+
+        private async Task SignInUserAsync(Employee user, bool isPersistent)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Role?.Name ?? "User"),
+                new Claim("FullName", user.Name)
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = isPersistent,
+                ExpiresUtc = isPersistent ? DateTimeOffset.UtcNow.AddDays(30) : DateTimeOffset.UtcNow.AddMinutes(60)
+            };
+        
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+        }
+
+        private int GetCurrentUserId()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            return userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
+        }
+
+        private async Task PopulateRolesDropDown()
+        {
+            var roles = await _roleService.GetActiveRolesAsync();
+            ViewBag.Roles = new SelectList(roles, "Id", "Name");
+        }
+
+        #endregion
+    }
+}

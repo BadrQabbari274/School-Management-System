@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace StudentManagementSystem.Models
 {
     // Field Users (Many-to-Many relationship)
-    public class FieldUser
+    public class FieldEmployee
     {
         [Key]
         public int Id { get; set; }
@@ -14,7 +14,7 @@ namespace StudentManagementSystem.Models
 
         // Navigation Properties
         [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        public virtual Employee User { get; set; }
 
         [ForeignKey("FieldId")]
         public virtual Field Field { get; set; }

@@ -16,18 +16,18 @@ namespace StudentManagementSystem.Models
         public bool IsActive { get; set; } = true;
         public int? CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public int? AcademicYearId { get; set; }
+        public int? GradeId { get; set; } // تم تغيير من AcademicYearId إلى GradeId
 
         // Navigation Properties
         [ForeignKey("CreatedBy")]
-        public virtual User CreatedByUser { get; set; }
+        public virtual Employee CreatedByUser { get; set; }
 
-        [ForeignKey("AcademicYearId")]
-        public virtual AcademicYear AcademicYear { get; set; }
+        [ForeignKey("GradeId")]
+        public virtual Grade Grade { get; set; } // تم تغيير من AcademicYear إلى Grade
 
         // Collections
         public virtual ICollection<Class> Classes { get; set; }
         public virtual ICollection<Competence> Competences { get; set; }
-        public virtual ICollection<FieldUser> FieldUsers { get; set; }
+        public virtual ICollection<FieldEmployee> FieldEmployees { get; set; }
     }
 }

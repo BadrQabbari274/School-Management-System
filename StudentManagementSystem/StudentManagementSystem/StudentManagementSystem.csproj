@@ -7,6 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Compatences\students.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Attendance\stusents.cshtml" />
+    <Content Remove="Views\Compatences\NewFile.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Account\NewFile.txt" />
+    <None Remove="Views\Attendance\NewFile.txt" />
+    <None Remove="Views\Compatences\NewFile" />
+    <None Remove="Views\Compatences\NewFile.txt" />
+    <None Remove="Views\Compatences\NewFile1.txt" />
+    <None Remove="Views\Compatences\students" />
+    <None Remove="Views\Compatences\سفعي" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
