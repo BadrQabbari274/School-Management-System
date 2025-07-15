@@ -19,7 +19,7 @@ namespace StudentManagementSystem.Models
 
         // Navigation Properties
         [ForeignKey("CreatedBy")]
-        public virtual User CreatedByUser { get; set; }
+        public virtual Employee CreatedByUser { get; set; }
 
         [ForeignKey("StudentId")]
         public virtual Student Student { get; set; }

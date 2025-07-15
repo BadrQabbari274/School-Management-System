@@ -18,7 +18,7 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Fields
                 .Include(f => f.CreatedByUser)
-                .Include(f => f.AcademicYear)
+                .Include(f => f.Grade)
                 .Where(f => f.IsActive)
                 .ToListAsync();
         }
@@ -27,7 +27,7 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Fields
                 .Include(f => f.CreatedByUser)
-                .Include(f => f.AcademicYear)
+                .Include(f => f.Grade)
                 .Include(f => f.Classes)
                 .Include(f => f.Competences)
                 .FirstOrDefaultAsync(f => f.Id == id && f.IsActive);
@@ -68,36 +68,36 @@ namespace StudentManagementSystem.Service.Implementation
         public async Task<IEnumerable<Field>> GetFieldsByAcademicYearAsync(int academicYearId)
         {
             return await _context.Fields
-                .Where(f => f.AcademicYearId == academicYearId && f.IsActive)
+                .Where(f => f.GradeId == academicYearId && f.IsActive)
                 .ToListAsync();
         }
 
         public async Task<bool> AssignUserToFieldAsync(int userId, int fieldId)
         {
-            var existingAssignment = await _context.FieldUsers
+            var existingAssignment = await _context.FieldEmployees
                 .FirstOrDefaultAsync(fu => fu.UserId == userId && fu.FieldId == fieldId);
 
             if (existingAssignment != null) return false;
 
-            var fieldUser = new FieldUser
+            var fieldUser = new FieldEmployee
             {
                 UserId = userId,
                 FieldId = fieldId
             };
 
-            _context.FieldUsers.Add(fieldUser);
+            _context.FieldEmployees.Add(fieldUser);
             await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> RemoveUserFromFieldAsync(int userId, int fieldId)
         {
-            var fieldUser = await _context.FieldUsers
+            var fieldUser = await _context.FieldEmployees
                 .FirstOrDefaultAsync(fu => fu.UserId == userId && fu.FieldId == fieldId);
 
             if (fieldUser == null) return false;
 
-            _context.FieldUsers.Remove(fieldUser);
+            _context.FieldEmployees.Remove(fieldUser);
             await _context.SaveChangesAsync();
             return true;
         }

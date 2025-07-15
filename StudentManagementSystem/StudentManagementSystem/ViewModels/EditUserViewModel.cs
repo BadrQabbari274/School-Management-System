@@ -16,7 +16,7 @@ namespace StudentManagementSystem.ViewModels
 
         [Required(ErrorMessage = "الدور مطلوب")]
         [Display(Name = "الدور")]
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
 
         [Display(Name = "نشط")]
         public bool IsActive { get; set; }

@@ -19,10 +19,10 @@ namespace StudentManagementSystem.Models
 
         // Navigation Properties
         [ForeignKey("CreatedBy")]
-        public virtual User CreatedByUser { get; set; }
+        public virtual Employee CreatedByUser { get; set; }
 
         // Collections
-        public virtual ICollection<MajorAttendance> MajorAttendances { get; set; }
+        public virtual ICollection<StudentAbsent> MajorAttendances { get; set; }
     }
 
 }

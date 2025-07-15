@@ -24,7 +24,7 @@ namespace StudentManagementSystem.Models
         public virtual Field Field { get; set; }
 
         [ForeignKey("CreatedBy")]
-        public virtual User CreatedByUser { get; set; }
+        public virtual Employee CreatedByUser { get; set; }
 
         // Collections
         public virtual ICollection<Outcome> Outcomes { get; set; }

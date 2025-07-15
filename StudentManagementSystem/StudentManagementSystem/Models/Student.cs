@@ -22,14 +22,14 @@ namespace StudentManagementSystem.Models
 
         // Navigation Properties
         [ForeignKey("CreatedBy")]
-        public virtual User CreatedByUser { get; set; }
+        public virtual Employee CreatedByUser { get; set; }
 
         [ForeignKey("ClassId")]
         public virtual Class Class { get; set; }
 
         // Collections
         public virtual ICollection<TaskEvaluation> TaskEvaluations { get; set; }
-        public virtual ICollection<MajorAttendance> MajorAttendances { get; set; }
+        public virtual ICollection<StudentAbsent> MajorAttendances { get; set; }
         public virtual ICollection<StudentAttendance> StudentAttendances { get; set; }
         public virtual ICollection<Picture> Pictures { get; set; }
     }

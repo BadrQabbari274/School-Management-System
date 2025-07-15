@@ -26,6 +26,6 @@ namespace StudentManagementSystem.Models
         public virtual TaskEvaluation Task { get; set; }
 
         [ForeignKey("CreatedBy")]
-        public virtual User CreatedByUser { get; set; }
+        public virtual Employee CreatedByUser { get; set; }
     }
 }

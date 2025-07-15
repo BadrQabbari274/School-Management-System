@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentManagementSystem.Models
 {
-    // Academic Year Model
-    public class AcademicYear
+    // Role Model
+    public class EmployeeType
     {
         [Key]
         public int Id { get; set; }
@@ -13,19 +13,15 @@ namespace StudentManagementSystem.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        public bool IsActive { get; set; } = true;
-
-        [StringLength(10)]
-        public string Code { get; set; }
-
-        public DateTime Date { get; set; } = DateTime.Now;
+        public bool IsDeleted { get; set; } = false;
         public int? CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         // Navigation Properties
         [ForeignKey("CreatedBy")]
-        public virtual User CreatedByUser { get; set; }
+        public virtual Employee? CreatedByUser { get; set; }
 
         // Collections
-        public virtual ICollection<Field> Fields { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }
