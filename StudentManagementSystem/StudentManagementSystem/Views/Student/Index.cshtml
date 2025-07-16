@@ -1,0 +1,267 @@
+﻿@model IEnumerable<StudentManagementSystem.Models.Student>
+
+@{
+    ViewData["Title"] = "قائمة الطلاب";
+    Layout = null;
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">الرئيسية</a></li>
+            <li class="breadcrumb-item active" aria-current="page">إدارة الطلاب</li>
+        </ol>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="page-title">
+            <i class="fas fa-user-graduate me-2"></i>
+            قائمة الطلاب
+        </h2>
+        <a href="@Url.Action("Create")" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>
+            إضافة طالب جديد
+        </a>
+    </div>
+
+    <!-- Students Grid -->
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var student in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card student-card h-100">
+                        <!-- Delete Button -->
+                        <div class="card-delete-btn">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteStudent(@student.Id, '@student.Name')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+
+                        <!-- Student Image -->
+                        <div class="student-image-container">
+                            @if (!string.IsNullOrEmpty(student.Picture_Profile))
+                            {
+                                <img src="~/@student.Picture_Profile" alt="@student.Name" class="student-image">
+                            }
+                            else
+                            {
+                                <div class="student-image-placeholder">
+                                    <i class="fas fa-user fa-3x"></i>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="card-body">
+                            <!-- Student Basic Info -->
+                            <h5 class="card-title text-center mb-3">@student.Name</h5>
+
+                            <!-- Breadcrumb Path -->
+                            <div class="student-path mb-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt me-1"></i>
+                                    @if (student.Class != null)
+                                    {
+                                        <span>الفصل: @student.Class.Name</span>
+                                        @if (!string.IsNullOrEmpty(student.Class.Field.Name))
+                                        {
+                                            <span> - التخصص: @student.Class.Field.Name</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>غير محدد الفصل</span>
+                                    }
+                                </small>
+                            </div>
+
+                            <!-- Student Details -->
+                            <div class="student-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-barcode me-2"></i>
+                                    <strong>الكود:</strong> @student.Code
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-envelope me-2"></i>
+                                    <strong>البريد الإلكتروني:</strong> @student.Email
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-phone me-2"></i>
+                                    <strong>الهاتف:</strong> @student.Phone_Number
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-map-marker-alt me-2"></i>
+                                    <strong>المحافظة:</strong> @student.Governarate
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-calendar me-2"></i>
+                                    <strong>تاريخ الميلاد:</strong> @student.Date_of_birth
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-clock me-2"></i>
+                                    <strong>تاريخ الإضافة:</strong> @student.Date.ToString("dd/MM/yyyy")
+                                </div>
+                            </div>
+
+                            <!-- Status Badge -->
+                            <div class="student-status mt-3">
+                                @if (student.IsActive)
+                                {
+                                    <span class="badge bg-success">نشط</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">غير نشط</span>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Card Footer with Actions -->
+                        <div class="card-footer">
+                            <div class="btn-group w-100" role="group">
+                                <a href="@Url.Action("Details", new { id = student.Id })" class="btn btn-info btn-sm">
+                                    <i class="fas fa-eye me-1"></i>
+                                    عرض
+                                </a>
+                                <a href="@Url.Action("Edit", new { id = student.Id })" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit me-1"></i>
+                                    تعديل
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle me-2"></i>
+                    لا توجد طلاب مسجلين حالياً
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">تأكيد الحذف</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>هل أنت متأكد من حذف الطالب <strong id="studentName"></strong>؟</p>
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    لا يمكن التراجع عن هذا الإجراء
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                <form id="deleteForm" method="post" style="display: inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>
+                        حذف
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .student-card {
+        border: none;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+    }
+
+        .student-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+    .card-delete-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 10;
+    }
+
+    .student-image-container {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .student-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .student-image-placeholder {
+        width: 100%;
+        height: 100%;
+        background-color: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6c757d;
+    }
+
+    .student-path {
+        background-color: #f8f9fa;
+        padding: 8px;
+        border-radius: 5px;
+        border-right: 3px solid #007bff;
+    }
+
+    .detail-item {
+        margin-bottom: 8px;
+        font-size: 0.9em;
+    }
+
+    .student-status {
+        text-align: center;
+    }
+
+    .page-title {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .breadcrumb {
+        background-color: #f8f9fa;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+
+        .breadcrumb a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .breadcrumb a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+<script>
+    function deleteStudent(studentId, studentName) {
+        document.getElementById('studentName').textContent = studentName;
+        document.getElementById('deleteForm').action = '@Url.Action("Delete")/' + studentId;
+
+        var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteModal.show();
+    }
+</script>
