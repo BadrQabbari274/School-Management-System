@@ -19,12 +19,11 @@ namespace StudentManagementSystem.Models
         [Required]
         [StringLength(100)]
         public string Username { get; set; }
-<<<<<<< HEAD
+
         [Required]
         [StringLength(100)]
         public string Email { get; set; }
-=======
->>>>>>> c39fc7a54d151426959567b70569143abbefaad2
+
 
         public bool IsActive { get; set; } = true;
 

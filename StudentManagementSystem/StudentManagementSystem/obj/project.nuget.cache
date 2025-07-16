@@ -1,14 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "h5/ZO2sr7CA=",
+  "dgSpecHash": "lhnPf5KoWQg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\sd\\Downloads\\git\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-=======
-  "dgSpecHash": "NnLzW0XjepU=",
-  "success": true,
-  "projectFilePath": "C:\\Users\\sd\\Source\\Repos\\Midany\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
->>>>>>> c39fc7a54d151426959567b70569143abbefaad2
+  "projectFilePath": "D:\\Repo\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sd\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\sd\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
@@ -86,15 +80,5 @@
     "C:\\Users\\sd\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\sd\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: The download of 'https://api.nuget.org/v3-vulnerabilities/2025.07.10.23.23.28/vulnerability.base.json' timed out because no data was received for 60000ms.",
-      "projectPath": "C:\\Users\\sd\\Downloads\\git\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\sd\\Downloads\\git\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

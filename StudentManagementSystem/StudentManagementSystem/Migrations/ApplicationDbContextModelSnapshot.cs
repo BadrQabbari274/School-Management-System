@@ -154,14 +154,12 @@ namespace StudentManagementSystem.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-<<<<<<< HEAD
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-=======
->>>>>>> c39fc7a54d151426959567b70569143abbefaad2
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -417,7 +415,6 @@ namespace StudentManagementSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-<<<<<<< HEAD
                     b.Property<string>("Adress")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -431,18 +428,18 @@ namespace StudentManagementSystem.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-=======
+
                     b.Property<int?>("ClassId")
                         .HasColumnType("int");
 
->>>>>>> c39fc7a54d151426959567b70569143abbefaad2
+
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-<<<<<<< HEAD
+
                     b.Property<string>("Date_of_birth")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -471,17 +468,17 @@ namespace StudentManagementSystem.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-=======
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
->>>>>>> c39fc7a54d151426959567b70569143abbefaad2
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-<<<<<<< HEAD
+
                     b.Property<string>("Natrual_Id")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -512,8 +509,7 @@ namespace StudentManagementSystem.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-=======
->>>>>>> c39fc7a54d151426959567b70569143abbefaad2
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClassId");
