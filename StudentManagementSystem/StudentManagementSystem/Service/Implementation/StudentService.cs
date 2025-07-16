@@ -34,6 +34,7 @@ namespace StudentManagementSystem.Service.Implementation
                 .Include(s => s.Pictures)
                 .FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
         }
+
         public async Task<Student> CreateStudentAsync(Student student)
         {
             student.Date = DateTime.Now;

@@ -4022,19 +4022,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "D:\\Repo\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-      "projectName": "StudentManagementSystem",
-      "projectPath": "D:\\Repo\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-      "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
-      "outputPath": "D:\\Repo\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
-=======
       "projectUniqueName": "D:\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
       "projectName": "StudentManagementSystem",
       "projectPath": "D:\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
       "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
       "outputPath": "D:\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
->>>>>>> b847361d31cbadcb0b5ce94300dff126738ba445
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

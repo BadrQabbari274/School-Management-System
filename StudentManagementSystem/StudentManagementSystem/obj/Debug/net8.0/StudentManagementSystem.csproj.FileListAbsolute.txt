@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 D:\Repo\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.AssemblyReference.cache
 D:\Repo\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rpswa.dswa.cache.json
 D:\Repo\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
@@ -139,11 +138,10 @@ D:\Repo\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\
 D:\Repo\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
 D:\Repo\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
 D:\Repo\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
-=======
 D:\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.Development.json
 D:\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.json
-D:\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
 D:\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.endpoints.json
+D:\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
 D:\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.exe
 D:\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.deps.json
 D:\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.runtimeconfig.json
@@ -279,4 +277,3 @@ D:\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\Stude
 D:\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
 D:\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
 D:\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
->>>>>>> b847361d31cbadcb0b5ce94300dff126738ba445

@@ -7,7 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Compatences\students.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Attendance\stusents.cshtml" />
+    <Content Remove="Views\Compatences\NewFile.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Views\Account\NewFile.txt" />
+    <None Remove="Views\Attendance\NewFile.txt" />
+    <None Remove="Views\Compatences\NewFile" />
+    <None Remove="Views\Compatences\NewFile.txt" />
+    <None Remove="Views\Compatences\NewFile1.txt" />
+    <None Remove="Views\Compatences\students" />
+    <None Remove="Views\Compatences\سفعي" />
   </ItemGroup>
 
   <ItemGroup>

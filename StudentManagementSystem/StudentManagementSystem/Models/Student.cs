@@ -14,9 +14,7 @@ namespace StudentManagementSystem.Models
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
-        [Required]
-        [StringLength(100)]
-        public string Code { get; set; }
+
         [Required]
         [StringLength(100)]
         public string Email { get; set; }
@@ -60,7 +58,9 @@ namespace StudentManagementSystem.Models
         [StringLength(100)]
         public string birth_Certificate { get; set; }
 
-
+        [Required]
+        [StringLength(100)]
+        public string Code { get; set; }
         public bool IsActive { get; set; } = true;
         public int? CreatedBy { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;

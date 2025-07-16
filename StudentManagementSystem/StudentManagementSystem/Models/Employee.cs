@@ -23,10 +23,7 @@ namespace StudentManagementSystem.Models
         [Required]
         [StringLength(100)]
         public string Email { get; set; }
-<<<<<<< HEAD
 
-=======
->>>>>>> b847361d31cbadcb0b5ce94300dff126738ba445
 
         public bool IsActive { get; set; } = true;
 

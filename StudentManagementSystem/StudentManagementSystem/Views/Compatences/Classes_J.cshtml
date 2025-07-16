@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فصول</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #ff6b35;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chapter-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #ff6b35;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chapter-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .chapter-button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .chapter-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+            background: #e55a2b;
+        }
+
+        @@media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>فصول</h1>
+        </div>
+
+        <div class="chapters-grid">
+            <!-- الفصل الأول -->
+            <div class="chapter-card">
+                <div class="chapter-header">
+                    <div class="chapter-icon">
+                        <span>J</span>
+                    </div>
+                    <div class="chapter-number">1</div>
+                </div>
+                
+                <h3 class="chapter-title">الفصل الأول</h3>
+                
+                <button class="chapter-button" onclick="alert('بدء الفصل الأول')">
+                    ابدأ الفصل
+                </button>
+            </div>
+
+            <!-- الفصل الثاني -->
+            <div class="chapter-card">
+                <div class="chapter-header">
+                    <div class="chapter-icon">
+                        <span>J</span>
+                    </div>
+                    <div class="chapter-number">2</div>
+                </div>
+                
+                <h3 class="chapter-title">الفصل الثاني</h3>
+                
+                <button class="chapter-button" onclick="alert('بدء الفصل الثاني')">
+                    ابدأ الفصل
+                </button>
+            </div>
+
+            <!-- الفصل الثالث -->
+            <div class="chapter-card">
+                <div class="chapter-header">
+                    <div class="chapter-icon">
+                        <span>J</span>
+                    </div>
+                    <div class="chapter-number">3</div>
+                </div>
+                
+                <h3 class="chapter-title">الفصل الثالث</h3>
+                
+                <button class="chapter-button" onclick="alert('بدء الفصل الثالث')">
+                    ابدأ الفصل
+                </button>
+            </div>
+
+            <!-- الفصل الرابع -->
+            <div class="chapter-card">
+                <div class="chapter-header">
+                    <div class="chapter-icon">
+                        <span>J</span>
+                    </div>
+                    <div class="chapter-number">4</div>
+                </div>
+                
+                <h3 class="chapter-title">الفصل الرابع</h3>
+                
+                <button class="chapter-button" onclick="alert('بدء الفصل الرابع')">
+                    ابدأ الفصل
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
