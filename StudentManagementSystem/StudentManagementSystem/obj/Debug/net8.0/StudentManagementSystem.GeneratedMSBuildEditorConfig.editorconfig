@@ -32,36 +32,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/sd/Downloads/git/StudentManagementSystem/StudentManagementSystem/Views/Attendance/stusentsAttendance.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxzdHVzZW50c0F0dGVuZGFuY2UuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/sd/Downloads/git/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_J.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcQ2xhc3Nlc19KLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/sd/Downloads/git/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_W.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcQ2xhc3Nlc19XLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/sd/Downloads/git/StudentManagementSystem/StudentManagementSystem/Views/Compatences/students.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcc3R1ZGVudHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/sd/Downloads/git/StudentManagementSystem/StudentManagementSystem/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/sd/Downloads/git/StudentManagementSystem/StudentManagementSystem/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/sd/Downloads/git/StudentManagementSystem/StudentManagementSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/Downloads/git/StudentManagementSystem/StudentManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/Downloads/git/StudentManagementSystem/StudentManagementSystem/Views/Student/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/Downloads/git/StudentManagementSystem/StudentManagementSystem/Views/_ViewImports.cshtml]
