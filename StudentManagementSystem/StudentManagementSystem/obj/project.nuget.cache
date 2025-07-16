@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "h5/ZO2sr7CA=",
   "success": true,
   "projectFilePath": "C:\\Users\\sd\\Downloads\\git\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+=======
+  "dgSpecHash": "NnLzW0XjepU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sd\\Source\\Repos\\Midany\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+>>>>>>> c39fc7a54d151426959567b70569143abbefaad2
   "expectedPackageFiles": [
     "C:\\Users\\sd\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\sd\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
