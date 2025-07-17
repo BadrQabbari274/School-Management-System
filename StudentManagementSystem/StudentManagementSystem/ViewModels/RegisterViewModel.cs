@@ -12,6 +12,9 @@ namespace StudentManagementSystem.ViewModels
         [Display(Name = "اسم المستخدم")]
         public string? Username { get; set; }
 
+        [Required(ErrorMessage = "البريد الالكتروني مطلوب")]
+        [Display(Name = "البريد الالكتروني")]
+        public string? Email { get; set; }
 
 
         [Required(ErrorMessage = "الدور مطلوب")]

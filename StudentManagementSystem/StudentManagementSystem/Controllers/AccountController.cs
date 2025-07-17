@@ -68,7 +68,7 @@ namespace StudentManagementSystem.Controllers
                     return View(model);
                 }
 
-                if (user.LastLogin == null || user.Password == "0000")
+                if (user.LastLogin == null && user.Password == "0000")
                 {
                     return RedirectToAction("ForgetPassword", "Account", new { userId = user.Id });
                 }
@@ -110,9 +110,9 @@ namespace StudentManagementSystem.Controllers
                 return View(user1);
             }
 
-            if (string.IsNullOrWhiteSpace(forget.Password) || forget.Password.Length < 4)
+            if (string.IsNullOrWhiteSpace(forget.Password) || forget.Password.Length < 4 || forget.Password=="0000")
             {
-                ModelState.AddModelError("", "كلمة المرور يجب أن تكون على الأقل 4 أحرف");
+                ModelState.AddModelError("", " كلمة المرور يجب أن تكون على الأقل 4 أحرف");
                 var user1 = await _userService.GetUserByIdAsync(forget.Id);
                 return View(user1);
             }
@@ -176,7 +176,8 @@ namespace StudentManagementSystem.Controllers
                     Password = "0000", // Note: Hash password in production
                     RoleId = model.RoleId,
                     IsActive = true,
-                    //CreatedBy = GetCurrentUserId()
+                    Email =model.Email,
+                    CreatedBy = GetCurrentUserId()
                 };
 
                 await _userService.CreateUserAsync(user);

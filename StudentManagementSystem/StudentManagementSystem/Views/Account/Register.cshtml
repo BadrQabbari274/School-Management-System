@@ -144,7 +144,11 @@
                 <input asp-for="Username" type="text" placeholder="أدخل اسم المستخدم" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="Name">البريد الالكتروني</label>
+                <input asp-for="Name" type="text" placeholder="أدخل البريد الالكتروني" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="RoleId">الدور</label>
                 @if (ViewBag.Roles != null)
