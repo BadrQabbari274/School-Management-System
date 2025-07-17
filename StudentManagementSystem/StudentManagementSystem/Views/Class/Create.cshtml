@@ -80,6 +80,9 @@
             padding: 12px 15px;
             font-size: 16px;
             transition: all 0.3s ease;
+            /* *** ADJUSTED FOR RTL ICON POSITION *** */
+            padding-right: 40px; /* Space for the icon on the visual left (logical right) */
+            padding-left: 15px; /* Keep original padding on the other side */
         }
 
             .form-control:focus, .form-select:focus {
@@ -150,10 +153,12 @@
 
         .form-icon {
             position: absolute;
-            right: 15px;
+            /* *** ADJUSTED FOR RTL ICON POSITION *** */
+            right: 15px; /* Position from the right edge of the parent (input-group) */
             top: 50%;
             transform: translateY(-50%);
             color: #6c757d;
+            z-index: 2; /* Ensure icon is above the input content */
         }
 
         .input-group {
@@ -179,11 +184,6 @@
                 padding-right: 20px;
             }
 
-        /* The info-section is typically for displaying existing data, so it might not be relevant for a new creation form. */
-        /* If you want to show 'Created By' and 'Date' fields even for new creation (e.g., if you pre-populate them),
-                   you'd typically make them read-only and pre-fill them from the controller if necessary.
-                   For this scenario, since we're setting them automatically server-side,
-                   they usually won't appear on the initial create form. */
     </style>
 </head>
 <body>
@@ -243,35 +243,6 @@
                                 <i class="fas fa-book form-icon"></i>
                             </div>
                             <span asp-validation-for="FieldId" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    @* Removed the CreatedBy dropdown as it's now set automatically in the controller *@
-                    @*
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="CreatedBy" class="form-label">منشئ الفصل</label>
-                            <div class="input-group">
-                                <select asp-for="CreatedBy" class="form-select" asp-items="ViewBag.CreatedBy">
-                                    <option value="">-- اختر الموظف --</option>
-                                </select>
-                                <i class="fas fa-user form-icon"></i>
-                            </div>
-                            <span asp-validation-for="CreatedBy" class="text-danger"></span>
-                        </div>
-                    </div>
-                    *@
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="form-check" style="margin-top: 35px;">
-                                <input asp-for="IsActive" class="form-check-input" type="checkbox" />
-                                <label asp-for="IsActive" class="form-check-label">
-                                    فصل نشط
-                                </label>
-                            </div>
                         </div>
                     </div>
                 </div>

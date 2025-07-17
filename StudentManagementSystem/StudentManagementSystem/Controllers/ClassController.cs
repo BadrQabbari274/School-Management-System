@@ -72,7 +72,6 @@ namespace StudentManagementSystem.Controllers
 
                     // Set CreatedBy automatically
                     classEntity.CreatedBy = int.Parse(currentUserId);
-
                      classEntity.Date = DateTime.UtcNow;
 
                     await _classService.CreateClassAsync(classEntity);
@@ -127,7 +126,7 @@ namespace StudentManagementSystem.Controllers
 
                         // Set UpdatedBy automatically
                         classEntity.CreatedBy = int.Parse(currentUserId);
-                         classEntity.Date = DateTime.UtcNow;
+                        // classEntity.Date = DateTime.UtcNow;
 
                         await _classService.UpdateClassAsync(classEntity);
                         TempData["SuccessMessage"] = "Class updated successfully!";
@@ -158,33 +157,7 @@ namespace StudentManagementSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //// POST: Class/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //[Authorize]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    try
-        //    {
-        //        var result = await _classService.DeleteClassAsync(id);
-        //        if (result)
-        //        {
-        //            TempData["SuccessMessage"] = "Class deleted successfully!";
-        //        }
-        //        else
-        //        {
-        //            TempData["ErrorMessage"] = "Class not found or could not be deleted.";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TempData["ErrorMessage"] = "An error occurred while deleting the class: " + ex.Message;
-        //    }
 
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        // GET: Class/GetByField/5
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetByField(int fieldId)

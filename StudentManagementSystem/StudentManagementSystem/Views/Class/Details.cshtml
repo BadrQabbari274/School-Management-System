@@ -1,154 +1,498 @@
 ﻿@model StudentManagementSystem.Models.Class
 
 @{
-    ViewData["Title"] = "Class Details";
+    ViewData["Title"] = "تفاصيل الفصل";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Class Details</h3>
-                    <div class="card-tools">
-                        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <a href="@Url.Action("Index")" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to List
-                        </a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-primary">
-                                    <i class="fas fa-graduation-cap"></i>
-                                </span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Class Name</span>
-                                    <span class="info-box-number">@Model.Name</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-info">
-                                    <i class="fas fa-bookmark"></i>
-                                </span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Field</span>
-                                    <span class="info-box-number">@(Model.Field?.Name ?? "N/A")</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+        }
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-success">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Created By</span>
-                                    <span class="info-box-number">@(Model.CreatedByUser?.Name ?? "N/A")</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-warning">
-                                    <i class="fas fa-calendar"></i>
-                                </span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Date Created</span>
-                                    <span class="info-box-number">@Model.Date.ToString("dd/MM/yyyy")</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        .header-section {
+            background: linear-gradient(135deg, #ff8a50, #ff6b35); /* Orange gradient */
+            color: white;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            position: relative; /* For positioning back button */
+        }
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-danger">
-                                    <i class="fas fa-users"></i>
-                                </span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Students Count</span>
-                                    <span class="info-box-number">@(Model.Students?.Count ?? 0)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="info-box">
-                                <span class="info-box-icon @(Model.IsActive ? "bg-success" : "bg-secondary")">
-                                    <i class="fas fa-@(Model.IsActive ? "check" : "times")"></i>
-                                </span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Status</span>
-                                    <span class="info-box-number">
-                                        @if (Model.IsActive)
-                                        {
-                                            <span class="badge bg-success">Active</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-danger">Inactive</span>
-                                        }
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        .header-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;
+            letter-spacing: 1px;
+        }
 
-                    @if (Model.Students != null && Model.Students.Any())
-                    {
-                        <div class="card mt-3">
-                            <div class="card-header">
-                                <h4>Students in this Class</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Student ID</th>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var student in Model.Students)
-                                            {
-                                                <tr>
-                                                    <td>@student.Id</td>
-                                                    <td>@student.Name</td>
-                                                    <td>@student.Email</td>
-                                                    <td>
-                                                        <a href="@Url.Action("Details", "Student", new { id = student.Id })"
-                                                           class="btn btn-sm btn-info">
-                                                            <i class="fas fa-eye"></i> View
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="alert alert-info mt-3">
-                            <h5><i class="fas fa-info-circle"></i> No Students</h5>
-                            There are no students enrolled in this class yet.
-                        </div>
-                    }
+        .back-button {
+            position: absolute;
+            right: 25px; /* Adjusted for consistency with other styles */
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px 18px; /* Slightly adjusted padding */
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px; /* Space between icon and text */
+        }
+
+            .back-button:hover {
+                background: rgba(255,255,255,0.3);
+                color: white;
+                transform: translateY(-50%) scale(1.05); /* Slight scale effect */
+            }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: none;
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #6c757d, #495057); /* Dark gray gradient for header */
+            color: white;
+            padding: 25px 30px;
+            border-bottom: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .card-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .card-title i {
+                font-size: 28px;
+            }
+
+        .card-tools .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            color: white; /* Default for gradient buttons */
+        }
+
+        .card-tools .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800); /* Yellow gradient */
+            color: #333; /* Darker text for contrast */
+        }
+
+            .card-tools .btn-warning:hover {
+                background: linear-gradient(135deg, #e0a800, #c69500);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+            }
+
+        .card-tools .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #5a6268); /* Darker grey gradient */
+        }
+
+            .card-tools .btn-secondary:hover {
+                background: linear-gradient(135deg, #5a6268, #495057);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(108, 117, 125, 0.3);
+            }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .info-box {
+            display: flex;
+            align-items: center;
+            background-color: #f0f2f5; /* Light grey background for info boxes */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease;
+        }
+
+            .info-box:hover {
+                transform: translateY(-3px);
+            }
+
+        .info-box-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-size: 28px;
+            color: white;
+            flex-shrink: 0;
+            margin-left: 20px; /* Adjusted for RTL */
+        }
+
+            /* Specific icon background colors */
+            .info-box-icon.bg-primary {
+                background: linear-gradient(135deg, #007bff, #0056b3);
+            }
+
+            .info-box-icon.bg-info {
+                background: linear-gradient(135deg, #17a2b8, #138496);
+            }
+
+            .info-box-icon.bg-success {
+                background: linear-gradient(135deg, #28a745, #20c997);
+            }
+
+            .info-box-icon.bg-warning {
+                background: linear-gradient(135deg, #ffc107, #e0a800);
+            }
+
+            .info-box-icon.bg-danger {
+                background: linear-gradient(135deg, #dc3545, #c82333);
+            }
+
+            .info-box-icon.bg-secondary {
+                background: linear-gradient(135deg, #6c757d, #5a6268);
+            }
+
+
+        .info-box-content {
+            flex-grow: 1;
+            text-align: right; /* Adjusted for RTL */
+        }
+
+        .info-box-text {
+            display: block;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .info-box-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .badge {
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+
+        /* Students Table Styles */
+        .students-table-card .card-header {
+            background: linear-gradient(135deg, #007bff, #0056b3); /* Blue gradient for students header */
+        }
+
+        .students-table-card .card-title {
+            color: white;
+        }
+
+        .students-table-card .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .students-table-card .table th,
+            .students-table-card .table td {
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+
+            .students-table-card .table th {
+                background-color: #f8f9fa;
+                font-weight: bold;
+                color: #555;
+                font-size: 15px;
+            }
+
+            .students-table-card .table tbody tr:hover {
+                background-color: #f5f5f5;
+            }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+            .alert-info h5 {
+                margin: 0;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .alert-info i {
+                font-size: 24px;
+            }
+
+        /* Responsive adjustments */
+        @@media (max-width: 768px) {
+            .header-title {
+                font-size: 24px;
+            }
+
+            .back-button {
+                padding: 8px 12px;
+                font-size: 14px;
+                gap: 5px;
+                right: 15px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+
+            .card-title {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .card-tools {
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+            }
+
+                .card-tools .btn {
+                    width: 48%; /* Make buttons take up more space */
+                    justify-content: center;
+                    font-size: 14px;
+                    padding: 8px 15px;
+                }
+
+            .info-box {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+
+            .info-box-icon {
+                margin: 0 0 10px 0; /* Center icon above text */
+            }
+
+            .info-box-content {
+                text-align: center;
+            }
+
+            .info-box-text {
+                font-size: 14px;
+            }
+
+            .info-box-number {
+                font-size: 20px;
+            }
+
+            .students-table-card .table th,
+            .students-table-card .table td {
+                padding: 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-section">
+        <div class="container position-relative">
+            <h1 class="header-title">تفاصيل الفصل</h1>
+            <a href="@Url.Action("Index")" class="back-button">
+                <i class="fas fa-arrow-right"></i> العودة للقائمة
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-info-circle"></i> معلومات الفصل
+                </h3>
+                <div class="card-tools">
+                    <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning">
+                        <i class="fas fa-edit"></i> تعديل
+                    </a>
                 </div>
             </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-primary">
+                                <i class="fas fa-graduation-cap"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">اسم الفصل</span>
+                                <span class="info-box-number">@Model.Name</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info">
+                                <i class="fas fa-bookmark"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">التخصص</span>
+                                <span class="info-box-number">@(Model.Field?.Name ?? "غير محدد")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">أنشأ بواسطة</span>
+                                <span class="info-box-number">@(Model.CreatedByUser?.Name ?? "غير محدد")</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning">
+                                <i class="fas fa-calendar"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">تاريخ الإنشاء</span>
+                                <span class="info-box-number">@Model.Date.ToString("dd/MM/yyyy - hh:mm tt")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-danger">
+                                <i class="fas fa-users"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">عدد الطلاب</span>
+                                <span class="info-box-number">@(Model.Students?.Count ?? 0)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon @(Model.IsActive ? "bg-success" : "bg-secondary")">
+                                <i class="fas fa-@(Model.IsActive ? "check-circle" : "times-circle")"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">الحالة</span>
+                                <span class="info-box-number">
+                                    @if (Model.IsActive)
+                                    {
+                                        <span class="badge bg-success">نشط</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">غير نشط</span>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.Students != null && Model.Students.Any())
+                {
+                    <div class="card mt-4 students-table-card">
+                        <div class="card-header">
+                            <h4 class="card-title"><i class="fas fa-user-graduate"></i> الطلاب في هذا الفصل</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>الرقم التعريفي للطالب</th>
+                                            <th>الاسم</th>
+                                            <th>البريد الإلكتروني</th>
+                                            <th>العمليات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var student in Model.Students)
+                                        {
+                                            <tr>
+                                                <td>@student.Id</td>
+                                                <td>@student.Name</td>
+                                                <td>@student.Email</td>
+                                                <td>
+                                                    <a href="@Url.Action("Details", "Student", new { id = student.Id })"
+                                                       class="btn btn-sm btn-info">
+                                                        <i class="fas fa-eye"></i> عرض
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info mt-4">
+                        <h5><i class="fas fa-info-circle"></i> لا يوجد طلاب</h5>
+                        لا يوجد طلاب مسجلون في هذا الفصل حتى الآن.
+                    </div>
+                }
+            </div>
         </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
