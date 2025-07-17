@@ -2,288 +2,333 @@
 
 @{
     ViewData["Title"] = "إضافة طالب جديد";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<style>
+    body {
+        direction: rtl;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .breadcrumb-custom {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+
+        .breadcrumb-custom a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+            .breadcrumb-custom a:hover {
+                text-decoration: underline;
+            }
+
+    .form-container {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 8px 8px 0 0;
+        margin: -30px -30px 30px -30px;
+    }
+
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102,126,234,0.25);
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #5a6fd8, #6a4190);
+        }
+
+    .btn-secondary {
+        background: #6c757d;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    .section-title {
+        color: #495057;
+        border-bottom: 2px solid #dee2e6;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .required {
+        color: #dc3545;
+    }
+
+    .file-input-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+    .file-input-label {
+        background: #f8f9fa;
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .file-input-label:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+        }
+
+    .text-danger {
+        font-size: 0.875em;
+        margin-top: 0.25rem;
+    }
+</style>
+
+<div class="container-fluid mt-4">
     <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">الرئيسية</a></li>
-            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Student")">إدارة الطلاب</a></li>
-            <li class="breadcrumb-item active" aria-current="page">إضافة طالب جديد</li>
-        </ol>
+    <nav class="breadcrumb-custom">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-home me-2"></i>
+            <a href="@Url.Action("Index", "Home")" class="me-2">الرئيسية</a>
+            <i class="fas fa-angle-left me-2"></i>
+            <a href="@Url.Action("Index")" class="me-2">إدارة الطلاب</a>
+            <i class="fas fa-angle-left me-2"></i>
+            <span>إضافة طالب جديد</span>
+        </div>
     </nav>
 
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="page-title">
-            <i class="fas fa-user-plus me-2"></i>
-            إضافة طالب جديد
-        </h2>
-        <a href="@Url.Action("Index")" class="btn btn-secondary">
-            <i class="fas fa-arrow-left me-2"></i>
-            العودة للقائمة
-        </a>
-    </div>
-
-    <!-- Form -->
-    <div class="card">
-        <div class="card-body">
-            <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
-                <div class="row">
-                    <!-- Personal Information Section -->
-                    <div class="col-12 mb-4">
-                        <h5 class="section-title">
-                            <i class="fas fa-user me-2"></i>
-                            المعلومات الشخصية
-                        </h5>
-                        <hr>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Name" class="form-label">الاسم الكامل</label>
-                        <input asp-for="Name" class="form-control" required />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Code" class="form-label">كود الطالب</label>
-                        <input asp-for="Code" class="form-control" required />
-                        <span asp-validation-for="Code" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
-                        <input asp-for="Email" type="email" class="form-control" required />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Natrual_Id" class="form-label">الرقم القومي</label>
-                        <input asp-for="Natrual_Id" class="form-control" required />
-                        <span asp-validation-for="Natrual_Id" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Date_of_birth" class="form-label">تاريخ الميلاد</label>
-                        <input asp-for="Date_of_birth" type="date" class="form-control" required />
-                        <span asp-validation-for="Date_of_birth" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Governarate" class="form-label">المحافظة</label>
-                        <input asp-for="Governarate" class="form-control" required />
-                        <span asp-validation-for="Governarate" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-12 mb-3">
-                        <label asp-for="Adress" class="form-label">العنوان</label>
-                        <textarea asp-for="Adress" class="form-control" rows="3" required></textarea>
-                        <span asp-validation-for="Adress" class="text-danger"></span>
-                    </div>
-
-                    <!-- Contact Information Section -->
-                    <div class="col-12 mb-4 mt-4">
-                        <h5 class="section-title">
-                            <i class="fas fa-phone me-2"></i>
-                            معلومات الاتصال
-                        </h5>
-                        <hr>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label asp-for="Phone_Number" class="form-label">رقم هاتف الطالب</label>
-                        <input asp-for="Phone_Number" class="form-control" required />
-                        <span asp-validation-for="Phone_Number" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label asp-for="Phone_Number_Father" class="form-label">رقم هاتف الوالد</label>
-                        <input asp-for="Phone_Number_Father" class="form-control" required />
-                        <span asp-validation-for="Phone_Number_Father" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <label asp-for="Phone_Number_Mother" class="form-label">رقم هاتف الوالدة</label>
-                        <input asp-for="Phone_Number_Mother" class="form-control" required />
-                        <span asp-validation-for="Phone_Number_Mother" class="text-danger"></span>
-                    </div>
-
-                    <!-- Family Information Section -->
-                    <div class="col-12 mb-4 mt-4">
-                        <h5 class="section-title">
-                            <i class="fas fa-users me-2"></i>
-                            معلومات العائلة
-                        </h5>
-                        <hr>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Jop_of_Father" class="form-label">وظيفة الوالد</label>
-                        <input asp-for="Jop_of_Father" class="form-control" required />
-                        <span asp-validation-for="Jop_of_Father" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="Jop_of_Mother" class="form-label">وظيفة الوالدة</label>
-                        <input asp-for="Jop_of_Mother" class="form-control" required />
-                        <span asp-validation-for="Jop_of_Mother" class="text-danger"></span>
-                    </div>
-
-                    <!-- Academic Information Section -->
-                    <div class="col-12 mb-4 mt-4">
-                        <h5 class="section-title">
-                            <i class="fas fa-graduation-cap me-2"></i>
-                            المعلومات الأكاديمية
-                        </h5>
-                        <hr>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="ClassId" class="form-label">الفصل</label>
-                        <select asp-for="ClassId" class="form-select" asp-items="ViewBag.ClassId">
-                            <option value="">-- اختر الفصل --</option>
-                        </select>
-                        <span asp-validation-for="ClassId" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="IsActive" class="form-label">الحالة</label>
-                        <select asp-for="IsActive" class="form-select">
-                            <option value="true">نشط</option>
-                            <option value="false">غير نشط</option>
-                        </select>
-                        <span asp-validation-for="IsActive" class="text-danger"></span>
-                    </div>
-
-                    <!-- Documents Section -->
-                    <div class="col-12 mb-4 mt-4">
-                        <h5 class="section-title">
-                            <i class="fas fa-file-upload me-2"></i>
-                            المستندات
-                        </h5>
-                        <hr>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="pictureProfile" class="form-label">الصورة الشخصية</label>
-                        <input type="file" id="pictureProfile" name="pictureProfile" class="form-control" accept="image/*" />
-                        <small class="form-text text-muted">الصيغ المسموحة: JPG, PNG, GIF</small>
-                        <div class="mt-2">
-                            <img id="profilePreview" src="#" alt="معاينة الصورة" style="max-width: 200px; max-height: 200px; display: none; border: 1px solid #ddd; border-radius: 5px;" />
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label for="birthCertificate" class="form-label">شهادة الميلاد</label>
-                        <input type="file" id="birthCertificate" name="birthCertificate" class="form-control" accept=".pdf,.jpg,.png" />
-                        <small class="form-text text-muted">الصيغ المسموحة: PDF, JPG, PNG</small>
-                    </div>
-
-                    <!-- Form Actions -->
-                    <div class="col-12 mt-4">
-                        <hr>
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-2"></i>
-                                حفظ
-                            </button>
-                            <a href="@Url.Action("Index")" class="btn btn-secondary">
-                                <i class="fas fa-times me-2"></i>
-                                إلغاء
-                            </a>
-                        </div>
-                    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="form-container">
+                <div class="form-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-plus me-2"></i>
+                        إضافة طالب جديد
+                    </h3>
                 </div>
-            </form>
+
+                @using (Html.BeginForm("Create", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <!-- البيانات الأساسية -->
+                    <div class="section-title">
+                        <i class="fas fa-id-card me-2"></i>البيانات الأساسية
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Name, "اسم الطالب", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل اسم الطالب" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Code, "كود الطالب", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل كود الطالب" } })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Email, "البريد الإلكتروني", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = "أدخل البريد الإلكتروني" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Natrual_Id, "الرقم القومي", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Natrual_Id, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل الرقم القومي" } })
+                            @Html.ValidationMessageFor(model => model.Natrual_Id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Date_of_birth, "تاريخ الميلاد", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Date_of_birth, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.ValidationMessageFor(model => model.Date_of_birth, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.ClassId, "الفصل", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.DropDownListFor(model => model.ClassId, ViewBag.ClassId as SelectList, "اختر الفصل", new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Adress, "العنوان", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل العنوان" } })
+                            @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Governarate, "المحافظة", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Governarate, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل المحافظة" } })
+                            @Html.ValidationMessageFor(model => model.Governarate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- بيانات الوالدين -->
+                    <div class="section-title mt-4">
+                        <i class="fas fa-users me-2"></i>بيانات الوالدين
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Jop_of_Father, "وظيفة الأب", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Jop_of_Father, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل وظيفة الأب" } })
+                            @Html.ValidationMessageFor(model => model.Jop_of_Father, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Jop_of_Mother, "وظيفة الأم", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Jop_of_Mother, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل وظيفة الأم" } })
+                            @Html.ValidationMessageFor(model => model.Jop_of_Mother, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- أرقام الهواتف -->
+                    <div class="section-title mt-4">
+                        <i class="fas fa-phone me-2"></i>أرقام الهواتف
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(model => model.Phone_Number, "رقم هاتف الطالب", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
+                            @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(model => model.Phone_Number_Father, "رقم هاتف الأب", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Phone_Number_Father, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
+                            @Html.ValidationMessageFor(model => model.Phone_Number_Father, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(model => model.Phone_Number_Mother, "رقم هاتف الأم", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Phone_Number_Mother, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
+                            @Html.ValidationMessageFor(model => model.Phone_Number_Mother, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-- الملفات -->
+                    <div class="section-title mt-4">
+                        <i class="fas fa-file me-2"></i>الملفات المرفقة
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الصورة الشخصية</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" name="pictureProfile" accept="image/*" id="pictureProfile">
+                                <label for="pictureProfile" class="file-input-label">
+                                    <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                    <div>اختر الصورة الشخصية</div>
+                                    <small class="text-muted">JPG, PNG, GIF - حد أقصى 5MB</small>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">شهادة الميلاد</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" name="birthCertificate" accept=".pdf,.jpg,.jpeg,.png" id="birthCertificate">
+                                <label for="birthCertificate" class="file-input-label">
+                                    <i class="fas fa-file-pdf fa-2x mb-2"></i>
+                                    <div>اختر شهادة الميلاد</div>
+                                    <small class="text-muted">PDF, JPG, PNG - حد أقصى 5MB</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الأزرار -->
+                    <div class="d-flex justify-content-end gap-3 mt-4">
+                        <a href="@Url.Action("Index")" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>إلغاء
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>حفظ الطالب
+                        </button>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
 
-<style>
-    .section-title {
-        color: #2c3e50;
-        font-weight: 600;
-    }
-
-    .page-title {
-        color: #2c3e50;
-        font-weight: 600;
-    }
-
-    .breadcrumb {
-        background-color: #f8f9fa;
-        padding: 10px 15px;
-        border-radius: 5px;
-    }
-
-        .breadcrumb a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-            .breadcrumb a:hover {
-                text-decoration: underline;
-            }
-
-    .card {
-        border: none;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .form-control:focus,
-    .form-select:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-</style>
-
 <script>
-    // Image preview
-    document.getElementById('pictureProfile').addEventListener('change', function (e) {
-        var file = e.target.files[0];
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var preview = document.getElementById('profilePreview');
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            }
-            reader.readAsDataURL(file);
+    // File input change event
+    document.getElementById('pictureProfile').addEventListener('change', function(e) {
+        const label = document.querySelector('label[for="pictureProfile"]');
+        if (e.target.files.length > 0) {
+            label.innerHTML = `
+                <i class="fas fa-check fa-2x mb-2 text-success"></i>
+                <div>تم اختيار: ${e.target.files[0].name}</div>
+                <small class="text-muted">انقر للتغيير</small>
+            `;
         }
     });
 
-    // Form validation
-    (function () {
-        'use strict';
-        window.addEventListener('load', function () {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
+    document.getElementById('birthCertificate').addEventListener('change', function(e) {
+        const label = document.querySelector('label[for="birthCertificate"]');
+        if (e.target.files.length > 0) {
+            label.innerHTML = `
+                <i class="fas fa-check fa-2x mb-2 text-success"></i>
+                <div>تم اختيار: ${e.target.files[0].name}</div>
+                <small class="text-muted">انقر للتغيير</small>
+            `;
+        }
+    });
 </script>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    }
