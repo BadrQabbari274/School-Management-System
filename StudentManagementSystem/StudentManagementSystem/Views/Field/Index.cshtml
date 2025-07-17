@@ -1,293 +1,168 @@
-﻿@model IEnumerable<StudentManagementSystem.Models.Field>
+﻿@* Views/Field/Index.cshtml *@
+@model IEnumerable<StudentManagementSystem.Models.Field>
 
 @{
-    ViewData["Title"] = "Fields";
-    Layout = null;
+    ViewData["Title"] = "الأقسام";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title mb-0">Fields</h3>
-                    <a href="@Url.Action("Create", "Fields")" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add New Field
-                    </a>
-                </div>
-                <div class="card-body">
-                    @if (Model != null && Model.Any())
-                    {
-                        <div class="row">
-                            @foreach (var field in Model)
+<style>
+    .orange-theme {
+        background: linear-gradient(135deg, #FFF8E1 0%, #FFE0B2 100%);
+        border: 1px solid #FFB74D;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(255, 183, 77, 0.1);
+    }
+
+    .orange-header {
+        background: linear-gradient(135deg, #FF9800 0%, #FFB74D 100%);
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+    }
+
+    .orange-btn {
+        background: linear-gradient(135deg, #FF9800 0%, #FFB74D 100%);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+        margin: 2px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(255, 152, 0, 0.2);
+    }
+
+        .orange-btn:hover {
+            background: linear-gradient(135deg, #F57C00 0%, #FF9800 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+    .orange-table {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .orange-table th {
+            background: linear-gradient(135deg, #FFB74D 0%, #FFCC02 100%);
+            color: #333;
+            font-weight: bold;
+            padding: 12px;
+            text-align: right;
+            border-bottom: 2px solid #FF9800;
+        }
+
+        .orange-table td {
+            padding: 12px;
+            border-bottom: 1px solid #FFE0B2;
+            text-align: right;
+        }
+
+        .orange-table tr:hover {
+            background-color: #FFF8E1;
+        }
+
+    .orange-card {
+        background: white;
+        border: 2px solid #FFB74D;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 6px rgba(255, 183, 77, 0.1);
+    }
+
+    .orange-badge {
+        background: linear-gradient(135deg, #FF9800 0%, #FFB74D 100%);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .page-title {
+        color: #FF9800;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 28px;
+    }
+</style>
+
+<div class="orange-theme">
+    <div class="orange-header">
+        <h1>إدارة الأقسام</h1>
+    </div>
+
+    <div class="mb-3">
+        <a class="orange-btn" href="@Url.Action("Create")">
+            <i class="fas fa-plus"></i> إضافة قسم جديد
+        </a>
+    </div>
+
+    @if (Model.Any())
+    {
+        <table class="table orange-table">
+            <thead>
+                <tr>
+                    <th>اسم القسم</th>
+                    <th>المرحلة الدراسية</th>
+                    <th>الحالة</th>
+                    <th>تاريخ الإنشاء</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var field in Model)
+                {
+                    <tr>
+                        <td>@field.Name</td>
+                        <td>@field.Grade?.Name</td>
+                        <td>
+                            @if (field.IsActive)
                             {
-                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                                    <div class="card h-100 @(field.IsActive ? "border-success" : "border-secondary") position-relative">
-                                        <!-- Delete Button in top-right corner -->
-                                        <button type="button"
-                                                class="btn btn-warning btn-sm position-absolute delete-btn"
-                                                style="top: 10px; right: 10px; z-index: 10;"
-                                                onclick="confirmDelete(@field.Id, '@field.Name')"
-                                                title="Delete Field">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-
-                                        <div class="card-body d-flex flex-column">
-                                            <div class="text-center mb-3">
-                                                <div class="field-icon mb-2">
-                                                    @switch (field.Name?.ToLower())
-                                                    {
-                                                        case "software development":
-                                                        case "sd":
-                                                            <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                                                <i class="fas fa-code fa-2x"></i>
-                                                            </div>
-                                                            break;
-                                                        case "computer science":
-                                                        case "cs":
-                                                            <div class="bg-info text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                                                <i class="fas fa-laptop-code fa-2x"></i>
-                                                            </div>
-                                                            break;
-                                                        case "information systems":
-                                                        case "is":
-                                                            <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                                                <i class="fas fa-database fa-2x"></i>
-                                                            </div>
-                                                            break;
-                                                        case "modern trade":
-                                                        case "mt":
-                                                            <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                                                <i class="fas fa-chart-line fa-2x"></i>
-                                                            </div>
-                                                            break;
-                                                        default:
-                                                            <div class="bg-secondary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                                                <i class="fas fa-graduation-cap fa-2x"></i>
-                                                            </div>
-                                                            break;
-                                                    }
-                                                </div>
-                                                <h5 class="card-title">@field.Name</h5>
-                                                @if (field.Grade != null)
-                                                {
-                                                    <small class="text-muted">Grade: @field.Grade.Name</small>
-                                                }
-                                            </div>
-
-                                            <div class="field-info flex-grow-1">
-                                                <div class="row text-center mb-2">
-                                                    <div class="col-6">
-                                                        <small class="text-muted">Classes</small>
-                                                        <div class="font-weight-bold">@(field.Classes?.Count ?? 0)</div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <small class="text-muted">Competences</small>
-                                                        <div class="font-weight-bold">@(field.Competences?.Count ?? 0)</div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="text-center mb-2">
-                                                    <small class="text-muted">Employees</small>
-                                                    <div class="font-weight-bold">@(field.FieldEmployees?.Count ?? 0)</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="field-status mb-3">
-                                                @if (field.IsActive)
-                                                {
-                                                    <span class="badge badge-success">Active</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge badge-secondary">Inactive</span>
-                                                }
-                                            </div>
-
-                                            <div class="field-meta text-muted small mb-3">
-                                                <div>Created: @field.CreatedDate.ToString("MMM dd, yyyy")</div>
-                                                @if (field.CreatedByUser != null)
-                                                {
-                                                    <div>By: @field.CreatedByUser.Name</div>
-                                                }
-                                            </div>
-
-                                            <div class="field-actions mt-auto">
-                                                <div class="btn-group w-100" role="group">
-                                                    <a href="@Url.Action("Details", "Fields", new { id = field.Id })"
-                                                       class="btn btn-outline-info btn-sm">
-                                                        <i class="fas fa-eye"></i> View
-                                                    </a>
-                                                    <a href="@Url.Action("Edit", "Fields", new { id = field.Id })"
-                                                       class="btn btn-outline-primary btn-sm">
-                                                        <i class="fas fa-edit"></i> Edit
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <span class="orange-badge">نشط</span>
                             }
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="text-center py-5">
-                            <i class="fas fa-graduation-cap fa-5x text-muted mb-3"></i>
-                            <h4 class="text-muted">No Fields Found</h4>
-                            <p class="text-muted">Start by adding your first field to the system.</p>
-                            <a href="@Url.Action("Create", "Fields")" class="btn btn-primary">
-                                <i class="fas fa-plus"></i> Add New Field
+                            else
+                            {
+                                <span class="badge badge-secondary">غير نشط</span>
+                            }
+                        </td>
+                        <td>@field.CreatedDate.ToString("yyyy-MM-dd")</td>
+                        <td>
+                            <a class="orange-btn" href="@Url.Action("Details", new { id = field.Id })">
+                                <i class="fas fa-eye"></i> عرض
                             </a>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="deleteModalLabel">
-                    <i class="fas fa-exclamation-triangle"></i> تأكيد الحذف
-                </h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center mb-3">
-                    <i class="fas fa-trash-alt fa-3x text-danger"></i>
-                </div>
-                <p class="text-center">هل أنت متأكد من أنك تريد حذف الحقل "<span id="fieldName" class="font-weight-bold text-danger"></span>"؟</p>
-                <div class="alert alert-warning">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <strong>تحذير:</strong> هذا الإجراء لا يمكن التراجع عنه وسيتم حذف جميع البيانات المتعلقة بهذا الحقل.
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    <i class="fas fa-times"></i> إلغاء
-                </button>
-                <form id="deleteForm" method="post" style="display: inline;">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" name="_method" value="DELETE" />
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> حذف نهائي
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    <script>
-        function confirmDelete(fieldId, fieldName) {
-            $('#fieldName').text(fieldName);
-            $('#deleteForm').attr('action', '@Url.Action("Delete", "Fields")' + '/' + fieldId);
-            $('#deleteModal').modal('show');
-        }
-
-        // Add some hover effects
-        $(document).ready(function() {
-            $('.card').hover(
-                function() {
-                    $(this).addClass('shadow-sm');
-                },
-                function() {
-                    $(this).removeClass('shadow-sm');
+                            <a class="orange-btn" href="@Url.Action("Edit", new { id = field.Id })">
+                                <i class="fas fa-edit"></i> تحرير
+                            </a>
+                            <a class="orange-btn" href="@Url.Action("Delete", new { id = field.Id })">
+                                <i class="fas fa-trash"></i> حذف
+                            </a>
+                            <a class="orange-btn" href="@Url.Action("AssignEmployee", new { id = field.Id })">
+                                <i class="fas fa-user-plus"></i> تعيين موظف
+                            </a>
+                        </td>
+                    </tr>
                 }
-            );
-
-            // Delete button hover effect
-            $('.delete-btn').hover(
-                function() {
-                    $(this).removeClass('btn-warning').addClass('btn-danger');
-                },
-                function() {
-                    $(this).removeClass('btn-danger').addClass('btn-warning');
-                }
-            );
-        });
-    </script>
-}
-
-@section Styles {
-    <style>
-        .field-icon {
-            transition: transform 0.2s ease-in-out;
-        }
-
-        .card:hover .field-icon {
-            transform: scale(1.1);
-        }
-
-        .card {
-            transition: all 0.3s ease;
-        }
-
-            .card:hover {
-                transform: translateY(-5px);
-            }
-
-        .field-actions .btn {
-            font-size: 0.875rem;
-        }
-
-        .badge {
-            font-size: 0.75rem;
-        }
-
-        .field-meta {
-            border-top: 1px solid #eee;
-            padding-top: 10px;
-        }
-
-        .field-info {
-            border-top: 1px solid #f8f9fa;
-            border-bottom: 1px solid #f8f9fa;
-            padding: 15px 0;
-            margin: 15px 0;
-        }
-
-        /* Delete button styles */
-        .delete-btn {
-            background-color: #ffc107;
-            border-color: #ffc107;
-            color: #212529;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-            .delete-btn:hover {
-                background-color: #dc3545;
-                border-color: #dc3545;
-                color: white;
-                transform: scale(1.1);
-            }
-
-            .delete-btn:focus {
-                box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
-            }
-
-        /* Modal enhancements */
-        .modal-header.bg-danger {
-            border-bottom: 1px solid #dc3545;
-        }
-
-        .modal-content {
-            border-radius: 10px;
-            border: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .alert-warning {
-            border-left: 4px solid #ffc107;
-        }
-    </style>
-}
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="orange-card text-center">
+            <h3>لا توجد أقسام مضافة حالياً</h3>
+            <p>يمكنك إضافة قسم جديد من الزر أعلاه</p>
+        </div>
+    }
+</div>
