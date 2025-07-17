@@ -1,0 +1,273 @@
+﻿@model StudentManagementSystem.Models.Field
+
+@{
+    ViewData["Title"] = "Edit Field";
+    Layout = null;
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h4 class="mb-0 text-dark">Edit Field</h4>
+                </div>
+                
+                <div class="card-body">
+                    <form asp-action="Edit" method="post" id="editFieldForm">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="CreatedBy" />
+                        <input type="hidden" asp-for="CreatedDate" />
+                        
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        
+                        <div class="form-group mb-4">
+                            <label asp-for="Name" class="form-label text-muted mb-2">
+                                Field Name (e.g. SD, CS):
+                            </label>
+                            <input asp-for="Name" 
+                                   class="form-control form-control-lg" 
+                                   placeholder="e.g. MT"
+                                   style="border: 1px solid #ddd; border-radius: 8px; padding: 12px 16px;" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+                        
+                        <div class="form-group mb-4">
+                            <label asp-for="GradeId" class="form-label text-muted mb-2">
+                                Grade:
+                            </label>
+                            <select asp-for="GradeId" 
+                                    class="form-control form-control-lg"
+                                    style="border: 1px solid #ddd; border-radius: 8px; padding: 12px 16px;">
+                                <option value="">Select Grade</option>
+                                @if (ViewBag.Grades != null)
+                                {
+                                    @foreach (var grade in (IEnumerable<SelectListItem>)ViewBag.Grades)
+                                    {
+                                        <option value="@grade.Value" @@(grade.Selected ? "selected" : "")>
+                                            @grade.Text
+                                        </option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="GradeId" class="text-danger small"></span>
+                        </div>
+                        
+                        <div class="form-group mb-4">
+                            <div class="form-check">
+                                <input asp-for="IsActive" 
+                                       class="form-check-input" 
+                                       type="checkbox" />
+                                <label asp-for="IsActive" class="form-check-label text-muted">
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Display creation info -->
+                        <div class="field-info mb-4 p-3 bg-light rounded">
+                            <small class="text-muted">
+                                <div class="mb-1">
+                                    <i class="fas fa-calendar-alt me-1"></i>
+                                    Created: @Model.CreatedDate.ToString("MMM dd, yyyy 'at' HH:mm")
+                                </div>
+                                @if (Model.CreatedByUser != null)
+                                {
+                                    <div>
+                                        <i class="fas fa-user me-1"></i>
+                                        Created by: @Model.CreatedByUser.Name
+                                    </div>
+                                }
+                            </small>
+                        </div>
+                        
+                        <div class="form-group d-flex justify-content-end gap-2">
+                            <a href="@Url.Action("Index", "Fields")" 
+                               class="btn btn-secondary px-4 py-2"
+                               style="border-radius: 6px;">
+                                Cancel
+                            </a>
+                            <button type="submit" 
+                                    class="btn btn-primary px-4 py-2"
+                                    style="background-color: #ff6b35; border-color: #ff6b35; border-radius: 6px;">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Form validation
+            $("#editFieldForm").on("submit", function(e) {
+                var fieldName = $("#Name").val().trim();
+                
+                if (fieldName === "") {
+                    e.preventDefault();
+                    $("#Name").addClass("is-invalid");
+                    return false;
+                } else {
+                    $("#Name").removeClass("is-invalid");
+                }
+                
+                // Show loading state
+                var submitBtn = $(this).find('button[type="submit"]');
+                submitBtn.prop('disabled', true);
+                submitBtn.html('<i class="fas fa-spinner fa-spin"></i> Saving...');
+            });
+            
+            // Remove validation errors on input
+            $("#Name").on("input", function() {
+                $(this).removeClass("is-invalid");
+            });
+            
+            // Add visual feedback for form controls
+            $(".form-control").on("focus", function() {
+                $(this).css("border-color", "#ff6b35");
+                $(this).css("box-shadow", "0 0 0 0.2rem rgba(255, 107, 53, 0.25)");
+            });
+            
+            $(".form-control").on("blur", function() {
+                $(this).css("border-color", "#ddd");
+                $(this).css("box-shadow", "none");
+            });
+            
+            // Confirm if user tries to leave with unsaved changes
+            var originalFormData = $("#editFieldForm").serialize();
+            
+            window.addEventListener('beforeunload', function(e) {
+                var currentFormData = $("#editFieldForm").serialize();
+                if (originalFormData !== currentFormData) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                }
+            });
+            
+            // Remove beforeunload when form is submitted
+            $("#editFieldForm").on("submit", function() {
+                window.removeEventListener('beforeunload', arguments.callee);
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .container-fluid {
+            padding-top: 40px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .card-header {
+            border-bottom: 1px solid #eee;
+            padding: 20px 24px;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .card-body {
+            padding: 24px;
+        }
+        
+        .form-control:focus {
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        }
+        
+        .btn-primary {
+            background-color: #ff6b35;
+            border-color: #ff6b35;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e55a2e;
+            border-color: #e55a2e;
+        }
+        
+        .btn-primary:disabled {
+            background-color: #ff6b35;
+            border-color: #ff6b35;
+            opacity: 0.7;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #5a6268;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: #6c757d;
+        }
+        
+        .form-control::placeholder {
+            color: #adb5bd;
+        }
+        
+        .gap-2 {
+            gap: 0.5rem;
+        }
+        
+        .is-invalid {
+            border-color: #dc3545;
+        }
+        
+        .text-danger {
+            color: #dc3545;
+        }
+        
+        .field-info {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+        
+        .field-info i {
+            color: #6c757d;
+            width: 16px;
+        }
+        
+        .me-1 {
+            margin-right: 0.25rem;
+        }
+        
+        @@media (max-width: 768px) {
+            .container-fluid {
+                padding: 20px 15px;
+            }
+            
+            .card {
+                margin: 0;
+            }
+            
+            .form-group .d-flex {
+                flex-direction: column;
+            }
+            
+            .form-group .d-flex .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .field-info {
+                padding: 15px;
+            }
+        }
+    </style>
+}

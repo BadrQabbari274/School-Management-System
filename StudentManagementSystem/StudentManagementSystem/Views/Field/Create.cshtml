@@ -1,0 +1,209 @@
+﻿@model StudentManagementSystem.Models.Field
+
+@{
+    ViewData["Title"] = "Add New Field";
+    Layout = null;
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h4 class="mb-0 text-dark">Add New Field</h4>
+                </div>
+
+                <div class="card-body">
+                    <form asp-action="Create" method="post" id="createFieldForm">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="Name" class="form-label text-muted mb-2">
+                                Field Name (e.g. SD, CS):
+                            </label>
+                            <input asp-for="Name"
+                                   class="form-control form-control-lg"
+                                   placeholder="e.g. MT"
+                                   style="border: 1px solid #ddd; border-radius: 8px; padding: 12px 16px;" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="GradeId" class="form-label text-muted mb-2">
+                                Grade:
+                            </label>
+                            <select asp-for="GradeId"
+                                    class="form-control form-control-lg"
+                                    style="border: 1px solid #ddd; border-radius: 8px; padding: 12px 16px;">
+                                <option value="">Select Grade</option>
+                                @if (ViewBag.Grades != null)
+                                {
+                                    @foreach (var grade in (IEnumerable<SelectListItem>)ViewBag.Grades)
+                                    {
+                                        <option value="@grade.Value">@grade.Text</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="GradeId" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <div class="form-check">
+                                <input asp-for="IsActive"
+                                       class="form-check-input"
+                                       type="checkbox"
+                                       checked="checked" />
+                                <label asp-for="IsActive" class="form-check-label text-muted">
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group d-flex justify-content-end gap-2">
+                            <a href="@Url.Action("Index", "Fields")"
+                               class="btn btn-secondary px-4 py-2"
+                               style="border-radius: 6px;">
+                                Cancel
+                            </a>
+                            <button type="submit"
+                                    class="btn btn-primary px-4 py-2"
+                                    style="background-color: #ff6b35; border-color: #ff6b35; border-radius: 6px;">
+                                Save Field
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Form validation
+            $("#createFieldForm").on("submit", function(e) {
+                var fieldName = $("#Name").val().trim();
+
+                if (fieldName === "") {
+                    e.preventDefault();
+                    $("#Name").addClass("is-invalid");
+                    return false;
+                } else {
+                    $("#Name").removeClass("is-invalid");
+                }
+            });
+
+            // Remove validation errors on input
+            $("#Name").on("input", function() {
+                $(this).removeClass("is-invalid");
+            });
+
+            // Add some visual feedback
+            $(".form-control").on("focus", function() {
+                $(this).css("border-color", "#ff6b35");
+                $(this).css("box-shadow", "0 0 0 0.2rem rgba(255, 107, 53, 0.25)");
+            });
+
+            $(".form-control").on("blur", function() {
+                $(this).css("border-color", "#ddd");
+                $(this).css("box-shadow", "none");
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .container-fluid {
+            padding-top: 40px;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .card-header {
+            border-bottom: 1px solid #eee;
+            padding: 20px 24px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .form-control:focus {
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        }
+
+        .btn-primary {
+            background-color: #ff6b35;
+            border-color: #ff6b35;
+        }
+
+            .btn-primary:hover {
+                background-color: #e55a2e;
+                border-color: #e55a2e;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+                border-color: #5a6268;
+            }
+
+        .form-label {
+            font-weight: 500;
+            color: #6c757d;
+        }
+
+        .form-control::placeholder {
+            color: #adb5bd;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .is-invalid {
+            border-color: #dc3545;
+        }
+
+        .text-danger {
+            color: #dc3545;
+        }
+
+        @@media (max-width: 768px) {
+            .container-fluid
+
+        {
+            padding: 20px 15px;
+        }
+
+        .card {
+            margin: 0;
+        }
+
+        .form-group .d-flex {
+            flex-direction: column;
+        }
+
+            .form-group .d-flex .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+        }
+    </style>
+}
