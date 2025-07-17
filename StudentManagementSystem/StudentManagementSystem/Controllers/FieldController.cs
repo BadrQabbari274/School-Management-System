@@ -79,8 +79,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+       
                     field.CreatedBy = GetCurrentUserId();
                     field.CreatedDate = DateTime.Now;
                     field.IsActive = true;
@@ -88,10 +87,8 @@ namespace StudentManagementSystem.Controllers
                     var createdField = await _fieldService.CreateFieldAsync(field);
                     SetSuccessMessage("تم إنشاء القسم بنجاح");
                     return RedirectToAction(nameof(Index));
-                }
+                
 
-                await PopulateDropDownLists(field.GradeId);
-                return View(field);
             }
             catch (Exception ex)
             {
@@ -136,15 +133,11 @@ namespace StudentManagementSystem.Controllers
 
             try
             {
-                if (ModelState.IsValid)
-                {
+             
                     await _fieldService.UpdateFieldAsync(field);
                     SetSuccessMessage("تم تحديث القسم بنجاح");
                     return RedirectToAction(nameof(Index));
-                }
-
-                await PopulateDropDownLists(field.GradeId);
-                return View(field);
+           
             }
             catch (Exception ex)
             {

@@ -46,14 +46,14 @@
                 <h4 style="color: #FF9800;">الموظفون المعينون</h4>
                 <hr style="border-color: #FFB74D;" />
 
-                @if (Model.UserFields != null && Model.UserFields.Any())
+                @if (Model.FieldEmployees != null && Model.FieldEmployees.Any())
                 {
                     <div class="list-group">
-                        @foreach (var userField in Model.UserFields)
+                        @foreach (var userField in Model.FieldEmployees)
                         {
                             <div class="list-group-item" style="border: 1px solid #FFB74D; margin-bottom: 5px; border-radius: 5px;">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">@userField.User?.FullName</h6>
+                                    <h6 class="mb-1">@userField.User?.Name</h6>
                                     <form asp-action="RemoveEmployee" method="post" style="display: inline;">
                                         <input type="hidden" name="fieldId" value="@Model.Id" />
                                         <input type="hidden" name="employeeId" value="@userField.UserId" />
