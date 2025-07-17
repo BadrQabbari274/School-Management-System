@@ -1,0 +1,154 @@
+﻿@model StudentManagementSystem.Models.Class
+
+@{
+    ViewData["Title"] = "Class Details";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Class Details</h3>
+                    <div class="card-tools">
+                        <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="@Url.Action("Index")" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-primary">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Class Name</span>
+                                    <span class="info-box-number">@Model.Name</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-info">
+                                    <i class="fas fa-bookmark"></i>
+                                </span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Field</span>
+                                    <span class="info-box-number">@(Model.Field?.Name ?? "N/A")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-success">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Created By</span>
+                                    <span class="info-box-number">@(Model.CreatedByUser?.Name ?? "N/A")</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-warning">
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Date Created</span>
+                                    <span class="info-box-number">@Model.Date.ToString("dd/MM/yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-danger">
+                                    <i class="fas fa-users"></i>
+                                </span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Students Count</span>
+                                    <span class="info-box-number">@(Model.Students?.Count ?? 0)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-box">
+                                <span class="info-box-icon @(Model.IsActive ? "bg-success" : "bg-secondary")">
+                                    <i class="fas fa-@(Model.IsActive ? "check" : "times")"></i>
+                                </span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Status</span>
+                                    <span class="info-box-number">
+                                        @if (Model.IsActive)
+                                        {
+                                            <span class="badge bg-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">Inactive</span>
+                                        }
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.Students != null && Model.Students.Any())
+                    {
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h4>Students in this Class</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Student ID</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var student in Model.Students)
+                                            {
+                                                <tr>
+                                                    <td>@student.Id</td>
+                                                    <td>@student.Name</td>
+                                                    <td>@student.Email</td>
+                                                    <td>
+                                                        <a href="@Url.Action("Details", "Student", new { id = student.Id })"
+                                                           class="btn btn-sm btn-info">
+                                                            <i class="fas fa-eye"></i> View
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info mt-3">
+                            <h5><i class="fas fa-info-circle"></i> No Students</h5>
+                            There are no students enrolled in this class yet.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>

@@ -9,105 +9,117 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = StudentManagementSystem
 build_property.RootNamespace = StudentManagementSystem
-build_property.ProjectDir = D:\7-16\StudentManagementSystem\StudentManagementSystem\
+build_property.ProjectDir = D:\Repo2\StudentManagementSystem\StudentManagementSystem\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\7-16\StudentManagementSystem\StudentManagementSystem
+build_property.MSBuildProjectDirectory = D:\Repo2\StudentManagementSystem\StudentManagementSystem
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Account/ForgetPassword.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Account/ForgetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3JnZXRQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Account/Login.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Account/Register.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/stusentsAttendance.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/stusentsAttendance.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxzdHVzZW50c0F0dGVuZGFuY2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Classes/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3Nlc1xJbmRleC5jc2h0bWw=
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Class/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_J.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Class/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Class/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Class/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_J.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcQ2xhc3Nlc19KLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_W.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_W.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcQ2xhc3Nlc19XLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Compatences/students.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Compatences/students.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcc3R1ZGVudHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Field/Create.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Field/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Field/Edit.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Field/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Field/Index.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Field/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Home/Index.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Home/Privacy.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Shared/Error.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Student/Create.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Student/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Student/Details.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Student/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Student/Edit.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Student/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Student/Index.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Student/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Student/Index2.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Student/Index2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleDIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/_ViewImports.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/_ViewStart.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Shared/_Layout.cshtml]
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-kqem6kkl2p

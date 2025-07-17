@@ -57,10 +57,24 @@ namespace StudentManagementSystem.Controllers
         [Authorize]
         public async Task<IActionResult> Create(Class classEntity)
         {
-            if (ModelState.IsValid)
-            {
+           
                 try
                 {
+                    // Get the current user's ID from claims
+                    var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                    if (string.IsNullOrEmpty(currentUserId))
+                    {
+                        ModelState.AddModelError("", "Unable to identify the current user for CreatedBy. Please log in again.");
+                        await PopulateDropDownLists();
+                        return View(classEntity);
+                    }
+
+                    // Set CreatedBy automatically
+                    classEntity.CreatedBy = int.Parse(currentUserId);
+
+                     classEntity.Date = DateTime.UtcNow;
+
                     await _classService.CreateClassAsync(classEntity);
                     TempData["SuccessMessage"] = "Class created successfully!";
                     return RedirectToAction(nameof(Index));
@@ -69,7 +83,6 @@ namespace StudentManagementSystem.Controllers
                 {
                     ModelState.AddModelError("", "An error occurred while creating the class: " + ex.Message);
                 }
-            }
 
             await PopulateDropDownLists();
             return View(classEntity);
@@ -95,30 +108,44 @@ namespace StudentManagementSystem.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id, Class classEntity)
         {
-            if (id != classEntity.Id)
-            {
-                return NotFound();
+                if (id != classEntity.Id)
+                {
+                    return NotFound();
+                }
+
+                    try
+                    {
+                        // Get the current user's ID from claims for UpdatedBy
+                        var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                        if (string.IsNullOrEmpty(currentUserId))
+                        {
+                            ModelState.AddModelError("", "Unable to identify the current user for UpdatedBy. Please log in again.");
+                            await PopulateDropDownLists();
+                            return View(classEntity);
+                        }
+
+                        // Set UpdatedBy automatically
+                        classEntity.CreatedBy = int.Parse(currentUserId);
+                         classEntity.Date = DateTime.UtcNow;
+
+                        await _classService.UpdateClassAsync(classEntity);
+                        TempData["SuccessMessage"] = "Class updated successfully!";
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("", "An error occurred while updating the class: " + ex.Message);
+                    }
+                
+
+                await PopulateDropDownLists();
+                return View(classEntity);
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _classService.UpdateClassAsync(classEntity);
-                    TempData["SuccessMessage"] = "Class updated successfully!";
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "An error occurred while updating the class: " + ex.Message);
-                }
-            }
-
-            await PopulateDropDownLists();
-            return View(classEntity);
-        }
-
-        // GET: Class/Delete/5
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
@@ -127,34 +154,35 @@ namespace StudentManagementSystem.Controllers
             {
                 return NotFound();
             }
-            return View(classEntity);
-        }
-
-        // POST: Class/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            try
-            {
-                var result = await _classService.DeleteClassAsync(id);
-                if (result)
-                {
-                    TempData["SuccessMessage"] = "Class deleted successfully!";
-                }
-                else
-                {
-                    TempData["ErrorMessage"] = "Class not found or could not be deleted.";
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = "An error occurred while deleting the class: " + ex.Message;
-            }
-
+            var result = await _classService.DeleteClassAsync(id);
             return RedirectToAction(nameof(Index));
         }
+
+        //// POST: Class/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    try
+        //    {
+        //        var result = await _classService.DeleteClassAsync(id);
+        //        if (result)
+        //        {
+        //            TempData["SuccessMessage"] = "Class deleted successfully!";
+        //        }
+        //        else
+        //        {
+        //            TempData["ErrorMessage"] = "Class not found or could not be deleted.";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TempData["ErrorMessage"] = "An error occurred while deleting the class: " + ex.Message;
+        //    }
+
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         // GET: Class/GetByField/5
         [HttpGet]
@@ -178,20 +206,18 @@ namespace StudentManagementSystem.Controllers
         private async Task PopulateDropDownLists()
         {
             try
-            {
-                // إذا كان عندك FieldService
+            {            
                 var fields = await _fieldService.GetActiveFieldsAsync();
                 ViewBag.FieldId = new SelectList(fields, "Id", "Name");
 
-                // إذا كان عندك EmployeeService
-                var employees = await _employeeService.GetActiveUsersAsync();
-                ViewBag.CreatedBy = new SelectList(employees, "Id", "Name");
+                // "CreatedBy" is no longer a dropdown, so we remove the related code.
+                // var employees = await _employeeService.GetActiveUsersAsync();
+                // ViewBag.CreatedBy = new SelectList(employees, "Id", "Name");
             }
-            catch
+            catch (Exception ex)
             {
-                // إذا مفيش services دي، استخدم قائمة فارغة
+                
                 ViewBag.FieldId = new SelectList(new List<SelectListItem>(), "Value", "Text");
-                ViewBag.CreatedBy = new SelectList(new List<SelectListItem>(), "Value", "Text");
             }
         }
     }

@@ -1,0 +1,329 @@
+﻿@model StudentManagementSystem.Models.Class
+
+@{
+    ViewData["Title"] = "إنشاء فصل جديد"; // Changed title for Create view
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, #ff8a50, #ff6b35);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;
+        }
+
+        .back-button {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .back-button:hover {
+                background: rgba(255,255,255,0.3);
+                color: white;
+            }
+
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #ff8a50;
+                box-shadow: 0 0 0 0.2rem rgba(255, 138, 80, 0.25);
+            }
+
+            .form-control:read-only {
+                background-color: #f8f9fa;
+                border-color: #dee2e6;
+            }
+
+        .form-check {
+            margin-bottom: 20px;
+        }
+
+        .form-check-input:checked {
+            background-color: #ff8a50;
+            border-color: #ff8a50;
+        }
+
+        .form-check-label {
+            font-weight: 500;
+            color: #333;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+            .btn-primary:hover {
+                background: linear-gradient(135deg, #218838, #1e7e34);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+            }
+
+        .btn-secondary {
+            background: #6c757d;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+            .btn-secondary:hover {
+                background: #5a6268;
+                transform: translateY(-2px);
+            }
+
+        .text-danger {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .form-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .alert {
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .validation-summary-errors {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+            .validation-summary-errors ul {
+                margin: 0;
+                padding-right: 20px;
+            }
+
+        /* The info-section is typically for displaying existing data, so it might not be relevant for a new creation form. */
+        /* If you want to show 'Created By' and 'Date' fields even for new creation (e.g., if you pre-populate them),
+                   you'd typically make them read-only and pre-fill them from the controller if necessary.
+                   For this scenario, since we're setting them automatically server-side,
+                   they usually won't appear on the initial create form. */
+    </style>
+</head>
+<body>
+    <div class="header-section">
+        <div class="container position-relative">
+            <a href="@Url.Action("Index")" class="back-button">
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            <h1 class="header-title">إنشاء فصل جديد</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-container">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i>
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i>
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+                @* No hidden fields for Id, Date, CreatedBy needed here, as they are new or set by the controller *@
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name" class="form-label">
+                                اسم الفصل <span class="required">*</span>
+                            </label>
+                            <div class="input-group">
+                                <input asp-for="Name" class="form-control" placeholder="أدخل اسم الفصل" required />
+                                <i class="fas fa-graduation-cap form-icon"></i>
+                            </div>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="FieldId" class="form-label">التخصص</label>
+                            <div class="input-group">
+                                <select asp-for="FieldId" class="form-select" asp-items="ViewBag.FieldId">
+                                    <option value="">-- اختر التخصص --</option>
+                                </select>
+                                <i class="fas fa-book form-icon"></i>
+                            </div>
+                            <span asp-validation-for="FieldId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    @* Removed the CreatedBy dropdown as it's now set automatically in the controller *@
+                    @*
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CreatedBy" class="form-label">منشئ الفصل</label>
+                            <div class="input-group">
+                                <select asp-for="CreatedBy" class="form-select" asp-items="ViewBag.CreatedBy">
+                                    <option value="">-- اختر الموظف --</option>
+                                </select>
+                                <i class="fas fa-user form-icon"></i>
+                            </div>
+                            <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                        </div>
+                    </div>
+                    *@
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="form-check" style="margin-top: 35px;">
+                                <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                                <label asp-for="IsActive" class="form-check-label">
+                                    فصل نشط
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus-circle me-2"></i> إنشاء الفصل
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="fas fa-times me-2"></i>
+                        إلغاء
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // التحقق من صحة النموذج
+        document.querySelector('form').addEventListener('submit', function(e) {
+            let isValid = true;
+
+            // التحقق من اسم الفصل
+            const nameInput = document.querySelector('input[name="Name"]');
+            const nameValue = nameInput.value.trim();
+
+            if (!nameValue) {
+                isValid = false;
+                nameInput.classList.add('is-invalid');
+            } else {
+                nameInput.classList.remove('is-invalid');
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        // إزالة رسائل الخطأ عند الكتابة
+        document.querySelectorAll('.form-control, .form-select').forEach(function(element) {
+            element.addEventListener('input', function() {
+                this.classList.remove('is-invalid');
+            });
+        });
+
+        // For Create, you might want a different confirmation message
+        document.querySelector('form').addEventListener('submit', function(e) {
+            if (!confirm('هل أنت متأكد من إنشاء هذا الفصل؟')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
