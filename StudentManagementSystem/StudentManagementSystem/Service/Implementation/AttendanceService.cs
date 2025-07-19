@@ -2,14 +2,9 @@
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StudentManagementSystem.Services
 {
-   
     public class AttendanceService : IAttendanceService
     {
         private readonly ApplicationDbContext _context;
@@ -27,6 +22,7 @@ namespace StudentManagementSystem.Services
                 .Include(sa => sa.Student)
                 .Include(sa => sa.CreatedByUser)
                 .Where(sa => !sa.IsDeleted)
+                .OrderByDescending(sa => sa.Date)
                 .ToListAsync();
         }
 
@@ -64,6 +60,63 @@ namespace StudentManagementSystem.Services
             return false;
         }
 
+        public async Task<bool> SaveDailyAttendanceBulkAsync(int classId, DateTime date, List<int> presentStudentIds, int createdBy)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                // Get all students in the class
+                var allStudents = await _context.Students
+                    .Where(s => s.ClassId == classId && s.IsActive)
+                    .Select(s => s.Id)
+                    .ToListAsync();
+
+                // Remove existing attendance records for the day
+                var existingRecords = await _context.StudentAttendances
+                    .Where(sa => sa.Date == date.Date && allStudents.Contains(sa.StudentId.Value))
+                    .ToListAsync();
+
+                _context.StudentAttendances.RemoveRange(existingRecords);
+
+                // Add new attendance records for present students
+                foreach (var studentId in presentStudentIds.Where(id => allStudents.Contains(id)))
+                {
+                    var attendance = new StudentAttendance
+                    {
+                        StudentId = studentId,
+                        Date = date,
+                        State = "Present",
+                        CreatedBy = createdBy
+                    };
+                    _context.StudentAttendances.Add(attendance);
+                }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+                return true;
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
+        }
+
+        public async Task<List<StudentAttendance>> GetDailyAttendanceByClassAndDateAsync(int classId, DateTime date)
+        {
+            var studentIds = await _context.Students
+                .Where(s => s.ClassId == classId && s.IsActive)
+                .Select(s => s.Id)
+                .ToListAsync();
+
+            return await _context.StudentAttendances
+                .Include(sa => sa.Student)
+                .Where(sa => sa.Date == date.Date &&
+                           studentIds.Contains(sa.StudentId.Value) &&
+                           !sa.IsDeleted)
+                .ToListAsync();
+        }
+
         #endregion
 
         #region Student Absent Operations
@@ -76,6 +129,7 @@ namespace StudentManagementSystem.Services
                 .Include(sa => sa.AbsenceReason)
                 .Include(sa => sa.CreatedByUser)
                 .Where(sa => !sa.IsDeleted)
+                .OrderByDescending(sa => sa.Date)
                 .ToListAsync();
         }
 
@@ -115,6 +169,71 @@ namespace StudentManagementSystem.Services
             return false;
         }
 
+        public async Task<bool> SaveFieldAttendanceBulkAsync(int classId, DateTime date, List<FieldAttendanceRecord> fieldRecords, int createdBy)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                // Get all students in the class
+                var allStudents = await _context.Students
+                    .Where(s => s.ClassId == classId && s.IsActive)
+                    .Select(s => s.Id)
+                    .ToListAsync();
+
+                // Remove existing field attendance records for the day
+                var existingRecords = await _context.StudentAbsents
+                    .Where(sa => sa.Date.Date == date.Date &&
+                                allStudents.Contains(sa.StudentId.Value) &&
+                                sa.IsFieldAttendance)
+                    .ToListAsync();
+
+                _context.StudentAbsents.RemoveRange(existingRecords);
+
+                // Add new field attendance records
+                foreach (var record in fieldRecords.Where(r => allStudents.Contains(r.StudentId) && r.IsAbsent))
+                {
+                    var absent = new StudentAbsent
+                    {
+                        StudentId = record.StudentId,
+                        Date = date,
+                        AbsenceReasonId = record.AbsenceReasonId,
+                        CustomReasonDetails = record.CustomAbsenceReason,
+                        AttendanceType = record.WithoutIncentive ? 1 : 0,
+                        IsFieldAttendance = true,
+                        CreatedBy = createdBy
+                    };
+
+                    _context.StudentAbsents.Add(absent);
+                }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+                return true;
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
+        }
+
+        public async Task<List<StudentAbsent>> GetFieldAttendanceByClassAndDateAsync(int classId, DateTime date)
+        {
+            var studentIds = await _context.Students
+                .Where(s => s.ClassId == classId && s.IsActive)
+                .Select(s => s.Id)
+                .ToListAsync();
+
+            return await _context.StudentAbsents
+                .Include(sa => sa.Student)
+                .Include(sa => sa.AbsenceReason)
+                .Where(sa => sa.Date.Date == date.Date &&
+                           studentIds.Contains(sa.StudentId.Value) &&
+                           sa.IsFieldAttendance &&
+                           !sa.IsDeleted)
+                .ToListAsync();
+        }
+
         #endregion
 
         #region Absence Reason Operations
@@ -124,6 +243,7 @@ namespace StudentManagementSystem.Services
             return await _context.AbsenceReasons
                 .Include(ar => ar.CreatedByUser)
                 .Where(ar => !ar.IsDeleted)
+                .OrderBy(ar => ar.Name)
                 .ToListAsync();
         }
 
@@ -160,18 +280,41 @@ namespace StudentManagementSystem.Services
             return false;
         }
 
+        public async Task<AbsenceReason> GetOrCreateOtherReasonAsync(int createdBy)
+        {
+            var otherReason = await _context.AbsenceReasons
+                .FirstOrDefaultAsync(ar => ar.Name == "Other" && !ar.IsDeleted);
+
+            if (otherReason == null)
+            {
+                otherReason = new AbsenceReason
+                {
+                    Name = "Other",
+                    CreatedBy = createdBy,
+                    CreatedDate = DateTime.Now
+                };
+                _context.AbsenceReasons.Add(otherReason);
+                await _context.SaveChangesAsync();
+            }
+
+            return otherReason;
+        }
+
         #endregion
 
         #region Attendance Type Operations
 
         public async Task<IEnumerable<AttendanceType>> GetAllAttendanceTypesAsync()
         {
-            return await _context.AttendanceTypes.ToListAsync();
+            return await _context.AttendanceTypes
+                .OrderBy(at => at.Name)
+                .ToListAsync();
         }
 
         public async Task<AttendanceType> GetAttendanceTypeByIdAsync(int id)
         {
-            return await _context.AttendanceTypes.FindAsync(id);
+            return await _context.AttendanceTypes
+                .FirstOrDefaultAsync(at => at.Id == id);
         }
 
         public async Task<AttendanceType> CreateAttendanceTypeAsync(AttendanceType attendanceType)
@@ -202,196 +345,257 @@ namespace StudentManagementSystem.Services
 
         #endregion
 
-        #region Class Attendance Report
+        #region Exit Request Operations
+
+        public async Task<RequestExit> CreateExitRequestAsync(RequestExit exitRequest)
+        {
+            exitRequest.Date = DateTime.Now;
+            exitRequest.ExitTime = DateTime.Now.TimeOfDay;
+            _context.RequestExits.Add(exitRequest);
+            await _context.SaveChangesAsync();
+            return exitRequest;
+        }
+
+        public async Task<IEnumerable<RequestExit>> GetExitRequestsByDateAsync(DateTime date)
+        {
+            return await _context.RequestExits
+                .Include(re => re.Student)
+                .Include(re => re.CreatedByUser)
+                .Include(re => re.ProcessedByUser)
+                .Include(re => re.Attendance)
+                .Where(re => re.Date.Date == date.Date && !re.IsDeleted)
+                .OrderBy(re => re.Date)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<RequestExit>> GetPendingExitRequestsAsync()
+        {
+            return await _context.RequestExits
+                .Include(re => re.Student)
+                .Include(re => re.CreatedByUser)
+                .Include(re => re.Attendance)
+                .Where(re => re.Status == 0 && !re.IsDeleted)
+                .OrderBy(re => re.Date)
+                .ToListAsync();
+        }
+
+        public async Task<bool> ProcessExitRequestAsync(int exitRequestId, int status, int processedBy, string notes = null)
+        {
+            var exitRequest = await _context.RequestExits.FindAsync(exitRequestId);
+            if (exitRequest != null)
+            {
+                exitRequest.Status = status;
+                exitRequest.ProcessedBy = processedBy;
+                exitRequest.ProcessedDate = DateTime.Now;
+                exitRequest.ProcessingNotes = notes;
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        #endregion
+
+        #region Report Operations
 
         public async Task<ClassAttendanceReport> GetClassAttendanceReportAsync(int classId, DateTime date)
         {
-            // Get all students in the class
+            var classInfo = await _context.Classes.FindAsync(classId);
+            if (classInfo == null) return null;
+
             var students = await _context.Students
                 .Where(s => s.ClassId == classId && s.IsActive)
-                .Include(s => s.Class)
                 .ToListAsync();
 
-            // Get present students
-            var presentStudents = await _context.StudentAttendances
+            var attendances = await _context.StudentAttendances
                 .Include(sa => sa.Student)
-                .Where(sa => sa.StudentId.HasValue &&
+                .Where(sa => sa.Date == date.Date &&
                            students.Select(s => s.Id).Contains(sa.StudentId.Value) &&
-                           sa.Date.Date == date.Date &&
                            !sa.IsDeleted)
                 .ToListAsync();
 
-            // Get absent students
-            var absentStudents = await _context.StudentAbsents
+            var absences = await _context.StudentAbsents
                 .Include(sa => sa.Student)
                 .Include(sa => sa.AbsenceReason)
-                .Include(sa => sa.Teacher)
-                .Where(sa => sa.StudentId.HasValue &&
+                .Where(sa => sa.Date.Date == date.Date &&
                            students.Select(s => s.Id).Contains(sa.StudentId.Value) &&
-                           sa.Date.Date == date.Date &&
                            !sa.IsDeleted)
                 .ToListAsync();
 
-            // Create attendance items
-            var attendanceItems = new List<AttendanceItem>();
-
-            // Add present students
-            foreach (var attendance in presentStudents)
-            {
-                attendanceItems.Add(new AttendanceItem
-                {
-                    Student = attendance.Student,
-                    AttendanceStatus = AttendanceStatus.Present,
-                    State = attendance.State,
-                    Date = attendance.Date
-                });
-            }
-
-            // Add absent students
-            foreach (var absent in absentStudents)
-            {
-                attendanceItems.Add(new AttendanceItem
-                {
-                    Student = absent.Student,
-                    AttendanceStatus = AttendanceStatus.Absent,
-                    AbsenceReason = absent.AbsenceReason?.Name,
-                    AttendanceType = absent.AttendanceType,
-                    Teacher = absent.Teacher?.Name,
-                    Date = absent.Date
-                });
-            }
-
-            // Add students with no attendance record (considered absent)
-            var recordedStudentIds = attendanceItems.Select(ai => ai.Student.Id).ToList();
-            var unrecordedStudents = students.Where(s => !recordedStudentIds.Contains(s.Id));
-
-            foreach (var student in unrecordedStudents)
-            {
-                attendanceItems.Add(new AttendanceItem
-                {
-                    Student = student,
-                    AttendanceStatus = AttendanceStatus.Absent,
-                    Date = date
-                });
-            }
+            var exitRequests = await _context.RequestExits
+                .Include(re => re.Student)
+                .Where(re => re.Date.Date == date.Date &&
+                           students.Select(s => s.Id).Contains(re.StudentId.Value) &&
+                           !re.IsDeleted)
+                .ToListAsync();
 
             return new ClassAttendanceReport
             {
                 ClassId = classId,
-                ClassName = students.FirstOrDefault()?.Class?.Name,
+                ClassName = classInfo.Name,
                 Date = date,
-                AttendanceItems = attendanceItems,
                 TotalStudents = students.Count,
-                PresentCount = presentStudents.Count,
-                AbsentCount = absentStudents.Count + unrecordedStudents.Count()
+                PresentStudents = attendances.Count,
+                AbsentStudents = students.Count - attendances.Count,
+                FieldAbsentStudents = absences.Count(a => a.IsFieldAttendance),
+                ExitRequestsCount = exitRequests.Count,
+                AttendancePercentage = students.Count > 0 ? (double)attendances.Count / students.Count * 100 : 0,
+                StudentDetails = students.Select(s => new StudentAttendanceDetail
+                {
+                    StudentId = s.Id,
+                    StudentName = s.Name,
+                    StudentCode = s.Code,
+                    IsPresent = attendances.Any(a => a.StudentId == s.Id),
+                    IsFieldAbsent = absences.Any(a => a.StudentId == s.Id && a.IsFieldAttendance),
+                    AbsenceReason = absences.FirstOrDefault(a => a.StudentId == s.Id)?.AbsenceReason?.Name,
+                    HasExitRequest = exitRequests.Any(er => er.StudentId == s.Id),
+                    ExitRequestStatus = exitRequests.FirstOrDefault(er => er.StudentId == s.Id)?.Status
+                }).ToList()
             };
         }
 
         public async Task<ClassAttendanceReport> GetClassAttendanceReportByDateRangeAsync(int classId, DateTime startDate, DateTime endDate)
         {
-            // Get all students in the class
+            var classInfo = await _context.Classes.FindAsync(classId);
+            if (classInfo == null) return null;
+
             var students = await _context.Students
                 .Where(s => s.ClassId == classId && s.IsActive)
-                .Include(s => s.Class)
                 .ToListAsync();
 
-            // Get present students in date range
-            var presentStudents = await _context.StudentAttendances
+            var attendances = await _context.StudentAttendances
                 .Include(sa => sa.Student)
-                .Where(sa => sa.StudentId.HasValue &&
+                .Where(sa => sa.Date >= startDate.Date &&
+                           sa.Date <= endDate.Date &&
                            students.Select(s => s.Id).Contains(sa.StudentId.Value) &&
-                           sa.Date.Date >= startDate.Date &&
-                           sa.Date.Date <= endDate.Date &&
                            !sa.IsDeleted)
                 .ToListAsync();
 
-            // Get absent students in date range
-            var absentStudents = await _context.StudentAbsents
-                .Include(sa => sa.Student)
-                .Include(sa => sa.AbsenceReason)
-                .Include(sa => sa.Teacher)
-                .Where(sa => sa.StudentId.HasValue &&
-                           students.Select(s => s.Id).Contains(sa.StudentId.Value) &&
-                           sa.Date.Date >= startDate.Date &&
-                           sa.Date.Date <= endDate.Date &&
-                           !sa.IsDeleted)
-                .ToListAsync();
-
-            // Create attendance items
-            var attendanceItems = new List<AttendanceItem>();
-
-            // Add present students
-            foreach (var attendance in presentStudents)
-            {
-                attendanceItems.Add(new AttendanceItem
-                {
-                    Student = attendance.Student,
-                    AttendanceStatus = AttendanceStatus.Present,
-                    State = attendance.State,
-                    Date = attendance.Date
-                });
-            }
-
-            // Add absent students
-            foreach (var absent in absentStudents)
-            {
-                attendanceItems.Add(new AttendanceItem
-                {
-                    Student = absent.Student,
-                    AttendanceStatus = AttendanceStatus.Absent,
-                    AbsenceReason = absent.AbsenceReason?.Name,
-                    AttendanceType = absent.AttendanceType,
-                    Teacher = absent.Teacher?.Name,
-                    Date = absent.Date
-                });
-            }
+            var totalDays = (endDate.Date - startDate.Date).Days + 1;
+            var totalPossibleAttendances = students.Count * totalDays;
 
             return new ClassAttendanceReport
             {
                 ClassId = classId,
-                ClassName = students.FirstOrDefault()?.Class?.Name,
-                StartDate = startDate,
+                ClassName = classInfo.Name,
+                Date = startDate,
                 EndDate = endDate,
-                AttendanceItems = attendanceItems,
                 TotalStudents = students.Count,
-                PresentCount = presentStudents.Count,
-                AbsentCount = absentStudents.Count
+                PresentStudents = attendances.Count,
+                AbsentStudents = totalPossibleAttendances - attendances.Count,
+                AttendancePercentage = totalPossibleAttendances > 0 ? (double)attendances.Count / totalPossibleAttendances * 100 : 0,
+                StudentDetails = students.Select(s => new StudentAttendanceDetail
+                {
+                    StudentId = s.Id,
+                    StudentName = s.Name,
+                    StudentCode = s.Code,
+                    PresentDaysCount = attendances.Count(a => a.StudentId == s.Id),
+                    AbsentDaysCount = totalDays - attendances.Count(a => a.StudentId == s.Id),
+                    AttendancePercentage = totalDays > 0 ? (double)attendances.Count(a => a.StudentId == s.Id) / totalDays * 100 : 0
+                }).ToList()
+            };
+        }
+
+        #endregion
+
+        #region Utility Methods
+
+        public async Task<bool> IsStudentPresentAsync(int studentId, DateTime date)
+        {
+            return await _context.StudentAttendances
+                .AnyAsync(sa => sa.StudentId == studentId &&
+                               sa.Date == date.Date &&
+                               !sa.IsDeleted);
+        }
+
+        public async Task<StudentAttendanceSummary> GetStudentAttendanceSummaryAsync(int studentId, DateTime startDate, DateTime endDate)
+        {
+            var student = await _context.Students.FindAsync(studentId);
+            if (student == null) return null;
+
+            var attendances = await _context.StudentAttendances
+                .Where(sa => sa.StudentId == studentId &&
+                           sa.Date >= startDate.Date &&
+                           sa.Date <= endDate.Date &&
+                           !sa.IsDeleted)
+                .ToListAsync();
+
+            var absences = await _context.StudentAbsents
+                .Include(sa => sa.AbsenceReason)
+                .Where(sa => sa.StudentId == studentId &&
+                           sa.Date.Date >= startDate.Date &&
+                           sa.Date.Date <= endDate.Date &&
+                           !sa.IsDeleted)
+                .ToListAsync();
+
+            var totalDays = (endDate.Date - startDate.Date).Days + 1;
+            var presentDays = attendances.Count;
+            var absentDays = totalDays - presentDays;
+            var fieldAbsentDays = absences.Count(a => a.IsFieldAttendance);
+
+            // Create attendance details for each day
+            var attendanceDetails = new List<AttendanceDetail>();
+            for (var date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))
+            {
+                var dayAttendance = attendances.FirstOrDefault(a => a.Date == date);
+                var dayAbsence = absences.FirstOrDefault(a => a.Date.Date == date);
+
+                attendanceDetails.Add(new AttendanceDetail
+                {
+                    Date = date,
+                    IsDailyPresent = dayAttendance != null,
+                    IsFieldPresent = dayAttendance != null && dayAbsence == null,
+                    AbsenceReason = dayAbsence?.AbsenceReason?.Name,
+                    WithoutIncentive = dayAbsence?.AttendanceType == 1
+                });
+            }
+
+            return new StudentAttendanceSummary
+            {
+                StudentId = studentId,
+                StudentName = student.Name,
+                StudentCode = student.Code,
+                TotalDays = totalDays,
+                PresentDays = presentDays,
+                AbsentDays = absentDays,
+                FieldAbsentDays = fieldAbsentDays,
+                AttendancePercentage = totalDays > 0 ? (double)presentDays / totalDays * 100 : 0,
+                AttendanceDetails = attendanceDetails
             };
         }
 
         #endregion
     }
 
-    // Helper Classes for Attendance Report
+    // Report Models
     public class ClassAttendanceReport
     {
         public int ClassId { get; set; }
         public string ClassName { get; set; }
         public DateTime Date { get; set; }
-        public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public List<AttendanceItem> AttendanceItems { get; set; } = new List<AttendanceItem>();
         public int TotalStudents { get; set; }
-        public int PresentCount { get; set; }
-        public int AbsentCount { get; set; }
-        public double AttendancePercentage => TotalStudents > 0 ? (double)PresentCount / TotalStudents * 100 : 0;
+        public int PresentStudents { get; set; }
+        public int AbsentStudents { get; set; }
+        public int FieldAbsentStudents { get; set; }
+        public int ExitRequestsCount { get; set; }
+        public double AttendancePercentage { get; set; }
+        public List<StudentAttendanceDetail> StudentDetails { get; set; } = new List<StudentAttendanceDetail>();
     }
 
-    public class AttendanceItem
+    public class StudentAttendanceDetail
     {
-        public Student Student { get; set; }
-        public AttendanceStatus AttendanceStatus { get; set; }
-        public string State { get; set; } // For present students
-        public string AbsenceReason { get; set; } // For absent students
-        public int? AttendanceType { get; set; } // For absent students
-        public string Teacher { get; set; } // Teacher who marked the absence
-        public DateTime Date { get; set; }
-    }
-
-    public enum AttendanceStatus
-    {
-        Present,
-        Absent
+        public int StudentId { get; set; }
+        public string StudentName { get; set; }
+        public string StudentCode { get; set; }
+        public bool IsPresent { get; set; }
+        public bool IsFieldAbsent { get; set; }
+        public string AbsenceReason { get; set; }
+        public bool HasExitRequest { get; set; }
+        public int? ExitRequestStatus { get; set; }
+        public int PresentDaysCount { get; set; }
+        public int AbsentDaysCount { get; set; }
+        public double AttendancePercentage { get; set; }
     }
 }
-

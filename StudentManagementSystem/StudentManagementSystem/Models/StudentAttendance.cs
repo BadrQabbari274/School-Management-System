@@ -14,7 +14,7 @@ namespace StudentManagementSystem.Models
 
         public bool IsDeleted { get; set; } = false;
         public int? CreatedBy { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime? Date { get; set; } = DateTime.Now;
         public int? StudentId { get; set; }
 
         // Navigation Properties

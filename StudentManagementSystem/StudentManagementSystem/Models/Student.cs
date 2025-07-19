@@ -53,14 +53,14 @@ namespace StudentManagementSystem.Models
         public string Governarate { get; set; }
         [Required]
         [StringLength(250)]
-        public string Picture_Profile { get; set; }
+        public string? Picture_Profile { get; set; }
         [Required]
         [StringLength(100)]
-        public string birth_Certificate { get; set; }
+        public string? birth_Certificate { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string Code { get; set; }
+        public string? Code { get; set; }
         public bool IsActive { get; set; } = true;
         public int? CreatedBy { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;

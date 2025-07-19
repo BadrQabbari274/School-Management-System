@@ -64,8 +64,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+             
                     // Set the created by user
                     grade.CreatedBy = GetCurrentUserId();
                     grade.Date = DateTime.Now;
@@ -74,10 +73,9 @@ namespace StudentManagementSystem.Controllers
                     await _gradeService.CreateAcademicYearAsync(grade);
                     SetSuccessMessage("تم إضافة المرحلة الدراسية بنجاح");
                     return RedirectToAction(nameof(Index));
-                }
+                
 
-                SetErrorMessage("يرجى التحقق من البيانات المدخلة");
-                return View(grade);
+             
             }
             catch (Exception ex)
             {
@@ -119,8 +117,7 @@ namespace StudentManagementSystem.Controllers
 
             try
             {
-                if (ModelState.IsValid)
-                {
+               
                     // Get the existing grade to preserve some properties
                     var existingGrade = await _gradeService.GetAcademicYearByIdAsync(id);
                     if (existingGrade == null)
@@ -137,10 +134,7 @@ namespace StudentManagementSystem.Controllers
                     await _gradeService.UpdateAcademicYearAsync(existingGrade);
                     SetSuccessMessage("تم تحديث المرحلة الدراسية بنجاح");
                     return RedirectToAction(nameof(Index));
-                }
-
-                SetErrorMessage("يرجى التحقق من البيانات المدخلة");
-                return View(grade);
+               
             }
             catch (Exception ex)
             {

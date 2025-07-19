@@ -232,7 +232,18 @@
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                     </div>
-
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="MaxStudents" class="form-label">
+                                 السعة <span class="required">*</span>
+                            </label>
+                            <div class="input-group">
+                                <input asp-for="MaxStudents" class="form-control" placeholder="ادخل السعه" required />
+                                <i class="fas fa-graduation-cap form-icon"></i>
+                            </div>
+                            <span asp-validation-for="MaxStudents" class="text-danger"></span>
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="FieldId" class="form-label">التخصص</label>

@@ -78,12 +78,32 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+         
+                    // استخراج البيانات من الرقم القومي
+                    var nationalIdData = ExtractNationalIdData(student.Natrual_Id);
+                    if (nationalIdData.IsValid)
+                    {
+                        student.Date_of_birth = nationalIdData.BirthDate.ToString();
+                        student.Governarate = nationalIdData.Governorate;
+                    }
+                    else
+                    {
+                        SetErrorMessage("الرقم القومي غير صحيح");
+                        await PopulateViewBag();
+                        return View(student);
+                    }
+
+                    // Set created by current user
+                    student.CreatedBy = GetCurrentUserId();
+                    student.Date = DateTime.Now;
+
+                    // إنشاء الطالب أولاً للحصول على الـ ID
+                    await _studentService.CreateStudentAsync(student);
+
                     // Handle Picture Profile Upload
                     if (pictureProfile != null && pictureProfile.Length > 0)
                     {
-                        var profilePicturePath = await SaveFileAsync(pictureProfile, "Picture_Profile");
+                        var profilePicturePath = await SaveFileAsync(pictureProfile, "profile", student.Id, student.Name);
                         if (profilePicturePath != null)
                         {
                             student.Picture_Profile = profilePicturePath;
@@ -99,7 +119,7 @@ namespace StudentManagementSystem.Controllers
                     // Handle Birth Certificate Upload
                     if (birthCertificate != null && birthCertificate.Length > 0)
                     {
-                        var birthCertificatePath = await SaveFileAsync(birthCertificate, "birth_Certificate");
+                        var birthCertificatePath = await SaveFileAsync(birthCertificate, "certificate", student.Id, student.Name);
                         if (birthCertificatePath != null)
                         {
                             student.birth_Certificate = birthCertificatePath;
@@ -112,17 +132,12 @@ namespace StudentManagementSystem.Controllers
                         }
                     }
 
-                    // Set created by current user
-                    student.CreatedBy = GetCurrentUserId();
-                    student.Date = DateTime.Now;
+                    // تحديث الطالب مع مسارات الصور
+                    await _studentService.UpdateStudentAsync(student);
 
-                    await _studentService.CreateStudentAsync(student);
                     SetSuccessMessage("تم إضافة الطالب بنجاح");
                     return RedirectToAction(nameof(Index));
-                }
-
-                await PopulateViewBag();
-                return View(student);
+      
             }
             catch (Exception ex)
             {
@@ -177,13 +192,27 @@ namespace StudentManagementSystem.Controllers
                         return RedirectToAction(nameof(Index));
                     }
 
+                    // استخراج البيانات من الرقم القومي
+                    var nationalIdData = ExtractNationalIdData(student.Natrual_Id);
+                    if (nationalIdData.IsValid)
+                    {
+                        student.Date_of_birth = nationalIdData.BirthDate.ToString();
+                        student.Governarate = nationalIdData.Governorate;
+                    }
+                    else
+                    {
+                        SetErrorMessage("الرقم القومي غير صحيح");
+                        await PopulateViewBag();
+                        return View(student);
+                    }
+
                     // Handle Picture Profile Update
                     if (pictureProfile != null && pictureProfile.Length > 0)
                     {
                         // Delete old file if exists
                         DeleteFileIfExists(existingStudent.Picture_Profile);
 
-                        var profilePicturePath = await SaveFileAsync(pictureProfile, "Picture_Profile");
+                        var profilePicturePath = await SaveFileAsync(pictureProfile, "profile", student.Id, student.Name);
                         if (profilePicturePath != null)
                         {
                             student.Picture_Profile = profilePicturePath;
@@ -207,7 +236,7 @@ namespace StudentManagementSystem.Controllers
                         // Delete old file if exists
                         DeleteFileIfExists(existingStudent.birth_Certificate);
 
-                        var birthCertificatePath = await SaveFileAsync(birthCertificate, "birth_Certificate");
+                        var birthCertificatePath = await SaveFileAsync(birthCertificate, "certificate", student.Id, student.Name);
                         if (birthCertificatePath != null)
                         {
                             student.birth_Certificate = birthCertificatePath;
@@ -290,8 +319,8 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
-        // Helper method to save files
-        private async Task<string> SaveFileAsync(IFormFile file, string subfolder)
+        // Helper method to save files with student ID and name
+        private async Task<string> SaveFileAsync(IFormFile file, string fileType, int studentId, string studentName)
         {
             try
             {
@@ -306,15 +335,16 @@ namespace StudentManagementSystem.Controllers
                     return null;
                 }
 
-                // Create directory if it doesn't exist
-                var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "upload", "image", subfolder);
+                // Create directory structure: upload/studentId/
+                var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "upload", studentId.ToString());
                 if (!Directory.Exists(uploadPath))
                 {
                     Directory.CreateDirectory(uploadPath);
                 }
 
-                // Generate unique filename
-                var fileName = $"{Guid.NewGuid()}{fileExtension}";
+                // Generate filename: studentId_studentName_fileType.extension
+                var cleanStudentName = CleanFileName(studentName);
+                var fileName = $"{studentId}_{cleanStudentName}_{fileType}{fileExtension}";
                 var filePath = Path.Combine(uploadPath, fileName);
 
                 // Save file
@@ -324,12 +354,23 @@ namespace StudentManagementSystem.Controllers
                 }
 
                 // Return relative path for database storage
-                return Path.Combine("upload", "image", subfolder, fileName).Replace("\\", "/");
+                return Path.Combine("upload", studentId.ToString(), fileName).Replace("\\", "/");
             }
             catch (Exception)
             {
                 return null;
             }
+        }
+
+        // Helper method to clean filename
+        private string CleanFileName(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+                return "student";
+
+            var invalidChars = Path.GetInvalidFileNameChars();
+            var cleanName = new string(fileName.Where(c => !invalidChars.Contains(c)).ToArray());
+            return string.IsNullOrEmpty(cleanName) ? "student" : cleanName.Replace(" ", "_");
         }
 
         // Helper method to delete file if exists
@@ -366,6 +407,84 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
+        // Helper method to extract data from Egyptian National ID
+        private (DateTime BirthDate, string Governorate, bool IsValid) ExtractNationalIdData(string nationalId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(nationalId) || nationalId.Length != 14 || !nationalId.All(char.IsDigit))
+                {
+                    return (DateTime.MinValue, "", false);
+                }
+
+                // استخراج تاريخ الميلاد (أول 6 أرقام)
+                var birthYearStr = nationalId.Substring(1, 2);
+                var birthMonthStr = nationalId.Substring(3, 2);
+                var birthDayStr = nationalId.Substring(5, 2);
+
+                // تحديد القرن بناء على الرقم الأول - التصحيح هنا
+                int century = nationalId[0] == '2' ? 1900 : 2000;
+                int year = century + int.Parse(birthYearStr);
+                int month = int.Parse(birthMonthStr);
+                int day = int.Parse(birthDayStr);
+
+                // التحقق من صحة التاريخ
+                if (month < 1 || month > 12 || day < 1 || day > 31)
+                {
+                    return (DateTime.MinValue, "", false);
+                }
+
+                var birthDate = new DateTime(year, month, day);
+
+                // استخراج كود المحافظة (الرقم 8 و 9)
+                var governorateCode = nationalId.Substring(7, 2);
+                var governorate = GetGovernorateByCode(governorateCode);
+
+                return (birthDate, governorate, true);
+            }
+            catch
+            {
+                return (DateTime.MinValue, "", false);
+            }
+        }
+        // Helper method to get governorate name by code
+        private string GetGovernorateByCode(string code)
+        {
+            var governorates = new Dictionary<string, string>
+            {
+                {"01", "القاهرة"},
+                {"02", "الإسكندرية"},
+                {"03", "بورسعيد"},
+                {"04", "السويس"},
+                {"11", "دمياط"},
+                {"12", "الدقهلية"},
+                {"13", "الشرقية"},
+                {"14", "القليوبية"},
+                {"15", "كفر الشيخ"},
+                {"16", "الغربية"},
+                {"17", "المنوفية"},
+                {"18", "البحيرة"},
+                {"19", "الإسماعيلية"},
+                {"21", "الجيزة"},
+                {"22", "بني سويف"},
+                {"23", "الفيوم"},
+                {"24", "المنيا"},
+                {"25", "أسيوط"},
+                {"26", "سوهاج"},
+                {"27", "قنا"},
+                {"28", "أسوان"},
+                {"29", "الأقصر"},
+                {"31", "البحر الأحمر"},
+                {"32", "الوادي الجديد"},
+                {"33", "مطروح"},
+                {"34", "شمال سيناء"},
+                {"35", "جنوب سيناء"},
+                {"88", "خارج الجمهورية"}
+            };
+
+            return governorates.ContainsKey(code) ? governorates[code] : "غير معروف";
+        }
+
         // GET: Student/GetStudentsByClass/5
         [HttpGet]
         public async Task<IActionResult> GetStudentsByClass(int classId)
@@ -375,8 +494,7 @@ namespace StudentManagementSystem.Controllers
                 var students = await _studentService.GetStudentsByClassAsync(classId);
                 return Json(students.Select(s => new {
                     id = s.Id,
-                    name = s.Name,
-                    code = s.Code
+                    name = s.Name
                 }));
             }
             catch (Exception ex)

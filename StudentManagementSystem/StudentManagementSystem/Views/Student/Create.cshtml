@@ -157,12 +157,12 @@
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                @*         <div class="col-md-6 mb-3">
                             @Html.LabelFor(model => model.Code, "كود الطالب", new { @class = "form-label" })
                             <span class="required">*</span>
                             @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل كود الطالب" } })
                             @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                        </div>
+                        </div> *@
                     </div>
 
                     <div class="row">
@@ -182,13 +182,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Date_of_birth, "تاريخ الميلاد", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.EditorFor(model => model.Date_of_birth, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                            @Html.ValidationMessageFor(model => model.Date_of_birth, "", new { @class = "text-danger" })
-                        </div>
-
+        
                         <div class="col-md-6 mb-3">
                             @Html.LabelFor(model => model.ClassId, "الفصل", new { @class = "form-label" })
                             <span class="required">*</span>
@@ -204,13 +198,7 @@
                             @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل العنوان" } })
                             @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
                         </div>
-
-                        <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Governarate, "المحافظة", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.EditorFor(model => model.Governarate, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل المحافظة" } })
-                            @Html.ValidationMessageFor(model => model.Governarate, "", new { @class = "text-danger" })
-                        </div>
+      
                     </div>
 
                     <!-- بيانات الوالدين -->

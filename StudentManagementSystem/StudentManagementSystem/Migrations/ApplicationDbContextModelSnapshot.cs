@@ -59,6 +59,14 @@ namespace StudentManagementSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsForFieldAttendance")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -88,6 +96,9 @@ namespace StudentManagementSystem.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("MaxStudents")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -158,7 +169,6 @@ namespace StudentManagementSystem.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -381,6 +391,9 @@ namespace StudentManagementSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<TimeSpan?>("ActualReturnTime")
+                        .HasColumnType("time");
+
                     b.Property<int?>("AttendanceId")
                         .HasColumnType("int");
 
@@ -390,19 +403,46 @@ namespace StudentManagementSystem.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<TimeSpan>("ExitTime")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan?>("ExpectedReturnTime")
+                        .HasColumnType("time");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("ProcessedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ProcessedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProcessingNotes")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Reason")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AttendanceId");
 
                     b.HasIndex("CreatedBy");
+
+                    b.HasIndex("ProcessedBy");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("RequestExits");
                 });
@@ -428,17 +468,11 @@ namespace StudentManagementSystem.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-
-                    b.Property<int?>("ClassId")
-                        .HasColumnType("int");
-
-
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
-
 
                     b.Property<string>("Date_of_birth")
                         .IsRequired()
@@ -468,16 +502,10 @@ namespace StudentManagementSystem.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
 
                     b.Property<string>("Natrual_Id")
                         .IsRequired()
@@ -509,7 +537,6 @@ namespace StudentManagementSystem.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-
                     b.HasKey("Id");
 
                     b.HasIndex("ClassId");
@@ -539,10 +566,18 @@ namespace StudentManagementSystem.Migrations
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
+                    b.Property<string>("CustomReasonDetails")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFieldAttendance")
                         .HasColumnType("bit");
 
                     b.Property<int?>("StudentGrade")
@@ -580,7 +615,7 @@ namespace StudentManagementSystem.Migrations
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -810,9 +845,21 @@ namespace StudentManagementSystem.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedBy");
 
+                    b.HasOne("StudentManagementSystem.Models.Employee", "ProcessedByUser")
+                        .WithMany()
+                        .HasForeignKey("ProcessedBy");
+
+                    b.HasOne("StudentManagementSystem.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
+
                     b.Navigation("Attendance");
 
                     b.Navigation("CreatedByUser");
+
+                    b.Navigation("ProcessedByUser");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("StudentManagementSystem.Models.Student", b =>

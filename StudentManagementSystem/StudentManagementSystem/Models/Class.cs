@@ -12,6 +12,7 @@ namespace StudentManagementSystem.Models
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+        public int? MaxStudents { get; set; }
 
         public bool IsActive { get; set; } = true;
         public int? CreatedBy { get; set; }

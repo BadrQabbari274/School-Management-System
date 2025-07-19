@@ -9,149 +9,153 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = StudentManagementSystem
 build_property.RootNamespace = StudentManagementSystem
-build_property.ProjectDir = D:\Midany\StudentManagementSystem\StudentManagementSystem\
+build_property.ProjectDir = C:\Users\Mohamed Reda\Desktop\Git\StudentManagementSystem\StudentManagementSystem\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Midany\StudentManagementSystem\StudentManagementSystem
+build_property.MSBuildProjectDirectory = C:\Users\Mohamed Reda\Desktop\Git\StudentManagementSystem\StudentManagementSystem
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Account/ForgetPassword.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Account/ForgetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3JnZXRQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Account/Login.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Account/Register.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/stusentsAttendance.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxzdHVzZW50c0F0dGVuZGFuY2UuY3NodG1s
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Attendance/DailyAttendance - Copy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxEYWlseUF0dGVuZGFuY2UgLSBDb3B5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Class/Create.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Attendance/DailyAttendance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxEYWlseUF0dGVuZGFuY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Class/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Class/Details.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Class/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Class/Edit.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Class/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Class/Index.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Class/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_J.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_J.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcQ2xhc3Nlc19KLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_W.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_W.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcQ2xhc3Nlc19XLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Compatences/students.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Compatences/students.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcc3R1ZGVudHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Field/AssignEmployee.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Field/AssignEmployee.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcQXNzaWduRW1wbG95ZWUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Field/Create.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Field/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Field/Delete.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Field/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Field/Details.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Field/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Field/Edit.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Field/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Field/Index.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Field/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Grade/Create.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Grade/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Grade/Delete.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Grade/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Grade/Details.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Grade/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Grade/Edit.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Grade/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Grade/Index.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Grade/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Home/Index.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Home/Privacy.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Shared/Error.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Student/Create.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Student/Details.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Student/Edit.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Student/Index.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Student/Index2.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/Index2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleDIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/_ViewImports.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/_ViewStart.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Midany/StudentManagementSystem/StudentManagementSystem/Views/Shared/_Layout.cshtml]
+[C:/Users/Mohamed Reda/Desktop/Git/StudentManagementSystem/StudentManagementSystem/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-kqem6kkl2p
