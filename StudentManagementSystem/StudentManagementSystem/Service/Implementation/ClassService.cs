@@ -17,6 +17,7 @@ namespace StudentManagementSystem.Service.Implementation
         public async Task<IEnumerable<Class>> GetAllClassesAsync()
         {
             return await _context.Classes
+                .Include(c => c.Students)
                 .Include(c => c.CreatedByUser)
                 .Include(c => c.Field)
                 .Where(c => c.IsActive)
