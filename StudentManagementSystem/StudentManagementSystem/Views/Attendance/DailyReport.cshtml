@@ -1,0 +1,185 @@
+﻿@model StudentManagementSystem.Services.ClassAttendanceReport
+@{
+    ViewData["Title"] = "Daily Attendance Report";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/attendance.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js">
+
+<div class="container py-5">
+    <div class="attendance-container">
+        <div class="attendance-header">
+            <h1 class="attendance-title">Daily Attendance Report</h1>
+            <div>
+                <span class="badge badge-primary">@Model.Date.ToString("dddd, MMMM dd, yyyy")</span>
+                <span class="badge badge-secondary ml-2">@Model.ClassName</span>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Attendance Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="attendanceChart"></canvas>
+                        </div>
+                        <div class="text-center mt-3">
+                            <h3>@Model.AttendancePercentage.ToString("0.00")%</h3>
+                            <p class="text-muted">Attendance Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Statistics</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value text-success">@Model.PresentStudents</div>
+                                <div class="stat-label">Present</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value text-danger">@Model.AbsentStudents</div>
+                                <div class="stat-label">Absent</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value text-warning">@Model.FieldAbsentStudents</div>
+                                <div class="stat-label">Field Absent</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value text-info">@Model.ExitRequestsCount</div>
+                                <div class="stat-label">Exit Requests</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Student Details</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Code</th>
+                                <th>Status</th>
+                                <th>Absence Reason</th>
+                                <th>Exit Request</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var student in Model.StudentDetails.OrderBy(s => s.StudentName))
+                            {
+                                <tr>
+                                    <td>@student.StudentName</td>
+                                    <td>@student.StudentCode</td>
+                                    <td>
+                                        @if (student.IsPresent)
+                                        {
+                                            <span class="badge badge-success">Present</span>
+                                        }
+                                        else if (student.IsFieldAbsent)
+                                        {
+                                            <span class="badge badge-warning">Field Absent</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Absent</span>
+                                        }
+                                    </td>
+                                    <td>@(student.AbsenceReason ?? "-")</td>
+                                    <td>
+                                        @if (student.HasExitRequest)
+                                        {
+                                            var statusText = student.ExitRequestStatus switch
+                                            {
+                                                0 => "Pending",
+                                                1 => "Approved",
+                                                2 => "Rejected",
+                                                _ => "Unknown"
+                                            };
+
+                                            var statusClass = student.ExitRequestStatus switch
+                                            {
+                                                0 => "warning",
+                                                1 => "success",
+                                                2 => "danger",
+                                                _ => "secondary"
+                                            };
+
+                                            <span class="badge badge-@statusClass">@statusText</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">None</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="@Url.Action("DailyAttendance", new { classId = Model.ClassId, date = Model.Date })"
+               class="btn btn-primary">
+                <i class="fas fa-edit"></i> Edit Attendance
+            </a>
+            <button class="btn btn-success ml-2" onclick="window.print()">
+                <i class="fas fa-print"></i> Print Report
+            </button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Attendance chart
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+            const attendanceChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Present', 'Absent', 'Field Absent'],
+                    datasets: [{
+                        data: [@Model.PresentStudents, @Model.AbsentStudents, @Model.FieldAbsentStudents],
+                        backgroundColor: [
+                            '#28a745',
+                            '#dc3545',
+                            '#ffc107'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutoutPercentage: 70,
+                    legend: {
+                        position: 'bottom',
+                        rtl: true
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+        });
+    </script>
+}

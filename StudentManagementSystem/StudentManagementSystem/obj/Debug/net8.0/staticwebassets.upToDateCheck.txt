@@ -1,3 +1,5 @@
+wwwroot\css\attendance.css
+wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -61,4 +63,3 @@ wwwroot\upload\3\3_Mohamed_Reda_certificate.png
 wwwroot\upload\3\3_Mohamed_Reda_profile.png
 wwwroot\upload\4\4_Mohamed_Reda_certificate.png
 wwwroot\upload\4\4_Mohamed_Reda_profile.png
-wwwroot\css\site.css

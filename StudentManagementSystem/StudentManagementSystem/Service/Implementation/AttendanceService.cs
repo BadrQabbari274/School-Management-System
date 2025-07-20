@@ -65,7 +65,7 @@ namespace StudentManagementSystem.Services
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                // Get all students in the class
+                // Get all active students in the class
                 var allStudents = await _context.Students
                     .Where(s => s.ClassId == classId && s.IsActive)
                     .Select(s => s.Id)
@@ -91,17 +91,46 @@ namespace StudentManagementSystem.Services
                     _context.StudentAttendances.Add(attendance);
                 }
 
+                // Get absent students (students not in present list)
+                var absentStudentIds = allStudents.Except(presentStudentIds).ToList();
+
+                // Remove existing absent records for the day (to avoid duplicates)
+                var existingAbsentRecords = await _context.StudentAbsents
+                    .Where(sa => sa.Date == date.Date &&
+                               allStudents.Contains(sa.StudentId.Value) &&
+                               !sa.IsFieldAttendance)
+                    .ToListAsync();
+
+                _context.StudentAbsents.RemoveRange(existingAbsentRecords);
+
+                // Add absent records for absent students
+                foreach (var studentId in absentStudentIds)
+                {
+                    var Student = _context.Students.Include(e => e.Class).ThenInclude(e => e.Field).ThenInclude(e => e.Grade).FirstOrDefault(f => f.Id == studentId);
+                    var absentRecord = new StudentAbsent
+                    {
+                        StudentId = studentId,
+                        StudentGrade =Student.Class.Field.Grade.Id,
+                        Date = date,
+                        AttendanceType = 0, // Normal absence (not field attendance)
+                        IsFieldAttendance = false,
+                        CreatedBy = createdBy,
+                       TeacherId  = createdBy
+                    };
+                    _context.StudentAbsents.Add(absentRecord);
+                }
+
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 await transaction.RollbackAsync();
+                // Log the exception if needed
                 return false;
             }
         }
-
         public async Task<List<StudentAttendance>> GetDailyAttendanceByClassAndDateAsync(int classId, DateTime date)
         {
             var studentIds = await _context.Students
@@ -508,6 +537,7 @@ namespace StudentManagementSystem.Services
                                sa.Date == date.Date &&
                                !sa.IsDeleted);
         }
+
 
         public async Task<StudentAttendanceSummary> GetStudentAttendanceSummaryAsync(int studentId, DateTime startDate, DateTime endDate)
         {
