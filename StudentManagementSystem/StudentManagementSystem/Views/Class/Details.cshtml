@@ -22,13 +22,13 @@
         }
 
         .header-section {
-            background: linear-gradient(135deg, #ff8a50, #ff6b35); /* Orange gradient */
+            background: linear-gradient(135deg, #ff8a50, #ff6b35);
             color: white;
             padding: 25px 0;
             margin-bottom: 30px;
             border-radius: 0 0 20px 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            position: relative; /* For positioning back button */
+            position: relative;
         }
 
         .header-title {
@@ -41,25 +41,25 @@
 
         .back-button {
             position: absolute;
-            right: 25px; /* Adjusted for consistency with other styles */
+            right: 25px;
             top: 50%;
             transform: translateY(-50%);
             background: rgba(255,255,255,0.2);
             border: none;
             color: white;
-            padding: 10px 18px; /* Slightly adjusted padding */
+            padding: 10px 18px;
             border-radius: 8px;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px; /* Space between icon and text */
+            gap: 8px;
         }
 
             .back-button:hover {
                 background: rgba(255,255,255,0.3);
                 color: white;
-                transform: translateY(-50%) scale(1.05); /* Slight scale effect */
+                transform: translateY(-50%) scale(1.05);
             }
 
         .container {
@@ -72,11 +72,11 @@
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             border: none;
-            overflow: hidden; /* Ensures rounded corners apply to content */
+            overflow: hidden;
         }
 
         .card-header {
-            background: linear-gradient(135deg, #6c757d, #495057); /* Dark gray gradient for header */
+            background: linear-gradient(135deg, #6c757d, #495057);
             color: white;
             padding: 25px 30px;
             border-bottom: none;
@@ -102,6 +102,7 @@
         .card-tools {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
             .card-tools .btn {
@@ -114,12 +115,13 @@
                 gap: 8px;
                 transition: all 0.3s ease;
                 box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-                color: white; /* Default for gradient buttons */
+                color: white;
+                border: none;
             }
 
             .card-tools .btn-warning {
-                background: linear-gradient(135deg, #ffc107, #e0a800); /* Yellow gradient */
-                color: #333; /* Darker text for contrast */
+                background: linear-gradient(135deg, #ffc107, #e0a800);
+                color: #333;
             }
 
                 .card-tools .btn-warning:hover {
@@ -129,7 +131,7 @@
                 }
 
             .card-tools .btn-secondary {
-                background: linear-gradient(135deg, #6c757d, #5a6268); /* Darker grey gradient */
+                background: linear-gradient(135deg, #6c757d, #5a6268);
             }
 
                 .card-tools .btn-secondary:hover {
@@ -139,7 +141,7 @@
                 }
 
             .card-tools .btn-success {
-                background: linear-gradient(135deg, #28a745, #20c997); /* Green gradient */
+                background: linear-gradient(135deg, #28a745, #20c997);
             }
 
                 .card-tools .btn-success:hover {
@@ -148,6 +150,23 @@
                     box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
                 }
 
+            .card-tools .btn-danger {
+                background: linear-gradient(135deg, #dc3545, #c82333);
+            }
+
+                .card-tools .btn-danger:hover {
+                    background: linear-gradient(135deg, #c82333, #a71e2a);
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
+                }
+
+            .card-tools .btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none !important;
+                box-shadow: none !important;
+            }
+
         .card-body {
             padding: 30px;
         }
@@ -155,7 +174,7 @@
         .info-box {
             display: flex;
             align-items: center;
-            background-color: #f0f2f5; /* Light grey background for info boxes */
+            background-color: #f0f2f5;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
@@ -177,10 +196,9 @@
             font-size: 28px;
             color: white;
             flex-shrink: 0;
-            margin-left: 20px; /* Adjusted for RTL */
+            margin-left: 20px;
         }
 
-            /* Specific icon background colors */
             .info-box-icon.bg-primary {
                 background: linear-gradient(135deg, #007bff, #0056b3);
             }
@@ -205,10 +223,9 @@
                 background: linear-gradient(135deg, #6c757d, #5a6268);
             }
 
-
         .info-box-content {
             flex-grow: 1;
-            text-align: right; /* Adjusted for RTL */
+            text-align: right;
         }
 
         .info-box-text {
@@ -231,9 +248,8 @@
             border-radius: 5px;
         }
 
-        /* Students Table Styles */
         .students-table-card .card-header {
-            background: linear-gradient(135deg, #007bff, #0056b3); /* Blue gradient for students header */
+            background: linear-gradient(135deg, #007bff, #0056b3);
         }
 
         .students-table-card .card-title {
@@ -390,7 +406,7 @@
         }
 
             .card-tools .btn {
-                width: 48%; /* Make buttons take up more space */
+                width: 48%;
                 justify-content: center;
                 font-size: 14px;
                 padding: 8px 15px;
@@ -404,7 +420,7 @@
         }
 
         .info-box-icon {
-            margin: 0 0 10px 0; /* Center icon above text */
+            margin: 0 0 10px 0;
         }
 
         .info-box-content {
@@ -481,8 +497,8 @@
                             <form method="post" action="@Url.Action("GenerateStudentCodes")" style="display: inline;">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="classId" value="@Model.Id" />
-                                <button type="submit" class="btn btn-success" onclick="return confirm('هل تريد توليد أكواد الطلاب؟ لا يمكن التراجع عن هذه العملية.')">
-                                    <i class="fas fa-code"></i>تأكيد اكتمال الفصل 
+                                <button type="submit" class="btn btn-success" onclick="return confirm('هل تريد تأكيد اكتمال الفصل؟ لا يمكن التراجع عن هذه العملية.')">
+                                    <i class="fas fa-code"></i>تأكيد اكتمال الفصل
                                 </button>
                             </form>
                         }
@@ -491,6 +507,15 @@
                             <button type="button" class="btn btn-secondary" disabled>
                                 <i class="fas fa-check"></i> تم تأكيد اكتمال الفصل
                             </button>
+
+                            <!-- زر Reset لإعادة توليد الأكواد -->
+                            <form method="post" action="@Url.Action("ResetStudentCodes")" style="display: inline;">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="classId" value="@Model.Id" />
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('تحذير: هذا سيؤدي إلى إعادة تعيين الفصل. هل أنت متأكد من المتابعة؟')">
+                                    <i class="fas fa-redo"></i> إعادة تعيين الفصل
+                                </button>
+                            </form>
                         }
                     }
                 </div>

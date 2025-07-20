@@ -21,15 +21,15 @@ namespace StudentManagementSystem.Service.Implementation
                 .Include(c => c.CreatedByUser)
                 .Include(c => c.Field)
                 .Where(c => c.IsActive)
+                .OrderBy(c => c.Name)
                 .ToListAsync();
         }
-
         public async Task<Class> GetClassByIdAsync(int id)
         {
             return await _context.Classes
                 .Include(c => c.CreatedByUser)
                 .Include(c => c.Field)
-                .Include(c => c.Students)
+                .Include(c => c.Students.OrderBy(s => s.Name))
                 .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
         }
 

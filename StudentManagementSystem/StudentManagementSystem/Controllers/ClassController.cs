@@ -17,6 +17,7 @@ namespace StudentManagementSystem.Controllers
         private readonly IUserService _employeeService; 
         private readonly IStudentService _studentService;
 
+
         public ClassController(IClassService classService, IFieldService fieldService, IUserService employeeService, IStudentService studentService)
         {
             _classService = classService;
@@ -173,7 +174,7 @@ namespace StudentManagementSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Code generation function for students
+        // Generates unique codes for students within a class, reserving codes based on MaxStudents per class.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -181,6 +182,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
+                // Ensure _classService.GetClassByIdAsync(id) loads the Students collection (e.g., using .Include()).
                 var classEntity = await _classService.GetClassByIdAsync(classId);
                 if (classEntity == null)
                 {
@@ -188,42 +190,42 @@ namespace StudentManagementSystem.Controllers
                     return RedirectToAction(nameof(Details), new { id = classId });
                 }
 
-                // Ensure students are eager loaded or accessible
-                // You might need to adjust your GetClassByIdAsync to include Students
-                // For example: _context.Classes.Include(c => c.Students).FirstOrDefaultAsync(c => c.Id == id)
-                var students = classEntity.Students?.Where(s => s.IsActive).ToList();
-                if (students == null || !students.Any())
+                var studentsInClass = classEntity.Students?.Where(s => s.IsActive).ToList();
+
+                if (studentsInClass == null || !studentsInClass.Any())
                 {
-                    SetErrorMessage("لا يوجد طلاب في هذا الفصل");
+                    SetErrorMessage("لا يوجد طلاب نشطون في هذا الفصل لتوليد الأكواد لهم.");
                     return RedirectToAction(nameof(Details), new { id = classId });
                 }
 
-                // Check if any students already have codes.
-                if (students.Any(s => !string.IsNullOrEmpty(s.Code)))
+                // Prevents regeneration if any student in the class already has a code.
+                if (studentsInClass.Any(s => !string.IsNullOrEmpty(s.Code)))
                 {
-                    SetErrorMessage("بعض الطلاب لديهم أكواد بالفعل");
+                    SetErrorMessage("بعض الطلاب في هذا الفصل لديهم أكواد بالفعل. لا يمكن إعادة توليد الأكواد للفصل بالكامل.");
                     return RedirectToAction(nameof(Details), new { id = classId });
                 }
 
-                // Arrange students alphabetically
-                var sortedStudents = students.OrderBy(s => s.Name).ToList();
+                var sortedStudents = studentsInClass.OrderBy(s => s.Name).ToList();
 
-                // Get the next serial number
-                var nextSequenceNumber = await GetNextSequenceNumber();
+                // Gets the base sequence number for this class's block.
+                var baseSequenceNumberForClass = await GetNextSequenceNumberForClass(classId);
 
-                // Generate codes
-                var currentYear = DateTime.Now.Year % 100; // Last two digits of the year
+                var currentYear = DateTime.Now.Year % 100; // Last two digits of the current year.
 
                 for (int i = 0; i < sortedStudents.Count; i++)
                 {
-                    var sequenceNumber = nextSequenceNumber + i;
+                    // Calculates the student's unique sequence number within the class's block.
+                    var sequenceNumber = baseSequenceNumberForClass + i;
+                    // Formats the student code: J03 + last two year digits + 3-digit sequence number.
                     var studentCode = $"J03{currentYear:D2}{sequenceNumber:D3}";
                     sortedStudents[i].Code = studentCode;
 
                     await _studentService.UpdateStudentAsync(sortedStudents[i]);
                 }
 
-                SetSuccessMessage($"تم توليد الأكواد بنجاح لعدد {sortedStudents.Count} طالب");
+                // Use MaxStudents instead of CodesPerClass constant
+                var maxStudentsForClass = classEntity.MaxStudents ?? 25; // Default to 25 if MaxStudents is null
+                SetSuccessMessage($"تم توليد الأكواد بنجاح لعدد {sortedStudents.Count} طالب وتخصيص {maxStudentsForClass} كود للفصل.");
             }
             catch (Exception ex)
             {
@@ -233,29 +235,79 @@ namespace StudentManagementSystem.Controllers
             return RedirectToAction(nameof(Details), new { id = classId });
         }
 
-        // Function to get the next serial number
-        private async Task<int> GetNextSequenceNumber()
+        private async Task<int> GetNextSequenceNumberForClass(int targetClassId)
         {
-            var allStudents = await _studentService.GetAllStudentsAsync();
+            var allClasses = await _classService.GetAllClassesAsync();
 
-            // Get the last used serial number
-            var lastUsedNumber = 0;
-            var currentYear = DateTime.Now.Year % 100;
+            var sortedClasses = allClasses
+                                .OrderBy(c => c.Name)
+                                .ThenBy(c => c.Date)
+                                .ThenBy(c => c.Id)
+                                .ToList();
 
-            foreach (var student in allStudents)
+            int baseSequence = 1;
+
+            foreach (var cls in sortedClasses)
             {
-                if (!string.IsNullOrEmpty(student.Code) && student.Code.StartsWith($"J03{currentYear:D2}"))
+                if (cls.Id == targetClassId)
                 {
-                    // Extract the serial number from the code
-                    var codeString = student.Code.Substring(5); // Ignore J03XX
-                    if (int.TryParse(codeString, out int codeNumber))
-                    {
-                        lastUsedNumber = Math.Max(lastUsedNumber, codeNumber);
-                    }
+                    // Found the target class, return its calculated starting sequence.
+                    return baseSequence;
                 }
+                // For each preceding class, increment the base sequence by the class's MaxStudents (or default to 25).
+                var codesForThisClass = cls.MaxStudents ?? 25; // Default to 25 if MaxStudents is null
+                baseSequence += codesForThisClass;
             }
 
-            return lastUsedNumber + 1;
+            return baseSequence; // Fallback, though targetClassId should always be found.
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> ResetStudentCodes(int classId)
+        {
+            try
+            {
+                var classEntity = await _classService.GetClassByIdAsync(classId);
+                if (classEntity == null)
+                {
+                    SetErrorMessage("الفصل غير موجود");
+                    return RedirectToAction(nameof(Details), new { id = classId });
+                }
+                var studentsInClass = classEntity.Students?.Where(s => s.IsActive).ToList();
+                if (studentsInClass == null || !studentsInClass.Any())
+                {
+                    SetErrorMessage("لا يوجد طلاب نشطون في هذا الفصل لإعادة تعيين أكوادهم.");
+                    return RedirectToAction(nameof(Details), new { id = classId });
+                }
+
+                foreach (var student in studentsInClass)
+                {
+                    student.Code = null;
+                    await _studentService.UpdateStudentAsync(student);
+                }
+
+                var sortedStudents = studentsInClass.OrderBy(s => s.Name).ToList();
+                var baseSequenceNumberForClass = await GetNextSequenceNumberForClass(classId);
+                var currentYear = DateTime.Now.Year % 100;
+
+                for (int i = 0; i < sortedStudents.Count; i++)
+                {
+                    var sequenceNumber = baseSequenceNumberForClass + i;
+                    var studentCode = $"J03{currentYear:D2}{sequenceNumber:D3}";
+                    sortedStudents[i].Code = studentCode;
+                    await _studentService.UpdateStudentAsync(sortedStudents[i]);
+                }
+
+                SetSuccessMessage($"تم إعادة تعيين الأكواد بنجاح لعدد {sortedStudents.Count} طالب في الفصل.");
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage("حدث خطأ أثناء إعادة تعيين الأكواد: " + ex.Message);
+            }
+
+            return RedirectToAction(nameof(Details), new { id = classId });
         }
 
         [HttpGet]
