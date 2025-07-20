@@ -68,7 +68,7 @@ namespace StudentManagementSystem.Models
 
         public DateTime Date { get; set; } = DateTime.Now;
 
-        public int ClassId { get; set; }
+        public int ClassId { get; set; } 
 
         // Navigation Properties
         [ForeignKey("CreatedBy")]

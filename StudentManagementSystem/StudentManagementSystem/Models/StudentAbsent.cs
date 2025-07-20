@@ -23,7 +23,7 @@ namespace StudentManagementSystem.Models
 
         // Additional field for custom absence reason when "Other" is selected
         [StringLength(255)]
-        public string CustomReasonDetails { get; set; }
+        public string? CustomReasonDetails { get; set; }
 
         // Field to indicate if this is a field attendance record
         public bool IsFieldAttendance { get; set; } = false;
