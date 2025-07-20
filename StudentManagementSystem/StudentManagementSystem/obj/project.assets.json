@@ -4024,9 +4024,9 @@
     "restore": {
       "projectUniqueName": "C:\\Users\\sd\\Source\\Repos\\Midany\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
       "projectName": "StudentManagementSystem",
-      "projectPath": "C:\\Users\\sd\\Source\\Repos\\Midany\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-      "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sd\\Source\\Repos\\Midany\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
+      "projectPath": "C:\\Users\\Mohamed Reda\\Desktop\\Git\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+      "packagesPath": "C:\\Users\\Mohamed Reda\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mohamed Reda\\Desktop\\Git\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
