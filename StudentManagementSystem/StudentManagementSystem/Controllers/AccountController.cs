@@ -176,7 +176,7 @@ namespace StudentManagementSystem.Controllers
                     Password = "0000", // Note: Hash password in production
                     RoleId = model.RoleId,
                     IsActive = true,
-                    Email =model.Email,
+                    Email = model.Email,
                     CreatedBy = GetCurrentUserId()
                 };
 

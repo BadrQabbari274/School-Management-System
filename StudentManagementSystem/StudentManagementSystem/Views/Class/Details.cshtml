@@ -30,7 +30,7 @@
             margin-bottom: 30px;
             border-radius: 0 0 20px 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            position: relative; /* Keep relative for back button positioning */
+            position: relative; /* For positioning back button */
         }
 
         .header-title {
@@ -48,8 +48,8 @@
             transform: translateY(-50%);
             background: rgba(255,255,255,0.2);
             border: none;
-            color: #ff6b35;
-            padding: 10px 18px;
+            color: white;
+            padding: 10px 18px; /* Slightly adjusted padding */
             border-radius: 8px;
             transition: all 0.3s ease;
             text-decoration: none;
@@ -60,8 +60,8 @@
 
             .back-button:hover {
                 background: rgba(255,255,255,0.3);
-                color: rgba;
-                transform: translateY(-50%) scale(1.05);
+                color: white;
+                transform: translateY(-50%) scale(1.05); /* Slight scale effect */
             }
 
         .container {
@@ -78,7 +78,7 @@
         }
 
         .card-header {
-            background: linear-gradient(135deg, #ff8a50, #ff6b35); /* Orange gradient */
+            background: linear-gradient(135deg, #6c757d, #495057); /* Dark gray gradient for header */
             color: white;
             padding: 25px 30px;
             border-bottom: none;
@@ -117,22 +117,22 @@
                 gap: 8px;
                 transition: all 0.3s ease;
                 box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-                color: #ff6b35; /* Orange text for white buttons */
-                background-color: white; /* White background for buttons */
-                border: 1px solid #ff6b35; /* Orange border */
+                color: white; /* Default for gradient buttons */
             }
 
-            .card-tools .btn-warning:hover {
-                background-color: #fff5ee; /* Light orange on hover */
-                border-color: #e0522a; /* Darker orange on hover */
-                color: #e0522a; /* Darker orange text on hover */
-                transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+            .card-tools .btn-warning {
+                background: linear-gradient(135deg, #ffc107, #e0a800); /* Yellow gradient */
+                color: #333; /* Darker text for contrast */
             }
+
+                .card-tools .btn-warning:hover {
+                    background: linear-gradient(135deg, #e0a800, #c69500);
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+                }
 
             .card-tools .btn-secondary {
-                color: #6c757d; /* Grey text for secondary */
-                border: 1px solid #6c757d; /* Grey border for secondary */
+                background: linear-gradient(135deg, #6c757d, #5a6268); /* Darker grey gradient */
             }
 
                 .card-tools .btn-secondary:hover {
@@ -144,8 +144,7 @@
                 }
 
             .card-tools .btn-success {
-                color: #28a745; /* Green text for success */
-                border: 1px solid #28a745; /* Green border for success */
+                background: linear-gradient(135deg, #28a745, #20c997); /* Green gradient */
             }
 
                 .card-tools .btn-success:hover {
@@ -156,26 +155,6 @@
                     box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
                 }
 
-            .card-tools .btn-danger {
-                color: #dc3545; /* Red text for danger */
-                border: 1px solid #dc3545; /* Red border for danger */
-            }
-
-                .card-tools .btn-danger:hover {
-                    background-color: #ffe6e6; /* Light red on hover */
-                    border-color: #c82333; /* Darker red on hover */
-                    color: #c82333; /* Darker red text on hover */
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
-                }
-
-            .card-tools .btn:disabled {
-                opacity: 0.6;
-                cursor: not-allowed;
-                transform: none !important;
-                box-shadow: none !important;
-            }
-
         .card-body {
             padding: 30px;
         }
@@ -183,7 +162,7 @@
         .info-box {
             display: flex;
             align-items: center;
-            background-color: #f0f2f5; /* Retained original light grey */
+            background-color: #f0f2f5; /* Light grey background for info boxes */
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
@@ -208,7 +187,7 @@
             margin-left: 20px;
         }
 
-            /* Retained original icon background colors */
+            /* Specific icon background colors */
             .info-box-icon.bg-primary {
                 background: linear-gradient(135deg, #007bff, #0056b3);
             }
@@ -259,7 +238,7 @@
         }
 
         .students-table-card .card-header {
-            background: linear-gradient(135deg, #ff8a50, #ff6b35); /* Orange gradient */
+            background: linear-gradient(135deg, #007bff, #0056b3); /* Blue gradient for students header */
         }
 
         .students-table-card .card-title {
@@ -418,13 +397,13 @@
                 justify-content: space-around;
             }
 
-                .card-tools .btn {
-                    width: 48%;
-                    justify-content: center;
-                    font-size: 14px;
-                    padding: 8px 15px;
-                    margin-bottom: 10px;
-                }
+            .card-tools .btn {
+                width: 48%; /* Make buttons take up more space */
+                justify-content: center;
+                font-size: 14px;
+                padding: 8px 15px;
+                margin-bottom: 10px;
+            }
 
             .info-box {
                 flex-direction: column;
@@ -432,9 +411,9 @@
                 padding: 15px;
             }
 
-            .info-box-icon {
-                margin: 0 0 10px 0;
-            }
+        .info-box-icon {
+            margin: 0 0 10px 0; /* Center icon above text */
+        }
 
             .info-box-content {
                 text-align: center;
@@ -516,16 +495,8 @@
                         else
                         {
                             <button type="button" class="btn btn-secondary" disabled>
-                                <i class="fas fa-check"></i> تم تأكيد اكتمال الفصل
+                                <i class="fas fa-check"></i> تم توليد الأكواد
                             </button>
-
-                            <form method="post" action="@Url.Action("ResetStudentCodes")" style="display: inline;">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="classId" value="@Model.Id" />
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('تحذير: هذا سيؤدي إلى إعادة تعيين الفصل. هل أنت متأكد من المتابعة؟')">
-                                    <i class="fas fa-redo"></i> إعادة تعيين الفصل
-                                </button>
-                            </form>
                         }
                     }
                 </div>
