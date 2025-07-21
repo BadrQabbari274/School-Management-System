@@ -49,7 +49,7 @@
                 <tbody>
                     @if (Model != null && Model.Any())
                     {
-                        @@foreach (var item in Model.OrderBy(g => g.Name))
+                        foreach (var item in Model.OrderBy(g => g.Name))
                         {
                             <tr>
                                 <td>@item.Name</td>
@@ -75,7 +75,7 @@
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <button type="button" class="btn btn-danger btn-sm" title="حذف"
-                                                onclick="showDeleteConfirmation(@item.Id, '@item.Name')">
+                                                onclick="showDeleteConfirmation(@item.Id, @item.Name)">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
