@@ -9,12 +9,14 @@ using System.Security.Claims;
 
 namespace StudentManagementSystem.Controllers
 {
-    public class ClassController : Controller
+    
+    public class ClassController : BaseController 
     {
         private readonly IClassService _classService;
         private readonly IFieldService _fieldService;
-        private readonly IUserService _employeeService;
+        private readonly IUserService _employeeService; 
         private readonly IStudentService _studentService;
+
 
         public ClassController(IClassService classService, IFieldService fieldService, IUserService employeeService, IStudentService studentService)
         {
@@ -32,9 +34,10 @@ namespace StudentManagementSystem.Controllers
             var classes = await _classService.GetAllClassesAsync();
             return View(classes);
         }
+
+        // GET: Class/Details/5
         [HttpGet]
         [Authorize]
-        // GET: Class/Details/5
         public async Task<IActionResult> Details(int id)
         {
             var classEntity = await _classService.GetClassByIdAsync(id);
@@ -44,9 +47,10 @@ namespace StudentManagementSystem.Controllers
             }
             return View(classEntity);
         }
+
+        // GET: Class/Create
         [HttpGet]
         [Authorize]
-        // GET: Class/Create
         public async Task<IActionResult> Create()
         {
             await PopulateDropDownLists();
@@ -59,13 +63,12 @@ namespace StudentManagementSystem.Controllers
         [Authorize]
         public async Task<IActionResult> Create(Class classEntity)
         {
-
             try
             {
-                // Get the current user's ID from claims
-                var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                // Use the helper method from BaseController
+                var currentUserId = GetCurrentUserId();
 
-                if (string.IsNullOrEmpty(currentUserId))
+                if (currentUserId == 0) // Check if user ID is valid (0 if not found)
                 {
                     ModelState.AddModelError("", "Unable to identify the current user for CreatedBy. Please log in again.");
                     await PopulateDropDownLists();
@@ -73,11 +76,12 @@ namespace StudentManagementSystem.Controllers
                 }
 
                 // Set CreatedBy automatically
-                classEntity.CreatedBy = int.Parse(currentUserId);
+                classEntity.CreatedBy = currentUserId;
                 classEntity.Date = DateTime.UtcNow;
 
                 await _classService.CreateClassAsync(classEntity);
-                TempData["SuccessMessage"] = "Class created successfully!";
+                // Use the helper method from BaseController
+                SetSuccessMessage("Class created successfully!");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -88,9 +92,10 @@ namespace StudentManagementSystem.Controllers
             await PopulateDropDownLists();
             return View(classEntity);
         }
+
+        // GET: Class/Edit/5
         [HttpGet]
         [Authorize]
-        // GET: Class/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
             var classEntity = await _classService.GetClassByIdAsync(id);
@@ -116,22 +121,24 @@ namespace StudentManagementSystem.Controllers
 
             try
             {
-                // Get the current user's ID from claims for UpdatedBy
-                var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                // Use the helper method from BaseController
+                var currentUserId = GetCurrentUserId();
 
-                if (string.IsNullOrEmpty(currentUserId))
+                if (currentUserId == 0) // Check if user ID is valid
                 {
                     ModelState.AddModelError("", "Unable to identify the current user for UpdatedBy. Please log in again.");
                     await PopulateDropDownLists();
                     return View(classEntity);
                 }
 
-                // Set UpdatedBy automatically
-                classEntity.CreatedBy = int.Parse(currentUserId);
-                // classEntity.Date = DateTime.UtcNow;
+                // Set CreatedBy automatically (assuming CreatedBy is used for the last updater here,
+                // if you have an 'UpdatedBy' property in your model, use that instead)
+                classEntity.CreatedBy = currentUserId; // Or classEntity.UpdatedBy = currentUserId;
+                // classEntity.Date = DateTime.UtcNow; // This might need to be 'UpdatedAt' if you track both
 
                 await _classService.UpdateClassAsync(classEntity);
-                TempData["SuccessMessage"] = "Class updated successfully!";
+                // Use the helper method from BaseController
+                SetSuccessMessage("Class updated successfully!");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -139,12 +146,11 @@ namespace StudentManagementSystem.Controllers
                 ModelState.AddModelError("", "An error occurred while updating the class: " + ex.Message);
             }
 
-
             await PopulateDropDownLists();
             return View(classEntity);
         }
 
-
+        // POST: Class/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -156,10 +162,19 @@ namespace StudentManagementSystem.Controllers
                 return NotFound();
             }
             var result = await _classService.DeleteClassAsync(id);
+            // Use the helper method from BaseController
+            if (result)
+            {
+                SetSuccessMessage("Class deleted successfully!");
+            }
+            else
+            {
+                SetErrorMessage("Error deleting class.");
+            }
             return RedirectToAction(nameof(Index));
         }
 
-        // Code generation function for students
+        // Generates unique codes for students within a class, reserving codes based on MaxStudents per class.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -167,78 +182,132 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
+                // Ensure _classService.GetClassByIdAsync(id) loads the Students collection (e.g., using .Include()).
                 var classEntity = await _classService.GetClassByIdAsync(classId);
                 if (classEntity == null)
                 {
-                    TempData["ErrorMessage"] = "الفصل غير موجود";
+                    SetErrorMessage("الفصل غير موجود");
                     return RedirectToAction(nameof(Details), new { id = classId });
                 }
 
-                var students = classEntity.Students?.Where(s => s.IsActive).ToList();
-                if (students == null || !students.Any())
+                var studentsInClass = classEntity.Students?.Where(s => s.IsActive).ToList();
+
+                if (studentsInClass == null || !studentsInClass.Any())
                 {
-                    TempData["ErrorMessage"] = "لا يوجد طلاب في هذا الفصل";
+                    SetErrorMessage("لا يوجد طلاب نشطون في هذا الفصل لتوليد الأكواد لهم.");
                     return RedirectToAction(nameof(Details), new { id = classId });
                 }
 
-                // Check if any students already have codes.
-                if (students.Any(s => !string.IsNullOrEmpty(s.Code)))
+                // Prevents regeneration if any student in the class already has a code.
+                if (studentsInClass.Any(s => !string.IsNullOrEmpty(s.Code)))
                 {
-                    TempData["ErrorMessage"] = "بعض الطلاب لديهم أكواد بالفعل";
+                    SetErrorMessage("بعض الطلاب في هذا الفصل لديهم أكواد بالفعل. لا يمكن إعادة توليد الأكواد للفصل بالكامل.");
                     return RedirectToAction(nameof(Details), new { id = classId });
                 }
 
-                // Arrange students alphabetically
-                var sortedStudents = students.OrderBy(s => s.Name).ToList();
+                var sortedStudents = studentsInClass.OrderBy(s => s.Name).ToList();
 
-                // Get the next serial number
-                var nextSequenceNumber = await GetNextSequenceNumber();
+                // Gets the base sequence number for this class's block.
+                var baseSequenceNumberForClass = await GetNextSequenceNumberForClass(classId);
 
-                // Generate codes
-                var currentYear = DateTime.Now.Year % 100; // Last two digits of the year
+                var currentYear = DateTime.Now.Year % 100; // Last two digits of the current year.
 
                 for (int i = 0; i < sortedStudents.Count; i++)
                 {
-                    var sequenceNumber = nextSequenceNumber + i;
+                    // Calculates the student's unique sequence number within the class's block.
+                    var sequenceNumber = baseSequenceNumberForClass + i;
+                    // Formats the student code: J03 + last two year digits + 3-digit sequence number.
                     var studentCode = $"J03{currentYear:D2}{sequenceNumber:D3}";
                     sortedStudents[i].Code = studentCode;
 
                     await _studentService.UpdateStudentAsync(sortedStudents[i]);
                 }
 
-                TempData["SuccessMessage"] = $"تم توليد الأكواد بنجاح لعدد {sortedStudents.Count} طالب";
+                // Use MaxStudents instead of CodesPerClass constant
+                var maxStudentsForClass = classEntity.MaxStudents ?? 25; // Default to 25 if MaxStudents is null
+                SetSuccessMessage($"تم توليد الأكواد بنجاح لعدد {sortedStudents.Count} طالب وتخصيص {maxStudentsForClass} كود للفصل.");
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "حدث خطأ أثناء توليد الأكواد: " + ex.Message;
+                SetErrorMessage("حدث خطأ أثناء توليد الأكواد: " + ex.Message);
             }
 
             return RedirectToAction(nameof(Details), new { id = classId });
         }
 
-        // Function to get the next serial number
-        private async Task<int> GetNextSequenceNumber()
+        private async Task<int> GetNextSequenceNumberForClass(int targetClassId)
         {
-            var allStudents = await _studentService.GetAllStudentsAsync();
+            var allClasses = await _classService.GetAllClassesAsync();
 
-            // Get the last used serial number
-            var lastUsedNumber = 0;
-            var currentYear = DateTime.Now.Year % 100;
+            var sortedClasses = allClasses
+                                .OrderBy(c => c.Name)
+                                .ThenBy(c => c.Date)
+                                .ThenBy(c => c.Id)
+                                .ToList();
 
-            foreach (var student in allStudents)
+            int baseSequence = 1;
+
+            foreach (var cls in sortedClasses)
             {
-                if (!string.IsNullOrEmpty(student.Code) && student.Code.StartsWith($"J03{currentYear:D2}"))
+                if (cls.Id == targetClassId)
                 {
-                    // Extract the serial number from the code
-                    var codeString = student.Code.Substring(5); // Ignore J03XX
-                    if (int.TryParse(codeString, out int codeNumber))
-                    {
-                        lastUsedNumber = Math.Max(lastUsedNumber, codeNumber);
-                    }
+                    // Found the target class, return its calculated starting sequence.
+                    return baseSequence;
                 }
+                // For each preceding class, increment the base sequence by the class's MaxStudents (or default to 25).
+                var codesForThisClass = cls.MaxStudents ?? 25; // Default to 25 if MaxStudents is null
+                baseSequence += codesForThisClass;
             }
 
-            return lastUsedNumber + 1;
+            return baseSequence; // Fallback, though targetClassId should always be found.
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> ResetStudentCodes(int classId)
+        {
+            try
+            {
+                var classEntity = await _classService.GetClassByIdAsync(classId);
+                if (classEntity == null)
+                {
+                    SetErrorMessage("الفصل غير موجود");
+                    return RedirectToAction(nameof(Details), new { id = classId });
+                }
+                var studentsInClass = classEntity.Students?.Where(s => s.IsActive).ToList();
+                if (studentsInClass == null || !studentsInClass.Any())
+                {
+                    SetErrorMessage("لا يوجد طلاب نشطون في هذا الفصل لإعادة تعيين أكوادهم.");
+                    return RedirectToAction(nameof(Details), new { id = classId });
+                }
+
+                foreach (var student in studentsInClass)
+                {
+                    student.Code = null;
+                    await _studentService.UpdateStudentAsync(student);
+                }
+
+                var sortedStudents = studentsInClass.OrderBy(s => s.Name).ToList();
+                var baseSequenceNumberForClass = await GetNextSequenceNumberForClass(classId);
+                var currentYear = DateTime.Now.Year % 100;
+
+                for (int i = 0; i < sortedStudents.Count; i++)
+                {
+                    var sequenceNumber = baseSequenceNumberForClass + i;
+                    var studentCode = $"J03{currentYear:D2}{sequenceNumber:D3}";
+                    sortedStudents[i].Code = studentCode;
+                    await _studentService.UpdateStudentAsync(sortedStudents[i]);
+                }
+
+                SetSuccessMessage($"تم إعادة تعيين الأكواد بنجاح لعدد {sortedStudents.Count} طالب في الفصل.");
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage("حدث خطأ أثناء إعادة تعيين الأكواد: " + ex.Message);
+            }
+
+            return RedirectToAction(nameof(Details), new { id = classId });
         }
 
         [HttpGet]
@@ -265,14 +334,9 @@ namespace StudentManagementSystem.Controllers
             {
                 var fields = await _fieldService.GetActiveFieldsAsync();
                 ViewBag.FieldId = new SelectList(fields, "Id", "Name");
-
-                // "CreatedBy" is no longer a dropdown, so we remove the related code.
-                // var employees = await _employeeService.GetActiveUsersAsync();
-                // ViewBag.CreatedBy = new SelectList(employees, "Id", "Name");
             }
             catch (Exception ex)
             {
-
                 ViewBag.FieldId = new SelectList(new List<SelectListItem>(), "Value", "Text");
             }
         }

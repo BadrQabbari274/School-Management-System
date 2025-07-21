@@ -1,0 +1,113 @@
+﻿@model StudentManagementSystem.Controllers.DailyAttendanceViewModel
+@{
+    ViewData["Title"] = "Daily Attendance";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/attendance.css" />
+
+<div class="container py-5">
+    <div class="attendance-container">
+        <div class="attendance-header">
+            <h1 class="attendance-title">Daily Attendance</h1>
+            <div class="date-picker">
+                <input type="date" id="attendanceDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" class="form-control" />
+                <button id="changeDateBtn" class="btn btn-secondary">Change Date</button>
+            </div>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+        <div class="class-selector">
+            <select id="classSelector" class="form-control">
+                @foreach (var cls in Model.Classes)
+                {
+                    <option value="@cls.Id" selected="@(cls.Id == Model.SelectedClassId)">@cls.Name</option>
+                }
+            </select>
+        </div>
+
+        <form asp-action="SaveDailyAttendance" method="post">
+            <input type="hidden" asp-for="SelectedClassId" />
+            <input type="hidden" asp-for="SelectedDate" />
+
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="selectAll" class="attendance-checkbox select-all-checkbox" />
+                            Student Name
+                        </th>
+                        <th>Student Code</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Students.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <input type="hidden" asp-for="@Model.Students[i].StudentId" />
+                                <input type="hidden" asp-for="@Model.Students[i].StudentName" />
+                                <input type="hidden" asp-for="@Model.Students[i].StudentCode" />
+                                @Model.Students[i].StudentName
+                            </td>
+                            <td>@Model.Students[i].StudentCode</td>
+                            <td>
+                                <input asp-for="@Model.Students[i].IsPresent" class="attendance-checkbox student-checkbox" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary" id="saveBtn">
+                    Save Attendance
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Handle date change
+            $('#changeDateBtn').click(function() {
+                const date = $('#attendanceDate').val();
+                const classId = $('#classSelector').val();
+                window.location.href = `/Attendance/DailyAttendance?classId=${classId}&date=${date}`;
+            });
+
+            // Handle class change
+            $('#classSelector').change(function() {
+                const classId = $(this).val();
+                const date = $('#attendanceDate').val();
+                window.location.href = `/Attendance/DailyAttendance?classId=${classId}&date=${date}`;
+            });
+
+            // Select all checkbox
+            $('#selectAll').change(function() {
+                $('.student-checkbox').prop('checked', $(this).prop('checked'));
+            });
+
+            // Disable save button if no changes
+            $('form').on('submit', function() {
+                $('#saveBtn').addClass('loading');
+                $('#saveBtn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
+            });
+        });
+    </script>
+}

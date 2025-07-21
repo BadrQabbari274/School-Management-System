@@ -4,6 +4,8 @@
     ViewData["Title"] = "تفاصيل الفصل";
 }
 
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -22,8 +24,8 @@
         }
 
         .header-section {
-            background: linear-gradient(135deg, #ff8a50, #ff6b35); /* Orange gradient */
-            color: white;
+            background: (135deg, #ff6b35, #ffff); /* Orange gradient */
+            color: #ff6b35;
             padding: 25px 0;
             margin-bottom: 30px;
             border-radius: 0 0 20px 20px;
@@ -35,13 +37,13 @@
             font-size: 32px;
             font-weight: bold;
             margin: 0;
-            text-align: center;
+            text-align: center; /* Centered the title */
             letter-spacing: 1px;
         }
 
         .back-button {
             position: absolute;
-            right: 25px; /* Adjusted for consistency with other styles */
+            right: 25px;
             top: 50%;
             transform: translateY(-50%);
             background: rgba(255,255,255,0.2);
@@ -53,7 +55,7 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px; /* Space between icon and text */
+            gap: 8px;
         }
 
             .back-button:hover {
@@ -72,7 +74,7 @@
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             border: none;
-            overflow: hidden; /* Ensures rounded corners apply to content */
+            overflow: hidden;
         }
 
         .card-header {
@@ -102,6 +104,7 @@
         .card-tools {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
             .card-tools .btn {
@@ -133,7 +136,9 @@
             }
 
                 .card-tools .btn-secondary:hover {
-                    background: linear-gradient(135deg, #5a6268, #495057);
+                    background-color: #e2e6ea; /* Light grey on hover */
+                    border-color: #545b62; /* Darker grey on hover */
+                    color: #545b62; /* Darker grey text on hover */
                     transform: translateY(-2px);
                     box-shadow: 0 6px 12px rgba(108, 117, 125, 0.3);
                 }
@@ -143,7 +148,9 @@
             }
 
                 .card-tools .btn-success:hover {
-                    background: linear-gradient(135deg, #20c997, #17a085);
+                    background-color: #e6ffe6; /* Light green on hover */
+                    border-color: #218838; /* Darker green on hover */
+                    color: #218838; /* Darker green text on hover */
                     transform: translateY(-2px);
                     box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
                 }
@@ -177,7 +184,7 @@
             font-size: 28px;
             color: white;
             flex-shrink: 0;
-            margin-left: 20px; /* Adjusted for RTL */
+            margin-left: 20px;
         }
 
             /* Specific icon background colors */
@@ -205,10 +212,9 @@
                 background: linear-gradient(135deg, #6c757d, #5a6268);
             }
 
-
         .info-box-content {
             flex-grow: 1;
-            text-align: right; /* Adjusted for RTL */
+            text-align: right;
         }
 
         .info-box-text {
@@ -231,7 +237,6 @@
             border-radius: 5px;
         }
 
-        /* Students Table Styles */
         .students-table-card .card-header {
             background: linear-gradient(135deg, #007bff, #0056b3); /* Blue gradient for students header */
         }
@@ -253,20 +258,20 @@
             }
 
             .students-table-card .table th {
-                background-color: #f8f9fa;
+                background-color: #fff8f5; /* Very light orange for table header background */
                 font-weight: bold;
                 color: #555;
                 font-size: 15px;
             }
 
             .students-table-card .table tbody tr:hover {
-                background-color: #f5f5f5;
+                background-color: #fffaf7; /* Lighter orange on row hover */
             }
 
         .alert-info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
+            background-color: #fff5ee; /* Light orange for info alert */
+            color: #cc5200; /* Darker orange text */
+            border: 1px solid #ffeadb; /* Orange border */
             padding: 20px;
             border-radius: 10px;
             display: flex;
@@ -286,18 +291,18 @@
             }
 
         .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background-color: #e6ffe6; /* Retained original light green */
+            color: #1a6d2f; /* Dark green */
+            border: 1px solid #b3ffb3; /* Green border */
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 20px;
         }
 
         .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background-color: #ffe6e6; /* Retained original light red */
+            color: #b32d2d; /* Dark red */
+            border: 1px solid #ffb3b3; /* Red border */
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 20px;
@@ -305,9 +310,20 @@
 
         .student-code-column {
             font-weight: bold;
-            color: #007bff;
+            color: #000; /* Black for student code */
             font-family: 'Courier New', monospace;
         }
+
+        .badge.bg-primary {
+            background-color: #000 !important; /* Black for student code badge */
+            color: white;
+        }
+
+        .badge.bg-secondary {
+            background-color: #ccc !important; /* Keep a light gray for "not generated" */
+            color: #555;
+        }
+
 
         .student-actions {
             display: flex;
@@ -325,69 +341,61 @@
                 align-items: center;
                 gap: 5px;
                 transition: all 0.3s ease;
+                background-color: white; /* White background for action buttons */
+                color: #ff6b35; /* Orange text for action buttons */
+                border: 1px solid #ff6b35; /* Orange border for action buttons */
             }
 
-            .student-actions .btn-info {
-                background: linear-gradient(135deg, #17a2b8, #138496);
-                color: white;
+            .student-actions .btn-info:hover {
+                background-color: #fff5ee; /* Light orange on hover */
+                border-color: #e0522a; /* Darker orange on hover */
+                color: #e0522a; /* Darker orange text on hover */
+                transform: translateY(-1px);
             }
 
-                .student-actions .btn-info:hover {
-                    background: linear-gradient(135deg, #138496, #117a8b);
-                    transform: translateY(-1px);
-                }
-
-            .student-actions .btn-warning {
-                background: linear-gradient(135deg, #ffc107, #e0a800);
-                color: #333;
+            .student-actions .btn-warning:hover {
+                background-color: #fff5ee; /* Light orange on hover */
+                border-color: #e0522a; /* Darker orange on hover */
+                color: #e0522a; /* Darker orange text on hover */
+                transform: translateY(-1px);
             }
 
-                .student-actions .btn-warning:hover {
-                    background: linear-gradient(135deg, #e0a800, #c69500);
-                    transform: translateY(-1px);
-                }
-
-            .student-actions .btn-danger {
-                background: linear-gradient(135deg, #dc3545, #c82333);
-                color: white;
+            .student-actions .btn-danger:hover {
+                background-color: #fff5ee; /* Light orange on hover */
+                border-color: #e0522a; /* Darker orange on hover */
+                color: #e0522a; /* Darker orange text on hover */
+                transform: translateY(-1px);
             }
-
-                .student-actions .btn-danger:hover {
-                    background: linear-gradient(135deg, #c82333, #a71e2a);
-                    transform: translateY(-1px);
-                }
 
         /* Responsive adjustments */
         @@media (max-width: 768px) {
-            .header-title
+            .header-title {
+                font-size: 24px;
+            }
 
-        {
-            font-size: 24px;
-        }
+            .back-button {
+                padding: 8px 12px;
+                font-size: 14px;
+                gap: 5px;
+                right: 15px;
+            }
 
-        .back-button {
-            padding: 8px 12px;
-            font-size: 14px;
-            gap: 5px;
-            right: 15px;
-        }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
 
-        .card-header {
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 20px;
-        }
+            .card-title {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
 
-        .card-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-
-        .card-tools {
-            width: 100%;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
+            .card-tools {
+                width: 100%;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
 
             .card-tools .btn {
                 width: 48%; /* Make buttons take up more space */
@@ -397,44 +405,43 @@
                 margin-bottom: 10px;
             }
 
-        .info-box {
-            flex-direction: column;
-            text-align: center;
-            padding: 15px;
-        }
+            .info-box {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
 
         .info-box-icon {
             margin: 0 0 10px 0; /* Center icon above text */
         }
 
-        .info-box-content {
-            text-align: center;
-        }
-
-        .info-box-text {
-            font-size: 14px;
-        }
-
-        .info-box-number {
-            font-size: 20px;
-        }
-
-        .students-table-card .table th,
-        .students-table-card .table td {
-            padding: 10px;
-            font-size: 13px;
-        }
-
-        .student-actions {
-            flex-direction: column;
-            gap: 3px;
-        }
-
-            .student-actions .btn {
-                width: 100%;
-                justify-content: center;
+            .info-box-content {
+                text-align: center;
             }
 
+            .info-box-text {
+                font-size: 14px;
+            }
+
+            .info-box-number {
+                font-size: 20px;
+            }
+
+            .students-table-card .table th,
+            .students-table-card .table td {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .student-actions {
+                flex-direction: column;
+                gap: 3px;
+            }
+
+                .student-actions .btn {
+                    width: 100%;
+                    justify-content: center;
+                }
         }
     </style>
 </head>
@@ -449,7 +456,6 @@
     </div>
 
     <div class="container">
-        <!-- عرض رسائل التنبيه -->
         @if (TempData["SuccessMessage"] != null)
         {
             <div class="alert alert-success">
@@ -481,8 +487,8 @@
                             <form method="post" action="@Url.Action("GenerateStudentCodes")" style="display: inline;">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="classId" value="@Model.Id" />
-                                <button type="submit" class="btn btn-success" onclick="return confirm('هل تريد توليد أكواد الطلاب؟ لا يمكن التراجع عن هذه العملية.')">
-                                    <i class="fas fa-code"></i> توليد أكواد الطلاب
+                                <button type="submit" class="btn btn-success" onclick="return confirm('هل تريد تأكيد اكتمال الفصل؟ لا يمكن التراجع عن هذه العملية.')">
+                                    <i class="fas fa-code"></i>تأكيد اكتمال الفصل
                                 </button>
                             </form>
                         }

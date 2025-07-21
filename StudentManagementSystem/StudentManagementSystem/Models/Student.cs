@@ -1,11 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
 
 namespace StudentManagementSystem.Models
 {
-
-    // Student Model
     public class Student
     {
         [Key]
@@ -17,6 +14,7 @@ namespace StudentManagementSystem.Models
 
         [Required]
         [StringLength(100)]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
@@ -34,9 +32,11 @@ namespace StudentManagementSystem.Models
         [Required]
         [StringLength(100)]
         public string Jop_of_Father { get; set; }
+
         [Required]
         [StringLength(100)]
         public string Jop_of_Mother { get; set; }
+
         [Required]
         [StringLength(100)]
         public string Phone_Number { get; set; }
@@ -44,6 +44,7 @@ namespace StudentManagementSystem.Models
         [Required]
         [StringLength(100)]
         public string Phone_Number_Father { get; set; }
+
         [Required]
         [StringLength(100)]
         public string Phone_Number_Mother { get; set; }
@@ -51,33 +52,37 @@ namespace StudentManagementSystem.Models
         [Required]
         [StringLength(100)]
         public string Governarate { get; set; }
-        [Required]
-        [StringLength(250)]
+
+        [StringLength(250)] 
         public string? Picture_Profile { get; set; }
-        [Required]
-        [StringLength(100)]
+
+        [StringLength(100)] 
         public string? birth_Certificate { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [StringLength(100)] 
         public string? Code { get; set; }
+
         public bool IsActive { get; set; } = true;
+
         public int? CreatedBy { get; set; }
+
         public DateTime Date { get; set; } = DateTime.Now;
-        public int? ClassId { get; set; }
+
+        public int ClassId { get; set; } 
 
         // Navigation Properties
         [ForeignKey("CreatedBy")]
-        public virtual Employee CreatedByUser { get; set; }
+        public virtual Employee? CreatedByUser { get; set; } 
 
         [ForeignKey("ClassId")]
-        public virtual Class Class { get; set; }
+        public virtual Class Class { get; set; } 
 
-        // Collections
-        public virtual ICollection<TaskEvaluation> TaskEvaluations { get; set; }
-        public virtual ICollection<StudentAbsent> MajorAttendances { get; set; }
-        public virtual ICollection<StudentAttendance> StudentAttendances { get; set; }
-        public virtual ICollection<Picture> Pictures { get; set; }
+        public virtual ICollection<TaskEvaluation> TaskEvaluations { get; set; } = new HashSet<TaskEvaluation>();
+
+        public virtual ICollection<StudentAbsent> MajorAttendances { get; set; } = new HashSet<StudentAbsent>();
+
+        public virtual ICollection<StudentAttendance> StudentAttendances { get; set; } = new HashSet<StudentAttendance>();
+
+        public virtual ICollection<Picture> Pictures { get; set; } = new HashSet<Picture>();
     }
-
 }
