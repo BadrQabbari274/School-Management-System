@@ -1,138 +1,162 @@
 ﻿@model IEnumerable<StudentManagementSystem.Models.Grade>
 
 @{
-    ViewData["Title"] = "Class Year";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "السنوات الدراسية";
 }
 
-<div class="container-fluid p-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold text-dark">Class Year</h2>
-                <a asp-action="Create" class="btn btn-primary btn-lg px-4 py-2 rounded-pill">
-                    <i class="fas fa-plus me-2"></i>Add New Class Year
-                </a>
-            </div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" /> @* Or ~/css/grades.css *@
+</head>
+<body>
+    <div class="header-section">
+        <div class="container">
+            <h1 class="header-title">السنوات الدراسية</h1>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body p-0">
-                    <div class="bg-light p-4 border-bottom">
-                        <h5 class="mb-0 text-center fw-bold">Academic Year</h5>
-                    </div>
+    <div class="container">
+        <div class="controls">
+            <a href="@Url.Action("Create")" class="btn btn-add">
+                <i class="fas fa-plus-circle"></i> إضافة سنة دراسية جديدة
+            </a>
+        </div>
 
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div class="courses-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>اسم السنة الدراسية</th>
+                        <th>تاريخ الإنشاء</th>
+                        <th>الحالة</th>
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @if (Model != null && Model.Any())
                     {
-                        <div class="list-group list-group-flush">
-                            @foreach (var grade in Model.Where(g => g.IsActive).OrderBy(g => g.Name))
-                            {
-                                <div class="list-group-item list-group-item-action border-0 py-4">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-8">
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-primary rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                                    <i class="fas fa-graduation-cap text-white"></i>
-                                                </div>
-                                                <div>
-                                                    <h6 class="mb-1 fw-bold text-primary">@grade.Name</h6>
-                                                    <small class="text-muted">
-                                                        <i class="fas fa-calendar-alt me-1"></i>
-                                                        Created: @grade.Date.ToString("MMM dd, yyyy")
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 text-end">
-                                            <div class="btn-group" role="group">
-                                                <a asp-action="Details" asp-route-id="@grade.Id" class="btn btn-outline-info btn-sm">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a asp-action="Edit" asp-route-id="@grade.Id" class="btn btn-outline-warning btn-sm">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <!-- Corrected Delete Button with Form -->
-                                                <form asp-action="Delete" asp-route-id="@grade.Id" method="post" class="d-inline"
-                                                      onsubmit="return confirm('Are you sure you want to delete @grade.Name?');">
-                                                    @Html.AntiForgeryToken()
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
+                        foreach (var item in Model.OrderBy(g => g.Name))
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @if (item.IsActive)
+                                    {
+                                        <span class="badge bg-success">نشطة</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">غير نشطة</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="@Url.Action("Details", new { id = item.Id })"
+                                           class="btn btn-info btn-sm" title="عرض التفاصيل">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", new { id = item.Id })"
+                                           class="btn btn-warning btn-sm" title="تعديل">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-sm" title="حذف"
+                                                onclick="showDeleteConfirmation(@item.Id, @item.Name)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </div>
-                                </div>
-                            }
-                        </div>
+                                </td>
+                            </tr>
+                        }
                     }
                     else
                     {
-                        <div class="text-center py-5">
-                            <div class="mb-4">
-                                <i class="fas fa-graduation-cap text-muted" style="font-size: 4rem;"></i>
-                            </div>
-                            <h5 class="text-muted">No Class Years Found</h5>
-                            <p class="text-muted">Click "Add New Class Year" to create your first class year.</p>
-                        </div>
+                        <tr>
+                            <td colspan="4" class="no-data">لا توجد سنوات دراسية متاحة</td>
+                        </tr>
                     }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade custom-modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">تأكيد الحذف</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>هل أنت متأكد من حذف السنة الدراسية <strong id="gradeNameToDelete"></strong>؟</p>
+                    <p class="text-danger">لا يمكن التراجع عن هذا الإجراء.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<style>
-    .btn-primary {
-        background: linear-gradient(135deg, #FFA500 0%,#E77F55 100%);
-        border: none;
-        transition: all 0.3s ease;
-    }
+    <form id="deleteForm" asp-action="Delete" method="post" style="display:none;">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" id="gradeIdToDelete" />
+    </form>
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let gradeIdToDelete = 0; // Global variable to store the ID of the grade to be deleted
+
+        function showDeleteConfirmation(id, name) {
+            gradeIdToDelete = id;
+            document.getElementById('gradeNameToDelete').innerText = name;
+            var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+            deleteModal.show();
         }
 
-    .card {
-        border-radius: 15px;
-        overflow: hidden;
-    }
+        document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
+            // Hide the modal
+            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+            deleteModal.hide();
 
-    .list-group-item:hover {
-        background-color: #f8f9fa;
-        transform: translateX(5px);
-        transition: all 0.3s ease;
-    }
+            // Perform the deletion using the hidden form and AJAX
+            const form = document.getElementById('deleteForm');
+            document.getElementById('gradeIdToDelete').value = gradeIdToDelete;
 
-    .btn-group .btn {
-        border-radius: 50px;
-        margin: 0 2px;
-        width: 35px;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form)
+                });
 
-    .btn-group form {
-        display: inline-block;
-    }
-
-        .btn-group form .btn {
-            border-radius: 50px;
-            margin: 0 2px;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-    .bg-primary {
-        background: linear-gradient(135deg, #FFA500 0%,#E77F55 100%);
-    }
-</style>
+                if (response.ok) {
+                    // Reload the page to reflect the deletion
+                    location.reload();
+                } else {
+                    // Handle non-OK responses, e.g., show an error message
+                    alert('حدث خطأ أثناء حذف السنة الدراسية. يرجى المحاولة مرة أخرى.');
+                    console.error('Delete failed with status:', response.status);
+                }
+            } catch (error) {
+                alert('حدث خطأ أثناء حذف السنة الدراسية. يرجى فحص اتصال الشبكة.');
+                console.error('Error during fetch:', error);
+            }
+        });
+    </script>
+</body>
+</html>

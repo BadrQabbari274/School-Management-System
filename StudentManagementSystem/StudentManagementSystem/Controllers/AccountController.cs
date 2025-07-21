@@ -177,7 +177,7 @@ namespace StudentManagementSystem.Controllers
                     RoleId = model.RoleId,
                     IsActive = true,
                     Email = model.Email,
-                    CreatedBy = GetCurrentUserId()
+                    //CreatedBy = GetCurrentUserId()
                 };
 
                 await _userService.CreateUserAsync(user);
