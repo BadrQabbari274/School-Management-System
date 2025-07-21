@@ -10,7 +10,7 @@
     <title>@ViewData["Title"] - StudentManagementSystem</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" /> @* Or ~/css/grades.css *@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> @* Or ~/css/grades.css *@
 </head>
 <div class="container-fluid p-4">
     <div class="row justify-content-center">
@@ -18,16 +18,14 @@
             <div class="card border-0 shadow-lg">
                 <div class="card-header bg-info text-white text-center py-4">
                     <h3 class="mb-0 fw-bold">
-                        <i class="fas fa-info-circle me-2"></i>Class Year Details
+                        <i class="fas fa-info-circle me-2"></i>Class Year Details - @Model.Name
                     </h3>
                 </div>
 
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
-                        <div class="bg-info rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                            <i class="fas fa-graduation-cap text-white" style="font-size: 2rem;"></i>
-                        </div>
-                        <h4 class="fw-bold text-info">@Model.Name</h4>
+
+            
                     </div>
 
                     <div class="row g-4">
@@ -121,7 +119,7 @@
                             </form>
                         </div>
                         <div class="col-md-4">
-                            <a asp-action="Index" class="btn btn-outline-secondary btn-lg w-100">
+                            <a asp-action="Index" class="btn btn-back btn-lg w-100 mb-3">
                                 <i class="fas fa-arrow-left me-2"></i>Back to List
                             </a>
                         </div>
