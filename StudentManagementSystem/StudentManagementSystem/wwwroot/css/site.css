@@ -5,11 +5,24 @@ body {
     margin: 0;
     padding: 0;
 }
+.btn-back {
+    background: #495057; /* Orange gradient */
+    border: none;
+    border-radius: 10px; /* More rounded than default */
+    padding: 12px 24px; /* More padding than default */
+    transition: all 0.3s ease;
+    color: white; /* Text color changed to white for this gradient */
+}
 
+    .btn-back:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(181, 181, 181, 0.4); /* Adjusted shadow to match orange */
+        color: black; /* Ensure text remains white on hover */
+    }
 /* Header Section */
 .header-section {
-    background: linear-gradient(135deg, #ff8a50, #ff6b35); /* Warm gradient */
-    color: white;
+    background: white; /* Warm gradient */
+    color: #fd7e14;
     text-align: center;
     padding: 25px 0;
     margin-bottom: 30px;
@@ -82,11 +95,11 @@ body {
 
 .btn-warning {
     background: linear-gradient(135deg, #ffc107, #e0a800); /* Yellow gradient */
-    color: #333; /* Darker text for contrast */
+/* Darker text for contrast */
 }
 
     .btn-warning:hover {
-        background: linear-gradient(135deg, #e0a800, #c69500);
+       
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
     }
@@ -364,6 +377,18 @@ body {
         transform: translateY(-2px);
         box-shadow: 0 4px 15px rgba(253, 126, 20, 0.2);
     }
+/* Text Colors */
+.text-warning { /* from Edit */
+    color: #000 !important; /* Overriding Bootstrap's default warning color to black */
+}
+
+.text-info { /* from Details */
+    color: #000 !important; /* Overriding Bootstrap's default info color to black */
+}
+
+.text-primary { /* from Create */
+    color: #000 !important; /* Overriding Bootstrap's default primary color to black */
+}
 
 .employee-list {
     max-height: 400px;

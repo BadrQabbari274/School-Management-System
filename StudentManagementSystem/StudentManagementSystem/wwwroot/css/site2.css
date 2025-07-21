@@ -97,6 +97,21 @@ body {
         color: white; /* Ensure text remains white on hover */
     }
 
+.btn-back {
+    background: #495057; /* Orange gradient */
+    border: none;
+    border-radius: 10px; /* More rounded than default */
+    padding: 12px 24px; /* More padding than default */
+    transition: all 0.3s ease;
+    color: white; /* Text color changed to white for this gradient */
+}
+
+    .btn-back:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(181, 181, 181, 0.4); /* Adjusted shadow to match orange */
+        color: black; /* Ensure text remains white on hover */
+    }
+
 /* Combined .btn-danger styles from Index and Details. Details overrides the color. */
 .btn-danger {
     background: linear-gradient(135deg, #fd7e14 0%, #fd7e14 100%); /* Orange gradient */
