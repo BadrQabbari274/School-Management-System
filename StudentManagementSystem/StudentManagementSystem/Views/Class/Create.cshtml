@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <title>إنشاء فصل جديد - معاينة</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <style>
@@ -17,294 +17,246 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fa;
             direction: rtl;
-        }
-
-        .header-section {
-            background: linear-gradient(135deg, #ff8a50, #ff6b35);
-            color: white;
-            padding: 20px 0;
-            margin-bottom: 30px;
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .header-title {
-            font-size: 28px;
-            font-weight: bold;
             margin: 0;
-            text-align: center;
+            padding: 20px 0;
         }
 
-        .back-button {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.2);
+        .card {
+            border-radius: 20px;
+            overflow: hidden;
             border: none;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-            .back-button:hover {
-                background: rgba(255,255,255,0.3);
+        .card-header {
+            background: linear-gradient(135deg, #FFA500 0%, #E77F55 100%);
+            border: none;
+            padding: 30px;
+        }
+
+            .card-header h3 {
                 color: white;
+                font-weight: bold;
+                margin: 0;
+                font-size: 1.8rem;
             }
 
-        .form-container {
-            background: white;
+        .card-body {
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            display: block;
+            background: white;
         }
 
         .form-control, .form-select {
+            border-radius: 10px;
             border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 12px 15px;
-            font-size: 16px;
+            padding: 15px 20px;
             transition: all 0.3s ease;
-            /* *** ADJUSTED FOR RTL ICON POSITION *** */
-            padding-right: 40px; /* Space for the icon on the visual left (logical right) */
-            padding-left: 15px; /* Keep original padding on the other side */
+            font-size: 16px;
+            background: white;
         }
 
             .form-control:focus, .form-select:focus {
-                border-color: #ff8a50;
-                box-shadow: 0 0 0 0.2rem rgba(255, 138, 80, 0.25);
+                border-color: #667eea;
+                box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+                outline: none;
             }
 
-            .form-control:read-only {
-                background-color: #f8f9fa;
-                border-color: #dee2e6;
-            }
-
-        .form-check {
-            margin-bottom: 20px;
-        }
-
-        .form-check-input:checked {
-            background-color: #ff8a50;
-            border-color: #ff8a50;
-        }
-
-        .form-check-label {
-            font-weight: 500;
-            color: #333;
-            margin-right: 10px;
+        .form-control-lg {
+            font-size: 1.1rem;
+            padding: 15px 20px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(135deg, #FFA500 0%, #E77F55 100%);
             border: none;
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 8px;
+            border-radius: 10px;
+            padding: 15px 30px;
             transition: all 0.3s ease;
-            margin-left: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
             .btn-primary:hover {
-                background: linear-gradient(135deg, #218838, #1e7e34);
                 transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+                box-shadow: 0 8px 25px rgba(255, 165, 0, 0.4);
+                background: linear-gradient(135deg, #ff9500 0%, #d66f45 100%);
             }
 
-        .btn-secondary {
-            background: #6c757d;
-            border: none;
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 8px;
+        .btn-outline-secondary {
+            border-radius: 10px;
+            padding: 15px 30px;
             transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid #6c757d;
         }
 
-            .btn-secondary:hover {
-                background: #5a6268;
+            .btn-outline-secondary:hover {
                 transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
             }
 
-        .text-danger {
-            font-size: 14px;
-            margin-top: 5px;
+        .text-primary {
+            color: #667eea !important;
+        }
+
+        .form-label {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
         .required {
             color: #dc3545;
-        }
-
-        .form-icon {
-            position: absolute;
-            /* *** ADJUSTED FOR RTL ICON POSITION *** */
-            right: 15px; /* Position from the right edge of the parent (input-group) */
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6c757d;
-            z-index: 2; /* Ensure icon is above the input content */
-        }
-
-        .input-group {
-            position: relative;
+            font-weight: bold;
         }
 
         .alert {
-            border-radius: 8px;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            padding: 15px 20px;
+            border: none;
         }
 
-        .validation-summary-errors {
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
+        .alert-success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
             color: #721c24;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
         }
 
-            .validation-summary-errors ul {
-                margin: 0;
-                padding-right: 20px;
-            }
+        .container-fluid {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
+        .mb-4 {
+            margin-bottom: 2rem !important;
+        }
+
+        .form-select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: left 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px 12px;
+        }
+
+        .input-icon {
+            color: #FFA500;
+            margin-left: 8px;
+        }
     </style>
 </head>
 <body>
-    <div class="header-section">
-        <div class="container position-relative">
-            <a href="@Url.Action("Index")" class="back-button">
-                <i class="fas fa-arrow-right"></i>
-            </a>
-            <h1 class="header-title">إنشاء فصل جديد</h1>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="form-container">
-            @if (TempData["SuccessMessage"] != null)
-            {
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle"></i>
-                    @TempData["SuccessMessage"]
-                </div>
-            }
-
-            @if (TempData["ErrorMessage"] != null)
-            {
-                <div class="alert alert-danger">
-                    <i class="fas fa-exclamation-circle"></i>
-                    @TempData["ErrorMessage"]
-                </div>
-            }
-
-            <form asp-action="Create" method="post">
-                <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
-
-                @* No hidden fields for Id, Date, CreatedBy needed here, as they are new or set by the controller *@
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="Name" class="form-label">
-                                اسم الفصل <span class="required">*</span>
-                            </label>
-                            <div class="input-group">
-                                <input asp-for="Name" class="form-control" placeholder="أدخل اسم الفصل" required />
-                                <i class="fas fa-graduation-cap form-icon"></i>
-                            </div>
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
+    <div class="container-fluid p-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-primary text-white text-center py-4">
+                        <h3 class="mb-0 fw-bold">
+                            <i class="fas fa-plus-circle me-2"></i>إنشاء فصل جديد
+                        </h3>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="MaxStudents" class="form-label">
-                                 السعة <span class="required">*</span>
-                            </label>
-                            <div class="input-group">
-                                <input asp-for="MaxStudents" class="form-control" placeholder="ادخل السعه" required />
-                                <i class="fas fa-graduation-cap form-icon"></i>
-                            </div>
-                            <span asp-validation-for="MaxStudents" class="text-danger"></span>
+
+                    <div class="card-body p-5">
+                        <!-- Success Message Example -->
+                        <div class="alert alert-success" style="display: none;" id="successAlert">
+                            <i class="fas fa-check-circle me-2"></i>
+                            تم إنشاء الفصل بنجاح!
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label asp-for="FieldId" class="form-label">التخصص</label>
-                            <div class="input-group">
-                                <select asp-for="FieldId" class="form-select" asp-items="ViewBag.FieldId">
+
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold text-primary">
+                                            <i class="fas fa-graduation-cap input-icon"></i>اسم الفصل <span class="required">*</span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg" placeholder="أدخل اسم الفصل" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold text-primary">
+                                            <i class="fas fa-users input-icon"></i>السعة <span class="required">*</span>
+                                        </label>
+                                        <input type="number" class="form-control form-control-lg" placeholder="ادخل السعة" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold text-primary">
+                                    <i class="fas fa-book input-icon"></i>التخصص
+                                </label>
+                                <select class="form-select form-control-lg">
                                     <option value="">-- اختر التخصص --</option>
+                                    <option value="1">العلوم الطبيعية</option>
+                                    <option value="2">الأدب والفلسفة</option>
+                                    <option value="3">الرياضيات والفيزياء</option>
+                                    <option value="4">التجارة والاقتصاد</option>
+                                    <option value="5">الحاسوب وتكنولوجيا المعلومات</option>
                                 </select>
-                                <i class="fas fa-book form-icon"></i>
                             </div>
-                            <span asp-validation-for="FieldId" class="text-danger"></span>
-                        </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary btn-lg w-100 mb-3" onclick="showSuccess()">
+                                        <i class="fas fa-save me-2"></i>إنشاء الفصل
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-outline-secondary btn-lg w-100">
+                                        <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-plus-circle me-2"></i> إنشاء الفصل
-                    </button>
-                    <a href="@Url.Action("Index")" class="btn btn-secondary">
-                        <i class="fas fa-times me-2"></i>
-                        إلغاء
-                    </a>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        // التحقق من صحة النموذج
-        document.querySelector('form').addEventListener('submit', function(e) {
-            let isValid = true;
+        function showSuccess() {
+            const alert = document.getElementById('successAlert');
+            alert.style.display = 'block';
 
-            // التحقق من اسم الفصل
-            const nameInput = document.querySelector('input[name="Name"]');
-            const nameValue = nameInput.value.trim();
+            // Scroll to top to show the alert
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            if (!nameValue) {
-                isValid = false;
-                nameInput.classList.add('is-invalid');
-            } else {
-                nameInput.classList.remove('is-invalid');
-            }
+            // Hide after 3 seconds
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
 
-            if (!isValid) {
-                e.preventDefault();
-            }
-        });
+        // Add some interactive effects
+        document.querySelectorAll('.form-control, .form-select').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+                this.parentElement.style.transition = 'all 0.3s ease';
+            });
 
-        // إزالة رسائل الخطأ عند الكتابة
-        document.querySelectorAll('.form-control, .form-select').forEach(function(element) {
-            element.addEventListener('input', function() {
-                this.classList.remove('is-invalid');
+            element.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
             });
         });
 
-        // For Create, you might want a different confirmation message
-        document.querySelector('form').addEventListener('submit', function(e) {
-            if (!confirm('هل أنت متأكد من إنشاء هذا الفصل؟')) {
-                e.preventDefault();
-            }
+        // Button hover effects
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.02)';
+            });
+
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
         });
     </script>
 </body>
