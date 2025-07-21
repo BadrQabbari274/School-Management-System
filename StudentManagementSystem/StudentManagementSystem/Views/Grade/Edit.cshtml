@@ -4,7 +4,14 @@
     ViewData["Title"] = "Edit Class Year";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" /> @* Or ~/css/grades.css *@
+</head>
 <div class="container-fluid p-4">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
@@ -66,70 +73,6 @@
         </div>
     </div>
 </div>
-
-<style>
-    .card {
-        border-radius: 20px;
-        overflow: hidden;
-    }
-
-    .card-header {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
-        border: none;
-    }
-
-    .form-control {
-        border-radius: 10px;
-        border: 2px solid #e9ecef;
-        padding: 12px 15px;
-        transition: all 0.3s ease;
-    }
-
-        .form-control:focus {
-            border-color: #f093fb;
-            box-shadow: 0 0 0 0.2rem rgba(240, 147, 251, 0.25);
-        }
-
-    .btn-warning {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        border: none;
-        border-radius: 10px;
-        padding: 12px 24px;
-        transition: all 0.3s ease;
-        color: white;
-    }
-
-        .btn-warning:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
-            color: white;
-        }
-
-    .btn-outline-secondary {
-        border-radius: 10px;
-        padding: 12px 24px;
-        transition: all 0.3s ease;
-    }
-
-    .form-check-input:checked {
-        background-color: #f093fb;
-        border-color: #f093fb;
-    }
-
-    .text-warning {
-        color: #f093fb !important;
-    }
-
-    .form-label {
-        margin-bottom: 8px;
-        font-size: 1.1rem;
-    }
-
-    .form-control[readonly] {
-        background-color: #f8f9fa;
-        color: #6c757d;
-    }
-</style>
 
 @section Scripts {
     @{
