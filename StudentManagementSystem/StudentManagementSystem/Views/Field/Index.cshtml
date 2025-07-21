@@ -5,6 +5,7 @@
 }
 <link href="~/css/field-styles.css" rel="stylesheet" />
 
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -13,7 +14,7 @@
     <title>@ViewData["Title"]</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <style>
+   @*  <style>
         /* General Body Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -25,17 +26,18 @@
 
         /* Header Section */
         .header-section {
-            background: linear-gradient(135deg, #ff8a50, #ff6b35); /* Warm gradient */
-            color: white;
+            /* UPDATED: Matching the Class page header styles */
+            background: linear-gradient(135deg, #ffffff, #ffffff); /* White gradient, as in Classes page */
+            color: #ff6b35; /* Orange text color, as in Classes page */
             text-align: center;
             padding: 25px 0;
             margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
-            border-radius: 0 0 20px 20px; /* Rounded bottom corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border-radius: 0 0 20px 20px;
         }
 
         .header-title {
-            font-size: 32px; /* Larger title */
+            font-size: 32px;
             font-weight: bold;
             margin: 0;
             letter-spacing: 1px;
@@ -52,43 +54,43 @@
         .controls {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 25px; /* More space */
+            margin-bottom: 25px;
         }
 
         /* General Button Styles */
         .btn {
-            padding: 10px 20px; /* More padding */
+            padding: 10px 20px;
             border: none;
-            border-radius: 8px; /* More rounded */
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 15px; /* Slightly larger font */
-            font-weight: 600; /* Bolder text */
+            font-size: 15px;
+            font-weight: 600;
             text-decoration: none;
-            display: inline-flex; /* Align icon and text */
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease; /* Smooth transitions */
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            color: white; /* Default text color for gradient buttons */
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            color: white;
         }
 
             .btn i {
-                margin-left: 8px; /* Space between icon and text */
+                margin-left: 8px;
             }
 
         /* Specific Button Styles with Gradients and Hover Effects */
         .btn-add {
-            background: linear-gradient(135deg, #28a745, #20c997); /* Green gradient */
+            background: linear-gradient(135deg, #28a745, #20c997);
         }
 
             .btn-add:hover {
-                background: linear-gradient(135deg, #218838, #1e7e34); /* Darker green on hover */
-                transform: translateY(-2px); /* Lift effect */
-                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3); /* Stronger shadow on hover */
+                background: linear-gradient(135deg, #218838, #1e7e34);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
             }
 
         .btn-info {
-            background: linear-gradient(135deg, #17a2b8, #138496); /* Blue gradient */
+            background: linear-gradient(135deg, #17a2b8, #138496);
         }
 
             .btn-info:hover {
@@ -98,8 +100,8 @@
             }
 
         .btn-warning {
-            background: linear-gradient(135deg, #ffc107, #e0a800); /* Yellow gradient */
-            color: #333; /* Darker text for contrast */
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #333;
         }
 
             .btn-warning:hover {
@@ -109,7 +111,7 @@
             }
 
         .btn-danger {
-            background: linear-gradient(135deg, #dc3545, #c82333); /* Red gradient */
+            background: linear-gradient(135deg, #dc3545, #c82333);
         }
 
             .btn-danger:hover {
@@ -119,7 +121,7 @@
             }
 
         .btn-secondary {
-            background: linear-gradient(135deg, #6c757d, #5a6268); /* Gray gradient */
+            background: linear-gradient(135deg, #6c757d, #5a6268);
         }
 
             .btn-secondary:hover {
@@ -129,7 +131,7 @@
             }
 
         .btn-sm {
-            padding: 6px 12px; /* Adjusted for small buttons */
+            padding: 6px 12px;
             font-size: 13px;
             margin-left: 5px;
         }
@@ -155,9 +157,9 @@
         .fields-table {
             width: 100%;
             background-color: white;
-            border-radius: 12px; /* More rounded table */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Stronger table shadow */
-            overflow: hidden; /* Ensures rounded corners apply to content */
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
         .table {
@@ -168,13 +170,13 @@
 
             .table th,
             .table td {
-                padding: 18px; /* More padding in cells */
+                padding: 18px;
                 text-align: center;
                 border-bottom: 1px solid #eee;
             }
 
             .table th {
-                background-color: #f0f2f5; /* Lighter header background */
+                background-color: #f0f2f5;
                 font-weight: bold;
                 color: #555;
                 border-bottom: 2px solid #dee2e6;
@@ -182,19 +184,19 @@
             }
 
             .table tbody tr:hover {
-                background-color: #e9ecef; /* Lighter hover effect */
+                background-color: #e9ecef;
             }
 
         .btn-group {
             display: flex;
-            gap: 8px; /* More space between action buttons */
+            gap: 8px;
             justify-content: center;
         }
 
         .no-data {
             text-align: center;
             padding: 40px;
-            color: #888; /* Softer color */
+            color: #888;
             font-style: italic;
             font-size: 18px;
         }
@@ -240,7 +242,7 @@
         }
 
         .custom-modal .btn-close {
-            filter: invert(1) brightness(2); /* Make close button white */
+            filter: invert(1) brightness(2);
         }
 
         .custom-modal .modal-body {
@@ -259,34 +261,31 @@
 
         /* Responsive Design */
         @@media (max-width: 768px) {
-            .container
+            .container {
+                padding: 10px;
+            }
 
-        {
-            padding: 10px;
-        }
+            .header-title {
+                font-size: 24px;
+            }
 
-        .header-title {
-            font-size: 24px;
-        }
+            .table th,
+            .table td {
+                padding: 10px;
+                font-size: 12px;
+            }
 
-        .table th,
-        .table td {
-            padding: 10px;
-            font-size: 12px;
-        }
+            .btn-group {
+                flex-direction: column;
+                gap: 5px;
+            }
 
-        .btn-group {
-            flex-direction: column;
-            gap: 5px;
+            .btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
         }
-
-        .btn {
-            padding: 8px 15px;
-            font-size: 13px;
-        }
-
-        }
-    </style>
+    </style> *@
 </head>
 <body>
     <div class="header-section">
@@ -374,7 +373,6 @@
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
     <div class="modal fade custom-modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -394,7 +392,6 @@
         </div>
     </div>
 
-    <!-- Hidden Delete Form -->
     <form id="deleteForm" asp-action="Delete" method="post" style="display:none;">
         @Html.AntiForgeryToken()
         <input type="hidden" name="id" id="fieldIdToDelete" />
