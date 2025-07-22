@@ -350,6 +350,7 @@ namespace StudentManagementSystem.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> ToggleUserStatus(int id)
         {
             try

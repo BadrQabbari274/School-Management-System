@@ -2,13 +2,15 @@
 
 @{
     ViewData["Title"] = "تعديل الفصل";
+    Layout = null; // We are providing a full HTML structure, so no need for a layout here.
 }
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تعديل الفصل</title>
+    <title>@ViewData["Title"]</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <style>
@@ -21,11 +23,61 @@
         .card {
             border-radius: 20px;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .card-header {
-            background: linear-gradient(135deg, #ff8a50 0%, #ff6b35 100%) !important;
+            background: linear-gradient(135deg, #ff8a50 0%, #ff6b35 100%) !important; /* Orange gradient */
+            color: white;
             border: none;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .header-title i {
+                margin-left: 10px; /* Adjust margin for RTL */
+            }
+
+        .back-button {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+            .back-button:hover {
+                background: rgba(255,255,255,0.3);
+                color: white;
+            }
+
+        .card-body {
+            padding: 40px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #ff8a50; /* Orange color for labels */
+            margin-bottom: 8px;
+            display: block;
+            font-size: 1.1rem;
         }
 
         .form-control, .form-select {
@@ -33,51 +85,94 @@
             border: 2px solid #e9ecef;
             padding: 12px 15px;
             transition: all 0.3s ease;
+            font-size: 16px;
         }
 
             .form-control:focus, .form-select:focus {
-                border-color: #ff8a50;
+                border-color: #ff8a50; /* Orange border on focus */
                 box-shadow: 0 0 0 0.2rem rgba(255, 138, 80, 0.25);
             }
 
-        .btn-warning {
-            background: linear-gradient(135deg, #ff8a50 0%, #ff6b35 100%);
+            .form-control:read-only {
+                background-color: #f8f9fa;
+                border-color: #dee2e6;
+                color: #6c757d;
+            }
+
+        .form-check {
+            margin-bottom: 20px;
+        }
+
+        .form-check-input:checked {
+            background-color: #ff8a50; /* Orange for checked checkbox */
+            border-color: #ff8a50;
+        }
+
+        .form-check-label {
+            font-weight: 500;
+            color: #333;
+            margin-right: 10px; /* Adjust margin for RTL */
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff8a50, #ff6b35); /* Orange gradient for primary button */
             border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
             border-radius: 10px;
-            padding: 12px 24px;
             transition: all 0.3s ease;
             color: white;
         }
 
-            .btn-warning:hover {
+            .btn-primary:hover {
+                background: linear-gradient(135deg, #ff6b35, #ff8a50);
                 transform: translateY(-2px);
-                box-shadow: 0 8px 25px rgba(255, 138, 80, 0.4);
+                box-shadow: 0 5px 15px rgba(255, 138, 80, 0.4);
                 color: white;
             }
 
-        .btn-outline-secondary {
+        .btn-secondary {
+            background: #6c757d;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
             border-radius: 10px;
-            padding: 12px 24px;
             transition: all 0.3s ease;
+            color: white;
         }
 
-        .form-check-input:checked {
-            background-color: #ff8a50;
-            border-color: #ff8a50;
+            .btn-secondary:hover {
+                background: #5a6268;
+                transform: translateY(-2px);
+            }
+
+        .text-danger {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #dc3545 !important;
         }
 
-        .text-warning {
-            color: #ff8a50 !important;
+        .required {
+            color: #dc3545;
         }
 
-        .form-label {
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+        .input-group {
+            position: relative;
         }
 
-        .form-control[readonly] {
-            background-color: #f8f9fa;
-            color: #6c757d;
+        .form-icon {
+            position: absolute;
+            left: 15px; /* Adjust position for RTL */
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ced4da; /* Light gray for icons */
+            pointer-events: none; /* Make icon not interfere with input clicks */
+        }
+
+        .form-control.is-invalid + .form-icon {
+            color: #dc3545; /* Red icon for invalid input */
         }
 
         .alert {
@@ -85,13 +180,6 @@
             margin-bottom: 20px;
         }
 
-        /* RTL Support */
-        [dir="rtl"] .me-2 {
-            margin-right: 0 !important;
-            margin-left: 0.5rem !important;
-        }
-
-        /* Custom validation styles */
         .validation-summary-errors {
             background-color: #f8d7da;
             border: 1px solid #f5c6cb;
@@ -106,74 +194,110 @@
                 padding-right: 20px;
             }
 
-        /* Demo styles */
-        .demo-container {
-            min-height: 100vh;
-            padding: 20px 0;
+        .info-section {
+            background-color: #fff3e0; /* Light orange background */
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ffcc80; /* Orange border */
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #e65100; /* Darker orange for info label */
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: #ff8a50; /* Orange for info value */
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-    <div class="demo-container">
-        <div class="container-fluid p-4">
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6">
-                    <div class="card border-0 shadow-lg">
-                        <div class="card-header bg-warning text-white text-center py-4">
-                            <h3 class="mb-0 fw-bold">
-                                <i class="fas fa-edit me-2"></i>تعديل الفصل
-                            </h3>
-                        </div>
+    <div class="container-fluid p-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card">
+                    <div class="card-header position-relative">
+                        <a href="@Url.Action("Index")" class="back-button">
+                            <i class="fas fa-arrow-right me-2"></i>
+                            العودة
+                        </a>
+                        <h1 class="header-title">
+                            <i class="fas fa-edit"></i>تعديل الفصل
+                        </h1>
+                    </div>
 
-                        <div class="card-body p-5">
-                            <!-- Success Message Example -->
-                            <div class="alert alert-success" style="display: none;" id="successMessage">
-                                <i class="fas fa-check-circle"></i>
-                                تم تحديث بيانات الفصل بنجاح
+                    <div class="card-body">
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle me-2"></i>
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+
+                        @if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                @TempData["ErrorMessage"]
+                            </div>
+                        }
+
+                        <form asp-action="Edit" method="post">
+                            <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="Date" />
+                            <input type="hidden" asp-for="CreatedBy" />
+
+                            <div class="mb-4">
+                                <label asp-for="Name" class="form-label">
+                                    اسم الفصل <span class="required">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم الفصل" required />
+                                    <i class="fas fa-graduation-cap form-icon"></i>
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
 
-                            <form>
-                                <!-- Class Name -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold text-warning">
-                                        <i class="fas fa-graduation-cap me-2"></i>اسم الفصل
-                                    </label>
-                                    <input type="text" class="form-control form-control-lg" placeholder="أدخل اسم الفصل" />
-                                </div>
-
-                                <!-- Field Selection -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold text-warning">
-                                        <i class="fas fa-book me-2"></i>التخصص
-                                    </label>
-                                    <select class="form-select form-select-lg">
-                                        <option value="" selected>-- اختر التخصص --</option>
+                            <div class="mb-4">
+                                <label asp-for="FieldId" class="form-label">التخصص</label>
+                                <div class="input-group">
+                                    <select asp-for="FieldId" class="form-select form-select-lg" asp-items="ViewBag.FieldId">
+                                        <option value="">-- اختر التخصص --</option>
                                     </select>
+                                    <i class="fas fa-book form-icon"></i>
                                 </div>
+                                <span asp-validation-for="FieldId" class="text-danger"></span>
+                            </div>
 
-                                <!-- Created Date (Read-only) -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold text-muted">
-                                        <i class="fas fa-calendar-alt me-2"></i>تاريخ الإنشاء
-                                    </label>
-                                    <input type="text" class="form-control" value="" readonly />
+                            <div class="info-section">
+                                <div class="info-label">تاريخ الإنشاء</div>
+                                <div class="info-value">
+                                    <i class="fas fa-calendar me-2"></i>
+                                    @Model.Date.ToString("dd/MM/yyyy - hh:mm tt")
                                 </div>
+                            </div>
 
-                                <!-- Submit Buttons -->
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <button type="button" class="btn btn-warning btn-lg w-100 mb-3" onclick="showSuccess()">
-                                            <i class="fas fa-save me-2"></i>تحديث الفصل
-                                        </button>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button type="button" class="btn btn-outline-secondary btn-lg w-100">
-                                            <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
-                                        </button>
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-save me-2"></i>
+                                        تحديث الفصل
+                                    </button>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-md-6 mb-3">
+                                    <a href="@Url.Action("Index")" class="btn btn-secondary w-100">
+                                        <i class="fas fa-times me-2"></i>
+                                        إلغاء
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -182,39 +306,31 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        function showSuccess() {
-            const successMsg = document.getElementById('successMessage');
-            successMsg.style.display = 'block';
+        // Client-side validation for the "Name" field (if not handled by ASP.NET Core MVC unobtrusive validation)
+        document.querySelector('form').addEventListener('submit', function (e) {
+            let isValid = true;
+            const nameInput = document.querySelector('input[name="Name"]');
 
-            // Auto hide after 3 seconds
-            setTimeout(() => {
-                successMsg.style.display = 'none';
-            }, 3000);
-        }
+            if (!nameInput.value.trim()) {
+                isValid = false;
+                nameInput.classList.add('is-invalid');
+                // You might want to display a specific error message here if not using asp-validation-for
+            } else {
+                nameInput.classList.remove('is-invalid');
+            }
 
-        // Add focus effects
-        document.querySelectorAll('.form-control, .form-select').forEach(function(element) {
-            element.addEventListener('focus', function() {
-                this.style.transform = 'scale(1.02)';
-            });
-
-            element.addEventListener('blur', function() {
-                this.style.transform = 'scale(1)';
-            });
+            // Confirmation dialog before submission
+            if (isValid && !confirm('هل أنت متأكد من تحديث بيانات الفصل؟')) {
+                e.preventDefault(); // Prevent form submission if user cancels
+            } else if (!isValid) {
+                e.preventDefault(); // Prevent form submission if validation fails
+            }
         });
 
-        // Add hover effects to buttons
-        document.querySelectorAll('.btn').forEach(function(btn) {
-            btn.addEventListener('mouseenter', function() {
-                if (this.classList.contains('btn-warning')) {
-                    this.style.transform = 'translateY(-2px)';
-                    this.style.boxShadow = '0 8px 25px rgba(255, 138, 80, 0.4)';
-                }
-            });
-
-            btn.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-                this.style.boxShadow = '';
+        // Remove is-invalid class on input for better UX
+        document.querySelectorAll('.form-control, .form-select').forEach(function (element) {
+            element.addEventListener('input', function () {
+                this.classList.remove('is-invalid');
             });
         });
     </script>
