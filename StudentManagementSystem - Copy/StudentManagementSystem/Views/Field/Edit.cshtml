@@ -1,0 +1,79 @@
+﻿@* Views/Field/Edit.cshtml *@
+@model StudentManagementSystem.Models.Field
+
+@{
+    ViewData["Title"] = "تعديل القسم";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/field-styles.css" rel="stylesheet" />
+
+<div class="container-fluid p-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h3 class="mb-0 fw-bold">
+                        <i class="fas fa-edit me-2"></i>تعديل القسم
+                    </h3>
+                </div>
+
+                <div class="card-body p-5">
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="CreatedBy" />
+                        <input type="hidden" asp-for="CreatedDate" />
+
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label fw-bold text-primary">
+                                <i class="fas fa-university me-2"></i>اسم القسم
+                            </label>
+                            <input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم القسم" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="GradeId" class="form-label fw-bold text-primary">
+                                <i class="fas fa-graduation-cap me-2"></i>المرحلة الدراسية
+                            </label>
+                            <select asp-for="GradeId" class="form-control form-control-lg" asp-items="ViewBag.GradeId">
+                                <option value="">-- اختر المرحلة الدراسية --</option>
+                            </select>
+                            <span asp-validation-for="GradeId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-check form-switch">
+                                <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                                <label asp-for="IsActive" class="form-check-label fw-bold text-primary">
+                                    <i class="fas fa-toggle-on me-2"></i>نشط
+                                </label>
+                            </div>
+                            <small class="text-muted">تبديل لتفعيل/إلغاء تفعيل هذا القسم</small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                    <i class="fas fa-save me-2"></i>حفظ التغييرات
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <a asp-action="Index" class="btn btn-outline-secondary btn-lg w-100">
+                                    <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

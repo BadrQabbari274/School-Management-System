@@ -1,0 +1,350 @@
+/* General Body Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    direction: rtl; /* Assuming RTL for the main application */
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Section (from Index) */
+.header-section {
+    background: linear-gradient(135deg, #ff8a50, #ff6b35); /* Warm gradient */
+    color: white;
+    text-align: center;
+    padding: 25px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+    border-radius: 0 0 20px 20px; /* Rounded bottom corners */
+}
+
+.header-title {
+    font-size: 32px; /* Larger title */
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+/* Container for content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Control Buttons (Add New) - from Index */
+.controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 25px; /* More space */
+}
+
+/* General Button Styles */
+.btn {
+    padding: 10px 20px; /* More padding */
+    border: none;
+    border-radius: 8px; /* More rounded */
+    cursor: pointer;
+    font-size: 15px; /* Slightly larger font */
+    font-weight: 600; /* Bolder text */
+    text-decoration: none;
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    color: white; /* Default text color for gradient buttons */
+}
+
+    .btn i {
+        margin-left: 8px; /* Space between icon and text for RTL */
+    }
+
+/* Specific Button Styles with Gradients and Hover Effects (from Index) */
+.btn-add {
+    background: linear-gradient(135deg, #28a745, #20c997); /* Green gradient */
+}
+
+    .btn-add:hover {
+        background: linear-gradient(135deg, #218838, #1e7e34); /* Darker green on hover */
+        transform: translateY(-2px); /* Lift effect */
+        box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3); /* Stronger shadow on hover */
+    }
+
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8, #138496); /* Blue gradient */
+}
+
+    .btn-info:hover {
+        background: linear-gradient(135deg, #117a8b, #0e6e7e);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
+    }
+
+/* Combined .btn-warning styles from Index, Edit, and Details. Edit/Details override the color. */
+.btn-warning {
+    background: linear-gradient(135deg, #fd7e14 0%, #fd7e14 100%); /* Orange gradient */
+    border: none;
+    border-radius: 10px; /* More rounded than default */
+    padding: 12px 24px; /* More padding than default */
+    transition: all 0.3s ease;
+    color: white; /* Text color changed to white for this gradient */
+}
+
+    .btn-warning:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(181, 181, 181, 0.4); /* Adjusted shadow to match orange */
+        color: white; /* Ensure text remains white on hover */
+    }
+
+.btn-back {
+    background: #495057; /* Orange gradient */
+    border: none;
+    border-radius: 10px; /* More rounded than default */
+    padding: 12px 24px; /* More padding than default */
+    transition: all 0.3s ease;
+    color: white; /* Text color changed to white for this gradient */
+}
+
+    .btn-back:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(181, 181, 181, 0.4); /* Adjusted shadow to match orange */
+        color: black; /* Ensure text remains white on hover */
+    }
+
+/* Combined .btn-danger styles from Index and Details. Details overrides the color. */
+.btn-danger {
+    background: linear-gradient(135deg, #fd7e14 0%, #fd7e14 100%); /* Orange gradient */
+    border: none;
+    border-radius: 10px; /* More rounded than default */
+    padding: 12px 24px; /* More padding than default */
+    transition: all 0.3s ease;
+    color: white; /* Ensure text is white for this gradient */
+}
+
+    .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(181, 181, 181, 0.4); /* Adjusted shadow to match orange */
+    }
+
+.btn-sm { /* From Index */
+    padding: 6px 12px; /* Adjusted for small buttons */
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+/* Alert Messages (from Index) */
+.alert {
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Table Styles (from Index) */
+.courses-table {
+    width: 100%;
+    background-color: white;
+    border-radius: 12px; /* More rounded table */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Stronger table shadow */
+    overflow: hidden; /* Ensures rounded corners apply to content */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+    .table th,
+    .table td {
+        padding: 18px; /* More padding in cells */
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    .table th {
+        background-color: #f0f2f5; /* Lighter header background */
+        font-weight: bold;
+        color: #555;
+        border-bottom: 2px solid #dee2e6;
+        font-size: 15px;
+    }
+
+    .table tbody tr:hover {
+        background-color: #e9ecef; /* Lighter hover effect */
+    }
+
+.btn-group { /* From Index */
+    display: flex;
+    gap: 8px; /* More space between action buttons */
+    justify-content: center;
+}
+
+.no-data { /* From Index */
+    text-align: center;
+    padding: 40px;
+    color: #888; /* Softer color */
+    font-style: italic;
+    font-size: 18px;
+}
+
+/* Custom Modal Styles (for Delete Confirmation) - from Index */
+.custom-modal .modal-content {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.custom-modal .modal-header {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    border-radius: 15px 15px 0 0;
+    padding: 20px;
+    border-bottom: none;
+}
+
+.custom-modal .modal-title {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.custom-modal .btn-close {
+    filter: invert(1) brightness(2); /* Make close button white */
+}
+
+.custom-modal .modal-body {
+    padding: 30px;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+}
+
+.custom-modal .modal-footer {
+    border-top: none;
+    padding: 20px;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Card Styles (from Edit, Details, Create) */
+.card {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Consistent shadow for cards */
+}
+
+/* Card Header Styles - unified gradient */
+.card-header {
+    background: linear-gradient(135deg, #fd7e14 0%, #fd7e14 100%) !important;
+    border: none;
+    color: white; /* Ensure text is white on all card headers */
+}
+
+/* Form Control Styles (from Edit, Create) */
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #fd7e14; /* Highlight with the primary orange color */
+        box-shadow: 0 0 0 0.2rem rgba(253, 126, 20, 0.25); /* Orange focus shadow */
+    }
+
+    .form-control[readonly] { /* From Edit, Details */
+        background-color: #f8f9fa;
+        color: #6c757d;
+    }
+
+/* Text Colors */
+.text-warning { /* from Edit */
+    color: #000 !important; /* Overriding Bootstrap's default warning color to black */
+}
+
+.text-info { /* from Details */
+    color: #000 !important; /* Overriding Bootstrap's default info color to black */
+}
+
+.text-primary { /* from Create */
+    color: #000 !important; /* Overriding Bootstrap's default primary color to black */
+}
+
+/* Form Label Styles (from Edit, Details, Create) */
+.form-label {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+/* Form Check Input (Switch) - from Edit, Create */
+.form-check-input:checked {
+    background-color: #fd7e14; /* Using the primary orange color for active toggle */
+    border-color: #fd7e14;
+}
+
+/* Detail Item Styles (from Details) */
+.detail-item {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    height: 100%;
+}
+
+.detail-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
+    margin-top: 5px;
+}
+
+/* Badge Styles (from Details) */
+.badge {
+    padding: 8px 12px;
+    border-radius: 20px;
+}
+
+/* Horizontal Rule (from Details) */
+hr {
+    border: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #fd7e14 0%, #fd7e14 100%);
+    opacity: 0.3;
+}
+
+/* Responsive Design (from Index) */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .header-title {
+        font-size: 24px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+}
