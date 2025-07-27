@@ -1,0 +1,441 @@
+﻿@model IEnumerable<StudentManagementSystem.Models.Department>
+
+@{
+    ViewData["Title"] = "الأقسام";
+}
+<link href="~/css/field-styles.css" rel="stylesheet" />
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  @*   <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Section */
+        .header-section {
+            /* UPDATED: Matching the Class page header styles */
+            background: linear-gradient(135deg, #ffffff, #ffffff); /* White gradient, as in Classes page */
+            color: #ff6b35; /* Orange text color, as in Classes page */
+            text-align: center;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* Container for content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Control Buttons (Add New) */
+        .controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 25px;
+        }
+
+        /* General Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+            .btn i {
+                margin-left: 8px;
+            }
+
+        /* Specific Button Styles with Gradients and Hover Effects */
+        .btn-add {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+            .btn-add:hover {
+                background: linear-gradient(135deg, #218838, #1e7e34);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+            }
+
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+        }
+
+            .btn-info:hover {
+                background: linear-gradient(135deg, #117a8b, #0e6e7e);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
+            }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #333;
+        }
+
+            .btn-warning:hover {
+                background: linear-gradient(135deg, #e0a800, #c69500);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+            }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+        }
+
+            .btn-danger:hover {
+                background: linear-gradient(135deg, #c82333, #bd2130);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
+            }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+        }
+
+            .btn-secondary:hover {
+                background: linear-gradient(135deg, #5a6268, #495057);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(108, 117, 125, 0.3);
+            }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 13px;
+            margin-left: 5px;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Table Styles */
+        .fields-table {
+            width: 100%;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+            .table th,
+            .table td {
+                padding: 18px;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+
+            .table th {
+                background-color: #f0f2f5;
+                font-weight: bold;
+                color: #555;
+                border-bottom: 2px solid #dee2e6;
+                font-size: 15px;
+            }
+
+            .table tbody tr:hover {
+                background-color: #e9ecef;
+            }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-style: italic;
+            font-size: 18px;
+        }
+
+        /* Status Badge Styles */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-active {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .status-inactive {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+            color: white;
+        }
+
+        /* Custom Modal Styles (for Delete Confirmation) */
+        .custom-modal .modal-content {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .custom-modal .modal-header {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+            border-bottom: none;
+        }
+
+        .custom-modal .modal-title {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .custom-modal .btn-close {
+            filter: invert(1) brightness(2);
+        }
+
+        .custom-modal .modal-body {
+            padding: 30px;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
+
+        .custom-modal .modal-footer {
+            border-top: none;
+            padding: 20px;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header-title {
+                font-size: 24px;
+            }
+
+            .table th,
+            .table td {
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+        }
+    </style> *@
+</head>
+<body>
+    <div class="header-section">
+        <div class="container">
+            <h1 class="header-title">الأقسام</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="controls">
+            <a href="@Url.Action("Create")" class="btn btn-add">
+                <i class="fas fa-plus-circle"></i> إضافة قسم جديد
+            </a>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div class="fields-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>اسم القسم</th>
+                        <th>المرحلة الدراسية</th>
+                        <th>الحالة</th>
+                        <th>تاريخ الإنشاء</th>
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var field in Model)
+                        {
+                            <tr>
+                                <td>@field.Name</td>
+                                <td>@(field.Grade?.Name ?? "غير محدد")</td>
+                                <td>
+                                    @if (field.IsActive)
+                                    {
+                                        <span class="status-badge status-active">نشط</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge status-inactive">غير نشط</span>
+                                    }
+                                </td>
+                                <td>@field.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="@Url.Action("Details", new { id = field.Id })"
+                                           class="btn btn-info btn-sm" title="عرض التفاصيل">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", new { id = field.Id })"
+                                           class="btn btn-warning btn-sm" title="تعديل">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-sm" title="حذف"
+                                                onclick="showDeleteConfirmation(@field.Id, '@field.Name')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <a href="@Url.Action("AssignEmployee", new { id = field.Id })"
+                                           class="btn btn-secondary btn-sm" title="تعيين موظف">
+                                            <i class="fas fa-user-plus"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="no-data">لا توجد أقسام متاحة</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade custom-modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">تأكيد الحذف</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>هل أنت متأكد من حذف القسم <strong id="fieldNameToDelete"></strong>؟</p>
+                    <p class="text-danger">لا يمكن التراجع عن هذا الإجراء.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="deleteForm" asp-action="Delete" method="post" style="display:none;">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" id="fieldIdToDelete" />
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let fieldIdToDelete = 0; // Global variable to store the ID of the field to be deleted
+
+        function showDeleteConfirmation(id, name) {
+            fieldIdToDelete = id;
+            document.getElementById('fieldNameToDelete').innerText = name;
+            var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+            deleteModal.show();
+        }
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
+            // Hide the modal
+            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+            deleteModal.hide();
+
+            // Perform the deletion using the hidden form and AJAX
+            const form = document.getElementById('deleteForm');
+            document.getElementById('fieldIdToDelete').value = fieldIdToDelete;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form)
+                });
+
+                if (response.ok) {
+                    // Reload the page to reflect the deletion
+                    location.reload();
+                } else {
+                    // Handle non-OK responses, e.g., show an error message
+                    alert('حدث خطأ أثناء حذف القسم. يرجى المحاولة مرة أخرى.');
+                    console.error('Delete failed with status:', response.status);
+                }
+            } catch (error) {
+                alert('حدث خطأ أثناء حذف القسم. يرجى التحقق من الاتصال بالإنترنت.');
+                console.error('Error during fetch:', error);
+            }
+        });
+    </script>
+</body>
+</html>
