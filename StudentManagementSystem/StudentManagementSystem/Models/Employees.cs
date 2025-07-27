@@ -12,18 +12,18 @@ namespace StudentManagementSystem.Models
         public bool IsActive { get; set; }
         public string Password { get; set; }
         public int RoleId { get; set; }
-        public int CreatedBy_Id { get; set; }
+        public int? CreatedBy_Id { get; set; }
         public DateTime Date { get; set; }
-        public DateTime LastLogin { get; set; }
+        public DateTime? LastLogin { get; set; }
         public string Email { get; set; }
-        public DateTime Join_Date { get; set; }
+        public DateTime? Join_Date { get; set; }
 
         // Navigation properties
         [ForeignKey("RoleId")]
         public virtual EmployeeTypes Role { get; set; }
 
         [ForeignKey("CreatedBy_Id")]
-        public virtual Employees CreatedBy { get; set; }
+        public virtual Employees? CreatedBy { get; set; }
 
         // Self-referencing navigation
         public virtual ICollection<Employees> CreatedEmployees { get; set; }

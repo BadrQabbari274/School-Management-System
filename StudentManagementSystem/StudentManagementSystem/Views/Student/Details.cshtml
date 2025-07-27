@@ -144,7 +144,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">المحافظة:</label>
-                            <p class="form-control-plaintext">@Model.Governarate</p>
+                            <p class="form-control-plaintext">@Model.Governate</p>
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label fw-bold">العنوان:</label>
@@ -214,7 +214,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">الفصل:</label>
-                            <p class="form-control-plaintext">
+                        @*     <p class="form-control-plaintext">
                                 @if (Model.Class != null)
                                 {
                                     @Model.Class.Name
@@ -224,7 +224,7 @@
                                     <span class="text-muted">لم يتم تحديد الفصل</span>
                                 }
                             </p>
-                        </div>
+                        </div> *@
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">الحالة:</label>
                             <p class="form-control-plaintext">
@@ -288,7 +288,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">تم الإنشاء بواسطة:</label>
-                            <p class="form-control-plaintext">@(Model.CreatedByUser?.Name ?? "غير محدد")</p>
+                            <p class="form-control-plaintext">@(Model.CreatedBy?.Name ?? "غير محدد")</p>
                         </div>
                     </div>
                 </div>

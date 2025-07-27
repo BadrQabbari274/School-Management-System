@@ -174,10 +174,10 @@ namespace StudentManagementSystem.Controllers
                     Name = model.Name,
                     Username = model.Username,
                     Password = "0000", // Note: Hash password in production
-                    RoleId = (int)model.RoleId,
+                    RoleId =  model.RoleId,
                     IsActive = true,
                     Email = model.Email,
-                    //CreatedBy = GetCurrentUserId()
+                    CreatedBy_Id = GetCurrentUserId()
                 };
 
                 await _userService.CreateUserAsync(user);
