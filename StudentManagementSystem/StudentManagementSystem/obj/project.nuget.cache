@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NnLzW0XjepU=",
+  "dgSpecHash": "s7FJ0iGLL2U=",
   "success": true,
-  "projectFilePath": "C:\\Users\\sd\\Source\\Repos\\Midany\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+  "projectFilePath": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sd\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\sd\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
@@ -80,5 +80,15 @@
     "C:\\Users\\sd\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\sd\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: The download of 'https://api.nuget.org/v3-vulnerabilities/2025.07.18.05.26.07/vulnerability.base.json' timed out because no data was received for 60000ms.",
+      "projectPath": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

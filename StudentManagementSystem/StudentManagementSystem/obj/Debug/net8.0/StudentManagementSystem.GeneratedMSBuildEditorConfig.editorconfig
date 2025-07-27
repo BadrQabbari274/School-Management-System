@@ -32,24 +32,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/DailyAttendance.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxEYWlseUF0dGVuZGFuY2UuY3NodG1s
+[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/ExitRequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxFeGl0UmVxdWVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/DailyReport.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxEYWlseVJlcG9ydC5jc2h0bWw=
+[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/FieldAttendance.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxGaWVsZEF0dGVuZGFuY2UuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/WeeklyReport.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxXZWVrbHlSZXBvcnQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/_DailyAttendancePartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxfRGFpbHlBdHRlbmRhbmNlUGFydGlhbC5jc2h0bWw=
+[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/ViewAttendance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxWaWV3QXR0ZW5kYW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Class/Create.cshtml]

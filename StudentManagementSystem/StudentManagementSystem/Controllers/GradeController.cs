@@ -215,4 +215,4 @@ namespace StudentManagementSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
-}
+} 

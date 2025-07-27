@@ -34,6 +34,7 @@ namespace StudentManagementSystem.Models
         public int? RoleId { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime? Join_Date { get; set; } 
         public DateTime? LastLogin { get; set; } 
 
         // Navigation Properties

@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentManagementSystem.Models
 {
-
     public class StudentAbsent
     {
         [Key]
@@ -15,15 +14,23 @@ namespace StudentManagementSystem.Models
         public int? AttendanceType { get; set; }
 
         public bool IsDeleted { get; set; } = false;
+
         public int? CreatedBy { get; set; }
+
         public DateTime Date { get; set; } = DateTime.Now;
+
         public int? StudentId { get; set; }
-        public int? TeacherId { get; set; }
+
+
         public int? AbsenceReasonId { get; set; }
 
         // Additional field for custom absence reason when "Other" is selected
         [StringLength(255)]
         public string? CustomReasonDetails { get; set; }
+
+        // Additional notes field for any extra information
+        [StringLength(500)]
+        public string? Notes { get; set; }
 
         // Field to indicate if this is a field attendance record
         public bool IsFieldAttendance { get; set; } = false;
@@ -31,9 +38,6 @@ namespace StudentManagementSystem.Models
         // Navigation Properties
         [ForeignKey("StudentId")]
         public virtual Student Student { get; set; }
-
-        [ForeignKey("TeacherId")]
-        public virtual Employee Teacher { get; set; }
 
         [ForeignKey("AbsenceReasonId")]
         public virtual AbsenceReason AbsenceReason { get; set; }

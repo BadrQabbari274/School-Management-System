@@ -1,0 +1,136 @@
+﻿@model List<StudentManagementSystem.Models.Student>
+@{
+    ViewData["Title"] = "إذن خروج الطلاب";
+    var todayAttendance = ViewBag.TodayAttendance as List<StudentAttendance>;
+    var exitRequests = ViewBag.ExitRequests as List<RequestExit>;
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">إذن خروج الطلاب</h1>
+        <a href="@Url.Action("Index")" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+            <i class="fas fa-arrow-left fa-sm text-white-50"></i> رجوع
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">طلب إذن خروج</h6>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateExitRequest" method="post">
+                        <input type="hidden" name="classId" value="@ViewBag.ClassId" />
+                        <div class="form-group">
+                            <label>الطالب</label>
+                            <select class="form-control" name="StudentId" required>
+                                <option value="">-- اختر الطالب --</option>
+                                @foreach (var student in Model)
+                                {
+                                    var isPresent = todayAttendance?.Any(a => a.StudentId == student.Id) ?? false;
+                                    if (isPresent)
+                                    {
+                                        <option value="@student.Id">@student.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>سبب الخروج</label>
+                            <input type="text" class="form-control" name="Reason" required />
+                        </div>
+                        <div class="form-group">
+                            <label>وقت الخروج</label>
+                            <input type="time" class="form-control" name="ExitTime" required />
+                        </div>
+                        <div class="form-group">
+                            <label>وقت العودة المتوقع (اختياري)</label>
+                            <input type="time" class="form-control" name="ExpectedReturnTime" />
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-block">
+                            <i class="fas fa-sign-out-alt"></i> إنشاء طلب خروج
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">طلبات خروج اليوم</h6>
+                </div>
+                <div class="card-body">
+                    @if (exitRequests.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>الطالب</th>
+                                        <th>السبب</th>
+                                        <th>وقت الخروج</th>
+                                        <th>وقت العودة</th>
+                                        <th>الحالة</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var request in exitRequests)
+                                    {
+                                        <tr>
+                                            <td>@request.Student.Name</td>
+                                            <td>@request.Reason</td>
+                                            <td>@request.ExitTime.ToString(@"hh\:mm")</td>
+                                            <td>@(request.ExpectedReturnTime?.ToString(@"hh\:mm") ?? "-")</td>
+                                            <td>
+                                                @if (request.Status==1)
+                                                {
+                                                    <span class="badge badge-success">موافق</span>
+                                                }
+                                                else if (request.Status == 2)
+                                                {
+                                                    <span class="badge badge-danger">مرفوض</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-warning">قيد الانتظار</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info">
+                            لا توجد طلبات خروج لهذا اليوم
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
