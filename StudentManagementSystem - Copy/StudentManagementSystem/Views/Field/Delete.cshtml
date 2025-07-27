@@ -1,0 +1,43 @@
+﻿@* Views/Field/Delete.cshtml *@
+@model StudentManagementSystem.Models.Field
+
+@{
+    ViewData["Title"] = "حذف القسم";
+}
+<link href="~/css/field-styles.css" rel="stylesheet" />
+
+<div class="orange-theme">
+    <div class="orange-header">
+        <h1>حذف القسم</h1>
+    </div>
+
+    <div class="orange-card">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">تحذير!</h4>
+            <p>هل أنت متأكد من أنك تريد حذف هذا القسم؟ هذا الإجراء لا يمكن التراجع عنه.</p>
+        </div>
+
+        <h4 style="color: #FF9800;">معلومات القسم المراد حذفه:</h4>
+        <hr style="border-color: #FFB74D;" />
+
+        <dl class="row">
+            <dt class="col-sm-3" style="color: #FF9800;">اسم القسم:</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+
+            <dt class="col-sm-3" style="color: #FF9800;">المرحلة الدراسية:</dt>
+            <dd class="col-sm-9">@Model.Grade?.Name</dd>
+
+
+            <dt class="col-sm-3" style="color: #FF9800;">تاريخ الإنشاء:</dt>
+            <dd class="col-sm-9">@Model.CreatedDate.ToString("yyyy-MM-dd")</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="تأكيد الحذف" class="btn btn-danger" style="padding: 10px 20px;" />
+                <a class="orange-btn" href="@Url.Action("Index")" style="padding: 10px 20px;">إلغاء</a>
+            </div>
+        </form>
+    </div>
+</div>
