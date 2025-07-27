@@ -24,12 +24,9 @@ namespace StudentManagementSystem.Service.Implementation
             _studentService = studentService;
         }
 
-        public async Task<IEnumerable<Student>> GetStudentsWithCompleteDataAsync()
+        public async Task<IEnumerable<Students>> GetStudentsWithCompleteDataAsync()
         {
             return await _context.Students
-                .Include(s => s.Class)
-                .ThenInclude(c => c.Field)
-                .ThenInclude(f => f.Grade)
                 .Include(s => s.TaskEvaluations)
                 .ThenInclude(te => te.Pictures)
                 .Include(s => s.Pictures)
@@ -37,7 +34,7 @@ namespace StudentManagementSystem.Service.Implementation
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<TaskEvaluation>> GetTaskEvaluationsWithPicturesAsync(int studentId)
+        public async Task<IEnumerable<TaskEvaluations>> GetTaskEvaluationsWithPicturesAsync(int studentId)
         {
             return await _context.TaskEvaluations
                 .Include(te => te.Outcome)
@@ -63,12 +60,12 @@ namespace StudentManagementSystem.Service.Implementation
                     var filePath = await _pictureService.SavePictureAsync(picture, studentId, taskId);
                     if (!string.IsNullOrEmpty(filePath))
                     {
-                        var pictureEntity = new Picture
+                        var pictureEntity = new Pictures
                         {
                             FilePath = filePath,
                             StudentId = studentId,
                             TaskId = taskId,
-                            CreatedBy = createdBy,
+                            CreatedBy_Id = createdBy,
                             CreatedDate = DateTime.Now
                         };
                         await _pictureService.CreatePictureAsync(pictureEntity);
@@ -85,23 +82,20 @@ namespace StudentManagementSystem.Service.Implementation
             }
         }
 
-        public async Task<IEnumerable<Student>> GetStudentsByFieldAsync(int fieldId)
+        public async Task<IEnumerable<Students>> GetStudentsByFieldAsync(int fieldId)
         {
             return await _context.Students
-                .Include(s => s.Class)
-                .Where(s => s.Class.FieldId == fieldId && s.IsActive)
+   
+                .Where(s =>  s.IsActive)
                 .ToListAsync();
         }
 
         public async Task<Dictionary<string, object>> GetStudentDashboardDataAsync(int studentId)
         {
             var student = await _context.Students
-                .Include(s => s.Class)
-                .ThenInclude(c => c.Field)
+
                 .Include(s => s.TaskEvaluations)
                 .ThenInclude(te => te.Pictures)
-                .Include(s => s.MajorAttendances)
-                .Include(s => s.StudentAttendances)
                 .FirstOrDefaultAsync(s => s.Id == studentId);
 
             if (student == null) return null;
@@ -133,7 +127,7 @@ namespace StudentManagementSystem.Service.Implementation
             };
         }
 
-        public async Task<bool> BulkUpdateAttendanceAsync(List<StudentAttendance> attendances)
+        public async Task<bool> BulkUpdateAttendanceAsync(List<StudentAttendances> attendances)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
             try

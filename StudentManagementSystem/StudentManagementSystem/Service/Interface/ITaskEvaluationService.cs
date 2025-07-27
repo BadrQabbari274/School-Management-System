@@ -4,13 +4,13 @@ namespace StudentManagementSystem.Service.Interface
 {
     public interface ITaskEvaluationService
     {
-        Task<IEnumerable<TaskEvaluation>> GetAllTaskEvaluationsAsync();
-        Task<TaskEvaluation> GetTaskEvaluationByIdAsync(int id);
-        Task<TaskEvaluation> CreateTaskEvaluationAsync(TaskEvaluation taskEvaluation);
-        Task<TaskEvaluation> UpdateTaskEvaluationAsync(TaskEvaluation taskEvaluation);
+        Task<IEnumerable<TaskEvaluations>> GetAllTaskEvaluationsAsync();
+        Task<TaskEvaluations> GetTaskEvaluationByIdAsync(int id);
+        Task<TaskEvaluations> CreateTaskEvaluationAsync(TaskEvaluations taskEvaluation);
+        Task<TaskEvaluations> UpdateTaskEvaluationAsync(TaskEvaluations taskEvaluation);
         Task<bool> DeleteTaskEvaluationAsync(int id);
-        Task<IEnumerable<TaskEvaluation>> GetActiveTaskEvaluationsAsync();
-        Task<IEnumerable<TaskEvaluation>> GetTaskEvaluationsByStudentAsync(int studentId);
-        Task<IEnumerable<TaskEvaluation>> GetTaskEvaluationsByOutcomeAsync(int outcomeId);
+        Task<IEnumerable<TaskEvaluations>> GetActiveTaskEvaluationsAsync();
+        Task<IEnumerable<TaskEvaluations>> GetTaskEvaluationsByStudentAsync(int studentId);
+        Task<IEnumerable<TaskEvaluations>> GetTaskEvaluationsByOutcomeAsync(int outcomeId);
     }
 }

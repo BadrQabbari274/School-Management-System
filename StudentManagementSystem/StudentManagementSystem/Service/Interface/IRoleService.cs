@@ -4,11 +4,11 @@ namespace StudentManagementSystem.Service.Interface
 {
     public interface IRoleService
     {
-        Task<IEnumerable<EmployeeType>> GetAllRolesAsync();
-        Task<EmployeeType> GetRoleByIdAsync(int id);
-        Task<EmployeeType> CreateRoleAsync(EmployeeType role);
-        Task<EmployeeType> UpdateRoleAsync(EmployeeType role);
+        Task<IEnumerable<EmployeeTypes>> GetAllRolesAsync();
+        Task<EmployeeTypes> GetRoleByIdAsync(int id);
+        Task<EmployeeTypes> CreateRoleAsync(EmployeeTypes role);
+        Task<EmployeeTypes> UpdateRoleAsync(EmployeeTypes role);
         Task<bool> DeleteRoleAsync(int id);
-        Task<IEnumerable<EmployeeType>> GetActiveRolesAsync();
+        Task<IEnumerable<EmployeeTypes>> GetActiveRolesAsync();
     }
 }

@@ -1,4 +1,4 @@
-﻿@model StudentManagementSystem.Models.Student
+﻿@model StudentManagementSystem.Models.Students
 
 @{
     ViewData["Title"] = "تفاصيل الطالب";
@@ -23,7 +23,7 @@
                     <i class="fas fa-route me-2"></i>
                     المسار الأكاديمي
                 </h6>
-                <div class="path-info">
+               @*  <div class="path-info">
                     @if (Model.Class != null)
                     {
                         <span class="badge bg-primary me-2">الفصل: @Model.Class.Name</span>
@@ -37,7 +37,7 @@
                     {
                         <span class="badge bg-warning">لم يتم تحديد الفصل</span>
                     }
-                </div>
+                </div> *@
             </div>
         </div>
     </div>
