@@ -1132,3 +1132,16 @@ C:\Users\sd\Source\Repos\MidanyG\StudentManagementSystem\StudentManagementSystem
 C:\Users\sd\Source\Repos\MidanyG\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.dll
 C:\Users\sd\Source\Repos\MidanyG\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\StudentManagementSystem.dll
 C:\Users\sd\Source\Repos\MidanyG\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.AssemblyReference.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfoInputs.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfo.cs
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.CoreCompileInputs.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.MvcApplicationPartsAssemblyInfo.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cs
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.sourcelink.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\StudentManagementSystem.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
