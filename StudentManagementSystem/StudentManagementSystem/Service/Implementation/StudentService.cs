@@ -20,8 +20,6 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Students
                 .Include(s => s.CreatedBy)
-                .Include(s => s.Class)
-                .ThenInclude(c => c.Department)
                 .Where(s => s.IsActive)
                 .ToListAsync();
         }
@@ -30,8 +28,6 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Students
                 .Include(s => s.CreatedBy)
-                .Include(s => s.Class)
-                .ThenInclude(c => c.Department)
                 .Include(s => s.TaskEvaluations)
                 .Include(s => s.Pictures)
                 .FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
@@ -104,14 +100,14 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Students
                 .Where(s => s.IsActive)
-                .Include(s => s.Class)
+         
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId)
         {
             return await _context.Students
-                .Where(s => s.ClassId == classId && s.IsActive)
+                .Where(s => s.IsActive)
                 .ToListAsync();
         }
 
@@ -127,19 +123,15 @@ namespace StudentManagementSystem.Service.Implementation
         {
             // جلب بيانات الصف والمجال
             var studentWithDetails = await _context.Students
-                .Include(s => s.Class)
-                .ThenInclude(c => c.Department)
                 .FirstOrDefaultAsync(s => s.Id == student.Id);
 
-            if (studentWithDetails?.Class?.Department == null)
-                throw new InvalidOperationException("يجب تحديد الصف والمجال قبل رفع الصور");
-
+         
             // إنشاء مسار المجلد: Grade-Field-Class-Student(ID_Name)
             var folderPath = Path.Combine(
                 _environment.WebRootPath,
                 "uploads",
-                $"Grade-{studentWithDetails.Class.Department.Name}",
-                $"Class-{studentWithDetails.Class.Name}",
+                //$"Grade-{studentWithDetails.Class.Department.Name}",
+                //$"Class-{studentWithDetails.Class.Name}",
                 $"Student({studentWithDetails.Id}_{studentWithDetails.Name.Replace(" ", "_")})"
             );
 
