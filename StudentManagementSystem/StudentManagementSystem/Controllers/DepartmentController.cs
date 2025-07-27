@@ -6,14 +6,14 @@ using System.Security.Claims;
 
 namespace StudentManagementSystem.Controllers
 {
-    public class FieldController : BaseController
+    public class DepartmentController : BaseController
     {
-        private readonly IFieldService _fieldService;
+        private readonly IDepartmentService _fieldService;
         private readonly IGradeService _gradeService;
         private readonly IUserService _employeeService;
 
-        public FieldController(
-            IFieldService fieldService,
+        public DepartmentController(
+            IDepartmentService fieldService,
             IGradeService gradeService,
             IUserService employeeService)
         {
@@ -33,7 +33,7 @@ namespace StudentManagementSystem.Controllers
             catch (Exception ex)
             {
                 SetErrorMessage($"حدث خطأ أثناء جلب البيانات: {ex.Message}");
-                return View(new List<Field>());
+                return View(new List<Department>());
             }
         }
 
@@ -75,12 +75,12 @@ namespace StudentManagementSystem.Controllers
         // POST: Field/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Field field)
+        public async Task<IActionResult> Create(Department field)
         {
             try
             {
        
-                    field.CreatedBy = GetCurrentUserId();
+                    field.CreatedBy_Id = GetCurrentUserId();
                     field.CreatedDate = DateTime.Now;
                     field.IsActive = true;
 
@@ -123,7 +123,7 @@ namespace StudentManagementSystem.Controllers
         // POST: Field/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Field field)
+        public async Task<IActionResult> Edit(int id, Department field)
         {
             if (id != field.Id)
             {
@@ -313,7 +313,7 @@ namespace StudentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.GradeId = new SelectList(new List<Grade>(), "Id", "Name");
+                ViewBag.GradeId = new SelectList(new List<Grades>(), "Id", "Name");
                 SetErrorMessage($"حدث خطأ أثناء جلب المراحل الدراسية: {ex.Message}");
             }
         }

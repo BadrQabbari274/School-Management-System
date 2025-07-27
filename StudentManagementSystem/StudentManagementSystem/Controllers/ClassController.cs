@@ -13,12 +13,12 @@ namespace StudentManagementSystem.Controllers
     public class ClassController : BaseController 
     {
         private readonly IClassService _classService;
-        private readonly IFieldService _fieldService;
+        private readonly IDepartmentService _fieldService;
         private readonly IUserService _employeeService; 
         private readonly IStudentService _studentService;
 
 
-        public ClassController(IClassService classService, IFieldService fieldService, IUserService employeeService, IStudentService studentService)
+        public ClassController(IClassService classService, IDepartmentService fieldService, IUserService employeeService, IStudentService studentService)
         {
             _classService = classService;
             _fieldService = fieldService;

@@ -72,30 +72,30 @@ namespace StudentManagementSystem.Service.Implementation
 
         public async Task<bool> AssignUserToDepartmentAsync(int userId, int departmentId)
         {
-            var existingAssignment = await _context.DepartmentEmployees
-                .FirstOrDefaultAsync(de => de.UserId == userId && de.DepartmentId == departmentId);
+            var existingAssignment = await _context.Employee_Departments
+                .FirstOrDefaultAsync(de => de.UserId == userId && de.Department_Id == departmentId);
 
             if (existingAssignment != null) return false;
 
-            var departmentEmployee = new DepartmentEmployee
+            var departmentEmployee = new Employee_Department
             {
                 UserId = userId,
-                DepartmentId = departmentId
+                Department_Id = departmentId
             };
 
-            _context.DepartmentEmployees.Add(departmentEmployee);
+            _context.Employee_Departments.Add(departmentEmployee);
             await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> RemoveUserFromDepartmentAsync(int userId, int departmentId)
         {
-            var departmentEmployee = await _context.DepartmentEmployees
-                .FirstOrDefaultAsync(de => de.UserId == userId && de.DepartmentId == departmentId);
+            var departmentEmployee = await _context.Employee_Departments
+                .FirstOrDefaultAsync(de => de.UserId == userId && de.Department_Id == departmentId);
 
             if (departmentEmployee == null) return false;
 
-            _context.DepartmentEmployees.Remove(departmentEmployee);
+            _context.Employee_Departments.Remove(departmentEmployee);
             await _context.SaveChangesAsync();
             return true;
         }
