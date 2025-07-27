@@ -14,24 +14,24 @@ namespace StudentManagementSystem.Service.Implementation
             _context = context;
         }
 
-        public async Task<IEnumerable<AbsenceReason>> GetAllAbsenceReasonsAsync()
+        public async Task<IEnumerable<AbsenceReasons>> GetAllAbsenceReasonsAsync()
         {
             return await _context.AbsenceReasons
-                .Include(ar => ar.CreatedByUser)
+                .Include(ar => ar.CreatedBy)
                 .Where(ar => !ar.IsDeleted)
                 .OrderBy(ar => ar.Name)
                 .ToListAsync();
         }
 
-        public async Task<AbsenceReason> GetAbsenceReasonByIdAsync(int id)
+        public async Task<AbsenceReasons> GetAbsenceReasonByIdAsync(int id)
         {
             return await _context.AbsenceReasons
-                .Include(ar => ar.CreatedByUser)
-                .Include(ar => ar.MajorAttendances)
+                .Include(ar => ar.CreatedBy)
+                .Include(ar => ar.StudentAbsents)
                 .FirstOrDefaultAsync(ar => ar.Id == id && !ar.IsDeleted);
         }
 
-        public async Task<AbsenceReason> CreateAbsenceReasonAsync(AbsenceReason absenceReason)
+        public async Task<AbsenceReasons> CreateAbsenceReasonAsync(AbsenceReasons absenceReason)
         {
             absenceReason.CreatedDate = DateTime.Now;
             _context.AbsenceReasons.Add(absenceReason);
@@ -39,7 +39,7 @@ namespace StudentManagementSystem.Service.Implementation
             return absenceReason;
         }
 
-        public async Task<AbsenceReason> UpdateAbsenceReasonAsync(AbsenceReason absenceReason)
+        public async Task<AbsenceReasons> UpdateAbsenceReasonAsync(AbsenceReasons absenceReason)
         {
             _context.Entry(absenceReason).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -56,7 +56,7 @@ namespace StudentManagementSystem.Service.Implementation
             return true;
         }
 
-        public async Task<IEnumerable<AbsenceReason>> GetActiveAbsenceReasonsAsync()
+        public async Task<IEnumerable<AbsenceReasons>> GetActiveAbsenceReasonsAsync()
         {
             return await _context.AbsenceReasons
                 .Where(ar => !ar.IsDeleted)

@@ -14,10 +14,10 @@ namespace StudentManagementSystem.Service.Implementation
             _context = context;
         }
 
-        public async Task<IEnumerable<EmployeeType>> GetAllRolesAsync()
+        public async Task<IEnumerable<EmployeeTypes>> GetAllRolesAsync()
         {
             return await _context.EmployeeTypes
-                .Include(r => r.CreatedByUser)
+                .Include(r => r.crea)
                 .Where(r => !r.IsDeleted)
                 .ToListAsync();
         }
@@ -25,7 +25,7 @@ namespace StudentManagementSystem.Service.Implementation
         public async Task<EmployeeType> GetRoleByIdAsync(int id)
         {
             return await _context.EmployeeTypes
-                .Include(r => r.CreatedByUser)
+                .Include(r => r.CreatedBy)
                 .FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
         }
 

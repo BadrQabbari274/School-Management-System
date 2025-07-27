@@ -4,11 +4,11 @@ namespace StudentManagementSystem.Service.Interface
 {
     public interface IGradeService
     {
-        Task<IEnumerable<Grade>> GetAllAcademicYearsAsync();
-        Task<Grade> GetAcademicYearByIdAsync(int id);
-        Task<Grade> CreateAcademicYearAsync(Grade academicYear);
-        Task<Grade> UpdateAcademicYearAsync(Grade academicYear);
+        Task<IEnumerable<Grades>> GetAllAcademicYearsAsync();
+        Task<Grades> GetAcademicYearByIdAsync(int id);
+        Task<Grades> CreateAcademicYearAsync(Grades academicYear);
+        Task<Grades> UpdateAcademicYearAsync(Grades academicYear);
         Task<bool> DeleteAcademicYearAsync(int id);
-        Task<IEnumerable<Grade>> GetActiveAcademicYearsAsync();
+        Task<IEnumerable<Grades>> GetActiveAcademicYearsAsync();
     }
 }
