@@ -40,6 +40,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/DepartmentAttendance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxEZXBhcnRtZW50QXR0ZW5kYW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/ExitRequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxFeGl0UmVxdWVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -80,28 +84,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcc3R1ZGVudHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Field/AssignEmployee.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcQXNzaWduRW1wbG95ZWUuY3NodG1s
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Department/AssignEmployee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxBc3NpZ25FbXBsb3llZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Field/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcQ3JlYXRlLmNzaHRtbA==
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Department/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Field/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcRGVsZXRlLmNzaHRtbA==
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Department/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Field/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcRGV0YWlscy5jc2h0bWw=
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Department/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Field/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcRWRpdC5jc2h0bWw=
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Department/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Field/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmllbGRcSW5kZXguY3NodG1s
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Department/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Grade/Create.cshtml]
