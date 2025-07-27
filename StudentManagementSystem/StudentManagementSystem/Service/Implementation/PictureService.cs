@@ -23,26 +23,26 @@ namespace StudentManagementSystem.Service.Implementation
             }
         }
 
-        public async Task<IEnumerable<Picture>> GetAllPicturesAsync()
+        public async Task<IEnumerable<Pictures>> GetAllPicturesAsync()
         {
             return await _context.Pictures
                 .Include(p => p.Student)
                 .Include(p => p.Task)
-                .Include(p => p.CreatedByUser)
+                .Include(p => p.CreatedBy)
                 .Where(p => !p.IsDeleted)
                 .ToListAsync();
         }
 
-        public async Task<Picture> GetPictureByIdAsync(int id)
+        public async Task<Pictures> GetPictureByIdAsync(int id)
         {
             return await _context.Pictures
                 .Include(p => p.Student)
                 .Include(p => p.Task)
-                .Include(p => p.CreatedByUser)
+                .Include(p => p.CreatedBy)
                 .FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
         }
 
-        public async Task<Picture> CreatePictureAsync(Picture picture)
+        public async Task<Pictures> CreatePictureAsync(Pictures picture)
         {
             picture.CreatedDate = DateTime.Now;
             _context.Pictures.Add(picture);
@@ -50,7 +50,7 @@ namespace StudentManagementSystem.Service.Implementation
             return picture;
         }
 
-        public async Task<Picture> UpdatePictureAsync(Picture picture)
+        public async Task<Pictures> UpdatePictureAsync(Pictures picture)
         {
             _context.Entry(picture).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -67,14 +67,14 @@ namespace StudentManagementSystem.Service.Implementation
             return true;
         }
 
-        public async Task<IEnumerable<Picture>> GetActivePicturesAsync()
+        public async Task<IEnumerable<Pictures>> GetActivePicturesAsync()
         {
             return await _context.Pictures
                 .Where(p => !p.IsDeleted)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Picture>> GetPicturesByStudentAsync(int studentId)
+        public async Task<IEnumerable<Pictures>> GetPicturesByStudentAsync(int studentId)
         {
             return await _context.Pictures
                 .Where(p => p.StudentId == studentId && !p.IsDeleted)
@@ -82,7 +82,7 @@ namespace StudentManagementSystem.Service.Implementation
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Picture>> GetPicturesByTaskAsync(int taskId)
+        public async Task<IEnumerable<Pictures>> GetPicturesByTaskAsync(int taskId)
         {
             return await _context.Pictures
                 .Where(p => p.TaskId == taskId && !p.IsDeleted)
