@@ -332,7 +332,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var fields = await _fieldService.GetActiveFieldsAsync();
+                var fields = await _fieldService.GetActiveDepartmentsAsync();
                 ViewBag.FieldId = new SelectList(fields, "Id", "Name");
             }
             catch (Exception ex)

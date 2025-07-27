@@ -295,8 +295,8 @@
                         {
                             <tr>
                                 <td>@item.Name</td>
-                                <td>@(item.Field?.Name ?? "غير محدد")</td>
-                                <td>@(item.CreatedByUser?.Name ?? "غير محدد")</td>
+                                <td>@(item.Department?.Name ?? "غير محدد")</td>
+                                <td>@(item.CreatedBy?.Name ?? "غير محدد")</td>
                                 <td>@item.Date.ToString("dd/MM/yyyy")</td>
                                 <td>@(item.Students?.Count ?? 0)</td>
                                 <td>

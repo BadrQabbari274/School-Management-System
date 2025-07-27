@@ -32,7 +32,7 @@ namespace StudentManagementSystem.Controllers
             catch (Exception ex)
             {
                 SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
-                return View(new List<Student>());
+                return View(new List<Students>());
             }
         }
 
@@ -84,7 +84,7 @@ namespace StudentManagementSystem.Controllers
                     if (nationalIdData.IsValid)
                     {
                         student.Date_of_birth = nationalIdData.BirthDate.ToString();
-                        student.Governarate = nationalIdData.Governorate;
+                        student.Governate = nationalIdData.Governorate;
                     }
                     else
                     {
@@ -94,7 +94,7 @@ namespace StudentManagementSystem.Controllers
                     }
 
                     // Set created by current user
-                    student.CreatedBy = GetCurrentUserId();
+                    student.CreatedBy_Id = GetCurrentUserId();
                     student.Date = DateTime.Now;
 
                     // إنشاء الطالب أولاً للحصول على الـ ID
@@ -172,7 +172,7 @@ namespace StudentManagementSystem.Controllers
         // POST: Student/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Student student, IFormFile pictureProfile, IFormFile birthCertificate)
+        public async Task<IActionResult> Edit(int id, Students student, IFormFile pictureProfile, IFormFile birthCertificate)
         {
             if (id != student.Id)
             {
@@ -197,7 +197,7 @@ namespace StudentManagementSystem.Controllers
                     if (nationalIdData.IsValid)
                     {
                         student.Date_of_birth = nationalIdData.BirthDate.ToString();
-                        student.Governarate = nationalIdData.Governorate;
+                        student.Governate = nationalIdData.Governorate;
                     }
                     else
                     {
@@ -403,7 +403,7 @@ namespace StudentManagementSystem.Controllers
             }
             catch (Exception)
             {
-                ViewBag.ClassId = new SelectList(new List<Class>(), "Id", "Name");
+                ViewBag.ClassId = new SelectList(new List<Classes>(), "Id", "Name");
             }
         }
 

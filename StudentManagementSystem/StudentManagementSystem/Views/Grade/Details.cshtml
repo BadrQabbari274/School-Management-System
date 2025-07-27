@@ -78,7 +78,7 @@
                             </div>
                         </div>
 
-                        @if (Model.CreatedBy.HasValue)
+                        @if (Model.CreatedBy_Id != null)
                         {
                             <div class="col-12">
                                 <div class="detail-item">
@@ -86,9 +86,9 @@
                                         <i class="fas fa-user me-2"></i>Created By
                                     </label>
                                     <div class="detail-value">
-                                        @if (Model.CreatedByUser != null)
+                                        @if (Model.CreatedBy != null)
                                         {
-                                            <span class="badge bg-primary fs-6">@Model.CreatedByUser.Name</span>
+                                            <span class="badge bg-primary fs-6">@Model.CreatedBy.Name</span>
                                         }
                                         else
                                         {
