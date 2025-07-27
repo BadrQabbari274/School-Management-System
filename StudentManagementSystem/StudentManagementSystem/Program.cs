@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Service.Implementation;
 using StudentManagementSystem.Service.Interface;
-using StudentManagementSystem.Services;
+using StudentManagementSystem.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,11 +37,11 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IGradeService, GradeService>();
 builder.Services.AddScoped<IClassService, ClassService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<ICompetenceService, CompetenceService>();
-builder.Services.AddScoped<IOutcomeService, OutcomeService>();
-builder.Services.AddScoped<ITaskEvaluationService, TaskEvaluationService>();
+//builder.Services.AddScoped<ICompetenceService, CompetenceService>();
+//builder.Services.AddScoped<IOutcomeService, OutcomeService>();
+//builder.Services.AddScoped<ITaskEvaluationService, TaskEvaluationServices>();
 builder.Services.AddScoped<IPictureService, PictureService>();
-builder.Services.AddScoped<IAttendanceService, AttendanceService>();
+//builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddScoped<IAbsenceReasonService, AbsenceReasonService>();
 builder.Services.AddScoped<IStudentManagementService, StudentManagementService>();
 // Add Session (optional)

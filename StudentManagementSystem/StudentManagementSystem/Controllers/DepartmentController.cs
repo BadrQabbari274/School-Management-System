@@ -27,7 +27,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var fields = await _fieldService.GetAllFieldsAsync();
+                var fields = await _fieldService.GetAllDepartmentsAsync();
                 return View(fields);
             }
             catch (Exception ex)
@@ -42,7 +42,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var field = await _fieldService.GetFieldByIdAsync(id);
+                var field = await _fieldService.GetDepartmentByIdAsync(id);
                 if (field == null)
                 {
                     SetErrorMessage("القسم المطلوب غير موجود");
@@ -84,7 +84,7 @@ namespace StudentManagementSystem.Controllers
                     field.CreatedDate = DateTime.Now;
                     field.IsActive = true;
 
-                    var createdField = await _fieldService.CreateFieldAsync(field);
+                    var createdField = await _fieldService.CreateDepartmentAsync(field);
                     SetSuccessMessage("تم إنشاء القسم بنجاح");
                     return RedirectToAction(nameof(Index));
                 
@@ -103,7 +103,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var field = await _fieldService.GetFieldByIdAsync(id);
+                var field = await _fieldService.GetDepartmentByIdAsync(id);
                 if (field == null)
                 {
                     SetErrorMessage("القسم المطلوب غير موجود");
@@ -134,7 +134,7 @@ namespace StudentManagementSystem.Controllers
             try
             {
              
-                    await _fieldService.UpdateFieldAsync(field);
+                    await _fieldService.UpdateDepartmentAsync(field);
                     SetSuccessMessage("تم تحديث القسم بنجاح");
                     return RedirectToAction(nameof(Index));
            
@@ -152,7 +152,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var field = await _fieldService.GetFieldByIdAsync(id);
+                var field = await _fieldService.GetDepartmentByIdAsync(id);
                 if (field == null)
                 {
                     SetErrorMessage("القسم المطلوب غير موجود");
@@ -175,7 +175,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var result = await _fieldService.DeleteFieldAsync(id);
+                var result = await _fieldService.DeleteDepartmentAsync(id);
                 if (result)
                 {
                     SetSuccessMessage("تم حذف القسم بنجاح");
@@ -198,7 +198,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var field = await _fieldService.GetFieldByIdAsync(id);
+                var field = await _fieldService.GetDepartmentByIdAsync(id);
                 if (field == null)
                 {
                     SetErrorMessage("القسم المطلوب غير موجود");
@@ -226,7 +226,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var result = await _fieldService.AssignUserToFieldAsync(employeeId, id);
+                var result = await _fieldService.AssignUserToDepartmentAsync(employeeId, id);
                 if (result)
                 {
                     SetSuccessMessage("تم تعيين الموظف للقسم بنجاح");
@@ -251,7 +251,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var result = await _fieldService.RemoveUserFromFieldAsync(employeeId, fieldId);
+                var result = await _fieldService.RemoveUserFromDepartmentAsync(employeeId, fieldId);
                 if (result)
                 {
                     SetSuccessMessage("تم إزالة الموظف من القسم بنجاح");
@@ -274,7 +274,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var fields = await _fieldService.GetFieldsByAcademicYearAsync(gradeId);
+                var fields = await _fieldService.GetDepartmentsByAcademicYearAsync(gradeId);
                 return View("Index", fields);
             }
             catch (Exception ex)
@@ -290,7 +290,7 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var fields = await _fieldService.GetFieldsByAcademicYearAsync(gradeId);
+                var fields = await _fieldService.GetDepartmentsByAcademicYearAsync(gradeId);
                 var result = fields.Select(f => new {
                     id = f.Id,
                     name = f.Name

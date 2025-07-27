@@ -29,7 +29,7 @@
                                     <dd class="col-sm-8 fs-5">@Model.Name</dd>
 
                                     <dt class="col-sm-4 text-primary fw-bold">المرحلة الدراسية:</dt>
-                                    <dd class="col-sm-8 fs-5">@Model.Grade?.Name</dd>
+                                    @* <dd class="col-sm-8 fs-5">@Model.Grade?.Name</dd> *@
 
                                     <dt class="col-sm-4 text-primary fw-bold">الحالة:</dt>
                                     <dd class="col-sm-8">
@@ -59,10 +59,10 @@
                                     <i class="fas fa-users me-2"></i>الموظفون المعينون
                                 </h4>
                                 <hr class="section-divider" />
-                                @if (Model.FieldEmployees != null && Model.FieldEmployees.Any())
+                                @if (Model.EmployeeDepartments != null && Model.EmployeeDepartments.Any())
                                 {
                                     <div class="employee-list">
-                                        @foreach (var userField in Model.FieldEmployees)
+                                        @foreach (var userField in Model.EmployeeDepartments)
                                         {
                                             <div class="employee-card mb-3 p-3 rounded shadow-sm">
                                                 <div class="d-flex w-100 justify-content-between align-items-center">

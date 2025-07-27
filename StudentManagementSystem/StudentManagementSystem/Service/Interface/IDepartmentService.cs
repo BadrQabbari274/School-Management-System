@@ -4,14 +4,14 @@ namespace StudentManagementSystem.Service.Interface
 {
     public interface IDepartmentService
     {
-        Task<IEnumerable<Department>> GetAllFieldsAsync();
-        Task<Department> GetFieldByIdAsync(int id);
-        Task<Department> CreateFieldAsync(Department field);
-        Task<Department> UpdateFieldAsync(Department field);
-        Task<bool> DeleteFieldAsync(int id);
-        Task<IEnumerable<Department>> GetActiveFieldsAsync();
-        Task<IEnumerable<Department>> GetFieldsByAcademicYearAsync(int academicYearId);
-        Task<bool> AssignUserToFieldAsync(int userId, int fieldId);
-        Task<bool> RemoveUserFromFieldAsync(int userId, int fieldId);
+        Task<IEnumerable<Department>> GetAllDepartmentsAsync(); 
+        Task<Department> GetDepartmentByIdAsync(int id); 
+        Task<Department> CreateDepartmentAsync(Department department); 
+        Task<Department> UpdateDepartmentAsync(Department department); 
+        Task<bool> DeleteDepartmentAsync(int id); 
+        Task<IEnumerable<Department>> GetActiveDepartmentsAsync(); 
+        Task<IEnumerable<Department>> GetDepartmentsByAcademicYearAsync(int academicYearId); 
+        Task<bool> AssignUserToDepartmentAsync(int userId, int departmentId); 
+        Task<bool> RemoveUserFromDepartmentAsync(int userId, int departmentId); 
     }
 }
