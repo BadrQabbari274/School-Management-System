@@ -9,18 +9,18 @@ namespace StudentManagementSystem.Service.Implementation
     {
         private readonly ApplicationDbContext _context;
         private readonly IPictureService _pictureService;
-        private readonly ITaskEvaluationService _taskEvaluationService;
+        //private readonly ITaskEvaluationService _taskEvaluationService;
         private readonly IStudentService _studentService;
 
         public StudentManagementService(
             ApplicationDbContext context,
             IPictureService pictureService,
-            ITaskEvaluationService taskEvaluationService,
+            //ITaskEvaluationService taskEvaluationService,
             IStudentService studentService)
         {
             _context = context;
             _pictureService = pictureService;
-            _taskEvaluationService = taskEvaluationService;
+            //_taskEvaluationService = taskEvaluationService;
             _studentService = studentService;
         }
 
