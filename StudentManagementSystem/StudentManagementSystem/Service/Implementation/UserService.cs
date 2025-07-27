@@ -14,23 +14,23 @@ namespace StudentManagementSystem.Service.Implementation
             _context = context;
         }
 
-        public async Task<IEnumerable<Employee>> GetAllUsersAsync()
+        public async Task<IEnumerable<Employees>> GetAllUsersAsync()
         {
             return await _context.Employees
                 .Include(u => u.Role)
-                .Include(u => u.CreatedByUser)
+                .Include(u => u.CreatedBy)
                 .ToListAsync();
         }
 
-        public async Task<Employee> GetUserByIdAsync(int id)
+        public async Task<Employees> GetUserByIdAsync(int id)
         {
             return await _context.Employees
                 .Include(u => u.Role)
-                .Include(u => u.CreatedByUser)
+                .Include(u => u.CreatedBy)
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<Employee> CreateUserAsync(Employee user)
+        public async Task<Employees> CreateUserAsync(Employees user)
         {
             user.Date = DateTime.Now;
             _context.Employees.Add(user);
@@ -46,7 +46,7 @@ namespace StudentManagementSystem.Service.Implementation
         //    await _context.SaveChangesAsync();
         //    return user;
         //}
-        public async Task<Employee> UpdateUserAsync(Employee user)
+        public async Task<Employees> UpdateUserAsync(Employees user)
         {
             var existingUser = await _context.Employees.FirstOrDefaultAsync(e => e.Id == user.Id);
             if (existingUser == null)
@@ -70,7 +70,7 @@ namespace StudentManagementSystem.Service.Implementation
             return true;
         }
 
-        public async Task<IEnumerable<Employee>> GetActiveUsersAsync()
+        public async Task<IEnumerable<Employees>> GetActiveUsersAsync()
         {
             return await _context.Employees
                 .Where(u => u.IsActive)
@@ -78,7 +78,7 @@ namespace StudentManagementSystem.Service.Implementation
                 .ToListAsync();
         }
 
-        public async Task<Employee> GetUserByNameAsync(string name)
+        public async Task<Employees> GetUserByNameAsync(string name)
         {
             return await _context.Employees
                 .Include(u => u.Role)

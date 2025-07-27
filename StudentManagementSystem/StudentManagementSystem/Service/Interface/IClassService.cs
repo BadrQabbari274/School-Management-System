@@ -4,12 +4,12 @@ namespace StudentManagementSystem.Service.Interface
 {
     public interface IClassService
     {
-        Task<IEnumerable<Class>> GetAllClassesAsync();
-        Task<Class> GetClassByIdAsync(int id);
-        Task<Class> CreateClassAsync(Class classEntity);
-        Task<Class> UpdateClassAsync(Class classEntity);
+        Task<IEnumerable<Classes>> GetAllClassesAsync();
+        Task<Classes> GetClassByIdAsync(int id);
+        Task<Classes> CreateClassAsync(Classes classEntity);
+        Task<Classes> UpdateClassAsync(Classes classEntity);
         Task<bool> DeleteClassAsync(int id);
-        Task<IEnumerable<Class>> GetActiveClassesAsync();
-        Task<IEnumerable<Class>> GetClassesByFieldAsync(int fieldId);
+        Task<IEnumerable<Classes>> GetActiveClassesAsync();
+        Task<IEnumerable<Classes>> GetClassesByFieldAsync(int fieldId);
     }
 }

@@ -14,26 +14,27 @@ namespace StudentManagementSystem.Service.Implementation
             _context = context;
         }
 
-        public async Task<IEnumerable<Class>> GetAllClassesAsync()
+        public async Task<IEnumerable<Classes>> GetAllClassesAsync()
         {
             return await _context.Classes
                 .Include(c => c.Students)
-                .Include(c => c.CreatedByUser)
-                .Include(c => c.Field)
+                .Include(c => c.CreatedBy)
+                .Include(c => c.Department)
                 .Where(c => c.IsActive)
                 .OrderBy(c => c.Name)
                 .ToListAsync();
         }
-        public async Task<Class> GetClassByIdAsync(int id)
+        public async Task<Classes> GetClassByIdAsync(int id)
         {
             return await _context.Classes
-                .Include(c => c.CreatedByUser)
-                .Include(c => c.Field)
+                .Include(c => c.CreatedBy)
+                .Include(c => c.Department)
+                .Include(c => c.MaxStudents)
                 .Include(c => c.Students.OrderBy(s => s.Name))
                 .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
         }
 
-        public async Task<Class> CreateClassAsync(Class classEntity)
+        public async Task<Classes> CreateClassAsync(Classes classEntity)
         {
             classEntity.Date = DateTime.Now;
             _context.Classes.Add(classEntity);
@@ -41,7 +42,7 @@ namespace StudentManagementSystem.Service.Implementation
             return classEntity;
         }
 
-        public async Task<Class> UpdateClassAsync(Class classEntity)
+        public async Task<Classes> UpdateClassAsync(Classes classEntity)
         {
             _context.Entry(classEntity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -58,17 +59,17 @@ namespace StudentManagementSystem.Service.Implementation
             return true;
         }
 
-        public async Task<IEnumerable<Class>> GetActiveClassesAsync()
+        public async Task<IEnumerable<Classes>> GetActiveClassesAsync()
         {
             return await _context.Classes
                 .Where(c => c.IsActive)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Class>> GetClassesByFieldAsync(int fieldId)
+        public async Task<IEnumerable<Classes>> GetClassesByFieldAsync(int fieldId)
         {
             return await _context.Classes
-                .Where(c => c.FieldId == fieldId && c.IsActive)
+                .Where(c => c.Department_Id == fieldId && c.IsActive)
                 .ToListAsync();
         }
     }
