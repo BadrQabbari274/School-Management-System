@@ -14,24 +14,23 @@ namespace StudentManagementSystem.Service.Implementation
             _context = context;
         }
 
-        public async Task<IEnumerable<Grade>> GetAllAcademicYearsAsync()
+        public async Task<IEnumerable<Grades>> GetAllAcademicYearsAsync()
         {
             return await _context.Grades
-                .Include(ay => ay.CreatedByUser)
+                .Include(ay => ay.CreatedBy)
                 .Where(ay => ay.IsActive)
                 .OrderByDescending(ay => ay.Date)
                 .ToListAsync();
         }
 
-        public async Task<Grade> GetAcademicYearByIdAsync(int id)
+        public async Task<Grades> GetAcademicYearByIdAsync(int id)
         {
             return await _context.Grades
-                .Include(ay => ay.CreatedByUser)
-                .Include(ay => ay.Fields)
+                .Include(ay => ay.CreatedBy)
                 .FirstOrDefaultAsync(ay => ay.Id == id && ay.IsActive);
         }
 
-        public async Task<Grade> CreateAcademicYearAsync(Grade academicYear)
+        public async Task<Grades> CreateAcademicYearAsync(Grades academicYear)
         {
             academicYear.Date = DateTime.Now;
             _context.Grades.Add(academicYear);
@@ -39,7 +38,7 @@ namespace StudentManagementSystem.Service.Implementation
             return academicYear;
         }
 
-        public async Task<Grade> UpdateAcademicYearAsync(Grade academicYear)
+        public async Task<Grades> UpdateAcademicYearAsync(Grades academicYear)
         {
             _context.Entry(academicYear).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -56,7 +55,7 @@ namespace StudentManagementSystem.Service.Implementation
             return true;
         }
 
-        public async Task<IEnumerable<Grade>> GetActiveAcademicYearsAsync()
+        public async Task<IEnumerable<Grades>> GetActiveAcademicYearsAsync()
         {
             return await _context.Grades
                 .Where(ay => ay.IsActive)
