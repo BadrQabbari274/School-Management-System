@@ -11,12 +11,12 @@ namespace StudentManagementSystem.Service.Interface
 {
     public interface IUserService
     {
-        Task<IEnumerable<Employee>> GetAllUsersAsync();
-        Task<Employee> GetUserByIdAsync(int id);
-        Task<Employee> CreateUserAsync(Employee user);
-        Task<Employee> UpdateUserAsync(Employee user);
+        Task<IEnumerable<Employees>> GetAllUsersAsync();
+        Task<Employees> GetUserByIdAsync(int id);
+        Task<Employees> CreateUserAsync(Employees user);
+        Task<Employees> UpdateUserAsync(Employees user);
         Task<bool> DeleteUserAsync(int id);
-        Task<IEnumerable<Employee>> GetActiveUsersAsync();
-        Task<Employee> GetUserByNameAsync(string name);
+        Task<IEnumerable<Employees>> GetActiveUsersAsync();
+        Task<Employees> GetUserByNameAsync(string name);
     }
 }

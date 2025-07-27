@@ -61,7 +61,7 @@ namespace StudentManagementSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create(Class classEntity)
+        public async Task<IActionResult> Create(Classes classEntity)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace StudentManagementSystem.Controllers
                 }
 
                 // Set CreatedBy automatically
-                classEntity.CreatedBy = currentUserId;
+                classEntity.CreatedBy_Id = currentUserId;
                 classEntity.Date = DateTime.UtcNow;
 
                 await _classService.CreateClassAsync(classEntity);
@@ -112,7 +112,7 @@ namespace StudentManagementSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, Class classEntity)
+        public async Task<IActionResult> Edit(int id, Classes classEntity)
         {
             if (id != classEntity.Id)
             {
@@ -133,7 +133,7 @@ namespace StudentManagementSystem.Controllers
 
                 // Set CreatedBy automatically (assuming CreatedBy is used for the last updater here,
                 // if you have an 'UpdatedBy' property in your model, use that instead)
-                classEntity.CreatedBy = currentUserId; // Or classEntity.UpdatedBy = currentUserId;
+                classEntity.CreatedBy_Id = currentUserId; // Or classEntity.UpdatedBy = currentUserId;
                 // classEntity.Date = DateTime.UtcNow; // This might need to be 'UpdatedAt' if you track both
 
                 await _classService.UpdateClassAsync(classEntity);

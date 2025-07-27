@@ -12,7 +12,7 @@ namespace StudentManagementSystem.Models
         public int CreatedBy_Id { get; set; }
         public DateTime Date { get; set; }
         public int Department_Id { get; set; }
-        public int MaxStudents { get; set; }
+        public int? MaxStudents { get; set; }
 
         // Navigation properties
         [ForeignKey("CreatedBy_Id")]
