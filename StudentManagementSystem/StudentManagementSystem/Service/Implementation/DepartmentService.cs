@@ -1,0 +1,208 @@
+﻿using Microsoft.EntityFrameworkCore;
+using StudentManagementSystem.Data;
+using StudentManagementSystem.Models;
+using StudentManagementSystem.Service.Interface;
+
+namespace StudentManagementSystem.Service.Implementation
+{
+    public class DepartmentService : IDepartmentService
+    {
+        private readonly ApplicationDbContext _context;
+
+        public DepartmentService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Department>> GetAllDepartmentsAsync()
+        {
+            return await _context.Departments
+                .Include(d => d.CreatedBy)
+                .Where(d => d.IsActive)
+                .ToListAsync();
+        }
+
+        public async Task<Department> GetDepartmentByIdAsync(int id)
+        {
+            return await _context.Departments
+                .Include(d => d.CreatedBy)
+                .Include(d => d.Classes)
+                .Include(d => d.Competences)
+                .FirstOrDefaultAsync(d => d.Id == id && d.IsActive);
+        }
+
+        public async Task<Department> CreateDepartmentAsync(Department department)
+        {
+            department.CreatedDate = DateTime.Now;
+            _context.Departments.Add(department);
+            await _context.SaveChangesAsync();
+            return department;
+        }
+
+        public async Task<Department> UpdateDepartmentAsync(Department department)
+        {
+            _context.Entry(department).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return department;
+        }
+
+        public async Task<bool> DeleteDepartmentAsync(int id)
+        {
+            var department = await _context.Departments.FindAsync(id);
+            if (department == null) return false;
+
+            department.IsActive = false;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<IEnumerable<Department>> GetActiveDepartmentsAsync()
+        {
+            return await _context.Departments
+                .Where(d => d.IsActive)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Department>> GetDepartmentsByAcademicYearAsync(int academicYearId)
+        {
+            return await _context.Departments
+                .Where(d => d.GradeId == academicYearId && d.IsActive)
+                .ToListAsync();
+        }
+
+        public async Task<bool> AssignUserToDepartmentAsync(int userId, int departmentId)
+        {
+            var existingAssignment = await _context.DepartmentEmployees
+                .FirstOrDefaultAsync(de => de.UserId == userId && de.DepartmentId == departmentId);
+
+            if (existingAssignment != null) return false;
+
+            var departmentEmployee = new DepartmentEmployee
+            {
+                UserId = userId,
+                DepartmentId = departmentId
+            };
+
+            _context.DepartmentEmployees.Add(departmentEmployee);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> RemoveUserFromDepartmentAsync(int userId, int departmentId)
+        {
+            var departmentEmployee = await _context.DepartmentEmployees
+                .FirstOrDefaultAsync(de => de.UserId == userId && de.DepartmentId == departmentId);
+
+            if (departmentEmployee == null) return false;
+
+            _context.DepartmentEmployees.Remove(departmentEmployee);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+    }
+}
+
+
+//using Microsoft.EntityFrameworkCore;
+//using StudentManagementSystem.Data;
+//using StudentManagementSystem.Models;
+//using StudentManagementSystem.Service.Interface;
+
+//namespace StudentManagementSystem.Service.Implementation
+//{
+//    public class DepartmentService : IDepartmentService
+//    {
+//        private readonly ApplicationDbContext _context;
+
+//        public DepartmentService(ApplicationDbContext context)
+//        {
+//            _context = context;
+//        }
+
+//        public async Task<IEnumerable<Department>> GetAllDepartmentsAsync()
+//        {
+//            return await _context.Departments
+//                .Include(f => f.CreatedBy)
+//                .Where(f => f.IsActive)
+//                .ToListAsync();
+//        }
+
+//        public async Task<Department> GetDepartmentByIdAsync(int id)
+//        {
+//            return await _context.Departments
+//                .Include(f => f.CreatedBy)
+//                .Include(f => f.Classes)
+//                .Include(f => f.Competences)
+//                .FirstOrDefaultAsync(f => f.Id == id && f.IsActive);
+//        }
+
+//        public async Task<Department> CreateDepartmentdAsync(Department department)
+//        {
+//            department.CreatedDate = DateTime.Now;
+//            _context.Departments.Add(department);
+//            await _context.SaveChangesAsync();
+//            return department;
+//        }
+
+//        public async Task<Department> UpdateDepartmentAsync(Department field)
+//        {
+//            _context.Entry(field).State = EntityState.Modified;
+//            await _context.SaveChangesAsync();
+//            return field;
+//        }
+
+//        public async Task<bool> DeleteDepartmentAsync(int id)
+//        {
+//            var department = await _context.Departments.FindAsync(id);
+//            if (department == null) return false;
+
+//            department.IsActive = false;
+//            await _context.SaveChangesAsync();
+//            return true;
+//        }
+
+//        public async Task<IEnumerable<Department>> GetActiveDepartmentsAsync()
+//        {
+//            return await _context.Departments
+//                .Where(f => f.IsActive)
+//                .ToListAsync();
+//        }
+
+//        public async Task<IEnumerable<Department>> GetDepartmentsByAcademicYearAsync(int academicYearId)
+//        {
+//            return await _context.Departments
+//                .Where(f => f.GradeId == academicYearId && f.IsActive)
+//                .ToListAsync();
+//        }
+
+//        public async Task<bool> AssignUserToDepartmentAsync(int userId, int departmentId)
+//        {
+//            var existingAssignment = await _context.DepartmentEmployees
+//                .FirstOrDefaultAsync(fu => fu.UserId == userId && fu.DepartmentdId == departmentdId);
+
+//            if (existingAssignment != null) return false;
+
+//            var departmentUser = new DepartmentEmployee
+//            {
+//                UserId = userId,
+//                DepartmentId = departmentId
+//            };
+
+//            _context.DepartmentEmployees.Add(departmentUser);
+//            await _context.SaveChangesAsync();
+//            return true;
+//        }
+
+//        public async Task<bool> RemoveUserFromDepartmentAsync(int userId, int departmentId)
+//        {
+//            var departmentUser = await _context.DepartmentEmployees
+//                .FirstOrDefaultAsync(fu => fu.UserId == userId && fu.DepartmentId == departmentId);
+
+//            if (departmentUser == null) return false;
+
+//            _context.DepartmentEmployees.Remove(departmentUser);
+//            await _context.SaveChangesAsync();
+//            return true;
+//        }
+//    }
+//}
