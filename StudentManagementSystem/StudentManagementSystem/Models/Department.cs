@@ -20,5 +20,6 @@ namespace StudentManagementSystem.Models
         public virtual ICollection<Competences> Competences { get; set; }
         public virtual ICollection<Employee_Department> EmployeeDepartments { get; set; }
         public virtual ICollection<Section> Sections { get; set; }
+        public int GradeId { get; internal set; }
     }
 }

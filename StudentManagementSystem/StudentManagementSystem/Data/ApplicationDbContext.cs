@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StudentManagementSystem.Models
+using StudentManagementSystem.Models;
 namespace StudentManagementSystem.Data
 {
     public class ApplicationDbContext : DbContext
