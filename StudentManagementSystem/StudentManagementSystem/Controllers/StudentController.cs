@@ -74,7 +74,7 @@ namespace StudentManagementSystem.Controllers
         // POST: Student/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Student student, IFormFile pictureProfile, IFormFile birthCertificate)
+        public async Task<IActionResult> Create(Students student, IFormFile pictureProfile, IFormFile birthCertificate)
         {
             try
             {

@@ -1,8 +1,8 @@
-﻿@model List<StudentManagementSystem.Models.Student>
+﻿@* @model List<StudentManagementSystem.Models.Students>
 @{
     ViewData["Title"] = "إذن خروج الطلاب";
-    var todayAttendance = ViewBag.TodayAttendance as List<StudentAttendance>;
-    var exitRequests = ViewBag.ExitRequests as List<RequestExit>;
+    var todayAttendance = ViewBag.TodayAttendance as List<StudentAttendances>;
+    var exitRequests = ViewBag.ExitRequests as List<RequestExits>;
 }
 
 <div class="container-fluid">
@@ -99,7 +99,7 @@
                                     @foreach (var request in exitRequests)
                                     {
                                         <tr>
-                                            <td>@request.Student.Name</td>
+                                            <td>@request.s</td>
                                             <td>@request.Reason</td>
                                             <td>@request.ExitTime.ToString(@"hh\:mm")</td>
                                             <td>@(request.ExpectedReturnTime?.ToString(@"hh\:mm") ?? "-")</td>
@@ -133,4 +133,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@

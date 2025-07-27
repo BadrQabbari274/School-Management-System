@@ -11,12 +11,12 @@ namespace StudentManagementSystem.Models
         public int StudentId { get; set; }
         public bool IsDeleted { get; set; }
         public int TaskId { get; set; }
-        public int CreatedBy_Id { get; set; }
+        public int? CreatedBy_Id { get; set; }
         public DateTime CreatedDate { get; set; }
 
         // Navigation properties
         [ForeignKey("CreatedBy_Id")]
-        public virtual Employees CreatedBy { get; set; }
+        public virtual Employees? CreatedBy { get; set; }
 
         [ForeignKey("StudentId")]
         public virtual Students Student { get; set; }

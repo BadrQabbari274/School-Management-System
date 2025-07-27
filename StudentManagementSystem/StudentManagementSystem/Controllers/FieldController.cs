@@ -8,12 +8,12 @@ namespace StudentManagementSystem.Controllers
 {
     public class FieldController : BaseController
     {
-        private readonly IFieldService _fieldService;
+        private readonly IDepartmentService _fieldService;
         private readonly IGradeService _gradeService;
         private readonly IUserService _employeeService;
 
         public FieldController(
-            IFieldService fieldService,
+            IDepartmentService fieldService,
             IGradeService gradeService,
             IUserService employeeService)
         {
