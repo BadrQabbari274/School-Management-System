@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel.Design;
 using System.Security.Claims;
 
 namespace StudentManagementSystem.Controllers
@@ -13,15 +14,13 @@ namespace StudentManagementSystem.Controllers
     public class ClassController : BaseController 
     {
         private readonly IClassService _classService;
-        private readonly IDepartmentService _fieldService;
         private readonly IUserService _employeeService; 
         private readonly IStudentService _studentService;
 
 
-        public ClassController(IClassService classService, IDepartmentService fieldService, IUserService employeeService, IStudentService studentService)
+        public ClassController(IClassService classService, IUserService employeeService, IStudentService studentService)
         {
             _classService = classService;
-            _fieldService = fieldService;
             _employeeService = employeeService;
             _studentService = studentService;
         }
@@ -53,7 +52,7 @@ namespace StudentManagementSystem.Controllers
         [Authorize]
         public async Task<IActionResult> Create()
         {
-            await PopulateDropDownLists();
+
             return View();
         }
 
@@ -71,7 +70,6 @@ namespace StudentManagementSystem.Controllers
                 if (currentUserId == 0) // Check if user ID is valid (0 if not found)
                 {
                     ModelState.AddModelError("", "Unable to identify the current user for CreatedBy. Please log in again.");
-                    await PopulateDropDownLists();
                     return View(classEntity);
                 }
 
@@ -89,7 +87,6 @@ namespace StudentManagementSystem.Controllers
                 ModelState.AddModelError("", "An error occurred while creating the class: " + ex.Message);
             }
 
-            await PopulateDropDownLists();
             return View(classEntity);
         }
 
@@ -104,7 +101,6 @@ namespace StudentManagementSystem.Controllers
                 return NotFound();
             }
 
-            await PopulateDropDownLists();
             return View(classEntity);
         }
 
@@ -127,7 +123,6 @@ namespace StudentManagementSystem.Controllers
                 if (currentUserId == 0) // Check if user ID is valid
                 {
                     ModelState.AddModelError("", "Unable to identify the current user for UpdatedBy. Please log in again.");
-                    await PopulateDropDownLists();
                     return View(classEntity);
                 }
 
@@ -146,7 +141,6 @@ namespace StudentManagementSystem.Controllers
                 ModelState.AddModelError("", "An error occurred while updating the class: " + ex.Message);
             }
 
-            await PopulateDropDownLists();
             return View(classEntity);
         }
 
@@ -327,18 +321,18 @@ namespace StudentManagementSystem.Controllers
             return Json(classes.Select(c => new { value = c.Id, text = c.Name }));
         }
 
-        // Helper method to populate dropdown lists
-        private async Task PopulateDropDownLists()
-        {
-            try
-            {
-                var fields = await _fieldService.GetActiveDepartmentsAsync();
-                ViewBag.FieldId = new SelectList(fields, "Id", "Name");
-            }
-            catch (Exception ex)
-            {
-                ViewBag.FieldId = new SelectList(new List<SelectListItem>(), "Value", "Text");
-            }
-        }
+        //// Helper method to populate dropdown lists
+        //private async Task PopulateDropDownLists()
+        //{
+        //    try
+        //    {
+        //        var Sections = await _sectionService.GetActiveSectionsAsync();
+        //        ViewBag.SectionId = new SelectList(Sections, "Id", "Name");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.SectionId = new SelectList(new List<SelectListItem>(), "Value", "Text");
+        //    }
+        //}
     }
 }

@@ -19,7 +19,7 @@ namespace StudentManagementSystem.Service.Implementation
             return await _context.Classes
                 .Include(c => c.Students)
                 .Include(c => c.CreatedBy)
-                .Include(c => c.Department)
+           
                 .Where(c => c.IsActive)
                 .OrderBy(c => c.Name)
                 .ToListAsync();
@@ -28,7 +28,7 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Classes
                 .Include(c => c.CreatedBy)
-                .Include(c => c.Department)
+              
                 .Include(c => c.MaxStudents)
                 .Include(c => c.Students.OrderBy(s => s.Name))
                 .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
@@ -69,7 +69,7 @@ namespace StudentManagementSystem.Service.Implementation
         public async Task<IEnumerable<Classes>> GetClassesByFieldAsync(int fieldId)
         {
             return await _context.Classes
-                .Where(c => c.Department_Id == fieldId && c.IsActive)
+                .Where(c =>  c.IsActive)
                 .ToListAsync();
         }
     }

@@ -16,14 +16,15 @@ namespace StudentManagementSystem.Models
 
         // Composite key reference fields
         public int StudentClassSectionYear_Student_Id { get; set; }
-        public int StudentClassSectionYear_Class_Id { get; set; }
+        public int Class_Id { get; set; }
         public int StudentClassSectionYear_Working_Year_Id { get; set; }
         public int StudentClassSectionYear_Section_id { get; set; }
 
         // Navigation properties
         [ForeignKey("CreatedBy_Id")]
         public virtual Employees CreatedBy { get; set; }
-
+        [ForeignKey("Class_Id")]
+        public virtual Classes Class { get; set; }
         [ForeignKey("AbsenceReasonId")]
         public virtual AbsenceReasons AbsenceReason { get; set; }
 
@@ -31,7 +32,7 @@ namespace StudentManagementSystem.Models
         public virtual AttendanceTypes AttendanceType { get; set; }
 
         // Composite foreign key reference
-        [ForeignKey("StudentClassSectionYear_Student_Id,StudentClassSectionYear_Class_Id,StudentClassSectionYear_Working_Year_Id,StudentClassSectionYear_Section_id")]
+        [ForeignKey("StudentClassSectionYear_Student_Id,StudentClassSectionYear_Working_Year_Id,StudentClassSectionYear_Section_id")]
         public virtual Student_Class_Section_Year StudentClassSectionYear { get; set; }
     }
 }
