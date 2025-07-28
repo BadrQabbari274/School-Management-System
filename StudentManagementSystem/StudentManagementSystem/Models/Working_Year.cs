@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentManagementSystem.Models
 {
-    public class Working_Year
+    public partial class Working_Year
     {
         [Key]
         public int Id { get; set; }

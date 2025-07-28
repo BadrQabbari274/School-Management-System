@@ -1,0 +1,170 @@
+﻿@model IEnumerable<StudentManagementSystem.Models.Working_Year>
+
+@{
+    ViewData["Title"] = "السنوات العملية";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="header-section">
+        <div class="container">
+            <h1 class="header-title">السنوات العملية</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="controls">
+            <a href="@Url.Action("Create")" class="btn btn-add">
+                <i class="fas fa-plus-circle"></i> إضافة سنة عملية جديدة
+            </a>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <div class="courses-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>اسم السنة العملية</th>
+                        <th>تاريخ البداية</th>
+                        <th>تاريخ النهاية</th>
+                        <th>تاريخ الإنشاء</th>
+                        <th>الحالة</th>
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model.OrderBy(wy => wy.Name))
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@(item.Start_date.ToString("dd/MM/yyyy") ?? "غير محدد")</td>
+                                <td>@(item.End_date.ToString("dd/MM/yyyy") ?? "غير محدد")</td>
+                                <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @if (item.IsActive)
+                                    {
+                                        <span class="badge bg-success">نشطة</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">غير نشطة</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="@Url.Action("Details", new { id = item.Id })"
+                                           class="btn btn-info btn-sm" title="عرض التفاصيل">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", new { id = item.Id })"
+                                           class="btn btn-warning btn-sm" title="تعديل">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-sm" title="حذف"
+                                                onclick="showDeleteConfirmation(@item.Id, '@item.Name')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="no-data">لا توجد سنوات عملية متاحة</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade custom-modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">تأكيد الحذف</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>هل أنت متأكد من حذف السنة العملية <strong id="workingYearNameToDelete"></strong>؟</p>
+                    <p class="text-danger">لا يمكن التراجع عن هذا الإجراء.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="deleteForm" asp-action="Delete" method="post" style="display:none;">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" id="workingYearIdToDelete" />
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let workingYearIdToDelete = 0;
+
+        function showDeleteConfirmation(id, name) {
+            workingYearIdToDelete = id;
+            document.getElementById('workingYearNameToDelete').innerText = name;
+            var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+            deleteModal.show();
+        }
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
+            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+            deleteModal.hide();
+
+            const form = document.getElementById('deleteForm');
+            document.getElementById('workingYearIdToDelete').value = workingYearIdToDelete;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form)
+                });
+
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('حدث خطأ أثناء حذف السنة العملية. يرجى المحاولة مرة أخرى.');
+                    console.error('Delete failed with status:', response.status);
+                }
+            } catch (error) {
+                alert('حدث خطأ أثناء حذف السنة العملية. يرجى فحص اتصال الشبكة.');
+                console.error('Error during fetch:', error);
+            }
+        });
+    </script>
+</body>
+</html>
