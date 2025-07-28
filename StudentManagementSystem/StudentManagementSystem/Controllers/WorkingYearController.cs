@@ -46,7 +46,7 @@ namespace StudentManagementSystem.Controllers
         // POST: WorkingYear/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name")] Working_Year workingYear)
+        public async Task<IActionResult> Create([Bind("Name,Start_date,End_date,IsActive")] Working_Year workingYear)
         {
             workingYear.CreatedBy_Id =GetCurrentUserId();
                   // Check if name is unique
