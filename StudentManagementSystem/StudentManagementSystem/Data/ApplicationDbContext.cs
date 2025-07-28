@@ -34,20 +34,20 @@ namespace StudentManagementSystem.Data
         {
             // Configure composite primary key for Student_Class_Section_Year
             modelBuilder.Entity<Student_Class_Section_Year>()
-                .HasKey(e => new { e.Student_Id, e.Class_Id, e.Working_Year_Id, e.Section_id });
+                .HasKey(e => new { e.Student_Id, e.Working_Year_Id, e.Section_id });
 
             // Configure composite foreign key relationships for StudentAbsents
             modelBuilder.Entity<StudentAbsents>()
                 .HasOne(sa => sa.StudentClassSectionYear)
                 .WithMany(scsy => scsy.StudentAbsents)
-                .HasForeignKey(sa => new { sa.StudentClassSectionYear_Student_Id, sa.StudentClassSectionYear_Class_Id, sa.StudentClassSectionYear_Working_Year_Id, sa.StudentClassSectionYear_Section_id })
+                .HasForeignKey(sa => new { sa.StudentClassSectionYear_Student_Id,  sa.StudentClassSectionYear_Working_Year_Id, sa.StudentClassSectionYear_Section_id })
                 .OnDelete(DeleteBehavior.NoAction); // Added NoAction here as well for consistency
 
             // Configure composite foreign key relationships for StudentAttendances
             modelBuilder.Entity<StudentAttendances>()
                 .HasOne(sa => sa.StudentClassSectionYear)
                 .WithMany(scsy => scsy.StudentAttendances)
-                .HasForeignKey(sa => new { sa.StudentClassSectionYear_Student_Id, sa.StudentClassSectionYear_Class_Id, sa.StudentClassSectionYear_Working_Year_Id, sa.StudentClassSectionYear_Section_id })
+                .HasForeignKey(sa => new { sa.StudentClassSectionYear_Student_Id, sa.StudentClassSectionYear_Working_Year_Id, sa.StudentClassSectionYear_Section_id })
                 .OnDelete(DeleteBehavior.NoAction); // Added NoAction here as well for consistency
 
             // --- Start of configurations to resolve cascade delete issue for all relationships ---

@@ -9,18 +9,15 @@ namespace StudentManagementSystem.Models
         public int Student_Id { get; set; }
 
         [Key, Column(Order = 1)]
-        public int Class_Id { get; set; }
-
-        [Key, Column(Order = 2)]
         public int Working_Year_Id { get; set; }
 
-        [Key, Column(Order = 3)]
+        [Key, Column(Order = 2)]
         public int Section_id { get; set; }
 
         public bool IsActive { get; set; }
         public int CreatedBy_Id { get; set; }
         public DateTime Date { get; set; }
-
+        public int? Class_Id { get; set; }
         // Navigation properties
         [ForeignKey("Student_Id")]
         public virtual Students Student { get; set; }
