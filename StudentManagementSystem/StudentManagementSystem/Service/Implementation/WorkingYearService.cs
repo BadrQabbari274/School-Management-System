@@ -25,7 +25,7 @@ namespace StudentManagementSystem.Service
         {
             return await _context.Working_Years
                 .Include(wy => wy.CreatedBy)
-                .FirstOrDefaultAsync(wy => wy.Id == id);
+                .FirstOrDefaultAsync(wy => wy.Id == id&&wy.IsActive);
         }
 
         public async Task<Working_Year> CreateWorkingYearAsync(Working_Year workingYear)
