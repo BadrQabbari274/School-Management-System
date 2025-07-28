@@ -122,12 +122,7 @@ namespace StudentManagementSystem.Data
                 .HasForeignKey(c => c.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Classes and Department
-            modelBuilder.Entity<Classes>()
-                .HasOne(c => c.Department)
-                .WithMany(d => d.Classes)
-                .HasForeignKey(c => c.Department_Id)
-                .OnDelete(DeleteBehavior.NoAction);
+
 
             // Competences and Employees (CreatedBy)
             modelBuilder.Entity<Competences>()
