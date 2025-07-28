@@ -16,7 +16,7 @@ namespace StudentManagementSystem.Service
         public async Task<IEnumerable<Working_Year>> GetAllWorkingYearsAsync()
         {
             return await _context.Working_Years
-                .Include(wy => wy.CreatedBy)
+                .Include(wy => wy.CreatedBy).Where(wy =>wy.IsActive)
                 .OrderByDescending(wy => wy.Date)
                 .ToListAsync();
         }
@@ -25,7 +25,7 @@ namespace StudentManagementSystem.Service
         {
             return await _context.Working_Years
                 .Include(wy => wy.CreatedBy)
-                .FirstOrDefaultAsync(wy => wy.Id == id);
+                .FirstOrDefaultAsync(wy => wy.Id == id&&wy.IsActive);
         }
 
         public async Task<Working_Year> CreateWorkingYearAsync(Working_Year workingYear)
@@ -58,7 +58,7 @@ namespace StudentManagementSystem.Service
                 return false;
             }
 
-            _context.Working_Years.Remove(workingYear);
+           workingYear.IsActive = false;
             await _context.SaveChangesAsync();
             return true;
         }
