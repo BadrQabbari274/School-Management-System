@@ -4,7 +4,7 @@ using StudentManagementSystem.Service;
 
 namespace StudentManagementSystem.Controllers
 {
-    public class WorkingYearController : Controller
+    public class WorkingYearController : BaseController
     {
         private readonly IWorkingYearService _workingYearService;
 
@@ -48,10 +48,9 @@ namespace StudentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name")] Working_Year workingYear)
         {
-            if (ModelState.IsValid)
-            {
-                // Check if name is unique
-                var isUnique = await _workingYearService.IsWorkingYearNameUniqueAsync(workingYear.Name);
+            workingYear.CreatedBy_Id =GetCurrentUserId();
+                  // Check if name is unique
+                  var isUnique = await _workingYearService.IsWorkingYearNameUniqueAsync(workingYear.Name);
                 if (!isUnique)
                 {
                     ModelState.AddModelError("Name", "اسم السنة العملية موجود بالفعل.");
@@ -61,8 +60,7 @@ namespace StudentManagementSystem.Controllers
                 await _workingYearService.CreateWorkingYearAsync(workingYear);
                 TempData["SuccessMessage"] = "تم إنشاء السنة العملية بنجاح.";
                 return RedirectToAction(nameof(Index));
-            }
-            return View(workingYear);
+ 
         }
 
         // GET: WorkingYear/Edit/5
@@ -91,8 +89,7 @@ namespace StudentManagementSystem.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+
                 try
                 {
                     // Check if name is unique (excluding current record)
@@ -118,8 +115,7 @@ namespace StudentManagementSystem.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            return View(workingYear);
+
         }
 
         // GET: WorkingYear/Delete/5
