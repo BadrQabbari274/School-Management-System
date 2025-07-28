@@ -1,0 +1,187 @@
+﻿@* @model StudentManagementSystem.Controllers.FieldAttendanceViewModel
+@{
+    ViewData["Title"] = "Field Attendance";
+    Layout = "_Layout";
+}
+
+<link rel="stylesheet" href="~/css/attendance.css" />
+
+<div class="container py-5">
+    <div class="attendance-container">
+        <div class="attendance-header">
+            <h1 class="attendance-title">Field Attendance</h1>
+            <div class="date-picker">
+                <input type="date" id="attendanceDate" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" class="form-control" />
+                <button id="changeDateBtn" class="btn btn-secondary">Change Date</button>
+            </div>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["Error"]
+            </div>
+        }
+
+        <div class="class-selector">
+            <select id="classSelector" class="form-control">
+                @foreach (var cls in Model.Classes)
+                {
+                    <option value="@cls.Id" selected="@(cls.Id == Model.SelectedClassId)">@cls.Name</option>
+                }
+            </select>
+        </div>
+
+        <form asp-action="SaveFieldAttendance" method="post">
+            <input type="hidden" asp-for="SelectedClassId" />
+            <input type="hidden" asp-for="SelectedDate" />
+
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Student Code</th>
+                        <th>Daily Status</th>
+                        <th>Absent</th>
+                        <th>Absence Reason</th>
+                        <th>Without Incentive</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Students.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <input type="hidden" asp-for="@Model.Students[i].StudentId" />
+                                <input type="hidden" asp-for="@Model.Students[i].StudentName" />
+                                <input type="hidden" asp-for="@Model.Students[i].StudentCode" />
+                                <input type="hidden" asp-for="@Model.Students[i].WasPresentDaily" />
+                                @Model.Students[i].StudentName
+                            </td>
+                            <td>@Model.Students[i].StudentCode</td>
+                            <td>
+                                @if (Model.Students[i].WasPresentDaily)
+                                {
+                                    <span class="badge badge-success">Present</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Absent</span>
+                                }
+                            </td>
+                            <td>
+                                <input asp-for="@Model.Students[i].IsAbsent" class="attendance-checkbox absent-checkbox"
+                                       disabled="@(!Model.Students[i].WasPresentDaily)" />
+                            </td>
+                            <td>
+                                <select asp-for="@Model.Students[i].AbsenceReasonId" class="absence-reason-select"
+                                        disabled="@(!Model.Students[i].IsAbsent || !Model.Students[i].WasPresentDaily)">
+                                    <option value="">Select Reason</option>
+                                    @foreach (var reason in Model.AbsenceReasons)
+                                    {
+                                        <option value="@reason.Id" selected="@(reason.Id == Model.Students[i].AbsenceReasonId)">@reason.Name</option>
+                                    }
+                                </select>
+                                @if (Model.Students[i].AbsenceReasonId == Model.AbsenceReasons.FirstOrDefault(r => r.Name == "Other")?.Id)
+                                {
+                                    <input asp-for="@Model.Students[i].CustomAbsenceReason" class="custom-reason-input show"
+                                           placeholder="Please specify reason" />
+                                }
+                                else
+                                {
+                                    <input asp-for="@Model.Students[i].CustomAbsenceReason" class="custom-reason-input"
+                                           placeholder="Please specify reason" style="display: none;" />
+                                }
+                            </td>
+                            <td>
+                                <input asp-for="@Model.Students[i].WithoutIncentive" class="attendance-checkbox"
+                                       disabled="@(!Model.Students[i].IsAbsent || !Model.Students[i].WasPresentDaily)" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary" id="saveBtn">
+                    Save Field Attendance
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Handle date change
+            $('#changeDateBtn').click(function() {
+                const date = $('#attendanceDate').val();
+                const classId = $('#classSelector').val();
+                window.location.href = `/Attendance/FieldAttendance?classId=${classId}&date=${date}`;
+            });
+
+            // Handle class change
+            $('#classSelector').change(function() {
+                const classId = $(this).val();
+                const date = $('#attendanceDate').val();
+                window.location.href = `/Attendance/FieldAttendance?classId=${classId}&date=${date}`;
+            });
+
+            // Show custom reason when "Other" is selected
+            $(document).on('change', '.absence-reason-select', function() {
+                const otherReasonId = @Model.AbsenceReasons.FirstOrDefault(r => r.Name == "Other")?.Id;
+                const customReasonInput = $(this).closest('td').find('.custom-reason-input');
+
+                if ($(this).val() == otherReasonId) {
+                    customReasonInput.addClass('show').show();
+                } else {
+                    customReasonInput.removeClass('show').hide();
+                }
+            });
+
+            // Enable/disable absence reason based on absent checkbox
+            $(document).on('change', '.absent-checkbox', function() {
+                const row = $(this).closest('tr');
+                const isAbsent = $(this).is(':checked');
+                const wasPresentDaily = row.find('input[name$="WasPresentDaily"]').val() === 'true';
+
+                if (wasPresentDaily) {
+                    row.find('.absence-reason-select').prop('disabled', !isAbsent);
+                    row.find('.custom-reason-input').prop('disabled', !isAbsent);
+                    row.find('input[name$="WithoutIncentive"]').prop('disabled', !isAbsent);
+
+                    if (!isAbsent) {
+                        row.find('.absence-reason-select').val('');
+                        row.find('.custom-reason-input').val('').hide();
+                        row.find('input[name$="WithoutIncentive"]').prop('checked', false);
+                    }
+                }
+            });
+
+            // Disable save button if no changes
+            $('form').on('submit', function() {
+                $('#saveBtn').addClass('loading');
+                $('#saveBtn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...');
+            });
+
+            // Initialize disabled state
+            $('.absent-checkbox').each(function() {
+                const row = $(this).closest('tr');
+                const wasPresentDaily = row.find('input[name$="WasPresentDaily"]').val() === 'true';
+
+                if (!wasPresentDaily) {
+                    row.find('.absence-reason-select').prop('disabled', true);
+                    row.find('.custom-reason-input').prop('disabled', true);
+                    row.find('input[name$="WithoutIncentive"]').prop('disabled', true);
+                }
+            });
+        });
+    </script>
+} *@

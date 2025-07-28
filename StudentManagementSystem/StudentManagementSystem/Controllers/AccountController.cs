@@ -169,15 +169,15 @@ namespace StudentManagementSystem.Controllers
                     return View(model);
                 }
 
-                var user = new Employee
+                var user = new Employees
                 {
                     Name = model.Name,
                     Username = model.Username,
                     Password = "0000", // Note: Hash password in production
-                    RoleId = model.RoleId,
+                    RoleId =  model.RoleId,
                     IsActive = true,
                     Email = model.Email,
-                    //CreatedBy = GetCurrentUserId()
+                    CreatedBy_Id = GetCurrentUserId()
                 };
 
                 await _userService.CreateUserAsync(user);
@@ -219,7 +219,7 @@ namespace StudentManagementSystem.Controllers
                     RoleName = u.Role?.Name ?? "غير محدد",
                     Date = u.Date,
                     IsActive = u.IsActive,
-                    CreatedBy = u.CreatedByUser?.Name ?? "غير محدد"
+                    CreatedBy = u.CreatedBy?.Name ?? "غير محدد"
                 }).ToList();
 
                 return View(viewModel);
@@ -294,7 +294,7 @@ namespace StudentManagementSystem.Controllers
 
                 user.Name = model.Name;
                 user.Username = model.Username;
-                user.RoleId = model.RoleId;
+                user.RoleId = (int)model.RoleId;
                 user.IsActive = model.IsActive;
 
                 // Update password if provided
@@ -489,7 +489,7 @@ namespace StudentManagementSystem.Controllers
 
         #region Helper Methods
 
-        private async Task SignInUserAsync(Employee user, bool isPersistent)
+        private async Task SignInUserAsync(Employees user, bool isPersistent)
         {
             var claims = new List<Claim>
             {

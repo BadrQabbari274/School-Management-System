@@ -26,7 +26,7 @@ namespace StudentManagementSystem.Controllers
             catch (Exception ex)
             {
                 SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
-                return View(new List<Grade>());
+                return View(new List<Grades>());
             }
         }
 
@@ -53,20 +53,20 @@ namespace StudentManagementSystem.Controllers
         // GET: Grade/Create
         public IActionResult Create()
         {
-            var grade = new Grade();
+            var grade = new Grades();
             return View(grade);
         }
 
         // POST: Grade/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Grade grade)
+        public async Task<IActionResult> Create(Grades grade)
         {
             try
             {
              
                     // Set the created by user
-                    grade.CreatedBy = GetCurrentUserId();
+                    grade.CreatedBy_Id = GetCurrentUserId();
                     grade.Date = DateTime.Now;
                     grade.IsActive = true;
 
@@ -107,7 +107,7 @@ namespace StudentManagementSystem.Controllers
         // POST: Grade/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Grade grade)
+        public async Task<IActionResult> Edit(int id, Grades grade)
         {
             if (id != grade.Id)
             {
@@ -215,4 +215,4 @@ namespace StudentManagementSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
-}
+} 

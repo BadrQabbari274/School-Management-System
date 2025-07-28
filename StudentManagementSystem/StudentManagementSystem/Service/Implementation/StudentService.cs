@@ -16,28 +16,24 @@ namespace StudentManagementSystem.Service.Implementation
             _environment = environment;
         }
 
-        public async Task<IEnumerable<Student>> GetAllStudentsAsync()
+        public async Task<IEnumerable<Students>> GetAllStudentsAsync()
         {
             return await _context.Students
-                .Include(s => s.CreatedByUser)
-                .Include(s => s.Class)
-                .ThenInclude(c => c.Field)
+                .Include(s => s.CreatedBy)
                 .Where(s => s.IsActive)
                 .ToListAsync();
         }
 
-        public async Task<Student> GetStudentByIdAsync(int id)
+        public async Task<Students> GetStudentByIdAsync(int id)
         {
             return await _context.Students
-                .Include(s => s.CreatedByUser)
-                .Include(s => s.Class)
-                .ThenInclude(c => c.Field)
+                .Include(s => s.CreatedBy)
                 .Include(s => s.TaskEvaluations)
                 .Include(s => s.Pictures)
                 .FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
         }
 
-        public async Task<Student> CreateStudentAsync(Student student, IFormFile profileImage = null, IFormFile birthCertificate = null)
+        public async Task<Students> CreateStudentAsync(Students student, IFormFile profileImage = null, IFormFile birthCertificate = null)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
@@ -66,7 +62,7 @@ namespace StudentManagementSystem.Service.Implementation
             }
         }
 
-        public async Task<Student> UpdateStudentAsync(Student student, IFormFile profileImage = null, IFormFile birthCertificate = null)
+        public async Task<Students> UpdateStudentAsync(Students student, IFormFile profileImage = null, IFormFile birthCertificate = null)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
@@ -100,22 +96,22 @@ namespace StudentManagementSystem.Service.Implementation
             return true;
         }
 
-        public async Task<IEnumerable<Student>> GetActiveStudentsAsync()
+        public async Task<IEnumerable<Students>> GetActiveStudentsAsync()
         {
             return await _context.Students
                 .Where(s => s.IsActive)
-                .Include(s => s.Class)
+         
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Student>> GetStudentsByClassAsync(int classId)
+        public async Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId)
         {
             return await _context.Students
-                .Where(s => s.ClassId == classId && s.IsActive)
+                .Where(s => s.IsActive)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Student>> GetStudentsWithTasksAsync()
+        public async Task<IEnumerable<Students>> GetStudentsWithTasksAsync()
         {
             return await _context.Students
                 .Include(s => s.TaskEvaluations)
@@ -123,23 +119,19 @@ namespace StudentManagementSystem.Service.Implementation
                 .ToListAsync();
         }
 
-        private async Task HandleStudentImagesAsync(Student student, IFormFile profileImage, IFormFile birthCertificate)
+        private async Task HandleStudentImagesAsync(Students student, IFormFile profileImage, IFormFile birthCertificate)
         {
             // جلب بيانات الصف والمجال
             var studentWithDetails = await _context.Students
-                .Include(s => s.Class)
-                .ThenInclude(c => c.Field)
                 .FirstOrDefaultAsync(s => s.Id == student.Id);
 
-            if (studentWithDetails?.Class?.Field == null)
-                throw new InvalidOperationException("يجب تحديد الصف والمجال قبل رفع الصور");
-
+         
             // إنشاء مسار المجلد: Grade-Field-Class-Student(ID_Name)
             var folderPath = Path.Combine(
                 _environment.WebRootPath,
                 "uploads",
-                $"Grade-{studentWithDetails.Class.Field.Name}",
-                $"Class-{studentWithDetails.Class.Name}",
+                //$"Grade-{studentWithDetails.Class.Department.Name}",
+                //$"Class-{studentWithDetails.Class.Name}",
                 $"Student({studentWithDetails.Id}_{studentWithDetails.Name.Replace(" ", "_")})"
             );
 

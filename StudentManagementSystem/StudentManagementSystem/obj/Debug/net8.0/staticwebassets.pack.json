@@ -5,8 +5,16 @@
       "PackagePath": "staticwebassets\\StudentManagementSystem.7cetiexh1r.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Mohamed Reda\\Desktop\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\attendance.css",
+      "PackagePath": "staticwebassets\\css\\attendance.css"
+    },
+    {
       "Id": "C:\\Users\\Mohamed Reda\\Desktop\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed Reda\\Desktop\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\site2.css",
+      "PackagePath": "staticwebassets\\css\\site2.css"
     },
     {
       "Id": "C:\\Users\\Mohamed Reda\\Desktop\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\favicon.ico",
@@ -259,6 +267,14 @@
     {
       "Id": "C:\\Users\\Mohamed Reda\\Desktop\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\4\\4_Mohamed_Reda_profile.png",
       "PackagePath": "staticwebassets\\upload\\4\\4_Mohamed_Reda_profile.png"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed Reda\\Desktop\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\5\\5_Ahmed_Hossam_certificate.png",
+      "PackagePath": "staticwebassets\\upload\\5\\5_Ahmed_Hossam_certificate.png"
+    },
+    {
+      "Id": "C:\\Users\\Mohamed Reda\\Desktop\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\5\\5_Ahmed_Hossam_profile.png",
+      "PackagePath": "staticwebassets\\upload\\5\\5_Ahmed_Hossam_profile.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.StudentManagementSystem.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

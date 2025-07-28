@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StudentManagementSystem.Models.Student>
+﻿@* @model IEnumerable<StudentManagementSystem.Models.Students>
 
 @{
     ViewData["Title"] = "قائمة الطلاب";
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="detail-item">
                                     <i class="fas fa-map-marker-alt me-2"></i>
-                                    <strong>المحافظة:</strong> @student.Governarate
+                                    <strong>المحافظة:</strong> @student.Governate
                                 </div>
                                 <div class="detail-item">
                                     <i class="fas fa-calendar me-2"></i>
@@ -264,4 +264,4 @@
         var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
         deleteModal.show();
     }
-</script>
+</script> *@

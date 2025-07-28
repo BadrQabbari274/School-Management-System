@@ -1,4 +1,4 @@
-﻿@model StudentManagementSystem.Models.Student
+﻿@model StudentManagementSystem.Models.Students
 
 @{
     ViewData["Title"] = "تعديل بيانات الطالب";
@@ -81,9 +81,9 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label asp-for="Governarate" class="form-label">المحافظة</label>
-                        <input asp-for="Governarate" class="form-control" required />
-                        <span asp-validation-for="Governarate" class="text-danger"></span>
+                        <label asp-for="Governate" class="form-label">المحافظة</label>
+                        <input asp-for="Governate" class="form-control" required />
+                        <span asp-validation-for="Governate" class="text-danger"></span>
                     </div>
 
                     <div class="col-12 mb-3">
@@ -149,13 +149,13 @@
                         <hr>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+@*                     <div class="col-md-6 mb-3">
                         <label asp-for="ClassId" class="form-label">الفصل</label>
                         <select asp-for="ClassId" class="form-select" asp-items="ViewBag.ClassId">
                             <option value="">-- اختر الفصل --</option>
                         </select>
                         <span asp-validation-for="ClassId" class="text-danger"></span>
-                    </div>
+                    </div> *@
 
                     <div class="col-md-6 mb-3">
                         <label asp-for="IsActive" class="form-label">الحالة</label>
@@ -233,7 +233,7 @@
 
                     <div class="col-md-6 mb-3">
                         <label class="form-label">تم الإنشاء بواسطة</label>
-                        <input type="text" class="form-control" value="@(Model.CreatedByUser?.Name ?? "غير محدد")" readonly />
+                        <input type="text" class="form-control" value="@(Model.CreatedBy?.Name ?? "غير محدد")" readonly />
                     </div>
 
                     <!-- Form Actions -->

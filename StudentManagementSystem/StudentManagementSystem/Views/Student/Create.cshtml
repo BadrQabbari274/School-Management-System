@@ -1,4 +1,4 @@
-﻿@model StudentManagementSystem.Models.Student
+﻿@model StudentManagementSystem.Models.Students
 
 @{
     ViewData["Title"] = "إضافة طالب جديد";
@@ -181,15 +181,6 @@
                         </div>
                     </div>
 
-                    <div class="row">
-        
-                        <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.ClassId, "الفصل", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.DropDownListFor(model => model.ClassId, ViewBag.ClassId as SelectList, "اختر الفصل", new { @class = "form-select" })
-                            @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">

@@ -1,15 +1,15 @@
-﻿using StudentManagementSystem.Models;
+﻿//using StudentManagementSystem.Models;
 
-namespace StudentManagementSystem.Service.Interface
-{
-    public interface IOutcomeService
-    {
-        Task<IEnumerable<Outcome>> GetAllOutcomesAsync();
-        Task<Outcome> GetOutcomeByIdAsync(int id);
-        Task<Outcome> CreateOutcomeAsync(Outcome outcome);
-        Task<Outcome> UpdateOutcomeAsync(Outcome outcome);
-        Task<bool> DeleteOutcomeAsync(int id);
-        Task<IEnumerable<Outcome>> GetActiveOutcomesAsync();
-        Task<IEnumerable<Outcome>> GetOutcomesByCompetenceAsync(int competenceId);
-    }
-}
+//namespace StudentManagementSystem.Service.Interface
+//{
+//    public interface IOutcomeService
+//    {
+//        Task<IEnumerable<Outcomes>> GetAllOutcomesAsync();
+//        Task<Outcomes> GetOutcomeByIdAsync(int id);
+//        Task<Outcomes> CreateOutcomeAsync(Outcomes outcome);
+//        Task<Outcomes> UpdateOutcomeAsync(Outcomes outcome);
+//        Task<bool> DeleteOutcomeAsync(int id);
+//        Task<IEnumerable<Outcomes>> GetActiveOutcomesAsync();
+//        Task<IEnumerable<Outcomes>> GetOutcomesByCompetenceAsync(int competenceId);
+//    }
+//}

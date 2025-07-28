@@ -1,4 +1,4 @@
-﻿@model StudentManagementSystem.Models.Class
+﻿@model StudentManagementSystem.Models.Classes
 
 @{
     ViewData["Title"] = "إنشاء فصل جديد";
@@ -54,13 +54,13 @@
                         </div>
 
                         <div class="mb-4">
-                            <label asp-for="FieldId" class="form-label fw-bold text-primary-orange">
+                            <label asp-for="Department_Id" class="form-label fw-bold text-primary-orange">
                                 <i class="fas fa-book-open me-2"></i>التخصص
                             </label>
-                            <select asp-for="FieldId" class="form-select form-select-lg" asp-items="ViewBag.FieldId">
+                            <select asp-for="Department_Id" class="form-select form-select-lg" asp-items="ViewBag.FieldId">
                                 <option value="">-- اختر التخصص --</option>
                             </select>
-                            <span asp-validation-for="FieldId" class="text-danger"></span>
+                            <span asp-validation-for="Department_Id" class="text-danger"></span>
                         </div>
 
                         <div class="row">

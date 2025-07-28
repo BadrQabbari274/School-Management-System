@@ -14,22 +14,22 @@ namespace StudentManagementSystem.Service.Implementation
             _context = context;
         }
 
-        public async Task<IEnumerable<EmployeeType>> GetAllRolesAsync()
+        public async Task<IEnumerable<EmployeeTypes>> GetAllRolesAsync()
         {
             return await _context.EmployeeTypes
-                .Include(r => r.CreatedByUser)
+       
                 .Where(r => !r.IsDeleted)
                 .ToListAsync();
         }
 
-        public async Task<EmployeeType> GetRoleByIdAsync(int id)
+        public async Task<EmployeeTypes> GetRoleByIdAsync(int id)
         {
             return await _context.EmployeeTypes
-                .Include(r => r.CreatedByUser)
+            
                 .FirstOrDefaultAsync(r => r.Id == id && !r.IsDeleted);
         }
 
-        public async Task<EmployeeType> CreateRoleAsync(EmployeeType role)
+        public async Task<EmployeeTypes> CreateRoleAsync(EmployeeTypes role)
         {
             role.CreatedDate = DateTime.Now;
             _context.EmployeeTypes.Add(role);
@@ -37,7 +37,7 @@ namespace StudentManagementSystem.Service.Implementation
             return role;
         }
 
-        public async Task<EmployeeType> UpdateRoleAsync(EmployeeType role)
+        public async Task<EmployeeTypes> UpdateRoleAsync(EmployeeTypes role)
         {
             _context.Entry(role).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -54,7 +54,7 @@ namespace StudentManagementSystem.Service.Implementation
             return true;
         }
 
-        public async Task<IEnumerable<EmployeeType>> GetActiveRolesAsync()
+        public async Task<IEnumerable<EmployeeTypes>> GetActiveRolesAsync()
         {
             return await _context.EmployeeTypes
                 .Where(r => !r.IsDeleted)
