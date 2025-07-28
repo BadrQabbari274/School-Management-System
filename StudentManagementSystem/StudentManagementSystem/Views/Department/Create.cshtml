@@ -29,15 +29,6 @@
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
 
-                        <div class="mb-4">
-                            <label asp-for="GradeId" class="form-label fw-bold text-primary">
-                                <i class="fas fa-graduation-cap me-2"></i>المرحلة الدراسية
-                            </label>
-                            <select asp-for="GradeId" class="form-control form-control-lg" asp-items="ViewBag.GradeId">
-                                <option value="">-- اختر المرحلة الدراسية --</option>
-                            </select>
-                            <span asp-validation-for="GradeId" class="text-danger"></span>
-                        </div>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -58,7 +49,7 @@
     </div>
 </div>
 
-<style>
+@* <style>
     .card {
         border-radius: 20px;
         overflow: hidden;
@@ -113,7 +104,7 @@
         margin-bottom: 8px;
         font-size: 1.1rem;
     }
-</style>
+</style> *@
 
 @section Scripts {
     @{
