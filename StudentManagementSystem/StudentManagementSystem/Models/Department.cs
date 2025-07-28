@@ -16,7 +16,7 @@ namespace StudentManagementSystem.Models
         [ForeignKey("CreatedBy_Id")]
         public virtual Employees CreatedBy { get; set; }
 
-        public virtual ICollection<Classes> Classes { get; set; }
+       
         public virtual ICollection<Competences> Competences { get; set; }
         public virtual ICollection<Employee_Department> EmployeeDepartments { get; set; }
         public virtual ICollection<Section> Sections { get; set; }

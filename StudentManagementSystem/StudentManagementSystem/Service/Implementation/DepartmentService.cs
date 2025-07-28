@@ -26,7 +26,7 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Departments
                 .Include(d => d.CreatedBy)
-                .Include(d => d.Classes)
+
                 .Include(d => d.Competences)
                 .FirstOrDefaultAsync(d => d.Id == id && d.IsActive);
         }
