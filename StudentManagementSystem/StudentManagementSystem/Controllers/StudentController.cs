@@ -11,13 +11,13 @@ namespace StudentManagementSystem.Controllers
     public class StudentController : BaseController
     {
         private readonly IStudentService _studentService;
-        private readonly IClassService _classService;
+        private readonly ISectionService _sectionService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public StudentController(IStudentService studentService, IClassService classService, IWebHostEnvironment webHostEnvironment)
+        public StudentController(IStudentService studentService, ISectionService sectionService, IWebHostEnvironment webHostEnvironment)
         {
             _studentService = studentService;
-            _classService = classService;
+           _sectionService = sectionService;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -57,12 +57,30 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Student/Create
+        public class CreateStudentViewModel
+        {
+            public Students Student { get; set; }
+            public int SelectedSectionId { get; set; }
+            public List<SelectListItem> Sections { get; set; }
+        }
+
+        // في الـ Controller
         public async Task<IActionResult> Create()
         {
             try
             {
-                await PopulateViewBag();
-                return View();
+                var sections = await _sectionService.GetActiveSectionsAsync();
+                var viewModel = new CreateStudentViewModel
+                {
+                    Student = new Students(),
+                    Sections = sections.Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.Name_Of_Section
+                    }).ToList()
+                };
+
+                return View(viewModel);
             }
             catch (Exception ex)
             {
@@ -70,80 +88,116 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-
         // POST: Student/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Students student, IFormFile pictureProfile, IFormFile birthCertificate)
+        public async Task<IActionResult> Create(CreateStudentViewModel viewModel, IFormFile pictureProfile, IFormFile birthCertificate)
         {
             try
             {
-         
-                    // استخراج البيانات من الرقم القومي
-                    var nationalIdData = ExtractNationalIdData(student.Natrual_Id);
-                    if (nationalIdData.IsValid)
+                // استخراج البيانات من الرقم القومي
+                var nationalIdData = ExtractNationalIdData(viewModel.Student.Natrual_Id);
+                if (nationalIdData.IsValid)
+                {
+                    viewModel.Student.Date_of_birth = nationalIdData.BirthDate.ToString();
+                    viewModel.Student.Governate = nationalIdData.Governorate;
+                }
+                else
+                {
+                    SetErrorMessage("الرقم القومي غير صحيح");
+
+                    // إعادة تحميل البيانات في حالة الخطأ
+                    var sections = await _sectionService.GetActiveSectionsAsync();
+                    viewModel.Sections = sections.Select(s => new SelectListItem
                     {
-                        student.Date_of_birth = nationalIdData.BirthDate.ToString();
-                        student.Governate = nationalIdData.Governorate;
+                        Value = s.Id.ToString(),
+                        Text = s.Name_Of_Section
+                    }).ToList();
+
+                    return View(viewModel);
+                }
+
+                // Set created by current user
+                viewModel.Student.CreatedBy_Id = GetCurrentUserId();
+                viewModel.Student.Date = DateTime.Now;
+
+                // إنشاء الطالب أولاً للحصول على الـ ID
+                await _studentService.CreateStudentAsync(viewModel.Student);
+
+                // Handle Picture Profile Upload
+                if (pictureProfile != null && pictureProfile.Length > 0)
+                {
+                    var profilePicturePath = await SaveFileAsync(pictureProfile, "profile", viewModel.Student.Id, viewModel.Student.Name);
+                    if (profilePicturePath != null)
+                    {
+                        viewModel.Student.Picture_Profile = profilePicturePath;
                     }
                     else
                     {
-                        SetErrorMessage("الرقم القومي غير صحيح");
-                        await PopulateViewBag();
-                        return View(student);
+                        SetErrorMessage("فشل في رفع صورة الملف الشخصي");
+
+                        // إعادة تحميل البيانات في حالة الخطأ
+                        var sections = await _sectionService.GetActiveSectionsAsync();
+                        viewModel.Sections = sections.Select(s => new SelectListItem
+                        {
+                            Value = s.Id.ToString(),
+                            Text = s.Name_Of_Section
+                        }).ToList();
+
+                        return View(viewModel);
                     }
+                }
 
-                    // Set created by current user
-                    student.CreatedBy_Id = GetCurrentUserId();
-                    student.Date = DateTime.Now;
-
-                    // إنشاء الطالب أولاً للحصول على الـ ID
-                    await _studentService.CreateStudentAsync(student);
-
-                    // Handle Picture Profile Upload
-                    if (pictureProfile != null && pictureProfile.Length > 0)
+                // Handle Birth Certificate Upload
+                if (birthCertificate != null && birthCertificate.Length > 0)
+                {
+                    var birthCertificatePath = await SaveFileAsync(birthCertificate, "certificate", viewModel.Student.Id, viewModel.Student.Name);
+                    if (birthCertificatePath != null)
                     {
-                        var profilePicturePath = await SaveFileAsync(pictureProfile, "profile", student.Id, student.Name);
-                        if (profilePicturePath != null)
-                        {
-                            student.Picture_Profile = profilePicturePath;
-                        }
-                        else
-                        {
-                            SetErrorMessage("فشل في رفع صورة الملف الشخصي");
-                            await PopulateViewBag();
-                            return View(student);
-                        }
+                        viewModel.Student.birth_Certificate = birthCertificatePath;
                     }
-
-                    // Handle Birth Certificate Upload
-                    if (birthCertificate != null && birthCertificate.Length > 0)
+                    else
                     {
-                        var birthCertificatePath = await SaveFileAsync(birthCertificate, "certificate", student.Id, student.Name);
-                        if (birthCertificatePath != null)
+                        SetErrorMessage("فشل في رفع شهادة الميلاد");
+
+                        // إعادة تحميل البيانات في حالة الخطأ
+                        var sections = await _sectionService.GetActiveSectionsAsync();
+                        viewModel.Sections = sections.Select(s => new SelectListItem
                         {
-                            student.birth_Certificate = birthCertificatePath;
-                        }
-                        else
-                        {
-                            SetErrorMessage("فشل في رفع شهادة الميلاد");
-                            await PopulateViewBag();
-                            return View(student);
-                        }
+                            Value = s.Id.ToString(),
+                            Text = s.Name_Of_Section
+                        }).ToList();
+
+                        return View(viewModel);
                     }
+                }
 
-                    // تحديث الطالب مع مسارات الصور
-                    await _studentService.UpdateStudentAsync(student);
+                // تحديث الطالب مع مسارات الصور
+                await _studentService.UpdateStudentAsync(viewModel.Student);
 
-                    SetSuccessMessage("تم إضافة الطالب بنجاح");
-                    return RedirectToAction(nameof(Index));
-      
+                // إضافة الطالب للقسم المحدد
+                var section = await _sectionService.GetSectionByIdAsync(viewModel.SelectedSectionId); // أضافة await
+                if (section != null)
+                {
+                    await _studentService.AddStudentWithoutClassAsync(viewModel.Student.Id, viewModel.SelectedSectionId); // أضافة await
+                }
+
+                SetSuccessMessage("تم إضافة الطالب بنجاح");
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 SetErrorMessage($"خطأ في حفظ البيانات: {ex.Message}");
-                await PopulateViewBag();
-                return View(student);
+
+                // إعادة تحميل البيانات في حالة الخطأ
+                var sections = await _sectionService.GetActiveSectionsAsync();
+                viewModel.Sections = sections.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.Name_Of_Section
+                }).ToList();
+
+                return View(viewModel);
             }
         }
 
@@ -172,20 +226,15 @@ namespace StudentManagementSystem.Controllers
         // POST: Student/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Students student, IFormFile pictureProfile, IFormFile birthCertificate)
+        public async Task<IActionResult> Edit(Students student, IFormFile pictureProfile, IFormFile birthCertificate)
         {
-            if (id != student.Id)
-            {
-                SetErrorMessage("خطأ في البيانات المرسلة");
-                return RedirectToAction(nameof(Index));
-            }
-
+  
             try
             {
                 if (ModelState.IsValid)
                 {
                     // Get existing student to preserve file paths if no new files uploaded
-                    var existingStudent = await _studentService.GetStudentByIdAsync(id);
+                    var existingStudent = await _studentService.GetStudentByIdAsync(student.Id);
                     if (existingStudent == null)
                     {
                         SetErrorMessage("الطالب غير موجود");
@@ -398,12 +447,12 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var classes = await _classService.GetAllClassesAsync();
-                ViewBag.ClassId = new SelectList(classes, "Id", "Name");
+                var sections = await _sectionService.GetActiveSectionsAsync();
+                ViewBag.Sections = sections; // إرسال البيانات الأصلية بدلاً من SelectList
             }
             catch (Exception)
             {
-                ViewBag.ClassId = new SelectList(new List<Classes>(), "Id", "Name");
+                ViewBag.Sections = new List<Section>(); // قائمة فارغة في حالة الخطأ
             }
         }
 

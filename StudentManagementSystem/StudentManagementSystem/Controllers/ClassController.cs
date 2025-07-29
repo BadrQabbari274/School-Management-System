@@ -76,6 +76,7 @@ namespace StudentManagementSystem.Controllers
                 // Set CreatedBy automatically
                 classEntity.CreatedBy_Id = currentUserId;
                 classEntity.Date = DateTime.UtcNow;
+                classEntity.IsActive = true;
 
                 await _classService.CreateClassAsync(classEntity);
                 // Use the helper method from BaseController
@@ -126,10 +127,8 @@ namespace StudentManagementSystem.Controllers
                     return View(classEntity);
                 }
 
-                // Set CreatedBy automatically (assuming CreatedBy is used for the last updater here,
-                // if you have an 'UpdatedBy' property in your model, use that instead)
-                classEntity.CreatedBy_Id = currentUserId; // Or classEntity.UpdatedBy = currentUserId;
-                // classEntity.Date = DateTime.UtcNow; // This might need to be 'UpdatedAt' if you track both
+                classEntity.CreatedBy_Id = currentUserId; 
+                classEntity.IsActive = true; 
 
                 await _classService.UpdateClassAsync(classEntity);
                 // Use the helper method from BaseController
@@ -168,141 +167,141 @@ namespace StudentManagementSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Generates unique codes for students within a class, reserving codes based on MaxStudents per class.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> GenerateStudentCodes(int classId)
-        {
-            try
-            {
-                // Ensure _classService.GetClassByIdAsync(id) loads the Students collection (e.g., using .Include()).
-                var classEntity = await _classService.GetClassByIdAsync(classId);
-                if (classEntity == null)
-                {
-                    SetErrorMessage("الفصل غير موجود");
-                    return RedirectToAction(nameof(Details), new { id = classId });
-                }
+        //// Generates unique codes for students within a class, reserving codes based on MaxStudents per class.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
+        //public async Task<IActionResult> GenerateStudentCodes(int classId)
+        //{
+        //    try
+        //    {
+        //        // Ensure _classService.GetClassByIdAsync(id) loads the Students collection (e.g., using .Include()).
+        //        var classEntity = await _classService.GetClassByIdAsync(classId);
+        //        if (classEntity == null)
+        //        {
+        //            SetErrorMessage("الفصل غير موجود");
+        //            return RedirectToAction(nameof(Details), new { id = classId });
+        //        }
 
-                var studentsInClass = classEntity.Students?.Where(s => s.IsActive).ToList();
+        //        var studentsInClass = classEntity.Students?.Where(s => s.IsActive).ToList();
 
-                if (studentsInClass == null || !studentsInClass.Any())
-                {
-                    SetErrorMessage("لا يوجد طلاب نشطون في هذا الفصل لتوليد الأكواد لهم.");
-                    return RedirectToAction(nameof(Details), new { id = classId });
-                }
+        //        if (studentsInClass == null || !studentsInClass.Any())
+        //        {
+        //            SetErrorMessage("لا يوجد طلاب نشطون في هذا الفصل لتوليد الأكواد لهم.");
+        //            return RedirectToAction(nameof(Details), new { id = classId });
+        //        }
 
-                // Prevents regeneration if any student in the class already has a code.
-                if (studentsInClass.Any(s => !string.IsNullOrEmpty(s.Code)))
-                {
-                    SetErrorMessage("بعض الطلاب في هذا الفصل لديهم أكواد بالفعل. لا يمكن إعادة توليد الأكواد للفصل بالكامل.");
-                    return RedirectToAction(nameof(Details), new { id = classId });
-                }
+        //        // Prevents regeneration if any student in the class already has a code.
+        //        if (studentsInClass.Any(s => !string.IsNullOrEmpty(s.Code)))
+        //        {
+        //            SetErrorMessage("بعض الطلاب في هذا الفصل لديهم أكواد بالفعل. لا يمكن إعادة توليد الأكواد للفصل بالكامل.");
+        //            return RedirectToAction(nameof(Details), new { id = classId });
+        //        }
 
-                var sortedStudents = studentsInClass.OrderBy(s => s.Name).ToList();
+        //        var sortedStudents = studentsInClass.OrderBy(s => s.Name).ToList();
 
-                // Gets the base sequence number for this class's block.
-                var baseSequenceNumberForClass = await GetNextSequenceNumberForClass(classId);
+        //        // Gets the base sequence number for this class's block.
+        //        var baseSequenceNumberForClass = await GetNextSequenceNumberForClass(classId);
 
-                var currentYear = DateTime.Now.Year % 100; // Last two digits of the current year.
+        //        var currentYear = DateTime.Now.Year % 100; // Last two digits of the current year.
 
-                for (int i = 0; i < sortedStudents.Count; i++)
-                {
-                    // Calculates the student's unique sequence number within the class's block.
-                    var sequenceNumber = baseSequenceNumberForClass + i;
-                    // Formats the student code: J03 + last two year digits + 3-digit sequence number.
-                    var studentCode = $"J03{currentYear:D2}{sequenceNumber:D3}";
-                    sortedStudents[i].Code = studentCode;
+        //        for (int i = 0; i < sortedStudents.Count; i++)
+        //        {
+        //            // Calculates the student's unique sequence number within the class's block.
+        //            var sequenceNumber = baseSequenceNumberForClass + i;
+        //            // Formats the student code: J03 + last two year digits + 3-digit sequence number.
+        //            var studentCode = $"J03{currentYear:D2}{sequenceNumber:D3}";
+        //            sortedStudents[i].Code = studentCode;
 
-                    await _studentService.UpdateStudentAsync(sortedStudents[i]);
-                }
+        //            await _studentService.UpdateStudentAsync(sortedStudents[i]);
+        //        }
 
-                // Use MaxStudents instead of CodesPerClass constant
-                var maxStudentsForClass = classEntity.MaxStudents ?? 25; // Default to 25 if MaxStudents is null
-                SetSuccessMessage($"تم توليد الأكواد بنجاح لعدد {sortedStudents.Count} طالب وتخصيص {maxStudentsForClass} كود للفصل.");
-            }
-            catch (Exception ex)
-            {
-                SetErrorMessage("حدث خطأ أثناء توليد الأكواد: " + ex.Message);
-            }
+        //        // Use MaxStudents instead of CodesPerClass constant
+        //        var maxStudentsForClass = classEntity.MaxStudents ?? 25; // Default to 25 if MaxStudents is null
+        //        SetSuccessMessage($"تم توليد الأكواد بنجاح لعدد {sortedStudents.Count} طالب وتخصيص {maxStudentsForClass} كود للفصل.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        SetErrorMessage("حدث خطأ أثناء توليد الأكواد: " + ex.Message);
+        //    }
 
-            return RedirectToAction(nameof(Details), new { id = classId });
-        }
+        //    return RedirectToAction(nameof(Details), new { id = classId });
+        //}
 
-        private async Task<int> GetNextSequenceNumberForClass(int targetClassId)
-        {
-            var allClasses = await _classService.GetAllClassesAsync();
+        //private async Task<int> GetNextSequenceNumberForClass(int targetClassId)
+        //{
+        //    var allClasses = await _classService.GetAllClassesAsync();
 
-            var sortedClasses = allClasses
-                                .OrderBy(c => c.Name)
-                                .ThenBy(c => c.Date)
-                                .ThenBy(c => c.Id)
-                                .ToList();
+        //    var sortedClasses = allClasses
+        //                        .OrderBy(c => c.Name)
+        //                        .ThenBy(c => c.Date)
+        //                        .ThenBy(c => c.Id)
+        //                        .ToList();
 
-            int baseSequence = 1;
+        //    int baseSequence = 1;
 
-            foreach (var cls in sortedClasses)
-            {
-                if (cls.Id == targetClassId)
-                {
-                    // Found the target class, return its calculated starting sequence.
-                    return baseSequence;
-                }
-                // For each preceding class, increment the base sequence by the class's MaxStudents (or default to 25).
-                var codesForThisClass = cls.MaxStudents ?? 25; // Default to 25 if MaxStudents is null
-                baseSequence += codesForThisClass;
-            }
+        //    foreach (var cls in sortedClasses)
+        //    {
+        //        if (cls.Id == targetClassId)
+        //        {
+        //            // Found the target class, return its calculated starting sequence.
+        //            return baseSequence;
+        //        }
+        //        // For each preceding class, increment the base sequence by the class's MaxStudents (or default to 25).
+        //        var codesForThisClass = cls.MaxStudents ?? 25; // Default to 25 if MaxStudents is null
+        //        baseSequence += codesForThisClass;
+        //    }
 
-            return baseSequence; // Fallback, though targetClassId should always be found.
-        }
+        //    return baseSequence; // Fallback, though targetClassId should always be found.
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> ResetStudentCodes(int classId)
-        {
-            try
-            {
-                var classEntity = await _classService.GetClassByIdAsync(classId);
-                if (classEntity == null)
-                {
-                    SetErrorMessage("الفصل غير موجود");
-                    return RedirectToAction(nameof(Details), new { id = classId });
-                }
-                var studentsInClass = classEntity.Students?.Where(s => s.IsActive).ToList();
-                if (studentsInClass == null || !studentsInClass.Any())
-                {
-                    SetErrorMessage("لا يوجد طلاب نشطون في هذا الفصل لإعادة تعيين أكوادهم.");
-                    return RedirectToAction(nameof(Details), new { id = classId });
-                }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
+        //public async Task<IActionResult> ResetStudentCodes(int classId)
+        //{
+        //    try
+        //    {
+        //        var classEntity = await _classService.GetClassByIdAsync(classId);
+        //        if (classEntity == null)
+        //        {
+        //            SetErrorMessage("الفصل غير موجود");
+        //            return RedirectToAction(nameof(Details), new { id = classId });
+        //        }
+        //        var studentsInClass = classEntity.Students?.Where(s => s.IsActive).ToList();
+        //        if (studentsInClass == null || !studentsInClass.Any())
+        //        {
+        //            SetErrorMessage("لا يوجد طلاب نشطون في هذا الفصل لإعادة تعيين أكوادهم.");
+        //            return RedirectToAction(nameof(Details), new { id = classId });
+        //        }
 
-                foreach (var student in studentsInClass)
-                {
-                    student.Code = null;
-                    await _studentService.UpdateStudentAsync(student);
-                }
+        //        foreach (var student in studentsInClass)
+        //        {
+        //            student.Code = null;
+        //            await _studentService.UpdateStudentAsync(student);
+        //        }
 
-                var sortedStudents = studentsInClass.OrderBy(s => s.Name).ToList();
-                var baseSequenceNumberForClass = await GetNextSequenceNumberForClass(classId);
-                var currentYear = DateTime.Now.Year % 100;
+        //        var sortedStudents = studentsInClass.OrderBy(s => s.Name).ToList();
+        //        var baseSequenceNumberForClass = await GetNextSequenceNumberForClass(classId);
+        //        var currentYear = DateTime.Now.Year % 100;
 
-                for (int i = 0; i < sortedStudents.Count; i++)
-                {
-                    var sequenceNumber = baseSequenceNumberForClass + i;
-                    var studentCode = $"J03{currentYear:D2}{sequenceNumber:D3}";
-                    sortedStudents[i].Code = studentCode;
-                    await _studentService.UpdateStudentAsync(sortedStudents[i]);
-                }
+        //        for (int i = 0; i < sortedStudents.Count; i++)
+        //        {
+        //            var sequenceNumber = baseSequenceNumberForClass + i;
+        //            var studentCode = $"J03{currentYear:D2}{sequenceNumber:D3}";
+        //            sortedStudents[i].Code = studentCode;
+        //            await _studentService.UpdateStudentAsync(sortedStudents[i]);
+        //        }
 
-                SetSuccessMessage($"تم إعادة تعيين الأكواد بنجاح لعدد {sortedStudents.Count} طالب في الفصل.");
-            }
-            catch (Exception ex)
-            {
-                SetErrorMessage("حدث خطأ أثناء إعادة تعيين الأكواد: " + ex.Message);
-            }
+        //        SetSuccessMessage($"تم إعادة تعيين الأكواد بنجاح لعدد {sortedStudents.Count} طالب في الفصل.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        SetErrorMessage("حدث خطأ أثناء إعادة تعيين الأكواد: " + ex.Message);
+        //    }
 
-            return RedirectToAction(nameof(Details), new { id = classId });
-        }
+        //    return RedirectToAction(nameof(Details), new { id = classId });
+        //}
 
         [HttpGet]
         [Authorize]

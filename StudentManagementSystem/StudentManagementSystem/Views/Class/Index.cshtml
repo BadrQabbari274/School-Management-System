@@ -281,10 +281,9 @@
                 <thead>
                     <tr>
                         <th>اسم الفصل</th>
-                        <th>التخصص</th>
                         <th>منشئ الفصل</th>
                         <th>تاريخ الإنشاء</th>
-                        <th>عدد الطلاب</th>
+                        @* <th>عدد الطلاب</th> *@
                         <th>العمليات</th>
                     </tr>
                 </thead>
@@ -298,7 +297,7 @@
                                
                                 <td>@(item.CreatedBy?.Name ?? "غير محدد")</td>
                                 <td>@item.Date.ToString("dd/MM/yyyy")</td>
-                                <td>@(item.Students?.Count ?? 0)</td>
+                                @* <td>@(item.Students?.Count ?? 0)</td> *@
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="@Url.Action("Details", new { id = item.Id })"

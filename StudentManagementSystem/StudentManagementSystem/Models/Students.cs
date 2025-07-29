@@ -12,7 +12,7 @@ namespace StudentManagementSystem.Models
         public int CreatedBy_Id { get; set; }
         public DateTime Date { get; set; }
         public string Adress { get; set; }
-        public string Code { get; set; }
+        public string? Code { get; set; }
         public string? Date_of_birth { get; set; }
         public string Email { get; set; }
         public string? Governate { get; set; }

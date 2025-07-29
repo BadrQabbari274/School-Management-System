@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentManagementSystem.Data;
 
@@ -11,9 +12,11 @@ using StudentManagementSystem.Data;
 namespace StudentManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250729084904_allow_null_to_code")]
+    partial class allow_null_to_code
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -617,6 +620,9 @@ namespace StudentManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ClassesId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
@@ -674,6 +680,8 @@ namespace StudentManagementSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClassesId");
 
                     b.HasIndex("CreatedBy_Id");
 
@@ -1068,6 +1076,10 @@ namespace StudentManagementSystem.Migrations
 
             modelBuilder.Entity("StudentManagementSystem.Models.Students", b =>
                 {
+                    b.HasOne("StudentManagementSystem.Models.Classes", null)
+                        .WithMany("Students")
+                        .HasForeignKey("ClassesId");
+
                     b.HasOne("StudentManagementSystem.Models.Employees", "CreatedBy")
                         .WithMany("CreatedStudents")
                         .HasForeignKey("CreatedBy_Id")
@@ -1122,6 +1134,8 @@ namespace StudentManagementSystem.Migrations
             modelBuilder.Entity("StudentManagementSystem.Models.Classes", b =>
                 {
                     b.Navigation("StudentClassSectionYears");
+
+                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("StudentManagementSystem.Models.Competences", b =>
