@@ -29,7 +29,12 @@ namespace StudentManagementSystem.Service.Implementation
                 .Include(ay => ay.CreatedBy)
                 .FirstOrDefaultAsync(ay => ay.Id == id && ay.IsActive);
         }
-
+        public async Task<Grades> GetAcademicYearByNameAsync(string name)
+        {
+            return await _context.Grades
+                .Include(ay => ay.CreatedBy)
+                .FirstOrDefaultAsync(ay => ay.Name.ToLower() == name.ToLower() && ay.IsActive);
+        }
         public async Task<Grades> CreateAcademicYearAsync(Grades academicYear)
         {
             academicYear.Date = DateTime.Now;
