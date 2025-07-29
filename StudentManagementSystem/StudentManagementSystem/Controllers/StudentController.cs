@@ -11,13 +11,15 @@ namespace StudentManagementSystem.Controllers
     public class StudentController : BaseController
     {
         private readonly IStudentService _studentService;
+        private readonly IGradeService _gradeService;
         private readonly ISectionService _sectionService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public StudentController(IStudentService studentService, ISectionService sectionService, IWebHostEnvironment webHostEnvironment)
+        public StudentController(IStudentService studentService, ISectionService sectionService, IGradeService gradeService, IWebHostEnvironment webHostEnvironment)
         {
             _studentService = studentService;
            _sectionService = sectionService;
+            _gradeService = gradeService;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -177,9 +179,11 @@ namespace StudentManagementSystem.Controllers
 
                 // إضافة الطالب للقسم المحدد
                 var section = await _sectionService.GetSectionByIdAsync(viewModel.SelectedSectionId); // أضافة await
+                var Grade = await _gradeService.GetAcademicYearByNameAsync("junior"); // أضافة await
                 if (section != null)
                 {
                     await _studentService.AddStudentWithoutClassAsync(viewModel.Student.Id, viewModel.SelectedSectionId); // أضافة await
+                    await _studentService.AssignGradeToStudentAsync(viewModel.Student.Id, Grade.Id); // أضافة await
                 }
 
                 SetSuccessMessage("تم إضافة الطالب بنجاح");
@@ -213,7 +217,7 @@ namespace StudentManagementSystem.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                await PopulateViewBag();
+             
                 return View(student);
             }
             catch (Exception ex)
@@ -228,92 +232,88 @@ namespace StudentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Students student, IFormFile pictureProfile, IFormFile birthCertificate)
         {
-  
             try
             {
-                if (ModelState.IsValid)
+                // Get existing student to preserve file paths if no new files uploaded
+                var existingStudent = await _studentService.GetStudentByIdAsync(student.Id);
+                if (existingStudent == null)
                 {
-                    // Get existing student to preserve file paths if no new files uploaded
-                    var existingStudent = await _studentService.GetStudentByIdAsync(student.Id);
-                    if (existingStudent == null)
-                    {
-                        SetErrorMessage("الطالب غير موجود");
-                        return RedirectToAction(nameof(Index));
-                    }
-
-                    // استخراج البيانات من الرقم القومي
-                    var nationalIdData = ExtractNationalIdData(student.Natrual_Id);
-                    if (nationalIdData.IsValid)
-                    {
-                        student.Date_of_birth = nationalIdData.BirthDate.ToString();
-                        student.Governate = nationalIdData.Governorate;
-                    }
-                    else
-                    {
-                        SetErrorMessage("الرقم القومي غير صحيح");
-                        await PopulateViewBag();
-                        return View(student);
-                    }
-
-                    // Handle Picture Profile Update
-                    if (pictureProfile != null && pictureProfile.Length > 0)
-                    {
-                        // Delete old file if exists
-                        DeleteFileIfExists(existingStudent.Picture_Profile);
-
-                        var profilePicturePath = await SaveFileAsync(pictureProfile, "profile", student.Id, student.Name);
-                        if (profilePicturePath != null)
-                        {
-                            student.Picture_Profile = profilePicturePath;
-                        }
-                        else
-                        {
-                            SetErrorMessage("فشل في رفع صورة الملف الشخصي");
-                            await PopulateViewBag();
-                            return View(student);
-                        }
-                    }
-                    else
-                    {
-                        // Keep existing picture if no new file uploaded
-                        student.Picture_Profile = existingStudent.Picture_Profile;
-                    }
-
-                    // Handle Birth Certificate Update
-                    if (birthCertificate != null && birthCertificate.Length > 0)
-                    {
-                        // Delete old file if exists
-                        DeleteFileIfExists(existingStudent.birth_Certificate);
-
-                        var birthCertificatePath = await SaveFileAsync(birthCertificate, "certificate", student.Id, student.Name);
-                        if (birthCertificatePath != null)
-                        {
-                            student.birth_Certificate = birthCertificatePath;
-                        }
-                        else
-                        {
-                            SetErrorMessage("فشل في رفع شهادة الميلاد");
-                            await PopulateViewBag();
-                            return View(student);
-                        }
-                    }
-                    else
-                    {
-                        // Keep existing certificate if no new file uploaded
-                        student.birth_Certificate = existingStudent.birth_Certificate;
-                    }
-
-                    // Preserve creation info
-                    student.CreatedBy = existingStudent.CreatedBy;
-                    student.Date = existingStudent.Date;
-
-                    await _studentService.UpdateStudentAsync(student);
-                    SetSuccessMessage("تم تحديث بيانات الطالب بنجاح");
+                    SetErrorMessage("الطالب غير موجود");
                     return RedirectToAction(nameof(Index));
                 }
 
-                await PopulateViewBag();
-                return View(student);
+                // استخراج البيانات من الرقم القومي
+                var nationalIdData = ExtractNationalIdData(student.Natrual_Id);
+                if (nationalIdData.IsValid)
+                {
+                    student.Date_of_birth = nationalIdData.BirthDate.ToString();
+                    student.Governate = nationalIdData.Governorate;
+                }
+                else
+                {
+                    SetErrorMessage("الرقم القومي غير صحيح");
+                    await PopulateViewBag();
+                    return View(student);
+                }
+
+                // Handle Picture Profile Update
+                if (pictureProfile != null && pictureProfile.Length > 0)
+                {
+                    // Delete old file if exists
+                    DeleteFileIfExists(existingStudent.Picture_Profile);
+
+                    var profilePicturePath = await SaveFileAsync(pictureProfile, "profile", student.Id, student.Name);
+                    if (profilePicturePath != null)
+                    {
+                        student.Picture_Profile = profilePicturePath;
+                    }
+                    else
+                    {
+                        SetErrorMessage("فشل في رفع صورة الملف الشخصي");
+                        await PopulateViewBag();
+                        return View(student);
+                    }
+                }
+                else
+                {
+                    // Keep existing picture if no new file uploaded
+                    student.Picture_Profile = existingStudent.Picture_Profile;
+                }
+
+                // Handle Birth Certificate Update
+                if (birthCertificate != null && birthCertificate.Length > 0)
+                {
+                    // Delete old file if exists
+                    DeleteFileIfExists(existingStudent.birth_Certificate);
+
+                    var birthCertificatePath = await SaveFileAsync(birthCertificate, "certificate", student.Id, student.Name);
+                    if (birthCertificatePath != null)
+                    {
+                        student.birth_Certificate = birthCertificatePath;
+                    }
+                    else
+                    {
+                        SetErrorMessage("فشل في رفع شهادة الميلاد");
+                        await PopulateViewBag();
+                        return View(student);
+                    }
+                }
+                else
+                {
+                    // Keep existing certificate if no new file uploaded
+                    student.birth_Certificate = existingStudent.birth_Certificate;
+                }
+
+                student.IsActive = true;
+                // Preserve creation info
+                student.CreatedBy_Id = GetCurrentUserId();
+                student.Date = existingStudent.Date;
+
+                // SOLUTION 1: Pass the files to the service method
+                await _studentService.UpdateStudentAsync(student);
+
+                SetSuccessMessage("تم تحديث بيانات الطالب بنجاح");
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
