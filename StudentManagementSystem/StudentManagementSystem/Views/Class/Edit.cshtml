@@ -264,6 +264,14 @@
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
 
+                            <div class="mb-4">
+                                <label asp-for="MaxStudents" class="form-label fw-bold text-primary-orange">
+                                    <i class="fas fa-user-friends me-2"></i>السعة القصوى للطلاب <span class="required">*</span>
+                                </label>
+                                <input asp-for="MaxStudents" type="number" class="form-control form-control-lg" placeholder="ادخل السعة القصوى" required />
+                                <span asp-validation-for="MaxStudents" class="text-danger"></span>
+                            </div>
+
 
                             <div class="info-section">
                                 <div class="info-label">تاريخ الإنشاء</div>
