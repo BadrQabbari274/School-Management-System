@@ -1,0 +1,150 @@
+﻿@model StudentManagementSystem.Models.Section
+
+@{
+    ViewData["Title"] = "إضافة شعبة جديدة";
+
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-plus-circle mr-2"></i>
+                        إضافة شعبة جديدة
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post" id="createSectionForm">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Department_Id" class="control-label required">
+                                <i class="fas fa-building mr-2"></i>
+                                القسم
+                            </label>
+                            <select asp-for="Department_Id" class="form-control" asp-items="ViewBag.Department_Id">
+                                <option value="">-- اختر القسم --</option>
+                            </select>
+                            <span asp-validation-for="Department_Id" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Name_Of_Section" class="control-label required">
+                                <i class="fas fa-sitemap mr-2"></i>
+                                اسم الشعبة
+                            </label>
+                            <input asp-for="Name_Of_Section" class="form-control"
+                                   placeholder="أدخل اسم الشعبة" />
+                            <span asp-validation-for="Name_Of_Section" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="card">
+                                <div class="card-body bg-light">
+                                    <h6 class="card-title">
+                                        <i class="fas fa-info-circle mr-2"></i>
+                                        معلومات إضافية
+                                    </h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <small class="text-muted">
+                                                <i class="fas fa-user mr-1"></i>
+                                                أنشئت بواسطة: <strong>@ViewBag.CurrentUserName</strong>
+                                            </small>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <small class="text-muted">
+                                                <i class="fas fa-calendar mr-1"></i>
+                                                تاريخ الإنشاء: <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-success" id="submitBtn">
+                                    <i class="fas fa-save mr-2"></i>
+                                    حفظ
+                                </button>
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-right mr-2"></i>
+                                    العودة إلى القائمة
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            // Form submission with loading state
+            $('#createSectionForm').on('submit', function (e) {
+                var submitBtn = $('#submitBtn');
+                var departmentId = $('#Department_Id').val();
+                var sectionName = $('#Name_Of_Section').val().trim();
+
+                // Basic validation
+                if (!departmentId) {
+                    e.preventDefault();
+                    $('#Department_Id').addClass('is-invalid');
+                    return false;
+                } else {
+                    $('#Department_Id').removeClass('is-invalid');
+                }
+
+                if (!sectionName) {
+                    e.preventDefault();
+                    $('#Name_Of_Section').addClass('is-invalid');
+                    return false;
+                } else {
+                    $('#Name_Of_Section').removeClass('is-invalid');
+                }
+
+                // Show loading state
+                submitBtn.prop('disabled', true);
+                submitBtn.html('<i class="fas fa-spinner fa-spin mr-2"></i>جاري الحفظ...');
+            });
+
+            // Remove validation classes on input change
+            $('#Department_Id, #Name_Of_Section').on('change input', function () {
+                $(this).removeClass('is-invalid');
+            });
+
+            // Auto-focus on first input
+            $('#Department_Id').focus();
+
+            // Character counter for section name
+            $('#Name_Of_Section').on('input', function () {
+                var maxLength = 100;
+                var currentLength = $(this).val().length;
+                var remaining = maxLength - currentLength;
+
+                if (!$('#charCounter').length) {
+                    $(this).after('<small id="charCounter" class="form-text text-muted"></small>');
+                }
+
+                $('#charCounter').text('عدد الأحرف المتبقية: ' + remaining);
+
+                if (remaining < 10) {
+                    $('#charCounter').removeClass('text-muted').addClass('text-warning');
+                } else {
+                    $('#charCounter').removeClass('text-warning').addClass('text-muted');
+                }
+            });
+        });
+    </script>
+}

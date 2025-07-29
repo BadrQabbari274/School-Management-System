@@ -85,9 +85,6 @@ namespace StudentManagementSystem.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Department_Id")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -101,8 +98,6 @@ namespace StudentManagementSystem.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedBy_Id");
-
-                    b.HasIndex("Department_Id");
 
                     b.ToTable("Classes");
                 });
@@ -448,6 +443,9 @@ namespace StudentManagementSystem.Migrations
                     b.Property<int>("AttendanceTypeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Class_Id")
+                        .HasColumnType("int");
+
                     b.Property<int>("CreatedBy_Id")
                         .HasColumnType("int");
 
@@ -460,9 +458,6 @@ namespace StudentManagementSystem.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("StudentClassSectionYear_Class_Id")
-                        .HasColumnType("int");
 
                     b.Property<int>("StudentClassSectionYear_Section_id")
                         .HasColumnType("int");
@@ -479,9 +474,11 @@ namespace StudentManagementSystem.Migrations
 
                     b.HasIndex("AttendanceTypeId");
 
+                    b.HasIndex("Class_Id");
+
                     b.HasIndex("CreatedBy_Id");
 
-                    b.HasIndex("StudentClassSectionYear_Student_Id", "StudentClassSectionYear_Class_Id", "StudentClassSectionYear_Working_Year_Id", "StudentClassSectionYear_Section_id");
+                    b.HasIndex("StudentClassSectionYear_Student_Id", "StudentClassSectionYear_Working_Year_Id", "StudentClassSectionYear_Section_id");
 
                     b.ToTable("StudentAbsents");
                 });
@@ -497,6 +494,9 @@ namespace StudentManagementSystem.Migrations
                     b.Property<int>("AttendanceTypeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Class_Id")
+                        .HasColumnType("int");
+
                     b.Property<int>("CreatedBy_Id")
                         .HasColumnType("int");
 
@@ -509,9 +509,6 @@ namespace StudentManagementSystem.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("StudentClassSectionYear_Class_Id")
-                        .HasColumnType("int");
 
                     b.Property<int>("StudentClassSectionYear_Section_id")
                         .HasColumnType("int");
@@ -526,9 +523,11 @@ namespace StudentManagementSystem.Migrations
 
                     b.HasIndex("AttendanceTypeId");
 
+                    b.HasIndex("Class_Id");
+
                     b.HasIndex("CreatedBy_Id");
 
-                    b.HasIndex("StudentClassSectionYear_Student_Id", "StudentClassSectionYear_Class_Id", "StudentClassSectionYear_Working_Year_Id", "StudentClassSectionYear_Section_id");
+                    b.HasIndex("StudentClassSectionYear_Student_Id", "StudentClassSectionYear_Working_Year_Id", "StudentClassSectionYear_Section_id");
 
                     b.ToTable("StudentAttendances");
                 });
@@ -573,17 +572,16 @@ namespace StudentManagementSystem.Migrations
                         .HasColumnType("int")
                         .HasColumnOrder(0);
 
-                    b.Property<int>("Class_Id")
+                    b.Property<int>("Working_Year_Id")
                         .HasColumnType("int")
                         .HasColumnOrder(1);
 
-                    b.Property<int>("Working_Year_Id")
+                    b.Property<int>("Section_id")
                         .HasColumnType("int")
                         .HasColumnOrder(2);
 
-                    b.Property<int>("Section_id")
-                        .HasColumnType("int")
-                        .HasColumnOrder(3);
+                    b.Property<int?>("Class_Id")
+                        .HasColumnType("int");
 
                     b.Property<int>("CreatedBy_Id")
                         .HasColumnType("int");
@@ -594,7 +592,7 @@ namespace StudentManagementSystem.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.HasKey("Student_Id", "Class_Id", "Working_Year_Id", "Section_id");
+                    b.HasKey("Student_Id", "Working_Year_Id", "Section_id");
 
                     b.HasIndex("Class_Id");
 
@@ -771,15 +769,7 @@ namespace StudentManagementSystem.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("StudentManagementSystem.Models.Department", "Department")
-                        .WithMany("Classes")
-                        .HasForeignKey("Department_Id")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("StudentManagementSystem.Models.Competences", b =>
@@ -949,6 +939,12 @@ namespace StudentManagementSystem.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("StudentManagementSystem.Models.Classes", "Class")
+                        .WithMany()
+                        .HasForeignKey("Class_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("StudentManagementSystem.Models.Employees", "CreatedBy")
                         .WithMany("CreatedStudentAbsents")
                         .HasForeignKey("CreatedBy_Id")
@@ -957,13 +953,15 @@ namespace StudentManagementSystem.Migrations
 
                     b.HasOne("StudentManagementSystem.Models.Student_Class_Section_Year", "StudentClassSectionYear")
                         .WithMany("StudentAbsents")
-                        .HasForeignKey("StudentClassSectionYear_Student_Id", "StudentClassSectionYear_Class_Id", "StudentClassSectionYear_Working_Year_Id", "StudentClassSectionYear_Section_id")
+                        .HasForeignKey("StudentClassSectionYear_Student_Id", "StudentClassSectionYear_Working_Year_Id", "StudentClassSectionYear_Section_id")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("AbsenceReason");
 
                     b.Navigation("AttendanceType");
+
+                    b.Navigation("Class");
 
                     b.Navigation("CreatedBy");
 
@@ -978,6 +976,12 @@ namespace StudentManagementSystem.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("StudentManagementSystem.Models.Classes", "Class")
+                        .WithMany()
+                        .HasForeignKey("Class_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("StudentManagementSystem.Models.Employees", "CreatedBy")
                         .WithMany("CreatedStudentAttendances")
                         .HasForeignKey("CreatedBy_Id")
@@ -986,11 +990,13 @@ namespace StudentManagementSystem.Migrations
 
                     b.HasOne("StudentManagementSystem.Models.Student_Class_Section_Year", "StudentClassSectionYear")
                         .WithMany("StudentAttendances")
-                        .HasForeignKey("StudentClassSectionYear_Student_Id", "StudentClassSectionYear_Class_Id", "StudentClassSectionYear_Working_Year_Id", "StudentClassSectionYear_Section_id")
+                        .HasForeignKey("StudentClassSectionYear_Student_Id", "StudentClassSectionYear_Working_Year_Id", "StudentClassSectionYear_Section_id")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("AttendanceType");
+
+                    b.Navigation("Class");
 
                     b.Navigation("CreatedBy");
 
@@ -1029,8 +1035,7 @@ namespace StudentManagementSystem.Migrations
                     b.HasOne("StudentManagementSystem.Models.Classes", "Class")
                         .WithMany("StudentClassSectionYears")
                         .HasForeignKey("Class_Id")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("StudentManagementSystem.Models.Employees", "CreatedBy")
                         .WithMany("CreatedStudentClassSectionYears")
@@ -1138,8 +1143,6 @@ namespace StudentManagementSystem.Migrations
 
             modelBuilder.Entity("StudentManagementSystem.Models.Department", b =>
                 {
-                    b.Navigation("Classes");
-
                     b.Navigation("Competences");
 
                     b.Navigation("EmployeeDepartments");

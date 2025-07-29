@@ -11,6 +11,7 @@ namespace StudentManagementSystem.Service.Interface
         Task<bool> DeleteSectionAsync(int id);
         Task<IEnumerable<Section>> GetActiveSectionsAsync();
         Task<IEnumerable<Section>> GetSectionsByDepartmentAsync(int departmentId);
-        Task<bool> SectionNameExistsAsync(string sectionName, int departmentId, int? excludeId = null);
+        Task<bool> SectionExistsAsync(int id);
+        Task<bool> IsSectionNameUniqueAsync(string sectionName, int departmentId, int? excludeId = null);
     }
 }
