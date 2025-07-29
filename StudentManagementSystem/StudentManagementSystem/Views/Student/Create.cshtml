@@ -193,6 +193,21 @@
       
                     </div>
 
+                    <div class="row">
+                        @if (ViewBag.name != null)
+                        {
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">القسم</label>
+                                <span class="required">*</span>
+                                @Html.DropDownList("SelectedSectionId",
+                                new SelectList(ViewBag.Sections, "Id", "Name"),
+                                                "اختر القسم",
+                                                new { @class = "form-control" })
+                        @Html.ValidationMessage("SelectedSectionId", "", new { @class = "text-danger" })
+                    </div>
+                                        }
+                    </div>
+
                     <!-- بيانات الوالدين -->
                     <div class="section-title mt-4">
                         <i class="fas fa-users me-2"></i>بيانات الوالدين
