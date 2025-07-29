@@ -8,7 +8,7 @@ namespace StudentManagementSystem.Service.Interface
         Task<IEnumerable<Students>> GetAllStudentsAsync();
         Task<Students> GetStudentByIdAsync(int id);
         Task<Students> CreateStudentAsync(Students student, IFormFile profileImage = null, IFormFile birthCertificate = null);
-        Task<Students> UpdateStudentAsync(Students student, IFormFile profileImage = null, IFormFile birthCertificate = null);
+        Task<Students> UpdateStudentAsync(Students student/*, IFormFile profileImage = null, IFormFile birthCertificate = null*/);
         Task<bool> DeleteStudentAsync(int id);
         Task<IEnumerable<Students>> GetActiveStudentsAsync();
         Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId);

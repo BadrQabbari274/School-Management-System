@@ -62,28 +62,30 @@ namespace StudentManagementSystem.Service.Implementation
             }
         }
 
-        public async Task<Students> UpdateStudentAsync(Students student, IFormFile profileImage = null, IFormFile birthCertificate = null)
+
+        public async Task<Students> UpdateStudentAsync(Students student)
         {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            try
+            var existingStudent = await _context.Students.FindAsync(student.Id);
+            if (existingStudent == null)
             {
-                _context.Entry(student).State = EntityState.Modified;
-
-                // تحديث الصور إذا تم رفع صور جديدة
-                if (profileImage != null || birthCertificate != null)
-                {
-                    await HandleStudentImagesAsync(student, profileImage, birthCertificate);
-                }
-
-                await _context.SaveChangesAsync();
-                await transaction.CommitAsync();
-                return student;
+                throw new InvalidOperationException("Student not found");
             }
-            catch (Exception)
+
+            // Update only the properties that should change
+            _context.Entry(existingStudent).CurrentValues.SetValues(student);
+
+            // Preserve the file paths if they weren't updated
+            if (string.IsNullOrEmpty(student.Picture_Profile))
             {
-                await transaction.RollbackAsync();
-                throw;
+                student.Picture_Profile = existingStudent.Picture_Profile;
             }
+            if (string.IsNullOrEmpty(student.birth_Certificate))
+            {
+                student.birth_Certificate = existingStudent.birth_Certificate;
+            }
+
+            await _context.SaveChangesAsync();
+            return student;
         }
 
         public async Task<bool> DeleteStudentAsync(int id)
