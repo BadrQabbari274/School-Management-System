@@ -11,13 +11,13 @@ namespace StudentManagementSystem.Controllers
     public class StudentController : BaseController
     {
         private readonly IStudentService _studentService;
-        private readonly IClassService _classService;
+        private readonly ISectionService _sectionService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public StudentController(IStudentService studentService, IClassService classService, IWebHostEnvironment webHostEnvironment)
+        public StudentController(IStudentService studentService, ISectionService sectionService, IWebHostEnvironment webHostEnvironment)
         {
             _studentService = studentService;
-            _classService = classService;
+           _sectionService = sectionService;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -398,8 +398,8 @@ namespace StudentManagementSystem.Controllers
         {
             try
             {
-                var classes = await _classService.GetAllClassesAsync();
-                ViewBag.ClassId = new SelectList(classes, "Id", "Name");
+                var classes = await _sectionService.GetActiveSectionsAsync();
+                ViewBag. = new SelectList(classes, "Id", "Name");
             }
             catch (Exception)
             {
