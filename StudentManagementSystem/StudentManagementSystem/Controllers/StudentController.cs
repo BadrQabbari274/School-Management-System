@@ -11,13 +11,15 @@ namespace StudentManagementSystem.Controllers
     public class StudentController : BaseController
     {
         private readonly IStudentService _studentService;
+        private readonly IGradeService _gradeService;
         private readonly ISectionService _sectionService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public StudentController(IStudentService studentService, ISectionService sectionService, IWebHostEnvironment webHostEnvironment)
+        public StudentController(IStudentService studentService, ISectionService sectionService, IGradeService gradeService, IWebHostEnvironment webHostEnvironment)
         {
             _studentService = studentService;
            _sectionService = sectionService;
+            _gradeService = gradeService;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -177,9 +179,11 @@ namespace StudentManagementSystem.Controllers
 
                 // إضافة الطالب للقسم المحدد
                 var section = await _sectionService.GetSectionByIdAsync(viewModel.SelectedSectionId); // أضافة await
+                var Grade = await _gradeService.GetAcademicYearByNameAsync("junior"); // أضافة await
                 if (section != null)
                 {
                     await _studentService.AddStudentWithoutClassAsync(viewModel.Student.Id, viewModel.SelectedSectionId); // أضافة await
+                    await _studentService.AssignGradeToStudentAsync(viewModel.Student.Id, Grade.Id); // أضافة await
                 }
 
                 SetSuccessMessage("تم إضافة الطالب بنجاح");

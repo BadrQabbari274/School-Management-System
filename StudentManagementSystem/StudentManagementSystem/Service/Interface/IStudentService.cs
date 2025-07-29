@@ -18,6 +18,7 @@ namespace StudentManagementSystem.Service.Interface
 
         // تعيين فصل لطالب
         Task<bool> AssignClassToStudentAsync(int studentId, int classId, int? workingYearId = null);
+        Task<bool> AssignGradeToStudentAsync(int studentId, int gradeId);
 
         // إضافة طالب مع كل التفاصيل
         Task<bool> AddStudentWithAllDetailsAsync(int studentId, int workingYearId, int sectionId, int classId, int createdById);

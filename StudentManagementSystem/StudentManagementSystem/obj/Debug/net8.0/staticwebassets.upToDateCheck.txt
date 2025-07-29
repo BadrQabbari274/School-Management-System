@@ -2,7 +2,6 @@ wwwroot\css\attendance.css
 wwwroot\css\site.css
 wwwroot\css\site2.css
 wwwroot\favicon.ico
-wwwroot\Images\FathallaLogo.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -69,3 +68,4 @@ wwwroot\upload\5\5_Ahmed_Hossam_certificate.png
 wwwroot\upload\5\5_Ahmed_Hossam_profile.png
 wwwroot\upload\8\8_mohamed_certificate.png
 wwwroot\upload\8\8_mohamed_profile.png
+wwwroot\Images\FathallaLogo.png

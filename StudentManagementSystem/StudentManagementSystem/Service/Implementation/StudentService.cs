@@ -265,7 +265,25 @@ namespace StudentManagementSystem.Service.Implementation
                 return false;
             }
         }
+        public async Task<bool> AssignGradeToStudentAsync(int studentId, int gradeId)
+        {
+            var activeWorkingYear = await _context.Working_Years
+                      .Where(wy => wy.IsActive)
+                      .OrderByDescending(wy => wy.Start_date)
+                      .FirstOrDefaultAsync();
+            StudentGrades studentGrade=new StudentGrades() { 
+                StudentId =studentId,
+                GradeId =gradeId,
+                Date = DateTime.Now,
+                Working_Year_Id = activeWorkingYear.Id,
+            IsActive = true
 
+            };
+
+            _context.StudentGrades.Add(studentGrade);
+            _context.SaveChanges();
+            return true;
+        }
         // تعيين فصل لطالب
         public async Task<bool> AssignClassToStudentAsync(int studentId, int classId, int? workingYearId = null)
         {
