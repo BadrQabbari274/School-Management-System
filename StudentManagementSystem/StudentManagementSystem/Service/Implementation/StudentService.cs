@@ -1,7 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using StudentManagementSystem.Controllers;
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace StudentManagementSystem.Service.Implementation
 {
@@ -210,10 +214,7 @@ namespace StudentManagementSystem.Service.Implementation
                 // جلب آخر سنة دراسية نشطة إذا لم يتم تحديدها
                 if (!workingYearId.HasValue)
                 {
-                    var activeWorkingYear = await _context.Working_Years
-                        .Where(wy => wy.IsActive)
-                        .OrderByDescending(wy => wy.Start_date)
-                        .FirstOrDefaultAsync();
+                    var activeWorkingYear = GetOrCreateActiveWorkingYearAsync();
 
                     if (activeWorkingYear == null)
                         return false;
@@ -265,25 +266,103 @@ namespace StudentManagementSystem.Service.Implementation
                 return false;
             }
         }
+
+        // تحقق من وجود سنة دراسية نشطة وإنشاء واحدة إذا لم توجد
+        public async Task<Working_Year> GetOrCreateActiveWorkingYearAsync()
+        {
+            // البحث عن سنة دراسية نشطة
+            var activeWorkingYear = await _context.Working_Years
+                .Where(wy => wy.IsActive)
+                .OrderByDescending(wy => wy.Start_date)
+                .FirstOrDefaultAsync();
+
+            // إذا لم توجد، إنشاء واحدة جديدة
+            if (activeWorkingYear == null)
+            {
+                var user = _context.Employees.Include(i => i.Role).FirstOrDefault(e => e.IsActive && e.Role.Name == "Admin");
+
+                var currentYear = DateTime.Now.Year;
+                activeWorkingYear = new Working_Year
+                {
+                    Name = $"العام الدراسي {currentYear}-{currentYear + 1}",
+                    Start_date = new DateTime(currentYear, 9, 1), // بداية سبتمبر
+                    End_date = new DateTime(currentYear + 1, 6, 30), // نهاية يونيو
+                    IsActive = true,
+                    CreatedBy_Id = user.Id , // استخدم ID المستخدم الحالي
+                    Date = DateTime.Now
+                };
+
+                _context.Working_Years.Add(activeWorkingYear);
+                await _context.SaveChangesAsync();
+            }
+
+            return activeWorkingYear;
+        }
+
+        // تحديث AssignGradeToStudentAsync لاستخدام الmethod الجديدة
         public async Task<bool> AssignGradeToStudentAsync(int studentId, int gradeId)
         {
-            var activeWorkingYear = await _context.Working_Years
-                      .Where(wy => wy.IsActive)
-                      .OrderByDescending(wy => wy.Start_date)
-                      .FirstOrDefaultAsync();
-            StudentGrades studentGrade=new StudentGrades() { 
-                StudentId =studentId,
-                GradeId =gradeId,
-                Date = DateTime.Now,
-                Working_Year_Id = activeWorkingYear.Id,
-            IsActive = true
+            try
+            {
+                // التحقق من وجود الطالب
+                var student = await _context.Students
+                    .FirstOrDefaultAsync(s => s.Id == studentId && s.IsActive);
 
-            };
+                if (student == null)
+                {
+                    throw new ArgumentException($"الطالب بالرقم {studentId} غير موجود أو غير نشط");
+                }
 
-            _context.StudentGrades.Add(studentGrade);
-            _context.SaveChanges();
-            return true;
+                // التحقق من وجود الصف
+                var grade = await _context.Grades
+                    .FirstOrDefaultAsync(g => g.Id == gradeId && g.IsActive);
+
+                if (grade == null)
+                {
+                    throw new ArgumentException($"الصف بالرقم {gradeId} غير موجود أو غير نشط");
+                }
+
+                // الحصول على السنة الدراسية النشطة أو إنشاء واحدة
+                var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
+
+                // التحقق من عدم وجود تسجيل مسبق للطالب في نفس السنة الدراسية
+                var existingRecord = await _context.StudentGrades
+                    .FirstOrDefaultAsync(sg => sg.StudentId == studentId
+                                            && sg.Working_Year_Id == activeWorkingYear.Id
+                                            && sg.IsActive);
+
+                if (existingRecord != null)
+                {
+                    // تحديث الصف الحالي
+                    existingRecord.GradeId = gradeId;
+                    existingRecord.Date = DateTime.Now;
+                    _context.StudentGrades.Update(existingRecord);
+                }
+                else
+                {
+                    // إنشاء سجل جديد
+                    var studentGrade = new StudentGrades()
+                    {
+                        StudentId = studentId,
+                        GradeId = gradeId,
+                        Date = DateTime.Now,
+                        Working_Year_Id = activeWorkingYear.Id,
+                        IsActive = true
+                    };
+
+                    await _context.StudentGrades.AddAsync(studentGrade);
+                }
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in AssignGradeToStudentAsync: {ex.Message}");
+                throw;
+            }
         }
+
         // تعيين فصل لطالب
         public async Task<bool> AssignClassToStudentAsync(int studentId, int classId, int? workingYearId = null)
         {

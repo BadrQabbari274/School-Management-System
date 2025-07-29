@@ -5,8 +5,8 @@
 }
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
-<style>
+<link href="~/css/student.css" rel="stylesheet" />
+@* <style>
     body {
         direction: rtl;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -66,7 +66,7 @@
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
-        text-decoration: none;
+        cursor: pointer;
     }
 
         .delete-btn:hover {
@@ -117,8 +117,65 @@
         padding: 50px;
         color: #6c757d;
     }
-</style>
 
+    .not-specified {
+        color: #6c757d;
+        font-style: italic;
+    }
+
+    /* Delete Modal Styles */
+    .modal-header {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: white;
+        border-bottom: none;
+    }
+
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+
+    .modal-body {
+        padding: 30px;
+        text-align: center;
+    }
+
+        .modal-body .student-info-modal {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+    .confirm-delete-btn {
+        background: #dc3545;
+        border: none;
+        padding: 10px 30px;
+        border-radius: 25px;
+        color: white;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+        .confirm-delete-btn:hover {
+            background: #c82333;
+            color: white;
+        }
+
+    .cancel-btn {
+        background: #6c757d;
+        border: none;
+        padding: 10px 30px;
+        border-radius: 25px;
+        color: white;
+        font-weight: bold;
+    }
+
+        .cancel-btn:hover {
+            background: #5a6268;
+            color: white;
+        }
+</style>
+ *@
 <div class="container-fluid mt-4">
     <!-- Breadcrumb -->
     <nav class="breadcrumb-custom">
@@ -133,6 +190,7 @@
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2><i class="fas fa-users me-2"></i>إدارة الطلاب (@Model.Count() طالب)</h2>
+
         <a href="@Url.Action("Create")" class="btn add-student-btn">
             <i class="fas fa-plus me-2"></i>إضافة طالب جديد
         </a>
@@ -165,40 +223,41 @@
             {
                 <div class="col-md-6 col-lg-4">
                     <div class="student-card">
-                        <a href="@Url.Action("Delete", new { id = student.Id })" class="delete-btn" title="حذف الطالب">
+                        <button class="delete-btn"
+                                onclick="showDeleteModal(@student.Id, '@student.Name', '@student.Code')"
+                                title="حذف الطالب">
                             <i class="fas fa-trash"></i>
-                        </a>
+                        </button>
 
                         <div class="d-flex align-items-center mb-3">
                             <img src="@(!string.IsNullOrEmpty(student.Picture_Profile) ? "/" + student.Picture_Profile : "/images/default-avatar.png")"
                                  alt="@student.Name"
                                  class="student-avatar">
                             <div class="student-info">
-                                <h5 class="mb-1">@student.Name</h5>
-                                <span class="student-code">@student.Code</span>
+                                <h5 class="mb-1">@(string.IsNullOrEmpty(student.Name) ? "لم تحدد بعد" : student.Name)</h5>
+                                <span class="student-code">@(string.IsNullOrEmpty(student.Code) ? "لم تحدد بعد" : student.Code)</span>
                             </div>
                         </div>
 
-                     @*    <div class="mb-3">
-                            <span class="class-info">
-                                <i class="fas fa-graduation-cap me-1"></i>
-                                @(student.Class?.Name ?? "غير محدد")
-                            </span>
-                        </div> *@
-
                         <div class="mb-2">
                             <i class="fas fa-envelope me-2 text-muted"></i>
-                            <small>@student.Email</small>
+                            <small class="@(string.IsNullOrEmpty(student.Email) ? "not-specified" : "")">
+                                @(string.IsNullOrEmpty(student.Email) ? "لم تحدد بعد" : student.Email)
+                            </small>
                         </div>
 
                         <div class="mb-2">
                             <i class="fas fa-phone me-2 text-muted"></i>
-                            <small>@student.Phone_Number</small>
+                            <small class="@(string.IsNullOrEmpty(student.Phone_Number) ? "not-specified" : "")">
+                                @(string.IsNullOrEmpty(student.Phone_Number) ? "لم تحدد بعد" : student.Phone_Number)
+                            </small>
                         </div>
 
                         <div class="mb-2">
                             <i class="fas fa-map-marker-alt me-2 text-muted"></i>
-                            <small>@student.Governate</small>
+                            <small class="@(string.IsNullOrEmpty(student.Governate) ? "not-specified" : "")">
+                                @(string.IsNullOrEmpty(student.Governate) ? "لم تحدد بعد" : student.Governate)
+                            </small>
                         </div>
 
                         <div class="d-flex gap-2 mt-3">
@@ -227,6 +286,43 @@
     }
 </div>
 
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">
+                    <i class="fas fa-trash me-2"></i>تأكيد الحذف
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+                    <h5>هل أنت متأكد من حذف هذا الطالب؟</h5>
+                </div>
+
+                <div class="student-info-modal">
+                    <p><strong>اسم الطالب:</strong> <span id="studentName"></span></p>
+                    <p><strong>كود الطالب:</strong> <span id="studentCode"></span></p>
+                </div>
+
+                <p class="text-muted small">تحذير: هذا الإجراء لا يمكن التراجع عنه</p>
+
+                <form id="deleteForm" method="post" style="display: inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn confirm-delete-btn">
+                        <i class="fas fa-trash me-2"></i>تأكيد الحذف
+                    </button>
+                    <button type="button" class="btn cancel-btn" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>إلغاء
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // Auto-hide alerts after 5 seconds
     setTimeout(function() {
@@ -236,4 +332,28 @@
             }
         });
     }, 5000);
+
+    // Show delete confirmation modal
+    function showDeleteModal(studentId, studentName, studentCode) {
+        document.getElementById('studentName').textContent = studentName || 'لم تحدد بعد';
+        document.getElementById('studentCode').textContent = studentCode || 'لم تحدد بعد';
+
+        // Set the form action to the delete endpoint
+        const form = document.getElementById('deleteForm');
+        form.action = '@Url.Action("DeleteConfirmed", "Student")';
+
+        // Add hidden input for the student ID
+        let hiddenInput = form.querySelector('input[name="id"]');
+        if (!hiddenInput) {
+            hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'id';
+            form.appendChild(hiddenInput);
+        }
+        hiddenInput.value = studentId;
+
+        // Show the modal
+        const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        modal.show();
+    }
 </script>
