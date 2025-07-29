@@ -2,6 +2,7 @@ wwwroot\css\attendance.css
 wwwroot\css\site.css
 wwwroot\css\site2.css
 wwwroot\favicon.ico
+wwwroot\Images\FathallaLogo.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
