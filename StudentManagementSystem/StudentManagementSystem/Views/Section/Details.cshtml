@@ -2,223 +2,169 @@
 
 @{
     ViewData["Title"] = "تفاصيل الشعبة";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="container-fluid">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<div class="container-fluid p-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title mb-0">
-                        <i class="fas fa-sitemap mr-2"></i>
-                        تفاصيل الشعبة: @Model.Name_Of_Section
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-info text-white text-center py-4">
+                    <h3 class="mb-0 fw-bold">
+                        <i class="fas fa-sitemap me-2"></i>تفاصيل الشعبة - @Model.Name_Of_Section
                     </h3>
                 </div>
-                <div class="card-body">
+
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-id-badge me-2"></i>المعرف
+                                </label>
+                                <div class="detail-value">@Model.Id</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-sitemap me-2"></i>اسم الشعبة
+                                </label>
+                                <div class="detail-value">@Model.Name_Of_Section</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-building me-2"></i>القسم
+                                </label>
+                                <div class="detail-value">@(Model.Department.Name)</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-toggle-on me-2"></i>الحالة
+                                </label>
+                                <div class="detail-value">
+                                    @if (Model.IsActive)
+                                    {
+                                        <span class="badge bg-success fs-6">
+                                            <i class="fas fa-check-circle me-1"></i>نشطة
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger fs-6">
+                                            <i class="fas fa-times-circle me-1"></i>غير نشطة
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-calendar-alt me-2"></i>تاريخ الإنشاء
+                                </label>
+                                <div class="detail-value">@Model.Date.ToString("MMM dd, yyyy")</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-clock me-2"></i>وقت الإنشاء
+                                </label>
+                                <div class="detail-value">@Model.Date.ToString("HH:mm tt")</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-users me-2"></i>عدد الطلاب
+                                </label>
+                                <div class="detail-value">
+                                    <span class="badge bg-primary fs-6">
+                                        @(Model.StudentClassSectionYears?.Count() ?? 0) طالب
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (Model.CreatedBy_Id != null)
+                        {
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <label class="form-label fw-bold text-dark">
+                                        <i class="fas fa-user me-2"></i>أنشئت بواسطة
+                                    </label>
+                                    <div class="detail-value">
+                                        @if (Model.CreatedBy != null)
+                                        {
+                                            <span class="badge bg-primary fs-6">@Model.CreatedBy.Name</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">معرف المستخدم: @Model.CreatedBy_Id</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- إضافة معلومة المدة منذ الإنشاء -->
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-calendar-day me-2"></i>منذ
+                                </label>
+                                <div class="detail-value">
+                                    @{
+                                        var daysDiff = (DateTime.Now - Model.Date).Days;
+                                        string timeAgo = daysDiff == 0 ? "اليوم" :
+                                        daysDiff == 1 ? "أمس" :
+                                        daysDiff < 30 ? $"{daysDiff} يوم" :
+                                        daysDiff < 365 ? $"{daysDiff / 30} شهر" :
+                                        $"{daysDiff / 365} سنة";
+                                    }
+                                    <span class="text-muted">@timeAgo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="card mb-4">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="mb-0">
-                                        <i class="fas fa-info-circle mr-2"></i>
-                                        المعلومات الأساسية
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <dl class="row">
-                                        <dt class="col-sm-4">
-                                            <i class="fas fa-hashtag mr-2"></i>
-                                            المعرف:
-                                        </dt>
-                                        <dd class="col-sm-8">
-                                            <span class="badge badge-secondary">@Model.Id</span>
-                                        </dd>
-
-                                        <dt class="col-sm-4">
-                                            <i class="fas fa-sitemap mr-2"></i>
-                                            اسم الشعبة:
-                                        </dt>
-                                        <dd class="col-sm-8">
-                                            <strong class="text-primary">@Model.Name_Of_Section</strong>
-                                        </dd>
-
-                                        <dt class="col-sm-4">
-                                            <i class="fas fa-building mr-2"></i>
-                                            القسم:
-                                        </dt>
-                                        <dd class="col-sm-8">
-                                            <span class="badge badge-info">
-                                                @(Model.Department.Name)
-                                            </span>
-                                        </dd>
-
-                                        <dt class="col-sm-4">
-                                            <i class="fas fa-toggle-on mr-2"></i>
-                                            الحالة:
-                                        </dt>
-                                        <dd class="col-sm-8">
-                                            @if (Model.IsActive)
-                                            {
-                                                <span class="badge badge-success">
-                                                    <i class="fas fa-check mr-1"></i>
-                                                    نشط
-                                                </span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge badge-danger">
-                                                    <i class="fas fa-times mr-1"></i>
-                                                    غير نشط
-                                                </span>
-                                            }
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="card mb-4">
-                                <div class="card-header bg-success text-white">
-                                    <h5 class="mb-0">
-                                        <i class="fas fa-clock mr-2"></i>
-                                        معلومات الإنشاء
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <dl class="row">
-                                        <dt class="col-sm-4">
-                                            <i class="fas fa-user mr-2"></i>
-                                            أنشئت بواسطة:
-                                        </dt>
-                                        <dd class="col-sm-8">
-                                            <strong>@(Model.CreatedBy?.Name ?? "غير محدد")</strong>
-                                        </dd>
-
-                                        <dt class="col-sm-4">
-                                            <i class="fas fa-calendar mr-2"></i>
-                                            تاريخ الإنشاء:
-                                        </dt>
-                                        <dd class="col-sm-8">
-                                            <span class="badge badge-light">
-                                                @Model.Date.ToString("dd/MM/yyyy")
-                                            </span>
-                                        </dd>
-
-                                        <dt class="col-sm-4">
-                                            <i class="fas fa-clock mr-2"></i>
-                                            وقت الإنشاء:
-                                        </dt>
-                                        <dd class="col-sm-8">
-                                            <span class="badge badge-light">
-                                                @Model.Date.ToString("HH:mm:ss")
-                                            </span>
-                                        </dd>
-
-                                        <dt class="col-sm-4">
-                                            <i class="fas fa-calendar-day mr-2"></i>
-                                            منذ:
-                                        </dt>
-                                        <dd class="col-sm-8">
-                                            <span class="text-muted">
-                                                @{
-                                                    var daysDiff = (DateTime.Now - Model.Date).Days;
-                                                    string timeAgo = daysDiff == 0 ? "اليوم" :
-                                                    daysDiff == 1 ? "أمس" :
-                                                    daysDiff < 30 ? $"{daysDiff} يوم" :
-                                                    daysDiff < 365 ? $"{daysDiff / 30} شهر" :
-                                                    $"{daysDiff / 365} سنة";
-                                                }
-                                                @timeAgo
-                                            </span>
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Statistics Card -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-warning text-dark">
-                            <h5 class="mb-0">
-                                <i class="fas fa-chart-bar mr-2"></i>
-                                إحصائيات الشعبة
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row text-center">
-                                <div class="col-md-4">
-                                    <div class="card bg-light">
-                                        <div class="card-body">
-                                            <h3 class="text-primary">
-                                                <i class="fas fa-users"></i>
-                                                @(Model.StudentClassSectionYears?.Count() ?? 0)
-                                            </h3>
-                                            <p class="card-text">عدد الطلاب المسجلين</p>
-                                        </div>
-                                    </div>
-                                </div>
-@*                                 <div class="col-md-4">
-                                    <div class="card bg-light">
-                                        <div class="card-body">
-                                            <h3 class="text-success">
-                                                <i class="fas fa-calendar-alt"></i>
-                                                @{
-                                                    var currentYear = DateTime.Now.Year;
-                                                    var currentYearStudents = Model.StudentClassSectionYears?
-                                                   
-                                                    .Count() ?? 0;
-                                                }
-                                                @currentYearStudents
-                                            </h3>
-                                            <p class="card-text">طلاب العام الحالي</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card bg-light">
-                                        <div class="card-body">
-                                            <h3 class="text-info">
-                                                <i class="fas fa-graduation-cap"></i>
-                                                @{
-                                                    var uniqueYears = Model.StudentClassSectionYears?
-                                                    .Select(s => s.WorkingYear?.Year)
-                                                    .Where(y => y.HasValue)
-                                                    .Distinct()
-                                                    .Count() ?? 0;
-                                                }
-                                                @uniqueYears
-                                            </h3>
-                                            <p class="card-text">سنوات التشغيل</p> 
-                               </div>
-                                    </div>
-                                </div> *@
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="d-flex justify-content-between flex-wrap">
-                        <div>
-                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning mb-2">
-                                <i class="fas fa-edit mr-2"></i>
-                                تعديل الشعبة
+                        <div class="col-md-4">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-lg w-100 mb-3">
+                                <i class="fas fa-edit me-2"></i>تعديل
                             </a>
-                            <button type="button" class="btn btn-danger mb-2"
-                                    data-toggle="modal" data-target="#deleteModal">
-                                <i class="fas fa-trash mr-2"></i>
-                                حذف الشعبة
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-danger btn-lg w-100 mb-3" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                <i class="fas fa-trash me-2"></i>حذف
                             </button>
                         </div>
-                        <div>
-                            <a asp-action="Index" class="btn btn-secondary mb-2">
-                                <i class="fas fa-arrow-right mr-2"></i>
-                                العودة إلى القائمة
-                            </a>
-                            <a asp-action="Create" class="btn btn-primary mb-2">
-                                <i class="fas fa-plus mr-2"></i>
-                                إضافة شعبة جديدة
+                        <div class="col-md-4">
+                            <a asp-action="Index" class="btn btn-secondary btn-lg w-100 mb-3" style="height: 48px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
                             </a>
                         </div>
                     </div>
@@ -229,38 +175,36 @@
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
                 <h5 class="modal-title" id="deleteModalLabel">
-                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <i class="fas fa-exclamation-triangle me-2"></i>
                     تأكيد الحذف
                 </h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
                 <i class="fas fa-question-circle fa-3x text-warning mb-3"></i>
                 <h5>هل أنت متأكد من حذف الشعبة؟</h5>
                 <p class="text-muted">
-                    ستقوم بحذف الشعبة: <strong>@Model.Name_Of_Section</strong>
+                    ستقوم بحذف الشعبة: <strong class="text-primary">@Model.Name_Of_Section</strong>
                 </p>
                 <div class="alert alert-warning" role="alert">
-                    <i class="fas fa-info-circle mr-2"></i>
+                    <i class="fas fa-info-circle me-2"></i>
                     تحذير: هذا الإجراء لا يمكن التراجع عنه!
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    <i class="fas fa-times mr-2"></i>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>
                     إلغاء
                 </button>
                 <form asp-action="Delete" asp-route-id="@Model.Id" method="post" style="display: inline;">
                     @Html.AntiForgeryToken()
                     <button type="submit" class="btn btn-danger" id="deleteBtn">
-                        <i class="fas fa-trash mr-2"></i>
+                        <i class="fas fa-trash me-2"></i>
                         نعم، احذف
                     </button>
                 </form>
@@ -269,45 +213,43 @@
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            // Handle delete confirmation
-            $('#deleteBtn').on('click', function () {
-                $(this).prop('disabled', true);
-                $(this).html('<i class="fas fa-spinner fa-spin mr-2"></i>جاري الحذف...');
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle delete button click
+        const deleteBtn = document.getElementById('deleteBtn');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', function() {
+                this.disabled = true;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>جاري الحذف...';
             });
+        }
 
-            // Add hover effects to stat cards
-            $('.card.bg-light').hover(
-                function () {
-                    $(this).addClass('shadow-sm border-primary');
-                },
-                function () {
-                    $(this).removeClass('shadow-sm border-primary');
-                }
-            );
-
-            // Animate numbers on page load
-            $('.card-body h3').each(function () {
-                var $this = $(this);
-                var countTo = parseInt($this.text());
-
-                $({ countNum: 0 }).animate({
-                    countNum: countTo
-                }, {
-                    duration: 1000,
-                    easing: 'linear',
-                    step: function () {
-                        var icon = $this.find('i').prop('outerHTML');
-                        $this.html(icon + ' ' + Math.floor(this.countNum));
-                    },
-                    complete: function () {
-                        var icon = $this.find('i').prop('outerHTML');
-                        $this.html(icon + ' ' + this.countNum);
-                    }
-                });
+        // Add animation to badges
+        const badges = document.querySelectorAll('.badge');
+        badges.forEach(badge => {
+            badge.style.transition = 'all 0.3s ease';
+            badge.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            badge.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
             });
         });
-    </script>
-}
+
+        // Add hover effect to detail items
+        const detailItems = document.querySelectorAll('.detail-item');
+        detailItems.forEach(item => {
+            item.style.transition = 'all 0.3s ease';
+            item.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = '#f8f9fa';
+                this.style.borderRadius = '8px';
+                this.style.padding = '10px';
+            });
+            item.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = 'transparent';
+                this.style.padding = '0';
+            });
+        });
+    });
+</script>
