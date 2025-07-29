@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "D:\\git\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "D:\\git\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
         "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
         "outputPath": "D:\\git\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
+=======
+    "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {}
+  },
+  "projects": {
+    "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+        "projectName": "StudentManagementSystem",
+        "projectPath": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+        "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
+        "outputPath": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
+>>>>>>> 4ff78ca531c292faa4690d5648d67cc3f0bd3717
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

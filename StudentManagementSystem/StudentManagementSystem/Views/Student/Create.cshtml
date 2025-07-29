@@ -1,4 +1,4 @@
-﻿@model StudentManagementSystem.Models.Students
+﻿@model StudentManagementSystem.Controllers.StudentController.CreateStudentViewModel
 
 @{
     ViewData["Title"] = "إضافة طالب جديد";
@@ -152,10 +152,10 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Name, "اسم الطالب", new { @class = "form-label" })
+                            @Html.LabelFor(model => model.Student.Name, "اسم الطالب", new { @class = "form-label" })
                             <span class="required">*</span>
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل اسم الطالب" } })
-                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Student.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل اسم الطالب" } })
+                            @Html.ValidationMessageFor(model => model.Student.Name, "", new { @class = "text-danger" })
                         </div>
 
                 @*         <div class="col-md-6 mb-3">
@@ -168,95 +168,86 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Email, "البريد الإلكتروني", new { @class = "form-label" })
+                            @Html.LabelFor(model => model.Student.Email, "البريد الإلكتروني", new { @class = "form-label" })
                             <span class="required">*</span>
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = "أدخل البريد الإلكتروني" } })
-                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Student.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = "أدخل البريد الإلكتروني" } })
+                            @Html.ValidationMessageFor(model => model.Student.Email, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Natrual_Id, "الرقم القومي", new { @class = "form-label" })
+                            @Html.LabelFor(model => model.Student.Natrual_Id, "الرقم القومي", new { @class = "form-label" })
                             <span class="required">*</span>
-                            @Html.EditorFor(model => model.Natrual_Id, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل الرقم القومي" } })
-                            @Html.ValidationMessageFor(model => model.Natrual_Id, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Student.Natrual_Id, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل الرقم القومي" } })
+                            @Html.ValidationMessageFor(model => model.Student.Natrual_Id, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Adress, "العنوان", new { @class = "form-label" })
+                            @Html.LabelFor(model => model.Student.Adress, "العنوان", new { @class = "form-label" })
                             <span class="required">*</span>
-                            @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل العنوان" } })
-                            @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Student.Adress, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل العنوان" } })
+                            @Html.ValidationMessageFor(model => model.Student.Adress, "", new { @class = "text-danger" })
                         </div>
       
                     </div>
 
                     <div class="row">
-                        @if (ViewBag.name != null)
+                        @if (Model.Sections != null && Model.Sections.Any())
                         {
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">القسم</label>
                                 <span class="required">*</span>
-                                @Html.DropDownList("SelectedSectionId",
-                                new SelectList(ViewBag.Sections, "Id", "Name"),
+                                @Html.DropDownListFor(m => m.SelectedSectionId,
+                                Model.Sections,
                                                 "اختر القسم",
                                                 new { @class = "form-control" })
-                        @Html.ValidationMessage("SelectedSectionId", "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(m => m.SelectedSectionId, "", new { @class = "text-danger" })
                     </div>
                                         }
                     </div>
 
-                    <!-- بيانات الوالدين -->
-                    <div class="section-title mt-4">
-                        <i class="fas fa-users me-2"></i>بيانات الوالدين
-                    </div>
-
+                    // تعديل باقي الحقول في الـ View - بيانات الوالدين
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Jop_of_Father, "وظيفة الأب", new { @class = "form-label" })
+                            @Html.LabelFor(model => model.Student.Jop_of_Father, "وظيفة الأب", new { @class = "form-label" })
                             <span class="required">*</span>
-                            @Html.EditorFor(model => model.Jop_of_Father, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل وظيفة الأب" } })
-                            @Html.ValidationMessageFor(model => model.Jop_of_Father, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Student.Jop_of_Father, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل وظيفة الأب" } })
+                            @Html.ValidationMessageFor(model => model.Student.Jop_of_Father, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Jop_of_Mother, "وظيفة الأم", new { @class = "form-label" })
+                            @Html.LabelFor(model => model.Student.Jop_of_Mother, "وظيفة الأم", new { @class = "form-label" })
                             <span class="required">*</span>
-                            @Html.EditorFor(model => model.Jop_of_Mother, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل وظيفة الأم" } })
-                            @Html.ValidationMessageFor(model => model.Jop_of_Mother, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Student.Jop_of_Mother, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل وظيفة الأم" } })
+                            @Html.ValidationMessageFor(model => model.Student.Jop_of_Mother, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
-                    <!-- أرقام الهواتف -->
-                    <div class="section-title mt-4">
-                        <i class="fas fa-phone me-2"></i>أرقام الهواتف
-                    </div>
-
+                    // تعديل أرقام الهواتف في الـ View
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            @Html.LabelFor(model => model.Phone_Number, "رقم هاتف الطالب", new { @class = "form-label" })
+                            @Html.LabelFor(model => model.Student.Phone_Number, "رقم هاتف الطالب", new { @class = "form-label" })
                             <span class="required">*</span>
-                            @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
-                            @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Student.Phone_Number, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
+                            @Html.ValidationMessageFor(model => model.Student.Phone_Number, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            @Html.LabelFor(model => model.Phone_Number_Father, "رقم هاتف الأب", new { @class = "form-label" })
+                            @Html.LabelFor(model => model.Student.Phone_Number_Father, "رقم هاتف الأب", new { @class = "form-label" })
                             <span class="required">*</span>
-                            @Html.EditorFor(model => model.Phone_Number_Father, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
-                            @Html.ValidationMessageFor(model => model.Phone_Number_Father, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Student.Phone_Number_Father, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
+                            @Html.ValidationMessageFor(model => model.Student.Phone_Number_Father, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            @Html.LabelFor(model => model.Phone_Number_Mother, "رقم هاتف الأم", new { @class = "form-label" })
+                            @Html.LabelFor(model => model.Student.Phone_Number_Mother, "رقم هاتف الأم", new { @class = "form-label" })
                             <span class="required">*</span>
-                            @Html.EditorFor(model => model.Phone_Number_Mother, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
-                            @Html.ValidationMessageFor(model => model.Phone_Number_Mother, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Student.Phone_Number_Mother, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
+                            @Html.ValidationMessageFor(model => model.Student.Phone_Number_Mother, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
                     <!-- الملفات -->
                     <div class="section-title mt-4">
                         <i class="fas fa-file me-2"></i>الملفات المرفقة
