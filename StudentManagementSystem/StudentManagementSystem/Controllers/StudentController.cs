@@ -213,7 +213,7 @@ namespace StudentManagementSystem.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                await PopulateViewBag();
+             
                 return View(student);
             }
             catch (Exception ex)
@@ -231,8 +231,7 @@ namespace StudentManagementSystem.Controllers
   
             try
             {
-                if (ModelState.IsValid)
-                {
+           
                     // Get existing student to preserve file paths if no new files uploaded
                     var existingStudent = await _studentService.GetStudentByIdAsync(student.Id);
                     if (existingStudent == null)
@@ -302,7 +301,7 @@ namespace StudentManagementSystem.Controllers
                         // Keep existing certificate if no new file uploaded
                         student.birth_Certificate = existingStudent.birth_Certificate;
                     }
-
+                student.IsActive=true;
                     // Preserve creation info
                     student.CreatedBy = existingStudent.CreatedBy;
                     student.Date = existingStudent.Date;
@@ -310,10 +309,8 @@ namespace StudentManagementSystem.Controllers
                     await _studentService.UpdateStudentAsync(student);
                     SetSuccessMessage("تم تحديث بيانات الطالب بنجاح");
                     return RedirectToAction(nameof(Index));
-                }
+                
 
-                await PopulateViewBag();
-                return View(student);
             }
             catch (Exception ex)
             {
