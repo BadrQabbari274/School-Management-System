@@ -17,20 +17,16 @@ namespace StudentManagementSystem.Service.Implementation
         public async Task<IEnumerable<Classes>> GetAllClassesAsync()
         {
             return await _context.Classes
-                .Include(c => c.Students)
                 .Include(c => c.CreatedBy)
-           
                 .Where(c => c.IsActive)
                 .OrderBy(c => c.Name)
                 .ToListAsync();
         }
+        // Assuming 'User' is the model for the creator
         public async Task<Classes> GetClassByIdAsync(int id)
         {
             return await _context.Classes
                 .Include(c => c.CreatedBy)
-              
-                .Include(c => c.MaxStudents)
-                .Include(c => c.Students.OrderBy(s => s.Name))
                 .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
         }
 
