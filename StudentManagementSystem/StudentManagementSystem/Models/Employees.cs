@@ -43,5 +43,6 @@ namespace StudentManagementSystem.Models
         public virtual ICollection<Students> CreatedStudents { get; set; }
         public virtual ICollection<Student_Class_Section_Year> CreatedStudentClassSectionYears { get; set; }
         public virtual ICollection<Working_Year> CreatedWorkingYears { get; set; }
+        
     }
 }

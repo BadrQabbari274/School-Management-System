@@ -21,5 +21,6 @@ namespace StudentManagementSystem.Models
         public virtual Employees CreatedBy { get; set; }
 
         public virtual ICollection<Student_Class_Section_Year> StudentClassSectionYears { get; set; }
+        
     }
 }

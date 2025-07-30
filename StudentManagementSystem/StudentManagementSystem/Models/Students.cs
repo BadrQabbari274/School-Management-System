@@ -33,5 +33,6 @@ namespace StudentManagementSystem.Models
         public virtual ICollection<StudentGrades> StudentGrades { get; set; }
         public virtual ICollection<TaskEvaluations> TaskEvaluations { get; set; }
         public virtual ICollection<Student_Class_Section_Year> StudentClassSectionYears { get; set; }
+        
     }
 }
