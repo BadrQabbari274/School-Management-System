@@ -123,18 +123,14 @@ namespace StudentManagementSystem.Controllers
         // POST: Field/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Department field)
+        public async Task<IActionResult> Edit( Department field)
         {
-            if (id != field.Id)
-            {
-                SetErrorMessage("بيانات غير صحيحة");
-                return RedirectToAction(nameof(Index));
-            }
+
 
             try
             {
-             
-                    await _fieldService.UpdateDepartmentAsync(field);
+                field.IsActive = true;
+                await _fieldService.UpdateDepartmentAsync(field);
                     SetSuccessMessage("تم تحديث القسم بنجاح");
                     return RedirectToAction(nameof(Index));
            

@@ -32,16 +32,17 @@
             box-shadow: 2px 0 10px rgba(0,0,0,0.1);
             position: fixed;
             top: 0;
-            left: 0; /* FIXED: Positioned to left */
+            left: 0;
             height: 100vh;
             overflow-y: auto;
             z-index: 1000;
             transition: transform 0.3s ease;
+            border-radius: 0 20px 20px 0;
         }
 
             /* Collapsed sidebar state */
             .sidebar.collapsed {
-                transform: translateX(-240px); /* Hide most of the sidebar, leave 40px visible */
+                transform: translateX(-240px);
             }
 
         /* Logo Section */
@@ -95,27 +96,27 @@
 
         .nav-item {
             margin-bottom: 8px;
+            padding: 0 20px;
         }
 
         .nav-link-custom {
             display: flex;
             align-items: center;
-            padding: 15px 25px;
+            padding: 15px 20px;
             color: white;
             text-decoration: none;
             font-size: 16px;
             font-weight: 500;
             transition: all 0.3s ease;
-            border-radius: 0 25px 25px 0;
-            margin-right: 20px;
+            border-radius: 25px;
             position: relative;
             white-space: nowrap;
+            margin: 0;
         }
 
             .nav-link-custom:hover {
                 background-color: rgba(255,255,255,0.1);
                 color: white;
-                transform: translateX(5px);
                 text-decoration: none;
             }
 
@@ -123,6 +124,7 @@
                 background-color: white;
                 color: #ff6b1a;
                 font-weight: 600;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             }
 
             .nav-link-custom i {
@@ -180,39 +182,56 @@
             opacity: 0;
         }
 
-        /* Toggle Button */
+        /* Drawer-Style Toggle Button */
         .sidebar-toggle {
             position: fixed;
-            top: 20px;
-            left: 290px; /* Position next to expanded sidebar */
+            top: 50%;
+            left: 280px;
+            transform: translateY(-50%);
             z-index: 1001;
             background: #ff6b1a;
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 50%;
-            font-size: 16px;
-            width: 40px;
-            height: 40px;
+            padding: 0;
+            width: 30px;
+            height: 60px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            border-radius: 0 10px 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
             .sidebar-toggle:hover {
                 background: #ff8c42;
-                transform: scale(1.1);
+                width: 35px;
             }
 
             /* Adjust toggle button position when sidebar is collapsed */
             .sidebar.collapsed + .sidebar-toggle,
             .sidebar-toggle.collapsed-position {
-                left: 50px; /* Position next to collapsed sidebar */
+                left: 40px;
             }
+
+        .toggle-handle {
+            width: 4px;
+            height: 20px;
+            background: white;
+            border-radius: 2px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-toggle:hover .toggle-handle {
+            opacity: 1;
+            height: 25px;
+        }
 
         /* Content Area - FIXED TO START AFTER SIDEBAR */
         .content-area {
-            margin-left: 280px; /* FIXED: Content starts after sidebar */
+            margin-left: 280px;
             flex: 1;
             background-color: #f8f9fa;
             min-height: 100vh;
@@ -221,7 +240,7 @@
 
             /* Adjust content area when sidebar is collapsed */
             .content-area.sidebar-collapsed {
-                margin-left: 40px; /* Only 40px margin when collapsed */
+                margin-left: 40px;
             }
 
         /* Hide original navbar when sidebar is active */
@@ -244,18 +263,83 @@
         }
 
         /* Footer adjustments */
-        .footer {
+        .modern-footer {
             margin-left: 280px;
-            background-color: white;
-            border-top: 1px solid #dee2e6;
-            padding: 1rem 0;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-top: 1px solid rgba(255, 107, 26, 0.1);
+            padding: 20px 0;
             transition: margin-left 0.3s ease;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
         }
 
-            /* Adjust footer when sidebar is collapsed */
-            .footer.sidebar-collapsed {
-                margin-left: 40px;
+        /* Adjust footer when sidebar is collapsed */
+        .footer.sidebar-collapsed {
+            margin-left: 40px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-copyright {
+            color: #6c757d;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-link {
+            color: #ff6b1a;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .footer-link::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 107, 26, 0.1), transparent);
+                transition: left 0.5s ease;
             }
+
+            .footer-link:hover {
+                color: #ff8c42;
+                background-color: rgba(255, 107, 26, 0.05);
+                transform: translateY(-1px);
+                text-decoration: none;
+            }
+
+                .footer-link:hover::before {
+                    left: 100%;
+                }
+
 
         /* Mobile sidebar toggle */
         .mobile-toggle {
@@ -274,46 +358,50 @@
 
         /* Responsive Design */
         @@media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
+            .sidebar
 
-                .sidebar.show {
-                    transform: translateX(0);
-                }
+        {
+            transform: translateX(-100%);
+            border-radius: 0 20px 20px 0;
+        }
 
-                .sidebar.collapsed {
-                    transform: translateX(-100%);
-                }
+        .sidebar.show {
+            transform: translateX(0);
+        }
 
-            .content-area {
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+
+        .content-area {
+            margin-left: 0;
+        }
+
+            .content-area.sidebar-collapsed {
                 margin-left: 0;
             }
 
-                .content-area.sidebar-collapsed {
-                    margin-left: 0;
-                }
+        .footer {
+            margin-left: 0;
+        }
 
-            .footer {
+            .footer.sidebar-collapsed {
                 margin-left: 0;
             }
 
-                .footer.sidebar-collapsed {
-                    margin-left: 0;
-                }
+        .sidebar-toggle {
+            display: none;
+        }
 
-            .sidebar-toggle {
-                display: none;
-            }
+        .mobile-toggle {
+            display: block;
+        }
 
-            .mobile-toggle {
-                display: block;
-            }
+        .original-navbar {
+            display: block;
+            margin-left: 0;
+        }
 
-            .original-navbar {
-                display: block;
-                margin-left: 0;
-            }
         }
     </style>
 </head>
@@ -334,84 +422,97 @@
                 </div>
             </div>
 
-            <!-- Navigation Menu -->
-            <div class="nav-menu">
-                <div class="nav-item">
-                    <a asp-controller="Home" asp-action="Index" class="nav-link-custom active" id="dashboard-link">
-                        <i class="fas fa-th-large"></i>
-                        <span class="nav-text">Dashboard</span>
-                    </a>
-                </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <!-- Navigation Menu -->
+                <div class="nav-menu">
+                    <div class="nav-item">
+                        <a asp-controller="Home" asp-action="Index" class="nav-link-custom" data-page="dashboard">
+                            <i class="fas fa-th-large"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </div>
 
-                <div class="nav-item">
-                    <a asp-controller="Competences" asp-action="Index" class="nav-link-custom" id="competences-link">
-                        <i class="fas fa-users"></i>
-                        <span class="nav-text">Competences</span>
-                    </a>
-                </div>
+                    <div class="nav-item">
+                        <a asp-controller="Competences" asp-action="Index" class="nav-link-custom" data-page="competences">
+                            <i class="fas fa-users"></i>
+                            <span class="nav-text">Competences</span>
+                        </a>
+                    </div>
 
-                <div class="nav-item">
-                    <a asp-controller="Attendance" asp-action="Index" class="nav-link-custom" id="attendance-link">
-                        <i class="fas fa-calendar-check"></i>
-                        <span class="nav-text">Attendance</span>
-                    </a>
-                </div>
+                    <div class="nav-item">
+                        <a asp-controller="Attendance" asp-action="Index" class="nav-link-custom" data-page="attendance">
+                            <i class="fas fa-calendar-check"></i>
+                            <span class="nav-text">Attendance</span>
+                        </a>
+                    </div>
 
-                <div class="nav-item">
-                    <a asp-controller="Student" asp-action="Index" class="nav-link-custom" id="Student-link">
-                        <i class="fas fa-calendar-check"></i>
-                        <span class="nav-text">Students</span>
-                    </a>
-                </div>
+                    <div class="nav-item">
+                        <a asp-controller="Student" asp-action="Index" class="nav-link-custom" data-page="student">
+                            <i class="fas fa-user-graduate"></i>
+                            <span class="nav-text">Students</span>
+                        </a>
+                    </div>
 
-                <div class="nav-item">
-                    <a asp-controller="Grade" asp-action="Index" class="nav-link-custom" id="Grade-link">
-                        <i class="fas fa-calendar-check"></i>
-                        <span class="nav-text">Grade</span>
-                    </a>
-                </div>
+                    <div class="nav-item">
+                        <a asp-controller="Grade" asp-action="Index" class="nav-link-custom" data-page="grade">
+                            <i class="fas fa-star"></i>
+                            <span class="nav-text">Grade</span>
+                        </a>
+                    </div>
 
-                <div class="nav-item">
-                    <a asp-controller="WorkingYear" asp-action="Index" class="nav-link-custom" id="WorkingYear-link">
-                        <i class="fas fa-calendar-check"></i>
-                        <span class="nav-text">Working Year</span>
-                    </a>
-                </div>
+                    <div class="nav-item">
+                        <a asp-controller="WorkingYear" asp-action="Index" class="nav-link-custom" data-page="workingyear">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="nav-text">Working Year</span>
+                        </a>
+                    </div>
 
-                <div class="nav-item">
-                    <a asp-controller="Class" asp-action="Index" class="nav-link-custom" id="Class-link">
-                        <i class="fas fa-calendar-check"></i>
-                        <span class="nav-text">Class</span>
-                    </a>
-                </div>
+                    <div class="nav-item">
+                        <a asp-controller="Class" asp-action="Index" class="nav-link-custom" data-page="class">
+                            <i class="fas fa-chalkboard"></i>
+                            <span class="nav-text">Class</span>
+                        </a>
+                    </div>
 
-                <div class="nav-item">
-                    <a asp-controller="Department" asp-action="Index" class="nav-link-custom" id="Department-link">
-                        <i class="fas fa-calendar-check"></i>
-                        <span class="nav-text">Department</span>
-                    </a>
-                </div>
+                    <div class="nav-item">
+                        <a asp-controller="Department" asp-action="Index" class="nav-link-custom" data-page="department">
+                            <i class="fas fa-building"></i>
+                            <span class="nav-text">Department</span>
+                        </a>
+                    </div>
 
-                <div class="nav-item">
-                    <a asp-controller="Section" asp-action="Index" class="nav-link-custom" id="Section-link">
-                        <i class="fas fa-calendar-check"></i>
-                        <span class="nav-text">Section</span>
-                    </a>
+                    <div class="nav-item">
+                        <a asp-controller="Section" asp-action="Index" class="nav-link-custom" data-page="section">
+                            <i class="fas fa-layer-group"></i>
+                            <span class="nav-text">Section</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            }
 
-            <!-- Logout Section -->
             <div class="logout-section">
-                <a asp-controller="Account" asp-action="Login" class="logout-btn" id="logout-link">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span class="logout-text">Logout</span>
-                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- Logout Section -->
+                    <a asp-controller="Account" asp-action="Logout" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="logout-text">Logout</span>
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="logout-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span class="logout-text">Login</span>
+                    </a>
+                }
             </div>
         </nav>
 
-        <!-- Desktop Toggle Button -->
+        <!-- Drawer-Style Toggle Button -->
         <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">
-            <i class="fas fa-chevron-left" id="toggleIcon"></i>
+            <div class="toggle-handle"></div>
         </button>
 
         <!-- Main Content Area -->
@@ -447,13 +548,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="border-top footer text-muted" id="footer">
-        <div class="container">
-            &copy; 2025 - StudentManagementSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-
     <!-- Keep your original scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -466,20 +560,12 @@
             const contentArea = document.getElementById('contentArea');
             const footer = document.getElementById('footer');
             const toggleBtn = document.getElementById('sidebarToggle');
-            const toggleIcon = document.getElementById('toggleIcon');
 
             // Toggle collapsed state
             sidebar.classList.toggle('collapsed');
             contentArea.classList.toggle('sidebar-collapsed');
-            footer.classList.toggle('sidebar-collapsed');
+            if (footer) footer.classList.toggle('sidebar-collapsed');
             toggleBtn.classList.toggle('collapsed-position');
-
-            // Change icon direction
-            if (sidebar.classList.contains('collapsed')) {
-                toggleIcon.className = 'fas fa-chevron-right';
-            } else {
-                toggleIcon.className = 'fas fa-chevron-left';
-            }
         }
 
         // Mobile sidebar toggle functionality
@@ -487,24 +573,51 @@
             document.getElementById('sidebar').classList.toggle('show');
         }
 
-        // Set active navigation based on current page
+        // Enhanced active navigation detection
         document.addEventListener('DOMContentLoaded', function() {
             const currentPath = window.location.pathname.toLowerCase();
+            const currentController = getControllerFromPath(currentPath);
 
             // Remove active class from all nav links
             document.querySelectorAll('.nav-link-custom').forEach(link => {
                 link.classList.remove('active');
             });
 
-            // Add active class based on current path
-            if (currentPath.includes('home') || currentPath === '/') {
-                document.getElementById('dashboard-link').classList.add('active');
-            } else if (currentPath.includes('competences')) {
-                document.getElementById('competences-link').classList.add('active');
-            } else if (currentPath.includes('attendance')) {
-                document.getElementById('attendance-link').classList.add('active');
+            // Add active class based on current controller
+            const activeLink = document.querySelector(`[data-page="${currentController}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            } else {
+                // Default to dashboard if no match found
+                const dashboardLink = document.querySelector('[data-page="dashboard"]');
+                if (dashboardLink) dashboardLink.classList.add('active');
             }
         });
+
+        // Helper function to extract controller from path
+        function getControllerFromPath(path) {
+            // Remove leading slash and split by slash
+            const segments = path.replace(/^\/+/, '').split('/');
+
+            if (segments.length === 0 || segments[0] === '' || segments[0] === 'home') {
+                return 'dashboard';
+            }
+
+            // Map controllers to their data-page values
+            const controllerMap = {
+                'competences': 'competences',
+                'attendance': 'attendance',
+                'student': 'student',
+                'grade': 'grade',
+                'workingyear': 'workingyear',
+                'class': 'class',
+                'department': 'department',
+                'section': 'section'
+            };
+
+            const controller = segments[0].toLowerCase();
+            return controllerMap[controller] || 'dashboard';
+        }
 
         // Close mobile sidebar when clicking outside
         document.addEventListener('click', function(event) {
@@ -517,8 +630,28 @@
                 sidebar.classList.remove('show');
             }
         });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+            }
+        });
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
+<footer class="modern-footer" id="footer">
+    <div class="footer-content">
+        <div class="footer-left">
+            <span class="footer-copyright">&copy; 2025 Student Management System</span>
+        </div>
+        <div class="footer-right">
+            <a asp-controller="Home" asp-action="Privacy" class="footer-link">Privacy Policy</a>
+        </div>
+    </div>
+</footer>
+
 </html>

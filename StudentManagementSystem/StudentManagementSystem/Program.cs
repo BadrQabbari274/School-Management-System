@@ -46,6 +46,7 @@ builder.Services.AddScoped<IPictureService, PictureService>();
 //builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddScoped<IAbsenceReasonService, AbsenceReasonService>();
 builder.Services.AddScoped<IStudentManagementService, StudentManagementService>();
+
 // Add Session (optional)
 builder.Services.AddSession(options =>
 {
@@ -59,8 +60,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Error");
+    app.UseStatusCodePagesWithReExecute("/Error/{0}");
     app.UseHsts();
+}
+else
+{
+    app.UseDeveloperExceptionPage();
+    app.UseStatusCodePagesWithReExecute("/Error/{0}");
 }
 
 app.UseHttpsRedirection();
