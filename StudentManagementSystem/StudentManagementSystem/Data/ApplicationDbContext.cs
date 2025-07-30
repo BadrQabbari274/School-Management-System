@@ -226,6 +226,12 @@ namespace StudentManagementSystem.Data
                 .WithMany(g => g.StudentGrades)
                 .HasForeignKey(sg => sg.GradeId)
                 .OnDelete(DeleteBehavior.NoAction);
+            // StudentGrades and Grades
+            modelBuilder.Entity<Classes>()
+                .HasOne(sg => sg.Grade)
+                .WithMany(g => g.CreatedClasses)
+                .HasForeignKey(sg => sg.GradeId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // StudentGrades and Students
             modelBuilder.Entity<StudentGrades>()
