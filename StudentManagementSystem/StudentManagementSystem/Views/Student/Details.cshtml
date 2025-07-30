@@ -4,7 +4,7 @@
     ViewData["Title"] = "تفاصيل الطالب";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href="~/css/student.css" rel="stylesheet" />
 <div class="container-fluid">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
@@ -325,7 +325,7 @@
         </div>
     </div>
 </div>
-
+@* 
 <style>
     .page-title {
         color: #2c3e50;
@@ -420,7 +420,7 @@
         font-size: 1.1em;
     }
 </style>
-
+ *@
 <script>
     function deleteStudent(studentId, studentName) {
         document.getElementById('studentName').textContent = studentName;

@@ -5,7 +5,8 @@
 }
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
+<link href="~/css/student.css" rel="stylesheet" />
+@* 
 <style>
     body {
         direction: rtl;
@@ -114,7 +115,7 @@
         font-size: 0.875em;
         margin-top: 0.25rem;
     }
-</style>
+</style> *@
 
 <div class="container-fluid mt-4">
     <!-- Breadcrumb -->
@@ -157,6 +158,12 @@
                             @Html.EditorFor(model => model.Student.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل اسم الطالب" } })
                             @Html.ValidationMessageFor(model => model.Student.Name, "", new { @class = "text-danger" })
                         </div>
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Student.Adress, "العنوان", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Student.Adress, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل العنوان" } })
+                            @Html.ValidationMessageFor(model => model.Student.Adress, "", new { @class = "text-danger" })
+                        </div>
 
                 @*         <div class="col-md-6 mb-3">
                             @Html.LabelFor(model => model.Code, "كود الطالب", new { @class = "form-label" })
@@ -182,16 +189,7 @@
                         </div>
                     </div>
 
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Student.Adress, "العنوان", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.EditorFor(model => model.Student.Adress, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل العنوان" } })
-                            @Html.ValidationMessageFor(model => model.Student.Adress, "", new { @class = "text-danger" })
-                        </div>
-      
-                    </div>
+        
 
                     <div class="row">
                         @if (Model.Sections != null && Model.Sections.Any())
