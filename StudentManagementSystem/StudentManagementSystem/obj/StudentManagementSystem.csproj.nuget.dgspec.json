@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sd\\Source\\Repos\\Midany2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {}
+    "C:\\Users\\sd\\source\\repos\\Midany2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sd\\Source\\Repos\\Midany2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {
+    "C:\\Users\\sd\\source\\repos\\Midany2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sd\\Source\\Repos\\Midany2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+        "projectUniqueName": "C:\\Users\\sd\\source\\repos\\Midany2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
         "projectName": "StudentManagementSystem",
-        "projectPath": "C:\\Users\\sd\\Source\\Repos\\Midany2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+        "projectPath": "C:\\Users\\sd\\source\\repos\\Midany2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
         "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\sd\\Source\\Repos\\Midany2\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
