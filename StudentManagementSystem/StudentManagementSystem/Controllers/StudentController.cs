@@ -179,12 +179,42 @@ namespace StudentManagementSystem.Controllers
 
                 // إضافة الطالب للقسم المحدد
                 var section = await _sectionService.GetSectionByIdAsync(viewModel.SelectedSectionId); // أضافة await
-                var Grade = await _gradeService.GetAcademicYearByNameAsync("junior"); // أضافة await
+               
                 if (section != null)
                 {
                     await _studentService.AddStudentWithoutClassAsync(viewModel.Student.Id, viewModel.SelectedSectionId); // أضافة await
-                    await _studentService.AssignGradeToStudentAsync(viewModel.Student.Id, Grade.Id); // أضافة await
+                 
                 }
+                var Grade = await _gradeService.GetAcademicYearByNameAsync("junior");
+                if (Grade != null)
+                {
+                    try
+                    {
+                        var assignResult = await _studentService.AssignGradeToStudentAsync(viewModel.Student.Id, Grade.Id);
+                        if (!assignResult)
+                        {
+                            SetErrorMessage("فشل في تعيين الصف للطالب");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        SetErrorMessage($"خطأ في تعيين الصف: {ex.Message}");
+                        // إعادة تحميل البيانات في حالة الخطأ
+                        var sections = await _sectionService.GetActiveSectionsAsync();
+                        viewModel.Sections = sections.Select(s => new SelectListItem
+                        {
+                            Value = s.Id.ToString(),
+                            Text = s.Name_Of_Section
+                        }).ToList();
+
+                        return View(viewModel);
+                    }
+                }
+                else
+                {
+                    SetErrorMessage("لم يتم العثور على الصف المحدد");
+                }
+
 
                 SetSuccessMessage("تم إضافة الطالب بنجاح");
                 return RedirectToAction(nameof(Index));
@@ -323,8 +353,10 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
-        // GET: Student/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        // POST: Student/DeleteConfirmed
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
             {
@@ -334,31 +366,17 @@ namespace StudentManagementSystem.Controllers
                     SetErrorMessage("الطالب غير موجود");
                     return RedirectToAction(nameof(Index));
                 }
-                return View(student);
-            }
-            catch (Exception ex)
-            {
-                SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
-                return RedirectToAction(nameof(Index));
-            }
-        }
 
-        // POST: Student/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            try
-            {
                 var success = await _studentService.DeleteStudentAsync(id);
                 if (success)
                 {
-                    SetSuccessMessage("تم حذف الطالب بنجاح");
+                    SetSuccessMessage($"تم حذف الطالب '{student.Name ?? "غير محدد"}' بنجاح");
                 }
                 else
                 {
                     SetErrorMessage("فشل في حذف الطالب");
                 }
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -367,7 +385,6 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-
         // Helper method to save files with student ID and name
         private async Task<string> SaveFileAsync(IFormFile file, string fileType, int studentId, string studentName)
         {
