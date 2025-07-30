@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.Models;
+using StudentManagementSystem.Service.Implementation;
 using StudentManagementSystem.Service.Interface;
 using System.ComponentModel.Design;
 using System.Security.Claims;
@@ -16,13 +17,15 @@ namespace StudentManagementSystem.Controllers
         private readonly IClassService _classService;
         private readonly IUserService _employeeService; 
         private readonly IStudentService _studentService;
+        private readonly IGradeService _gradeService;
 
 
-        public ClassController(IClassService classService, IUserService employeeService, IStudentService studentService)
+        public ClassController(IClassService classService, IUserService employeeService, IStudentService studentService, IGradeService gradeService)
         {
             _classService = classService;
             _employeeService = employeeService;
             _studentService = studentService;
+            _gradeService = gradeService;
         }
 
         // GET: Class
@@ -52,7 +55,7 @@ namespace StudentManagementSystem.Controllers
         [Authorize]
         public async Task<IActionResult> Create()
         {
-
+            await PopulateDropDownLists();
             return View();
         }
 
@@ -85,6 +88,7 @@ namespace StudentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
+                await PopulateDropDownLists();
                 ModelState.AddModelError("", "An error occurred while creating the class: " + ex.Message);
             }
 
@@ -101,7 +105,7 @@ namespace StudentManagementSystem.Controllers
             {
                 return NotFound();
             }
-
+             await PopulateDropDownLists();
             return View(classEntity);
         }
 
@@ -124,6 +128,7 @@ namespace StudentManagementSystem.Controllers
                 if (currentUserId == 0) // Check if user ID is valid
                 {
                     ModelState.AddModelError("", "Unable to identify the current user for UpdatedBy. Please log in again.");
+                    await PopulateDropDownLists();
                     return View(classEntity);
                 }
 
@@ -137,6 +142,7 @@ namespace StudentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
+                await PopulateDropDownLists();
                 ModelState.AddModelError("", "An error occurred while updating the class: " + ex.Message);
             }
 
@@ -320,18 +326,18 @@ namespace StudentManagementSystem.Controllers
             return Json(classes.Select(c => new { value = c.Id, text = c.Name }));
         }
 
-        //// Helper method to populate dropdown lists
-        //private async Task PopulateDropDownLists()
-        //{
-        //    try
-        //    {
-        //        var Sections = await _sectionService.GetActiveSectionsAsync();
-        //        ViewBag.SectionId = new SelectList(Sections, "Id", "Name");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.SectionId = new SelectList(new List<SelectListItem>(), "Value", "Text");
-        //    }
-        //}
+        // Helper method to populate dropdown lists
+        private async Task PopulateDropDownLists()
+        {
+            try
+            {
+                var Grades = await _gradeService.GetAllAcademicYearsAsync();
+                ViewBag.GradeId = new SelectList(Grades, "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.GradeId = new SelectList(new List<SelectListItem>(), "Value", "Text");
+            }
+        }
     }
 }

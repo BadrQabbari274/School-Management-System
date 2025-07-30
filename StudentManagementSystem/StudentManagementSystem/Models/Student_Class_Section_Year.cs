@@ -8,7 +8,7 @@ namespace StudentManagementSystem.Models
         [Key, Column(Order = 0)]
         public int Student_Id { get; set; }
 
-        [Key, Column(Order = 1)]
+        [Key, Column(Order = 1)] 
         public int Working_Year_Id { get; set; }
 
         [Key, Column(Order = 2)]

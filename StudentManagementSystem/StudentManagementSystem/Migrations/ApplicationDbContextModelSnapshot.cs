@@ -85,6 +85,9 @@ namespace StudentManagementSystem.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("GradeId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -98,6 +101,8 @@ namespace StudentManagementSystem.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedBy_Id");
+
+                    b.HasIndex("GradeId");
 
                     b.ToTable("Classes");
                 });
@@ -763,7 +768,15 @@ namespace StudentManagementSystem.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("StudentManagementSystem.Models.Grades", "Grade")
+                        .WithMany("CreatedClasses")
+                        .HasForeignKey("GradeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("CreatedBy");
+
+                    b.Navigation("Grade");
                 });
 
             modelBuilder.Entity("StudentManagementSystem.Models.Competences", b =>
@@ -1178,6 +1191,8 @@ namespace StudentManagementSystem.Migrations
 
             modelBuilder.Entity("StudentManagementSystem.Models.Grades", b =>
                 {
+                    b.Navigation("CreatedClasses");
+
                     b.Navigation("StudentGrades");
                 });
 

@@ -4016,23 +4016,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mohamed Reda\\.nuget\\packages\\": {},
+    "C:\\Users\\sd\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mohamed Reda\\Downloads\\Git\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+      "projectUniqueName": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
       "projectName": "StudentManagementSystem",
-      "projectPath": "C:\\Users\\Mohamed Reda\\Downloads\\Git\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-      "packagesPath": "C:\\Users\\Mohamed Reda\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mohamed Reda\\Downloads\\Git\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
+      "projectPath": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+      "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
+      "outputPath": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Mohamed Reda\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sd\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4059,7 +4059,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -4099,7 +4099,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

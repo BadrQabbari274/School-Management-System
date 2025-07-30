@@ -1,0 +1,212 @@
+﻿@* @model StudentManagementSystem.Service.Interface.ClassRegistrationViewModel
+@{
+    ViewData["Title"] = "إدارة تسجيل الطلاب";
+}
+
+<div class="class-registration-container">
+    <div class="page-header">
+        <h1>@Model.GradeDisplayName - @Model.ClassDisplayName</h1>
+        <p>@ViewData["Title"]</p>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="info-panel">
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">الحد الأقصى للطلاب</div>
+                <div class="info-value">@(Model.MaxStudents?.ToString() ?? "غير محدد")</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">عدد المسجلين</div>
+                <div class="info-value">@Model.CurrentRegisteredCount</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">المقاعد المتاحة</div>
+                <div class="info-value">@(Model.MaxStudents.HasValue ? Model.AvailableSlots.ToString() : "غير محدود")</div>
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="SaveRegistration" method="post">
+        <input type="hidden" name="gradeId" value="@Model.Grade.Id" />
+        <input type="hidden" name="classId" value="@Model.Class.Id" />
+
+        <div class="student-management-container">
+            <div class="students-section">
+                <div class="section-header">
+                    <h3 class="section-title">الطلاب المتاحين للتسجيل</h3>
+                    <span class="student-count-badge">@Model.AvailableStudents.Count</span>
+                </div>
+
+                @if (!Model.IsJuniorGrade)
+                {
+                    <div class="filter-controls">
+                        <div class="filter-row">
+                            <div class="filter-group">
+                                <label class="filter-label">اختر القسم:</label>
+                                <select id="sectionFilter" name="selectedSectionId" class="filter-select" required>
+                                    <option value="">-- اختر القسم --</option>
+                                    @foreach (var section in Model.Sections)
+                                    {
+                                        <option value="@section.Id">@section.Name_Of_Section</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="students-list">
+                    @if (Model.AvailableStudents.Any())
+                    {
+                        foreach (var student in Model.AvailableStudents)
+                        {
+                            <div class="student-item">
+                                <input type="checkbox" name="selectedStudentIds" value="@student.StudentId" class="student-checkbox" />
+                                <div class="student-info">
+                                    <div class="student-name">@student.StudentName</div>
+                                    <div class="student-details">
+                                        <span class="student-code">@student.StudentCode</span>
+                                        @if (!string.IsNullOrEmpty(student.SectionName))
+                                        {
+                                            <span class="student-section">@student.SectionName</span>
+                                        }
+                                        @if (!string.IsNullOrEmpty(student.PreviousClassName))
+                                        {
+                                            <span class="student-previous">@student.PreviousClassName</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h3 class="empty-state-title">لا يوجد طلاب متاحين</h3>
+                            <p class="empty-state-description">جميع الطلاب مسجلين بالفعل أو لا يوجد طلاب مؤهلين</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="students-section">
+                <div class="section-header">
+                    <h3 class="section-title">الطلاب المسجلين</h3>
+                    <span class="student-count-badge">@Model.RegisteredStudents.Count</span>
+                </div>
+
+                <div class="students-list">
+                    @if (Model.RegisteredStudents.Any())
+                    {
+                        foreach (var student in Model.RegisteredStudents)
+                        {
+                            <div class="student-item">
+                                <div class="student-info">
+                                    <div class="student-name">@student.StudentName</div>
+                                    <div class="student-details">
+                                        <span class="student-code">@student.StudentCode</span>
+                                        @if (!string.IsNullOrEmpty(student.SectionName))
+                                        {
+                                            <span class="student-section">@student.SectionName</span>
+                                        }
+                                        @if (!string.IsNullOrEmpty(student.ClassName))
+                                        {
+                                            <span class="student-class">@student.ClassName</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h3 class="empty-state-title">لا يوجد طلاب مسجلين</h3>
+                            <p class="empty-state-description">لم يتم تسجيل أي طلاب في هذا الفصل بعد</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> حفظ التسجيل
+            </button>
+            <a asp-action="SelectClass" asp-route-gradeId="@Model.Grade.Id" class="btn btn-secondary">
+                <i class="fas fa-arrow-right"></i> رجوع
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/classRegistration.css" />
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Filter students by section for advanced grades
+            $('#sectionFilter').change(function () {
+                var sectionId = $(this).val();
+                var gradeId = @Model.Grade.Id;
+                var classId = @Model.Class.Id;
+
+                if (sectionId) {
+                    $.get('@Url.Action("GetStudentsBySection", "ClassRegistration")', {
+                        sectionId: sectionId,
+                        gradeId: gradeId,
+                        classId: classId
+                    }, function (data) {
+                        if (data.success) {
+                            var studentsList = $('.students-list').first();
+                            studentsList.empty();
+
+                            if (data.students.length > 0) {
+                                $.each(data.students, function (i, student) {
+                                    var studentItem = `
+                                        <div class="student-item">
+                                            <input type="checkbox" name="selectedStudentIds" value="${student.id}" class="student-checkbox" />
+                                            <div class="student-info">
+                                                <div class="student-name">${student.name}</div>
+                                                <div class="student-details">
+                                                    <span class="student-code">${student.code}</span>
+                                                    <span class="student-previous">${student.previousClass}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                    studentsList.append(studentItem);
+                                });
+                            } else {
+                                studentsList.append(`
+                                    <div class="empty-state">
+                                        <div class="empty-state-icon">
+                                            <i class="fas fa-user-graduate"></i>
+                                        </div>
+                                        <h3 class="empty-state-title">لا يوجد طلاب</h3>
+                                        <p class="empty-state-description">لا يوجد طلاب متاحين في هذا القسم</p>
+                                    </div>
+                                `);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+} *@

@@ -10,6 +10,7 @@ namespace StudentManagementSystem.Models
         public string Name { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy_Id { get; set; }
+        public int GradeId { get; set; }
         public DateTime Date { get; set; }
  
         public int? MaxStudents { get; set; }
@@ -17,6 +18,8 @@ namespace StudentManagementSystem.Models
         // Navigation properties
         [ForeignKey("CreatedBy_Id")]
         public virtual Employees CreatedBy { get; set; }
+        [ForeignKey("GradeId")]
+        public virtual Grades Grade { get; set; }
 
         public virtual ICollection<Student_Class_Section_Year> StudentClassSectionYears { get; set; }
     }

@@ -107,15 +107,6 @@ namespace StudentManagementSystem.Controllers
                 else
                 {
                     SetErrorMessage("الرقم القومي غير صحيح");
-
-                    // إعادة تحميل البيانات في حالة الخطأ
-                    var sections = await _sectionService.GetActiveSectionsAsync();
-                    viewModel.Sections = sections.Select(s => new SelectListItem
-                    {
-                        Value = s.Id.ToString(),
-                        Text = s.Name_Of_Section
-                    }).ToList();
-
                     return View(viewModel);
                 }
 
@@ -137,15 +128,6 @@ namespace StudentManagementSystem.Controllers
                     else
                     {
                         SetErrorMessage("فشل في رفع صورة الملف الشخصي");
-
-                        // إعادة تحميل البيانات في حالة الخطأ
-                        var sections = await _sectionService.GetActiveSectionsAsync();
-                        viewModel.Sections = sections.Select(s => new SelectListItem
-                        {
-                            Value = s.Id.ToString(),
-                            Text = s.Name_Of_Section
-                        }).ToList();
-
                         return View(viewModel);
                     }
                 }
@@ -161,15 +143,6 @@ namespace StudentManagementSystem.Controllers
                     else
                     {
                         SetErrorMessage("فشل في رفع شهادة الميلاد");
-
-                        // إعادة تحميل البيانات في حالة الخطأ
-                        var sections = await _sectionService.GetActiveSectionsAsync();
-                        viewModel.Sections = sections.Select(s => new SelectListItem
-                        {
-                            Value = s.Id.ToString(),
-                            Text = s.Name_Of_Section
-                        }).ToList();
-
                         return View(viewModel);
                     }
                 }
@@ -199,14 +172,6 @@ namespace StudentManagementSystem.Controllers
                     catch (Exception ex)
                     {
                         SetErrorMessage($"خطأ في تعيين الصف: {ex.Message}");
-                        // إعادة تحميل البيانات في حالة الخطأ
-                        var sections = await _sectionService.GetActiveSectionsAsync();
-                        viewModel.Sections = sections.Select(s => new SelectListItem
-                        {
-                            Value = s.Id.ToString(),
-                            Text = s.Name_Of_Section
-                        }).ToList();
-
                         return View(viewModel);
                     }
                 }
