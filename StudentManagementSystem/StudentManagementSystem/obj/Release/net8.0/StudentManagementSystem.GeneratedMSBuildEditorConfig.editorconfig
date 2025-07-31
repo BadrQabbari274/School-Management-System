@@ -60,10 +60,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NBc3NpZ25tZW50XEFzc2lnblN0dWRlbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/New folder/StudentManagementSystem/StudentManagementSystem/Views/ClassAssignment/updateStudent.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NBc3NpZ25tZW50XHVwZGF0ZVN0dWRlbnQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/New folder/StudentManagementSystem/StudentManagementSystem/Views/ClassRegistration/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NSZWdpc3RyYXRpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -186,6 +182,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/New folder/StudentManagementSystem/StudentManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/New folder/StudentManagementSystem/StudentManagementSystem/Views/Student/AssignClass.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxBc3NpZ25DbGFzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/New folder/StudentManagementSystem/StudentManagementSystem/Views/Student/Create.cshtml]
