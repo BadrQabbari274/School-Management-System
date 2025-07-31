@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
+using StudentManagementSystem.ViewModels;
 using System.IO;
 
 namespace StudentManagementSystem.Controllers
@@ -547,6 +548,30 @@ namespace StudentManagementSystem.Controllers
                 SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AssignClass()
+        {
+            var viewModel = new GradeSelectionViewModel();
+            var grades = await _gradeService.GetActiveAcademicYearsAsync();
+            viewModel.GradesList = new SelectList(grades, "Id", "Name");
+
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignClass(GradeSelectionViewModel viewModel)
+        {
+            var grades = await _gradeService.GetActiveAcademicYearsAsync();
+            viewModel.GradesList = new SelectList(grades, "Id", "Name", viewModel.SelectedGradeId);
+            if (viewModel.SelectedGradeId.HasValue && viewModel.SelectedGradeId > 0)
+            {
+                viewModel.ClassesResult = await _studentService.GetClassesByGradeAsync(viewModel.SelectedGradeId.Value);
+            }
+            return View(viewModel);
         }
     }
 }
