@@ -56,6 +56,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxWaWV3QXR0ZW5kYW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/ClassAssignment/AssignStudents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NBc3NpZ25tZW50XEFzc2lnblN0dWRlbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/ClassRegistration/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NSZWdpc3RyYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/ClassRegistration/ManageStudents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NSZWdpc3RyYXRpb25cTWFuYWdlU3R1ZGVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/ClassRegistration/SelectClass.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NSZWdpc3RyYXRpb25cU2VsZWN0Q2xhc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/Class/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -82,6 +98,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/Compatences/students.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcc3R1ZGVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/Department/AssignEmployee.cshtml]
