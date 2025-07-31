@@ -1,4 +1,5 @@
 wwwroot\css\attendance.css
+wwwroot\css\Registration.css
 wwwroot\css\site.css
 wwwroot\css\site2.css
 wwwroot\css\site3.css
