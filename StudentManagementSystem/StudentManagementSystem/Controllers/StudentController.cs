@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
+using StudentManagementSystem.ViewModels;
 using System.IO;
 
 namespace StudentManagementSystem.Controllers
@@ -12,14 +13,16 @@ namespace StudentManagementSystem.Controllers
     {
         private readonly IStudentService _studentService;
         private readonly IGradeService _gradeService;
+        private readonly IClassService _classService;
         private readonly ISectionService _sectionService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public StudentController(IStudentService studentService, ISectionService sectionService, IGradeService gradeService, IWebHostEnvironment webHostEnvironment)
+        public StudentController(IStudentService studentService, ISectionService sectionService, IGradeService gradeService,IClassService classService, IWebHostEnvironment webHostEnvironment)
         {
             _studentService = studentService;
            _sectionService = sectionService;
             _gradeService = gradeService;
+            _classService = classService;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -316,6 +319,22 @@ namespace StudentManagementSystem.Controllers
                 await PopulateViewBag();
                 return View(student);
             }
+        }
+
+        public async Task<IActionResult> AssignClassToStudentAsync(int Id) {
+          Classes Class = await _classService.GetClassByIdAsync(Id);
+            if (Class.Grade.Name.ToLower() == "Junior".ToLower())
+            {
+                var SectionWithStudent = _studentService.GetStudentsGroupedBySectionAsync();
+                return View(SectionWithStudent);
+            }
+            else
+            {
+                var ClassWithStudent = _studentService.GetStudentsGroupedByClassAsync(Class.Grade.Id);
+                return View(ClassWithStudent);
+                
+            }
+   
         }
 
         // POST: Student/DeleteConfirmed
