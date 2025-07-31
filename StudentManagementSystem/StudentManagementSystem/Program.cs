@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
+using StudentManagementSystem.Service;
 using StudentManagementSystem.Service.Implementation;
 using StudentManagementSystem.Service.Interface;
-using StudentManagementSystem.Service;
+using StudentManagementSystem.Services;
+using StudentManagementSystem.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +41,7 @@ builder.Services.AddScoped<IClassService, ClassService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ISectionService, SectionService>();
 builder.Services.AddScoped<IWorkingYearService, WorkingYearService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 //builder.Services.AddScoped<ICompetenceService, CompetenceService>();
 //builder.Services.AddScoped<IOutcomeService, OutcomeService>();
 //builder.Services.AddScoped<ITaskEvaluationService, TaskEvaluationServices>();
