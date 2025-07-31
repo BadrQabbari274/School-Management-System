@@ -1,0 +1,46 @@
+﻿@model StudentManagementSystem.ViewModels.GradeSelectionViewModel
+@{
+    ViewData["Title"] = "Select Class";
+}
+
+<h3>Select a Grade to Display Classes</h3>
+
+<hr />
+
+<form asp-action="AssignClass" method="post">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-4">
+            <select asp-for="SelectedGradeId" asp-items="@Model.GradesList" class="form-control">
+                <option value="">-- Select a Grade --</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Show Classes</button>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+<h4>Available Classes</h4>
+
+@if (Model.ClassesResult.Any())
+{
+    <div class="list-group">
+        @foreach (var cls in Model.ClassesResult)
+        {
+            <a asp-action="AssignStudentsToClass" asp-route-Id="@cls.Id" class="list-group-item list-group-item-action">
+                <strong>@cls.Name</strong>
+            </a>
+        }
+    </div>
+}
+else if (Model.SelectedGradeId.HasValue)
+{
+    <div class="alert alert-warning">No active classes found for the selected grade.</div>
+}
+else
+{
+    <p>Please select a grade to see the available classes.</p>
+}

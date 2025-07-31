@@ -30,5 +30,7 @@ namespace StudentManagementSystem.Service.Interface
 
         // جلب الطلاب في قسم معين
         Task<List<StudentInfoDto>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null);
+
+        Task<IEnumerable<Classes>> GetClassesByGradeAsync(int gradeId);
     }
 }
