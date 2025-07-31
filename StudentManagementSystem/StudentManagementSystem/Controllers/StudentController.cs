@@ -321,7 +321,7 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
-        public async Task<IActionResult> AssignClassToStudentAsync(int Id) {
+        public async Task<IActionResult> AssignClassToStudent(int Id) {
           Classes Class = await _classService.GetClassByIdAsync(Id);
             if (Class.Grade.Name.ToLower() == "Junior".ToLower())
             {
