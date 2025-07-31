@@ -1380,7 +1380,7 @@ body {
 }
 
 /* ===== DARK MODE SUPPORT ===== */
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
     :root {
         --light-bg: #0f172a;
         --white: #1e293b;
@@ -1389,4 +1389,4 @@ body {
         --border-color: #334155;
         --gradient-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     }
-}
+}*/

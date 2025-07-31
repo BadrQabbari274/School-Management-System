@@ -1,0 +1,348 @@
+﻿@model StudentManagementSystem.Models.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "لوحة التحكم";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        direction: rtl;
+        font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f7f8fa;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    .dashboard-wrapper {
+        background: #fff;
+        min-height: 100vh;
+        position: relative;
+        box-shadow: 0 0 40px 0 rgba(0,0,0,0.04);
+    }
+
+    .container-fluid {
+        position: relative;
+        z-index: 1;
+        padding: 2rem 1rem;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    /* Header */
+    .dashboard-header {
+        background: #fff;
+        border-radius: 18px;
+        padding: 2rem 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .dashboard-title {
+        color: #222;
+        font-size: 2.3rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+    }
+
+    .dashboard-subtitle {
+        color: #666;
+        font-size: 1.1rem;
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+
+    .refresh-btn {
+        background: linear-gradient(90deg, #4f8cff 0%, #38e8fc 100%);
+        border: none;
+        color: #fff;
+        padding: 12px 32px;
+        border-radius: 40px;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(79,140,255,0.13);
+        outline: none;
+    }
+
+    .refresh-btn:hover {
+        background: linear-gradient(90deg, #38e8fc 0%, #4f8cff 100%);
+        box-shadow: 0 8px 25px rgba(79,140,255,0.18);
+        color: #fff;
+        transform: translateY(-2px) scale(1.04);
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .stat-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem 1.5rem;
+        position: relative;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        transition: box-shadow 0.3s, transform 0.3s;
+        border: 1px solid #f0f0f0;
+    }
+
+    .stat-card:hover {
+        box-shadow: 0 8px 32px rgba(79,140,255,0.13);
+        transform: translateY(-4px) scale(1.02);
+    }
+
+    .stat-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: #fff;
+        margin-bottom: 1.2rem;
+        box-shadow: 0 2px 8px rgba(79,140,255,0.13);
+    }
+
+    .stat-card.active .stat-icon { background: linear-gradient(135deg, #4f8cff, #38e8fc); }
+    .stat-card.inactive .stat-icon { background: linear-gradient(135deg, #ffb347, #ff7043); }
+    .stat-card.monthly .stat-icon { background: linear-gradient(135deg, #42a5f5, #478ed1); }
+    .stat-card.total .stat-icon { background: linear-gradient(135deg, #66bb6a, #43a047); }
+
+    .stat-number {
+        font-size: 2.4rem;
+        font-weight: 900;
+        color: #222;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+        letter-spacing: -1px;
+    }
+
+    .stat-label {
+        color: #888;
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+
+    /* Quick Access Cards */
+    .quick-access {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem 1.5rem;
+        border: 1px solid #f0f0f0;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+        margin-bottom: 2rem;
+    }
+
+    .quick-access-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #222;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        position: relative;
+        letter-spacing: -1px;
+    }
+
+    .quick-access-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #4f8cff 0%, #38e8fc 100%);
+        border-radius: 2px;
+    }
+
+    .access-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.2rem;
+    }
+
+    .access-card {
+        background: #f7f8fa;
+        border-radius: 14px;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: box-shadow 0.3s, transform 0.3s;
+        position: relative;
+        overflow: hidden;
+        color: #222;
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(79,140,255,0.07);
+        border: 1px solid #e0e0e0;
+        font-weight: 600;
+    }
+
+    .access-card:hover {
+        box-shadow: 0 8px 32px rgba(79,140,255,0.13);
+        transform: translateY(-4px) scale(1.04);
+        background: #fff;
+        color: #4f8cff;
+        border-color: #4f8cff;
+    }
+
+    .access-icon {
+        font-size: 2.2rem;
+        margin-bottom: 0.7rem;
+        display: block;
+    }
+
+    .access-count {
+        font-size: 1.5rem;
+        font-weight: 900;
+        margin-bottom: 0.3rem;
+        color: #4f8cff;
+    }
+
+    .access-label {
+        font-size: 1rem;
+        opacity: 0.9;
+        font-weight: 600;
+        color: #222;
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 1200px) {
+        .container-fluid { padding: 1rem; }
+        .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @@media (max-width: 768px) {
+        .dashboard-header { flex-direction: column; align-items: flex-start; padding: 1.5rem; }
+        .dashboard-title { font-size: 1.5rem; }
+        .stats-grid { grid-template-columns: 1fr; }
+        .access-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @@media (max-width: 480px) {
+        .access-grid { grid-template-columns: 1fr; }
+        .container-fluid { padding: 0.5rem; }
+    }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div>
+                <h1 class="dashboard-title">لوحة التحكم الرئيسية</h1>
+                <p class="dashboard-subtitle">نظرة شاملة على نظام إدارة الطلاب</p>
+            </div>
+            <button class="btn refresh-btn" onclick="refreshDashboard()">
+                <i class="fas fa-sync-alt me-2"></i>
+                تحديث البيانات
+            </button>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card active">
+                <div class="stat-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-number">@Model.ActiveStudentsCount</div>
+                <div class="stat-label">الطلاب النشطون</div>
+                
+            </div>
+
+            <div class="stat-card inactive">
+                <div class="stat-icon">
+                    <i class="fas fa-user-times"></i>
+                </div>
+                <div class="stat-number">@Model.InactiveStudentsCount</div>
+                <div class="stat-label">الطلاب غير النشطين</div>
+                
+            </div>
+
+            <div class="stat-card monthly">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-plus"></i>
+                </div>
+                <div class="stat-number">@Model.StudentsAddedThisMonth</div>
+                <div class="stat-label">طلاب جدد هذا الشهر</div>
+                
+            </div>
+
+            <div class="stat-card total">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">@Model.TotalStudentsCount</div>
+                <div class="stat-label">إجمالي الطلاب</div>
+                
+            </div>
+        </div>
+
+        <!-- Quick Access Section -->
+        <div class="quick-access">
+            <h3 class="quick-access-title">الوصول السريع للصفحات</h3>
+            <div class="access-grid">
+                @foreach (var card in Model.DashboardCards)
+                {
+                    <a href="/@card.Controller/@card.Action" class="access-card">
+                        <div class="access-icon">@card.Icon</div>
+                        <div class="access-count">@card.Count</div>
+                        <div class="access-label">@card.TitleArabic</div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger" style="margin-bottom: 1rem;">@ViewBag.ErrorMessage</div>
+}
+
+<script>
+    // Refresh Dashboard Function
+    function refreshDashboard() {
+        const refreshBtn = document.querySelector('.refresh-btn');
+        const originalContent = refreshBtn.innerHTML;
+
+        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>جاري التحديث...';
+        refreshBtn.disabled = true;
+
+        // Simulate loading
+        setTimeout(() => {
+            location.reload();
+        }, 1000);
+    }
+
+    // Auto refresh every 5 minutes
+    setInterval(refreshDashboard, 300000);
+
+    // Add loading animations on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.stat-card, .access-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    });
+</script>

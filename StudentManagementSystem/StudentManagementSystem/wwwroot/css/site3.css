@@ -1,0 +1,96 @@
+﻿/* Grade Selection */
+.grade-selection-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--light-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.grade-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.grade-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+    .grade-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .grade-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+/* Class Assignment */
+.class-assignment-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--light-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.class-selection, .student-filters {
+    margin-bottom: 2rem;
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.student-list-container {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2rem;
+}
+
+.assignment-actions {
+    text-align: right;
+}
+
+#studentTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    #studentTable th, #studentTable td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    #studentTable th {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    #studentTable tr:hover {
+        background-color: rgba(255, 140, 66, 0.1);
+    }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .grade-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .class-assignment-container {
+        padding: 1rem;
+    }
+}

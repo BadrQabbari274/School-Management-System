@@ -53,6 +53,15 @@
                             <span asp-validation-for="MaxStudents" class="text-danger"></span>
                         </div>
 
+                        <div class="mb-4">
+                            <label asp-for="GradeId" class="form-label fw-bold text-primary">
+                                <i class="fas fa-building me-2"></i>السنه الدراسيه
+                            </label>
+                            <select asp-for="GradeId" class="form-control form-control-lg" asp-items="ViewBag.GradeId">
+                                <option value="">-- اختر السنه الدراسيه --</option>
+                            </select>
+                            <span asp-validation-for="GradeId" class="text-danger"></span>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-6">
