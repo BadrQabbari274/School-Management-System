@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Controllers;
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
-using StudentManagementSystem.ViewModels;
 using StudentManagementSystem.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,35 +26,6 @@ namespace StudentManagementSystem.Service.Implementation
                 .Include(s => s.CreatedBy)
                 .Where(s => s.IsActive)
                 .ToListAsync();
-        }
-        public async Task<int> ISJunior()
-        {
-            var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "Junior".ToLower());
-            return  result.Id;
-        }
-        public async Task<List<SectionWithStudents>> GetStudentsGroupedBySectionAsync()
-        {
-            var working_year = await GetOrCreateActiveWorkingYearAsync();
-            var juniorGradeId = await ISJunior(); 
-
-            var result = await _context.Student_Class_Section_Years
-                .Include(s => s.Student)
-                .ThenInclude(student => student.StudentGrades)
-                .Include(s => s.Section)
-                .Where(s =>
-                    s.Working_Year_Id == working_year.Id &&
-                    s.Class_Id == null &&
-                    s.Student.StudentGrades.Any(sg => sg.GradeId == juniorGradeId && sg.Working_Year_Id == working_year.Id) 
-                )
-                .GroupBy(s => s.Section)
-                .Select(g => new SectionWithStudents
-                {
-                    section = g.Key,
-                    students = g.Select(s => s.Student).ToList()
-                })
-                .ToListAsync();
-
-            return result;
         }
 
         public async Task<Students> GetStudentByIdAsync(int id)
@@ -601,6 +571,13 @@ namespace StudentManagementSystem.Service.Implementation
             {
                 return new List<StudentInfoDto>();
             }
+        }
+        public async Task<IEnumerable<Classes>> GetClassesByGradeAsync(int gradeId)
+        {
+            return await _context.Classes
+                .Where(c => c.GradeId == gradeId && c.IsActive)
+                .OrderBy(c => c.Name)
+                .ToListAsync();
         }
     }
 
