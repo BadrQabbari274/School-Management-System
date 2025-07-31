@@ -30,23 +30,29 @@ namespace StudentManagementSystem.Service.Implementation
         }
         public async Task<Grades> GetJunior()
         {
-            var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "Junior".ToLower());
+            var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "junior");
             return result;
         }
+
         public async Task<Grades> GetSenior()
         {
-            var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "Senior".ToLower());
+            var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "senior");
             return result;
         }
+
         public async Task<Grades> GetWheeler()
         {
-            var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "Wheeler".ToLower());
+            var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "wheeler");
             return result;
         }
+
         public async Task<List<SectionWithStudents>> GetStudentsGroupedBySectionAsync()
         {
             var working_year = await GetOrCreateActiveWorkingYearAsync();
-            var juniorGradeId = GetJunior().Id;
+            var juniorGrade = await GetJunior();
+
+            if (juniorGrade == null || working_year == null)
+                return new List<SectionWithStudents>();
 
             var result = await _context.Student_Class_Section_Years
                 .Include(s => s.Student)
@@ -55,31 +61,28 @@ namespace StudentManagementSystem.Service.Implementation
                 .Where(s =>
                     s.Working_Year_Id == working_year.Id &&
                     s.Class_Id == null &&
-                    s.Student.StudentGrades.Any(sg => sg.GradeId == juniorGradeId && sg.Working_Year_Id == working_year.Id)
+                    s.Student.StudentGrades.Any(sg =>
+                        sg.GradeId == juniorGrade.Id &&
+                        sg.Working_Year_Id == working_year.Id)
                 )
                 .GroupBy(s => s.Section)
                 .Select(g => new SectionWithStudents
                 {
                     section = g.Key,
-                    students = g.Select(s => s.Student).ToList()
+                    students = g.Select(s => s.Student).Distinct().ToList()
                 })
                 .ToListAsync();
 
             return result;
         }
+
         public async Task<List<ClassWithStudents>> GetStudentsGroupedByClassAsync(int GradeID)
         {
-            var working_year = await GetInActiveWorkingYearAsync();
-            Grades Grade;
-            if (GradeID == GetWheeler().Id)
-            {
-                Grade = await GetJunior();
-            }
-            else
-            {
-                Grade = await GetWheeler();
+            var working_year = await GetOrCreateActiveWorkingYearAsync(); // تغيير إلى Active بدل InActive
+            var grade = await _context.Grades.FindAsync(GradeID);
 
-            }
+            if (grade == null || working_year == null)
+                return new List<ClassWithStudents>();
 
             var result = await _context.Student_Class_Section_Years
                 .Include(s => s.Student)
@@ -87,13 +90,16 @@ namespace StudentManagementSystem.Service.Implementation
                 .Include(s => s.Class)
                 .Where(s =>
                     s.Working_Year_Id == working_year.Id &&
-                    s.Student.StudentGrades.Any(sg => sg.GradeId == Grade.Id && sg.Working_Year_Id == working_year.Id)
+                    s.Class_Id != null &&
+                    s.Student.StudentGrades.Any(sg =>
+                        sg.GradeId == GradeID &&
+                        sg.Working_Year_Id == working_year.Id)
                 )
                 .GroupBy(s => s.Class)
                 .Select(g => new ClassWithStudents
                 {
                     classes = g.Key,
-                    students = g.Select(s => s.Student).ToList()
+                    students = g.Select(s => s.Student).Distinct().ToList()
                 })
                 .ToListAsync();
 
@@ -279,14 +285,14 @@ namespace StudentManagementSystem.Service.Implementation
             return true;
         }
         // إضافة طالب بدون فصل (فقط student_id, working_year_id, section_id)
-        public async Task<bool> AddStudentWithoutClassAsync(int studentId, int sectionId, int? workingYearId = null)
+        public async Task<bool> AddStudentWithoutClassAsync(int studentId, int sectionId,int userid, int? workingYearId = null)
         {
             try
             {
                 // جلب آخر سنة دراسية نشطة إذا لم يتم تحديدها
                 if (!workingYearId.HasValue)
                 {
-                    var activeWorkingYear = GetOrCreateActiveWorkingYearAsync();
+                    var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
 
                     if (activeWorkingYear == null)
                         return false;
@@ -324,7 +330,7 @@ namespace StudentManagementSystem.Service.Implementation
                     Working_Year_Id = workingYearId.Value,
                     Section_id = sectionId,
                     IsActive = true,
-                    CreatedBy_Id = 1, // يمكن تمرير هذا كمعامل
+                    CreatedBy_Id = userid, // يمكن تمرير هذا كمعامل
                     Date = DateTime.Now,
                     Class_Id = null // بدون فصل في البداية
                 };

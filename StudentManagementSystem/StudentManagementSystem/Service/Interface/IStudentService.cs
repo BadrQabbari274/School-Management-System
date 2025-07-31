@@ -15,7 +15,7 @@ namespace StudentManagementSystem.Service.Interface
         Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId);
         Task<IEnumerable<Students>> GetStudentsWithTasksAsync();
         // إضافة طالب بدون فصل (فقط student_id, working_year_id, section_id)
-        Task<bool> AddStudentWithoutClassAsync(int studentId, int sectionId, int? workingYearId = null);
+        Task<bool> AddStudentWithoutClassAsync(int studentId, int sectionId, int userid, int? workingYearId = null);
         Task<List<SectionWithStudents>> GetStudentsGroupedBySectionAsync();
         Task<List<ClassWithStudents>> GetStudentsGroupedByClassAsync(int GradeId);
         // تعيين فصل لطالب
