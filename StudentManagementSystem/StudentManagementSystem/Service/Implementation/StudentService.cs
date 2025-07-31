@@ -28,15 +28,25 @@ namespace StudentManagementSystem.Service.Implementation
                 .Where(s => s.IsActive)
                 .ToListAsync();
         }
-        public async Task<int> ISJunior()
+        public async Task<Grades> GetJunior()
         {
             var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "Junior".ToLower());
-            return  result.Id;
+            return  result;
+        }
+        public async Task<Grades> GetSenior()
+        {
+            var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "Senior".ToLower());
+            return result;
+        }
+        public async Task<Grades> GetWheeler()
+        {
+            var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "Wheeler".ToLower());
+            return result;
         }
         public async Task<List<SectionWithStudents>> GetStudentsGroupedBySectionAsync()
         {
             var working_year = await GetOrCreateActiveWorkingYearAsync();
-            var juniorGradeId = await ISJunior(); 
+            var juniorGradeId =  GetJunior().Id; 
 
             var result = await _context.Student_Class_Section_Years
                 .Include(s => s.Student)
@@ -54,6 +64,38 @@ namespace StudentManagementSystem.Service.Implementation
                     students = g.Select(s => s.Student).ToList()
                 })
                 .ToListAsync();
+
+            return result;
+        }
+        public async Task<List<ClassWithStudents>> GetStudentsGroupedByClassAsync(int GradeID)
+        {
+            var working_year = await GetInActiveWorkingYearAsync();
+            Grades Grade;
+            if (GradeID == GetWheeler().Id)
+            {
+                Grade = await GetJunior();
+            }
+            else
+            {
+                Grade = await GetWheeler();
+
+            }
+
+                var result = await _context.Student_Class_Section_Years
+                    .Include(s => s.Student)
+                    .ThenInclude(student => student.StudentGrades)
+                    .Include(s => s.Class)
+                    .Where(s =>
+                        s.Working_Year_Id == working_year.Id &&
+                        s.Student.StudentGrades.Any(sg => sg.GradeId == Grade.Id && sg.Working_Year_Id == working_year.Id)
+                    )
+                    .GroupBy(s => s.Class)
+                    .Select(g => new ClassWithStudents
+                    {
+                        classes = g.Key,
+                        students = g.Select(s => s.Student).ToList()
+                    })
+                    .ToListAsync();
 
             return result;
         }
@@ -296,7 +338,17 @@ namespace StudentManagementSystem.Service.Implementation
                 return false;
             }
         }
+        public async Task<Working_Year> GetInActiveWorkingYearAsync()
+        {
+            // البحث عن سنة دراسية نشطة
+            var activeWorkingYear = await _context.Working_Years
+                .Where(wy => !wy.IsActive)
+                .OrderByDescending(wy => wy.Start_date)
+                .FirstOrDefaultAsync();
 
+     
+            return activeWorkingYear;
+        }
         // تحقق من وجود سنة دراسية نشطة وإنشاء واحدة إذا لم توجد
         public async Task<Working_Year> GetOrCreateActiveWorkingYearAsync()
         {

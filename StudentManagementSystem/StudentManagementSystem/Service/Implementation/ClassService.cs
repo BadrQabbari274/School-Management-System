@@ -27,6 +27,7 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Classes
                 .Include(c => c.CreatedBy)
+                .Include(c => c.Grade)
                 .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
         }
 
