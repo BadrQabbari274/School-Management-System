@@ -5,6 +5,7 @@ wwwroot\css\site.css
 wwwroot\css\site2.css
 wwwroot\css\site3.css
 wwwroot\css\student.css
+wwwroot\css\styles.css
 wwwroot\favicon.ico
 wwwroot\Images\FathallaLogo.png
 wwwroot\js\site.js

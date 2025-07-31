@@ -1,5 +1,6 @@
 ﻿using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Implementation;
+using StudentManagementSystem.ViewModels;
 
 namespace StudentManagementSystem.Service.Interface
 {
@@ -15,7 +16,8 @@ namespace StudentManagementSystem.Service.Interface
         Task<IEnumerable<Students>> GetStudentsWithTasksAsync();
         // إضافة طالب بدون فصل (فقط student_id, working_year_id, section_id)
         Task<bool> AddStudentWithoutClassAsync(int studentId, int sectionId, int? workingYearId = null);
-
+        Task<List<SectionWithStudents>> GetStudentsGroupedBySectionAsync();
+        Task<List<ClassWithStudents>> GetStudentsGroupedByClassAsync(int GradeId);
         // تعيين فصل لطالب
         Task<bool> AssignClassToStudentAsync(int studentId, int classId, int? workingYearId = null);
         Task<bool> AssignGradeToStudentAsync(int studentId, int gradeId);
@@ -28,5 +30,7 @@ namespace StudentManagementSystem.Service.Interface
 
         // جلب الطلاب في قسم معين
         Task<List<StudentInfoDto>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null);
+
+        Task<IEnumerable<Classes>> GetClassesByGradeAsync(int gradeId);
     }
 }
