@@ -1,5 +1,5 @@
 ﻿// Services/Interfaces/IDashboardService.cs
-using StudentManagementSystem.Models.ViewModels;
+using StudentManagementSystem.ViewModels;
 
 namespace StudentManagementSystem.Services.Interfaces
 {
