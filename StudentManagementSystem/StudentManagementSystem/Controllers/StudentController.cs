@@ -5,6 +5,7 @@ using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
 using StudentManagementSystem.ViewModels;
 using System.IO;
+using static System.Collections.Specialized.BitVector32;
 
 namespace StudentManagementSystem.Controllers
 {
@@ -333,17 +334,30 @@ namespace StudentManagementSystem.Controllers
             {
                 // إضافة await هنا لانتظار النتيجة
                 var sectionWithStudent = await _studentService.GetStudentsGroupedBySectionAsync();
+                StudentForAssign studentForAssign = new StudentForAssign() { 
+                Type = "junior",
+                SectionWithStudents = sectionWithStudent
+
+                };
                 return View(sectionWithStudent);
             }
             else
             {
+                
+                 
                 // إضافة await هنا أيضاً
                 var classWithStudent = await _studentService.GetStudentsGroupedByClassAsync(Class.Grade.Id);
+                StudentForAssign studentForAssign = new StudentForAssign()
+                {
+                    Type = "W&S",
+                    ClassWithStudents = classWithStudent,
+                    sections = await PopulateViewBag()
+                };
                 return View(classWithStudent);
             }
         }
         [HttpPost]
-        public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents)
+        public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents,int? section)
         {
             try
             {
@@ -492,17 +506,13 @@ namespace StudentManagementSystem.Controllers
         }
 
         // Helper method to populate ViewBag with dropdown data
-        private async Task PopulateViewBag()
+        private async Task<IEnumerable<StudentManagementSystem.Models.Section>> PopulateViewBag()
         {
-            try
-            {
+   
                 var sections = await _sectionService.GetActiveSectionsAsync();
-                ViewBag.Sections = sections; // إرسال البيانات الأصلية بدلاً من SelectList
-            }
-            catch (Exception)
-            {
-                ViewBag.Sections = new List<Section>(); // قائمة فارغة في حالة الخطأ
-            }
+
+
+            return sections;
         }
 
         // Helper method to extract data from Egyptian National ID
