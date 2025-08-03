@@ -1,7 +1,7 @@
 ﻿// Models/ViewModels/DashboardViewModel.cs
 using System.ComponentModel.DataAnnotations;
 
-namespace StudentManagementSystem.Models.ViewModels
+namespace StudentManagementSystem.ViewModels
 {
     public class DashboardViewModel
     {
