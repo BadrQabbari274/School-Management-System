@@ -333,17 +333,28 @@ namespace StudentManagementSystem.Controllers
             {
                 // إضافة await هنا لانتظار النتيجة
                 var sectionWithStudent = await _studentService.GetStudentsGroupedBySectionAsync();
+                StudentForAssign studentForAssign = new StudentForAssign() { 
+                Type = "junior",
+                SectionWithStudents = sectionWithStudent
+
+                };
                 return View(sectionWithStudent);
             }
             else
             {
                 // إضافة await هنا أيضاً
                 var classWithStudent = await _studentService.GetStudentsGroupedByClassAsync(Class.Grade.Id);
+                StudentForAssign studentForAssign = new StudentForAssign()
+                {
+                    Type = "W&S",
+                    ClassWithStudents = classWithStudent
+
+                };
                 return View(classWithStudent);
             }
         }
         [HttpPost]
-        public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents)
+        public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents,int? section)
         {
             try
             {
