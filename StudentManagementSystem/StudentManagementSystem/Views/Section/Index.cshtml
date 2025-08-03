@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<StudentManagementSystem.Models.Section>
 
 @{
-    ViewData["Title"] = "إدارة الشعب";
+    ViewData["Title"] = "إدارة الشعبة";
 }
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
 <body>
     <div class="header-section">
         <div class="container">
-            <h1 class="header-title">إدارة الشعب</h1>
+            <h1 class="header-title">إدارة الشعبة</h1>
         </div>
     </div>
 
@@ -66,7 +66,7 @@
                         {
                             <tr>
                                 <td>@counter</td>
-                                <td><strong>@item.Name_Of_Section</strong></td>
+                                <td>@item.Name_Of_Section</td>
                                 <td>
                                     @(item.Department.Name)
                                 </td>

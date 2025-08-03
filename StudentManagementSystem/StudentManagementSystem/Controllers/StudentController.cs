@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
+using StudentManagementSystem.ViewModels;
 using System.IO;
 
 namespace StudentManagementSystem.Controllers
@@ -12,14 +13,16 @@ namespace StudentManagementSystem.Controllers
     {
         private readonly IStudentService _studentService;
         private readonly IGradeService _gradeService;
+        private readonly IClassService _classService;
         private readonly ISectionService _sectionService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public StudentController(IStudentService studentService, ISectionService sectionService, IGradeService gradeService, IWebHostEnvironment webHostEnvironment)
+        public StudentController(IStudentService studentService, ISectionService sectionService, IGradeService gradeService,IClassService classService, IWebHostEnvironment webHostEnvironment)
         {
             _studentService = studentService;
            _sectionService = sectionService;
             _gradeService = gradeService;
+            _classService = classService;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -155,7 +158,7 @@ namespace StudentManagementSystem.Controllers
                
                 if (section != null)
                 {
-                    await _studentService.AddStudentWithoutClassAsync(viewModel.Student.Id, viewModel.SelectedSectionId); // أضافة await
+                    await _studentService.AddStudentWithoutClassAsync(viewModel.Student.Id, viewModel.SelectedSectionId,GetCurrentUserId()); // أضافة await
                  
                 }
                 var Grade = await _gradeService.GetAcademicYearByNameAsync("junior");
@@ -318,6 +321,70 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
+        public async Task<IActionResult> AssignClassToStudent(int Id)
+        {
+            Classes Class = await _classService.GetClassByIdAsync(Id);
+
+            // تمرير بيانات الفصل للـ View
+            ViewBag.ClassId = Id;
+            ViewBag.ClassName = Class.Name;
+
+            if (Class.Grade.Name.ToLower() == "junior")
+            {
+                // إضافة await هنا لانتظار النتيجة
+                var sectionWithStudent = await _studentService.GetStudentsGroupedBySectionAsync();
+                return View(sectionWithStudent);
+            }
+            else
+            {
+                // إضافة await هنا أيضاً
+                var classWithStudent = await _studentService.GetStudentsGroupedByClassAsync(Class.Grade.Id);
+                return View(classWithStudent);
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents)
+        {
+            try
+            {
+                if (selectedStudents == null || !selectedStudents.Any())
+                {
+                    TempData["ErrorMessage"] = "يرجى اختيار طالب واحد على الأقل.";
+                    return RedirectToAction("AssignClassToStudent", new { Id = classId });
+                }
+
+                var successCount = 0;
+                var failureCount = 0;
+
+                // تعيين كل طالب محدد للفصل
+                foreach (var studentId in selectedStudents)
+                {
+                    var result = await _studentService.AssignClassToStudentAsync(studentId, classId);
+                    if (result)
+                        successCount++;
+                    else
+                        failureCount++;
+                }
+
+                // رسائل النجاح والفشل
+                if (successCount > 0)
+                {
+                    TempData["SuccessMessage"] = $"تم تعيين {successCount} طالب بنجاح في الفصل.";
+                }
+
+                if (failureCount > 0)
+                {
+                    TempData["ErrorMessage"] = $"فشل في تعيين {failureCount} طالب. قد يكون الفصل ممتلئ أو الطالب مسجل بالفعل.";
+                }
+
+                return RedirectToAction("Index", "Classes");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"حدث خطأ أثناء تعيين الطلاب: {ex.Message}";
+                return RedirectToAction("AssignClassToStudent", new { Id = classId });
+            }
+        }
         // POST: Student/DeleteConfirmed
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -547,6 +614,30 @@ namespace StudentManagementSystem.Controllers
                 SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AssignClass()
+        {
+            var viewModel = new GradeSelectionViewModel();
+            var grades = await _gradeService.GetActiveAcademicYearsAsync();
+            viewModel.GradesList = new SelectList(grades, "Id", "Name");
+
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignClass(GradeSelectionViewModel viewModel)
+        {
+            var grades = await _gradeService.GetActiveAcademicYearsAsync();
+            viewModel.GradesList = new SelectList(grades, "Id", "Name", viewModel.SelectedGradeId);
+            if (viewModel.SelectedGradeId.HasValue && viewModel.SelectedGradeId > 0)
+            {
+                viewModel.ClassesResult = await _studentService.GetClassesByGradeAsync(viewModel.SelectedGradeId.Value);
+            }
+            return View(viewModel);
         }
     }
 }

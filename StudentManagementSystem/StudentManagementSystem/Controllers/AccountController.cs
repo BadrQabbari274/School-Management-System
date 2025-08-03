@@ -77,7 +77,7 @@ namespace StudentManagementSystem.Controllers
                 user.LastLogin = DateTime.Now;
                 await _userService.UpdateUserAsync(user);
                 TempData["login"] = "ok";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception ex)
             {
