@@ -23,7 +23,7 @@ namespace StudentManagementSystem.Controllers
             catch (Exception ex)
             {
                 ViewBag.ErrorMessage = "حدث خطأ في تحميل البيانات: " + ex.Message;
-                return View(new Models.ViewModels.DashboardViewModel());
+                return View(new ViewModels.DashboardViewModel());
             }
         }
 

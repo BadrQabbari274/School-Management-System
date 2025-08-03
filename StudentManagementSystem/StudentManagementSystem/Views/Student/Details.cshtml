@@ -101,7 +101,7 @@
                             <i class="fas fa-envelope me-1"></i>
                             إرسال إيميل
                         </a>
-                        <a href="tel:@Model.Phone_Number" class="btn btn-outline-success btn-sm">
+                        <a href="tel:@Model.Phone_Number" class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-phone me-1"></i>
                             اتصال
                         </a>
@@ -418,6 +418,20 @@
 
     .student-status {
         font-size: 1.1em;
+    }
+
+    .btn-call {
+        background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+        color: #fff !important;
+        border: none;
+        box-shadow: 0 2px 8px rgba(67,233,123,0.13);
+        font-weight: 600;
+        transition: background 0.3s, box-shadow 0.3s;
+    }
+    .btn-call:hover, .btn-call:focus {
+        background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+        color: #fff !important;
+        box-shadow: 0 4px 16px rgba(67,233,123,0.18);
     }
 </style>
  *@

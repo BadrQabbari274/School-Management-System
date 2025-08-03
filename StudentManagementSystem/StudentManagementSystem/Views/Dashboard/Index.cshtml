@@ -1,4 +1,5 @@
-﻿@model StudentManagementSystem.Models.ViewModels.DashboardViewModel
+﻿@using StudentManagementSystem.ViewModels
+@model DashboardViewModel
 
 @{
     ViewData["Title"] = "لوحة التحكم";
@@ -255,13 +256,14 @@
 
         <!-- Statistics Cards -->
         <div class="stats-grid">
+            <!-- Remove these three cards -->
+            @* 
             <div class="stat-card active">
                 <div class="stat-icon">
                     <i class="fas fa-user-check"></i>
                 </div>
                 <div class="stat-number">@Model.ActiveStudentsCount</div>
                 <div class="stat-label">الطلاب النشطون</div>
-                
             </div>
 
             <div class="stat-card inactive">
@@ -270,7 +272,6 @@
                 </div>
                 <div class="stat-number">@Model.InactiveStudentsCount</div>
                 <div class="stat-label">الطلاب غير النشطين</div>
-                
             </div>
 
             <div class="stat-card monthly">
@@ -279,16 +280,16 @@
                 </div>
                 <div class="stat-number">@Model.StudentsAddedThisMonth</div>
                 <div class="stat-label">طلاب جدد هذا الشهر</div>
-                
             </div>
+            *@
 
+            <!-- Keep only the total students card -->
             <div class="stat-card total">
                 <div class="stat-icon">
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="stat-number">@Model.TotalStudentsCount</div>
                 <div class="stat-label">إجمالي الطلاب</div>
-                
             </div>
         </div>
 
