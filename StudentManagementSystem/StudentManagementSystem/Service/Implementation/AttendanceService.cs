@@ -1,375 +1,457 @@
-﻿//using Microsoft.EntityFrameworkCore;
-//using StudentManagementSystem.Data;
-//using StudentManagementSystem.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentManagementSystem.Data;
+using StudentManagementSystem.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-//namespace StudentManagementSystem.Services
-//{
+public class AttendanceService : IAttendanceService
+{
+    private readonly ApplicationDbContext _context;
+    private const int REGULAR_ATTENDANCE_TYPE_ID = 1; // الحضور العادي
+    private const int FIELD_ATTENDANCE_TYPE_ID = 2;   // الحضور الميداني
 
-//    public class AttendanceService : IAttendanceService
-//    {
-//        private readonly ApplicationDbContext _context;
+    public AttendanceService(ApplicationDbContext context)
+    {
+        _context = context;
+    }
 
-//        public AttendanceService(ApplicationDbContext context)
-//        {
-//            _context = context;
-//        }
+    #region Regular Attendance (الغياب العادي)
 
-//        public async Task<List<Student>> GetStudentsForAttendanceAsync(int classId)
-//        {
-//            return await _context.Students
-//                .Where(s => s.ClassId == classId && s.IsActive)
-//                .Include(s => s.Class)
-//                .OrderBy(s => s.Name)
-//                .ToListAsync();
-//        }
+    public async Task<bool> AddRegularAbsenceAsync(AddRegularAbsenceDto dto)
+    {
+        try
+        {
+            // التحقق من وجود الطالب في النظام
+            var studentExists = await _context.Student_Class_Section_Years
+                .AnyAsync(s => s.Student_Id == dto.StudentId &&
+                              s.Class_Id == dto.ClassId &&
+                              s.Working_Year_Id == dto.WorkingYearId &&
+                              s.Section_id == dto.SectionId &&
+                              s.IsActive);
 
-//        public async Task<List<StudentAttendance>> GetTodayRegularAttendanceAsync(int classId)
-//        {
-//            var today = DateTime.Today;
-//            return await _context.StudentAttendances
-//                .Where(sa => sa.Date.Date == today &&
-//                           sa.Student.ClassId == classId &&
-//                           !sa.IsFieldAttendance &&
-//                           !sa.IsDeleted)
-//                .Include(sa => sa.Student)
-//                .Include(sa => sa.CreatedByUser)
-//                .ToListAsync();
-//        }
+            if (!studentExists)
+                return false;
 
-//        public async Task<List<StudentAttendance>> GetTodayFieldAttendanceAsync(int classId)
-//        {
-//            var today = DateTime.Today;
-//            return await _context.StudentAttendances
-//                .Where(sa => sa.Date.Date == today &&
-//                           sa.Student.ClassId == classId &&
-//                           sa.IsFieldAttendance &&
-//                           !sa.IsDeleted)
-//                .Include(sa => sa.Student)
-//                .Include(sa => sa.CreatedByUser)
-//                .ToListAsync();
-//        }
+            // التحقق من عدم وجود غياب مسجل لنفس الطالب في نفس اليوم
+            var existingAbsence = await _context.StudentAbsents
+                .AnyAsync(sa => sa.StudentClassSectionYear_Student_Id == dto.StudentId &&
+                               sa.Class_Id == dto.ClassId &&
+                               sa.StudentClassSectionYear_Working_Year_Id == dto.WorkingYearId &&
+                               sa.StudentClassSectionYear_Section_id == dto.SectionId &&
+                               sa.Date.Date == dto.Date.Date &&
+                               !sa.IsDeleted);
 
-//        public async Task<List<StudentAbsent>> GetTodayRegularAbsentAsync(int classId)
-//        {
-//            var today = DateTime.Today;
-//            return await _context.StudentAbsents
-//                .Where(sa => sa.Date.Date == today &&
-//                           sa.Student.ClassId == classId &&
-//                           !sa.IsFieldAttendance &&
-//                           !sa.IsDeleted)
-//                .Include(sa => sa.Student)
-//                .Include(sa => sa.AbsenceReason)
-//                .Include(sa => sa.CreatedByUser)
-//                .ToListAsync();
-//        }
+            if (existingAbsence)
+                return false;
 
-//        public async Task<List<StudentAbsent>> GetTodayFieldAbsentAsync(int classId)
-//        {
-//            var today = DateTime.Today;
-//            return await _context.StudentAbsents
-//                .Where(sa => sa.Date.Date == today &&
-//                           sa.Student.ClassId == classId &&
-//                           sa.IsFieldAttendance &&
-//                           !sa.IsDeleted)
-//                .Include(sa => sa.Student)
-//                .Include(sa => sa.AbsenceReason)
-//                .Include(sa => sa.CreatedByUser)
-//                .ToListAsync();
-//        }
+            var absence = new StudentAbsents
+            {
+                StudentClassSectionYear_Student_Id = dto.StudentId,
+                Class_Id = dto.ClassId,
+                StudentClassSectionYear_Working_Year_Id = dto.WorkingYearId,
+                StudentClassSectionYear_Section_id = dto.SectionId,
+                Date = dto.Date,
+                AbsenceReasonId = dto.AbsenceReasonId,
+                AttendanceTypeId = REGULAR_ATTENDANCE_TYPE_ID,
+                CustomReasonDetails = dto.CustomReasonDetails,
+                CreatedBy_Id = dto.CreatedById,
+                IsDeleted = false
+            };
 
-//        public async Task<List<AbsenceReasons>> GetAbsenceReasonsAsync()
-//        {
-//            return await _context.AbsenceReasons
-//                .Where(ar => !ar.IsDeleted)
-//                .OrderBy(ar => ar.Name)
-//                .ToListAsync();
-//        }
+            _context.StudentAbsents.Add(absence);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
-//        public async Task<bool> TakeRegularAttendanceAsync(List<RegularAttendanceDto> attendanceList, int createdBy)
-//        {
-//            try
-//            {
-//                var today = DateTime.Today;
+    public async Task<bool> EditRegularAbsenceAsync(int id, EditRegularAbsenceDto dto)
+    {
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            // البحث عن السجل القديم وحذفه
+            var existingAbsence = await _context.StudentAbsents
+                .FirstOrDefaultAsync(sa => sa.Id == id && !sa.IsDeleted);
 
-//                foreach (var item in attendanceList)
-//                {
-//                    // Check if student already has regular attendance today
-//                    var existingAttendance = await _context.StudentAttendances
-//                        .FirstOrDefaultAsync(sa => sa.StudentId == item.StudentId &&
-//                                           sa.Date.Date == today &&
-//                                           !sa.IsFieldAttendance &&
-//                                           !sa.IsDeleted);
+            if (existingAbsence == null)
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
 
-//                    var existingAbsent = await _context.StudentAbsents
-//                        .FirstOrDefaultAsync(sa => sa.StudentId == item.StudentId &&
-//                                           sa.Date.Date == today &&
-//                                           !sa.IsFieldAttendance &&
-//                                           !sa.IsDeleted);
+            // حذف السجل القديم من قاعدة البيانات نهائياً
+            _context.StudentAbsents.Remove(existingAbsence);
 
-//                    if (existingAttendance != null || existingAbsent != null)
-//                        continue; // Skip if already recorded
+            // إضافة السجل الجديد بالبيانات المحدثة
+            var newAbsence = new StudentAbsents
+            {
+                StudentClassSectionYear_Student_Id = existingAbsence.StudentClassSectionYear_Student_Id,
+                Class_Id = existingAbsence.Class_Id,
+                StudentClassSectionYear_Working_Year_Id = existingAbsence.StudentClassSectionYear_Working_Year_Id,
+                StudentClassSectionYear_Section_id = existingAbsence.StudentClassSectionYear_Section_id,
+                Date = existingAbsence.Date,
+                AbsenceReasonId = dto.AbsenceReasonId,
+                AttendanceTypeId = REGULAR_ATTENDANCE_TYPE_ID,
+                CustomReasonDetails = dto.CustomReasonDetails,
+                CreatedBy_Id = dto.CreatedById,
+                IsDeleted = false
+            };
 
-//                    if (item.IsPresent)
-//                    {
-//                        var attendance = new StudentAttendance
-//                        {
-//                            StudentId = item.StudentId,
-//                            StudentGrade = item.StudentGrade,
-//                            Date = today,
-//                            CreatedBy = createdBy,
-//                            IsFieldAttendance = false,
-//                            Notes = item.Notes
-//                        };
-//                        _context.StudentAttendances.Add(attendance);
-//                    }
-//                    else
-//                    {
-//                        var absent = new StudentAbsent
-//                        {
-//                            StudentId = item.StudentId,
-//                            StudentGrade = item.StudentGrade,
-//                            Date = today,
-//                            CreatedBy = createdBy,
-//                            IsFieldAttendance = false,
-//                            AbsenceReasonId = item.AbsenceReasonId,
-//                            CustomReasonDetails = item.CustomReasonDetails,
-//                            Notes = item.Notes
-//                        };
-//                        _context.StudentAbsents.Add(absent);
-//                    }
-//                }
+            _context.StudentAbsents.Add(newAbsence);
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+            return true;
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+            return false;
+        }
+    }
 
-//                await _context.SaveChangesAsync();
-//                return true;
-//            }
-//            catch
-//            {
-//                return false;
-//            }
-//        }
+    //public async Task<List<StudentAbsentsDto>> GetRegularAbsencesAsync(int classId, DateTime date)
+    //{
+    //    return await _context.StudentAbsents
+    //        .Where(sa => sa.Class_Id == classId &&
+    //                    sa.Date.Date == date.Date &&
+    //                    sa.AttendanceTypeId == REGULAR_ATTENDANCE_TYPE_ID &&
+    //                    !sa.IsDeleted)
+    //        .Include(sa => sa.StudentClassSectionYear)
+    //            .ThenInclude(scs => scs.Student)
+    //        .Include(sa => sa.AbsenceReason)
+    //        .Select(sa => new StudentAbsentsDto
+    //        {
+    //            Id = sa.Id,
+    //            StudentId = sa.StudentClassSectionYear_Student_Id,
+    //            StudentName = sa.StudentClassSectionYear.Student.Name,
+    //            Date = sa.Date,
+    //            AbsenceReasonId = sa.AbsenceReasonId,
+    //            AbsenceReasonName = sa.AbsenceReason.Name,
+    //            CustomReasonDetails = sa.CustomReasonDetails
+    //        })
+    //        .ToListAsync();
+    //}
 
-//        public async Task<bool> TakeFieldAttendanceAsync(List<FieldAttendanceDto> attendanceList, int createdBy)
-//        {
-//            try
-//            {
-//                var today = DateTime.Today;
+    #endregion
 
-//                foreach (var item in attendanceList)
-//                {
-//                    // Check if student is present in regular attendance today
-//                    var hasRegularAttendance = await _context.StudentAttendances
-//                        .AnyAsync(sa => sa.StudentId == item.StudentId &&
-//                                  sa.Date.Date == today &&
-//                                  !sa.IsFieldAttendance &&
-//                                  !sa.IsDeleted);
+    #region Field Attendance (الغياب الميداني)
 
-//                    if (!hasRegularAttendance)
-//                        continue; // Only students with regular attendance can have field attendance
+    public async Task<bool> AddFieldAbsenceAsync(AddFieldAbsenceDto dto)
+    {
+        try
+        {
+            // التحقق من وجود الطالب في النظام
+            var studentExists = await _context.Student_Class_Section_Years
+                .AnyAsync(s => s.Student_Id == dto.StudentId &&
+                              s.Class_Id == dto.ClassId &&
+                              s.Working_Year_Id == dto.WorkingYearId &&
+                              s.Section_id == dto.SectionId &&
+                              s.IsActive);
 
-//                    // Check if student already has field attendance today
-//                    var existingFieldAttendance = await _context.StudentAttendances
-//                        .FirstOrDefaultAsync(sa => sa.StudentId == item.StudentId &&
-//                                           sa.Date.Date == today &&
-//                                           sa.IsFieldAttendance &&
-//                                           !sa.IsDeleted);
+            if (!studentExists)
+                return false;
 
-//                    var existingFieldAbsent = await _context.StudentAbsents
-//                        .FirstOrDefaultAsync(sa => sa.StudentId == item.StudentId &&
-//                                           sa.Date.Date == today &&
-//                                           sa.IsFieldAttendance &&
-//                                           !sa.IsDeleted);
+            // التحقق من عدم وجود غياب عادي لنفس الطالب في نفس اليوم
+            var hasRegularAbsence = await _context.StudentAbsents
+                .AnyAsync(sa => sa.StudentClassSectionYear_Student_Id == dto.StudentId &&
+                               sa.Class_Id == dto.ClassId &&
+                               sa.StudentClassSectionYear_Working_Year_Id == dto.WorkingYearId &&
+                               sa.StudentClassSectionYear_Section_id == dto.SectionId &&
+                               sa.Date.Date == dto.Date.Date &&
+                               sa.AttendanceTypeId == REGULAR_ATTENDANCE_TYPE_ID &&
+                               !sa.IsDeleted);
 
-//                    // Remove existing field records
-//                    if (existingFieldAttendance != null)
-//                    {
-//                        _context.StudentAttendances.Remove(existingFieldAttendance);
-//                    }
-//                    if (existingFieldAbsent != null)
-//                    {
-//                        _context.StudentAbsents.Remove(existingFieldAbsent);
-//                    }
+            if (hasRegularAbsence)
+                return false; // لا يمكن إضافة غياب ميداني إذا كان غائب في الغياب العادي
 
-//                    if (item.IsPresent)
-//                    {
-//                        var fieldAttendance = new StudentAttendance
-//                        {
-//                            StudentId = item.StudentId,
-//                            StudentGrade = item.StudentGrade,
-//                            Date = today,
-//                            CreatedBy = createdBy,
-//                            IsFieldAttendance = true,
-//                            Without_Incentive = item.WithoutIncentive,
-//                            Notes = item.Notes
-//                        };
-//                        _context.StudentAttendances.Add(fieldAttendance);
-//                    }
-//                    else
-//                    {
-//                        var fieldAbsent = new StudentAbsent
-//                        {
-//                            StudentId = item.StudentId,
-//                            StudentGrade = item.StudentGrade,
-//                            Date = today,
-//                            CreatedBy = createdBy,
-//                            IsFieldAttendance = true,
-//                            AbsenceReasonId = item.AbsenceReasonId,
-//                            CustomReasonDetails = item.CustomReasonDetails,
-//                            Notes = item.Notes
-//                        };
-//                        _context.StudentAbsents.Add(fieldAbsent);
-//                    }
-//                }
+            // التحقق من عدم وجود غياب ميداني مسجل لنفس الطالب في نفس اليوم
+            var existingFieldAbsence = await _context.StudentAbsents
+                .AnyAsync(sa => sa.StudentClassSectionYear_Student_Id == dto.StudentId &&
+                               sa.Class_Id == dto.ClassId &&
+                               sa.StudentClassSectionYear_Working_Year_Id == dto.WorkingYearId &&
+                               sa.StudentClassSectionYear_Section_id == dto.SectionId &&
+                               sa.Date.Date == dto.Date.Date &&
+                               sa.AttendanceTypeId == FIELD_ATTENDANCE_TYPE_ID &&
+                               !sa.IsDeleted);
 
-//                await _context.SaveChangesAsync();
-//                return true;
-//            }
-//            catch
-//            {
-//                return false;
-//            }
-//        }
+            if (existingFieldAbsence)
+                return false;
 
-//        public async Task<bool> CanTakeRegularAttendanceAsync()
-//        {
-//            var today = DateTime.Today;
-//            var dayOfWeek = today.DayOfWeek;
+            var absence = new StudentAbsents
+            {
+                StudentClassSectionYear_Student_Id = dto.StudentId,
+                Class_Id = dto.ClassId,
+                StudentClassSectionYear_Working_Year_Id = dto.WorkingYearId,
+                StudentClassSectionYear_Section_id = dto.SectionId,
+                Date = dto.Date,
+                AbsenceReasonId = dto.AbsenceReasonId,
+                AttendanceTypeId = FIELD_ATTENDANCE_TYPE_ID,
+                CustomReasonDetails = dto.Reason, // استخدام الـ Reason بدلاً من CustomReasonDetails
+                CreatedBy_Id = dto.CreatedById,
+                IsDeleted = false
+            };
 
-//            // Can't take attendance on Friday and Saturday
-//            return dayOfWeek != DayOfWeek.Friday && dayOfWeek != DayOfWeek.Saturday;
-//        }
+            _context.StudentAbsents.Add(absence);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
-//        public async Task<bool> HasRegularAttendanceTodayAsync(int classId)
-//        {
-//            var today = DateTime.Today;
-//            return await _context.StudentAttendances
-//                .AnyAsync(sa => sa.Date.Date == today &&
-//                          sa.Student.ClassId == classId &&
-//                          !sa.IsFieldAttendance &&
-//                          !sa.IsDeleted) ||
-//                   await _context.StudentAbsents
-//                .AnyAsync(sa => sa.Date.Date == today &&
-//                          sa.Student.ClassId == classId &&
-//                          !sa.IsFieldAttendance &&
-//                          !sa.IsDeleted);
-//        }
+    public async Task<bool> EditFieldAbsenceAsync(int id, EditFieldAbsenceDto dto)
+    {
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        try
+        {
+            // البحث عن السجل القديم وحذفه
+            var existingAbsence = await _context.StudentAbsents
+                .FirstOrDefaultAsync(sa => sa.Id == id &&
+                                          sa.AttendanceTypeId == FIELD_ATTENDANCE_TYPE_ID &&
+                                          !sa.IsDeleted);
 
-//        public async Task<bool> HasFieldAttendanceTodayAsync(int classId)
-//        {
-//            var today = DateTime.Today;
-//            return await _context.StudentAttendances
-//                .AnyAsync(sa => sa.Date.Date == today &&
-//                          sa.Student.ClassId == classId &&
-//                          sa.IsFieldAttendance &&
-//                          !sa.IsDeleted) ||
-//                   await _context.StudentAbsents
-//                .AnyAsync(sa => sa.Date.Date == today &&
-//                          sa.Student.ClassId == classId &&
-//                          sa.IsFieldAttendance &&
-//                          !sa.IsDeleted);
-//        }
+            if (existingAbsence == null)
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
 
-//        public async Task<bool> CanModifyAttendanceAsync(DateTime attendanceDate, int currentUserId, bool isAdmin)
-//        {
-//            var today = DateTime.Today;
+            // حذف السجل القديم من قاعدة البيانات نهائياً
+            _context.StudentAbsents.Remove(existingAbsence);
 
-//            // Admin can modify any date
-//            if (isAdmin)
-//                return true;
+            // إضافة السجل الجديد بالبيانات المحدثة
+            var newAbsence = new StudentAbsents
+            {
+                StudentClassSectionYear_Student_Id = existingAbsence.StudentClassSectionYear_Student_Id,
+                Class_Id = existingAbsence.Class_Id,
+                StudentClassSectionYear_Working_Year_Id = existingAbsence.StudentClassSectionYear_Working_Year_Id,
+                StudentClassSectionYear_Section_id = existingAbsence.StudentClassSectionYear_Section_id,
+                Date = existingAbsence.Date,
+                AbsenceReasonId = dto.AbsenceReasonId,
+                AttendanceTypeId = FIELD_ATTENDANCE_TYPE_ID,
+                CustomReasonDetails = dto.Reason,
+                CreatedBy_Id = dto.CreatedById,
+                IsDeleted = false
+            };
 
-//            // Regular users can only modify today's attendance
-//            return attendanceDate.Date == today;
-//        }
+            _context.StudentAbsents.Add(newAbsence);
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+            return true;
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+            return false;
+        }
+    }
 
-//        public async Task<List<Class>> GetActiveClassesAsync()
-//        {
-//            return await _context.Classes
-//                .Where(c => c.IsActive)
-//                .Include(c => c.Field)
-//                .OrderBy(c => c.Name)
-//                .ToListAsync();
-//        }
+    //public async Task<List<StudentAbsentsDto>> GetFieldAbsencesAsync(int classId, DateTime date)
+    //{
+    //    return await _context.StudentAbsents
+    //        .Where(sa => sa.Class_Id == classId &&
+    //                    sa.Date.Date == date.Date &&
+    //                    sa.AttendanceTypeId == FIELD_ATTENDANCE_TYPE_ID &&
+    //                    !sa.IsDeleted)
+    //        .Include(sa => sa.StudentClassSectionYear)
+    //            .ThenInclude(scs => scs.Student)
+    //        .Include(sa => sa.AbsenceReason)
+    //        .Select(sa => new StudentAbsentsDto
+    //        {
+    //            Id = sa.Id,
+    //            StudentId = sa.StudentClassSectionYear_Student_Id,
+    //            StudentName = sa.StudentClassSectionYear.Student.Name,
+    //            Date = sa.Date,
+    //            AbsenceReasonId = sa.AbsenceReasonId,
+    //            AbsenceReasonName = sa.AbsenceReason.Name,
+    //            CustomReasonDetails = sa.CustomReasonDetails
+    //        })
+    //        .ToListAsync();
+    //}
 
-//        public async Task<bool> CreateExitRequestAsync(ExitRequestDto exitRequest, int createdBy)
-//        {
-//            try
-//            {
-//                var today = DateTime.Today;
+    #endregion
 
-//                // Check if student has regular attendance today
-//                var attendanceId = await _context.StudentAttendances
-//                    .Where(sa => sa.StudentId == exitRequest.StudentId &&
-//                               sa.Date.Date == today &&
-//                               !sa.IsFieldAttendance &&
-//                               !sa.IsDeleted)
-//                    .Select(sa => sa.Id)
-//                    .FirstOrDefaultAsync();
+    #region Request Exit
 
-//                if (attendanceId == 0)
-//                    return false; // Student must be present to request exit
+    public async Task<bool> RequestExitAsync(RequestExitDto dto)
+    {
+        try
+        {
+            var requestExit = new RequestExits
+            {
+                AttendanceId = dto.AttendanceId,
+                Reason = dto.Reason,
+                Date = dto.Date,
+                ExitTime = dto.ExitTime,
+                CreatedBy_Id = dto.CreatedById,
+                IsDeleted = false
+            };
 
-//                var request = new RequestExit
-//                {
-//                    StudentId = exitRequest.StudentId,
-//                    AttendanceId = attendanceId,
-//                    Reason = exitRequest.Reason,
-//                    ExitTime = exitRequest.ExitTime,
-//                    ExpectedReturnTime = exitRequest.ExpectedReturnTime,
-//                    CreatedBy = createdBy,
-//                    Date = DateTime.Now
-//                };
+            _context.RequestExits.Add(requestExit);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
-//                _context.RequestExits.Add(request);
-//                await _context.SaveChangesAsync();
-//                return true;
-//            }
-//            catch
-//            {
-//                return false;
-//            }
-//        }
+    public async Task<List<RequestExitDto>> GetRequestExitsAsync(int attendanceId)
+    {
+        return await _context.RequestExits
+            .Where(re => re.AttendanceId == attendanceId && !re.IsDeleted)
+            .Include(re => re.CreatedBy)
+            .Select(re => new RequestExitDto
+            {
+                Id = re.Id,
+                AttendanceId = re.AttendanceId,
+                Reason = re.Reason,
+                Date = re.Date,
+                ExitTime = re.ExitTime,
+                CreatedById = re.CreatedBy_Id,
+                CreatedByName = re.CreatedBy.Name
+            })
+            .ToListAsync();
+    }
 
-//        public async Task<List<RequestExit>> GetTodayExitRequestsAsync(int classId)
-//        {
-//            var today = DateTime.Today;
-//            return await _context.RequestExits
-//                .Where(re => re.Date.Date == today &&
-//                           re.Student.ClassId == classId &&
-//                           !re.IsDeleted)
-//                .Include(re => re.Student)
-//                .Include(re => re.CreatedByUser)
-//                .Include(re => re.ProcessedByUser)
-//                .OrderByDescending(re => re.Date)
-//                .ToListAsync();
-//        }
-//    }
+    #endregion
 
-//    // DTOs
-//    public class RegularAttendanceDto
-//    {
-//        public int StudentId { get; set; }
-//        public int? StudentGrade { get; set; }
-//        public bool IsPresent { get; set; }
-//        public int? AbsenceReasonId { get; set; }
-//        public string? CustomReasonDetails { get; set; }
-//        public string? Notes { get; set; }
-//    }
+    #region Helper Methods
 
-//    public class FieldAttendanceDto
-//    {
-//        public int StudentId { get; set; }
-//        public int? StudentGrade { get; set; }
-//        public bool IsPresent { get; set; }
-//        public bool? WithoutIncentive { get; set; }
-//        public int? AbsenceReasonId { get; set; }
-//        public string? CustomReasonDetails { get; set; }
-//        public string? Notes { get; set; }
-//    }
+    public async Task<List<StudentForAttendanceDto>> GetStudentsForRegularAttendanceAsync(int classId, int workingYearId, int sectionId, DateTime date)
+    {
+        var students = await _context.Student_Class_Section_Years
+            .Where(scs => scs.Class_Id == classId &&
+                         scs.Working_Year_Id == workingYearId &&
+                         scs.Section_id == sectionId &&
+                         scs.IsActive)
+            .Include(scs => scs.Student)
+            .Select(scs => new StudentForAttendanceDto
+            {
+                StudentId = scs.Student_Id,
+                StudentName = scs.Student.Name,
+                IsAbsent = _context.StudentAbsents.Any(sa =>
+                    sa.StudentClassSectionYear_Student_Id == scs.Student_Id &&
+                    sa.Class_Id == classId &&
+                    sa.Date.Date == date.Date &&
+                    sa.AttendanceTypeId == REGULAR_ATTENDANCE_TYPE_ID &&
+                    !sa.IsDeleted)
+            })
+            .ToListAsync();
 
-//    public class ExitRequestDto
-//    {
-//        public int StudentId { get; set; }
-//        public string Reason { get; set; }
-//        public TimeSpan ExitTime { get; set; }
-//        public TimeSpan? ExpectedReturnTime { get; set; }
-//    }
-//}
+        return students;
+    }
+
+    public async Task<List<StudentForAttendanceDto>> GetStudentsForFieldAttendanceAsync(int classId, int workingYearId, int sectionId, DateTime date)
+    {
+        // الطلاب المتاحين للغياب الميداني (ليسوا غائبين في الغياب العادي)
+        var students = await _context.Student_Class_Section_Years
+            .Where(scs => scs.Class_Id == classId &&
+                         scs.Working_Year_Id == workingYearId &&
+                         scs.Section_id == sectionId &&
+                         scs.IsActive &&
+                         !_context.StudentAbsents.Any(sa =>
+                             sa.StudentClassSectionYear_Student_Id == scs.Student_Id &&
+                             sa.Class_Id == classId &&
+                             sa.Date.Date == date.Date &&
+                             sa.AttendanceTypeId == REGULAR_ATTENDANCE_TYPE_ID &&
+                             !sa.IsDeleted))
+            .Include(scs => scs.Student)
+            .Select(scs => new StudentForAttendanceDto
+            {
+                StudentId = scs.Student_Id,
+                StudentName = scs.Student.Name,
+                IsAbsent = _context.StudentAbsents.Any(sa =>
+                    sa.StudentClassSectionYear_Student_Id == scs.Student_Id &&
+                    sa.Class_Id == classId &&
+                    sa.Date.Date == date.Date &&
+                    sa.AttendanceTypeId == FIELD_ATTENDANCE_TYPE_ID &&
+                    !sa.IsDeleted)
+            })
+            .ToListAsync();
+
+        return students;
+    }
+
+    #endregion
+}
+
+#region DTOs
+
+public class AddRegularAbsenceDto
+{
+    public int StudentId { get; set; }
+    public int ClassId { get; set; }
+    public int WorkingYearId { get; set; }
+    public int SectionId { get; set; }
+    public DateTime Date { get; set; }
+    public int AbsenceReasonId { get; set; }
+    public string CustomReasonDetails { get; set; }
+    public int CreatedById { get; set; }
+}
+
+public class EditRegularAbsenceDto
+{
+    public int AbsenceReasonId { get; set; }
+    public string CustomReasonDetails { get; set; }
+    public int CreatedById { get; set; }
+}
+
+public class AddFieldAbsenceDto
+{
+    public int StudentId { get; set; }
+    public int ClassId { get; set; }
+    public int WorkingYearId { get; set; }
+    public int SectionId { get; set; }
+    public DateTime Date { get; set; }
+    public int AbsenceReasonId { get; set; }
+    public string Reason { get; set; } // للغياب الميداني نستخدم Reason
+    public int CreatedById { get; set; }
+}
+
+public class EditFieldAbsenceDto
+{
+    public int AbsenceReasonId { get; set; }
+    public string Reason { get; set; }
+    public int CreatedById { get; set; }
+}
+
+public class RequestExitDto
+{
+    public int? Id { get; set; }
+    public int AttendanceId { get; set; }
+    public string Reason { get; set; }
+    public DateTime Date { get; set; }
+    public TimeSpan ExitTime { get; set; }
+    public int CreatedById { get; set; }
+    public string CreatedByName { get; set; }
+}
+
+public class StudentAbsentsDto
+{
+    public int Id { get; set; }
+    public int StudentId { get; set; }
+    public string StudentName { get; set; }
+    public DateTime Date { get; set; }
+    public int AbsenceReasonId { get; set; }
+    public string AbsenceReasonName { get; set; }
+    public string CustomReasonDetails { get; set; }
+}
+
+public class StudentForAttendanceDto
+{
+    public int StudentId { get; set; }
+    public string StudentName { get; set; }
+    public bool IsAbsent { get; set; }
+}
+
+#endregion

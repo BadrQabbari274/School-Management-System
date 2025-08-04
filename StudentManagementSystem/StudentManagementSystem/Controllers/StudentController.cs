@@ -5,6 +5,8 @@ using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
 using StudentManagementSystem.ViewModels;
 using System.IO;
+using System.Security.Claims;
+using static System.Collections.Specialized.BitVector32;
 
 namespace StudentManagementSystem.Controllers
 {
@@ -328,22 +330,42 @@ namespace StudentManagementSystem.Controllers
             // تمرير بيانات الفصل للـ View
             ViewBag.ClassId = Id;
             ViewBag.ClassName = Class.Name;
+            ViewBag.GradeName = Class.Grade.Name;
+            ViewBag.IsJunior = Class.Grade.Name.ToLower() == "junior";
 
             if (Class.Grade.Name.ToLower() == "junior")
             {
-                // إضافة await هنا لانتظار النتيجة
+                // للـ Junior - جلب الطلاب مجمعين حسب القسم
                 var sectionWithStudent = await _studentService.GetStudentsGroupedBySectionAsync();
-                return View(sectionWithStudent);
+                var studentForAssign = new StudentForAssign()
+                {
+                    Type = "junior",
+                    SectionWithStudents = sectionWithStudent,
+                    ClassId = Id,
+                    GradeId = Class.Grade.Id
+                };
+                return View(studentForAssign);
             }
             else
             {
-                // إضافة await هنا أيضاً
+                // للـ Wheeler & Senior - جلب الطلاب مجمعين حسب الفصل + الأقسام
                 var classWithStudent = await _studentService.GetStudentsGroupedByClassAsync(Class.Grade.Id);
-                return View(classWithStudent);
+                var sections = await PopulateViewBag(); // تأكد من أن هذه الدالة ترجع List<Sections>
+
+                var studentForAssign = new StudentForAssign()
+                {
+                    Type = "W&S",
+                    ClassWithStudents = classWithStudent,
+                    sections = sections,
+                    ClassId = Id,
+                    GradeId = Class.Grade.Id
+                };
+                return View(studentForAssign);
             }
         }
+
         [HttpPost]
-        public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents)
+        public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents, int? sectionId)
         {
             try
             {
@@ -353,13 +375,74 @@ namespace StudentManagementSystem.Controllers
                     return RedirectToAction("AssignClassToStudent", new { Id = classId });
                 }
 
+                // جلب بيانات الفصل لمعرفة نوع الصف
+                var classInfo = await _classService.GetClassByIdAsync(classId);
+                var isJunior = classInfo.Grade.Name.ToLower() == "junior";
+
+                // جلب ID المستخدم الحالي
+                var currentUserId = GetCurrentUserId(); // تأكد من وجود هذه الدالة
+
                 var successCount = 0;
                 var failureCount = 0;
+                var upgradedCount = 0;
 
-                // تعيين كل طالب محدد للفصل
                 foreach (var studentId in selectedStudents)
                 {
-                    var result = await _studentService.AssignClassToStudentAsync(studentId, classId);
+                    bool result = false;
+
+                    if (isJunior)
+                    {
+                        // للـ Junior - استخدام الطريقة القديمة (فقط تعيين فصل)
+                        result = await _studentService.AssignClassToStudentAsync(studentId, classId);
+
+                       
+                    }
+                    else
+                    {
+                        // للـ Wheeler & Senior - استخدام الطريقة الجديدة مع تفاصيل كاملة
+                        if (!sectionId.HasValue)
+                        {
+                            TempData["ErrorMessage"] = "يرجى اختيار القسم للطلاب في الصفوف المتقدمة.";
+                            return RedirectToAction("AssignClassToStudent", new { Id = classId });
+                        }
+
+                        result = await _studentService.AddStudentWithAllDetailsAsync(
+                            studentId,
+                            sectionId.Value,
+                            classId,
+                            currentUserId);
+
+                        if (result)
+                        {
+                            // ترقية الطالب حسب الصف الحالي
+                            if (classInfo.Grade.Name.ToLower() == "wheeler")
+                            {
+                              
+                     
+                                    // ترقية الطالب من Junior إلى Wheeler
+                                    var wheelerGrade = await _studentService.GetWheeler();
+                                    if (wheelerGrade != null)
+                                    {
+                                        var upgradeResult = await _studentService.AssignGradeToStudentAsync(studentId, wheelerGrade.Id);
+                                        if (upgradeResult)
+                                            upgradedCount++;
+                                    }
+                                
+                            }
+                            else
+                            {
+                                var seniorGrade = await _studentService.GetSenior();
+                                if (seniorGrade != null)
+                                {
+                                    var upgradeResult = await _studentService.AssignGradeToStudentAsync(studentId, seniorGrade.Id);
+                                    if (upgradeResult)
+                                        upgradedCount++;
+                                }
+                            }
+                            // ملاحظة: Senior هو أعلى مستوى، لا يوجد ترقية بعده
+                        }
+                    }
+
                     if (result)
                         successCount++;
                     else
@@ -367,14 +450,29 @@ namespace StudentManagementSystem.Controllers
                 }
 
                 // رسائل النجاح والفشل
+                var messages = new List<string>();
+
                 if (successCount > 0)
                 {
-                    TempData["SuccessMessage"] = $"تم تعيين {successCount} طالب بنجاح في الفصل.";
+                    messages.Add($"تم تعيين {successCount} طالب بنجاح في الفصل.");
+                }
+
+                if (upgradedCount > 0)
+                {
+                    messages.Add($"تم ترقية {upgradedCount} طالب للصف التالي.");
                 }
 
                 if (failureCount > 0)
                 {
-                    TempData["ErrorMessage"] = $"فشل في تعيين {failureCount} طالب. قد يكون الفصل ممتلئ أو الطالب مسجل بالفعل.";
+                    messages.Add($"فشل في تعيين {failureCount} طالب. قد يكون الفصل ممتلئ أو الطالب مسجل بالفعل.");
+                }
+
+                if (messages.Any())
+                {
+                    if (failureCount == 0)
+                        TempData["SuccessMessage"] = string.Join(" ", messages);
+                    else
+                        TempData["ErrorMessage"] = string.Join(" ", messages);
                 }
 
                 return RedirectToAction("Index", "Classes");
@@ -385,6 +483,8 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction("AssignClassToStudent", new { Id = classId });
             }
         }
+
+  
         // POST: Student/DeleteConfirmed
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -492,17 +592,13 @@ namespace StudentManagementSystem.Controllers
         }
 
         // Helper method to populate ViewBag with dropdown data
-        private async Task PopulateViewBag()
+        private async Task<IEnumerable<StudentManagementSystem.Models.Section>> PopulateViewBag()
         {
-            try
-            {
+   
                 var sections = await _sectionService.GetActiveSectionsAsync();
-                ViewBag.Sections = sections; // إرسال البيانات الأصلية بدلاً من SelectList
-            }
-            catch (Exception)
-            {
-                ViewBag.Sections = new List<Section>(); // قائمة فارغة في حالة الخطأ
-            }
+
+
+            return sections;
         }
 
         // Helper method to extract data from Egyptian National ID

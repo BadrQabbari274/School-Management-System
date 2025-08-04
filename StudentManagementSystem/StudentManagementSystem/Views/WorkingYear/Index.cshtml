@@ -1,9 +1,8 @@
 ﻿@model IEnumerable<StudentManagementSystem.Models.Working_Year>
 
 @{
-    ViewData["Title"] = "السنوات العملية";
+    ViewData["Title"] = "سنة العمل";
 }
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -15,16 +14,18 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
+    <!-- Change header title -->
     <div class="header-section">
         <div class="container">
-            <h1 class="header-title">السنوات العملية</h1>
+            <h1 class="header-title">سنة العمل</h1>
         </div>
     </div>
 
     <div class="container">
+        <!-- Change button text -->
         <div class="controls">
             <a href="@Url.Action("Create")" class="btn btn-add">
-                <i class="fas fa-plus-circle"></i> إضافة سنة عملية جديدة
+                <i class="fas fa-plus-circle"></i> إضافة سنة عمل جديدة
             </a>
         </div>
 
@@ -44,11 +45,12 @@
             </div>
         }
 
+        <!-- Change table header and no-data message -->
         <div class="courses-table">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>اسم السنة العملية</th>
+                        <th>اسم سنة العمل</th>
                         <th>تاريخ البداية</th>
                         <th>تاريخ النهاية</th>
                         <th>تاريخ الإنشاء</th>
@@ -98,7 +100,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="6" class="no-data">لا توجد سنوات عملية متاحة</td>
+                            <td colspan="6" class="no-data">لا توجد سنة عمل متاحة</td>
                         </tr>
                     }
                 </tbody>
@@ -106,6 +108,7 @@
         </div>
     </div>
 
+    <!-- Change modal text -->
     <div class="modal fade custom-modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -114,7 +117,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>هل أنت متأكد من حذف السنة العملية <strong id="workingYearNameToDelete"></strong>؟</p>
+                    <p>هل أنت متأكد من حذف سنة العمل <strong id="workingYearNameToDelete"></strong>؟</p>
                     <p class="text-danger">لا يمكن التراجع عن هذا الإجراء.</p>
                 </div>
                 <div class="modal-footer">

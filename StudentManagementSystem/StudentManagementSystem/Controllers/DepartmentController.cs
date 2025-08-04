@@ -200,12 +200,10 @@ namespace StudentManagementSystem.Controllers
                     SetErrorMessage("القسم المطلوب غير موجود");
                     return RedirectToAction(nameof(Index));
                 }
-
                 // Get all active employees
                 var employees = await _employeeService.GetActiveUsersAsync();
                 ViewBag.Employees = new SelectList(employees, "Id", "FullName");
                 ViewBag.Field = field;
-
                 return View();
             }
             catch (Exception ex)
@@ -214,7 +212,6 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-
         // POST: Field/AssignEmployee/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -239,7 +236,6 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction(nameof(AssignEmployee), new { id = id });
             }
         }
-
         // POST: Field/RemoveEmployee
         [HttpPost]
         [ValidateAntiForgeryToken]

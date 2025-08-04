@@ -21,9 +21,11 @@ namespace StudentManagementSystem.Service.Interface
         // تعيين فصل لطالب
         Task<bool> AssignClassToStudentAsync(int studentId, int classId, int? workingYearId = null);
         Task<bool> AssignGradeToStudentAsync(int studentId, int gradeId);
-
+        Task<Grades?> GetWheeler();
+        Task<Grades?> GetSenior();
+        Task<Grades?> GetJunior();
         // إضافة طالب مع كل التفاصيل
-        Task<bool> AddStudentWithAllDetailsAsync(int studentId, int workingYearId, int sectionId, int classId, int createdById);
+        Task<bool> AddStudentWithAllDetailsAsync(int studentId, int sectionId, int classId, int createdById, int? workingYearId = null);
 
         // جلب الطلاب مجمعين حسب القسم مع ترتيب أبجدي
         Task<List<SectionStudentsDto>> GetStudentsByDepartmentAsync(int? workingYearId = null);

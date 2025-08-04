@@ -1,15 +1,11 @@
 ﻿// Models/ViewModels/DashboardViewModel.cs
 using System.ComponentModel.DataAnnotations;
 
-namespace StudentManagementSystem.Models.ViewModels
+namespace StudentManagementSystem.ViewModels
 {
     public class DashboardViewModel
     {
-        public int ActiveStudentsCount { get; set; }
-        public int InactiveStudentsCount { get; set; }
         public int TotalStudentsCount { get; set; }
-        public int StudentsAddedThisMonth { get; set; }
-
         public List<MonthlyStudentData> MonthlyData { get; set; } = new List<MonthlyStudentData>();
         public List<DailyStudentData> WeeklyData { get; set; } = new List<DailyStudentData>();
 

@@ -1,8 +1,8 @@
 ﻿// Services/DashboardService.cs
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
-using StudentManagementSystem.Models.ViewModels;
 using StudentManagementSystem.Services.Interfaces;
+using StudentManagementSystem.ViewModels;
 using System.Globalization;
 
 namespace StudentManagementSystem.Services
@@ -24,11 +24,8 @@ namespace StudentManagementSystem.Services
             var dashboardCards = await GetDashboardCardsAsync();
 
             return new DashboardViewModel
-            {
-                ActiveStudentsCount = statistics.ActiveStudents,
-                InactiveStudentsCount = statistics.InactiveStudents,
+            {  
                 TotalStudentsCount = statistics.TotalStudents,
-                StudentsAddedThisMonth = statistics.StudentsThisMonth,
                 MonthlyData = monthlyData,
                 WeeklyData = weeklyData,
                 DashboardCards = dashboardCards
