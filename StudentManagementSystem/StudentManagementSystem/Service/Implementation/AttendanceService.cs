@@ -115,28 +115,28 @@ public class AttendanceService : IAttendanceService
         }
     }
 
-    public async Task<List<StudentAbsentsDto>> GetRegularAbsencesAsync(int classId, DateTime date)
-    {
-        return await _context.StudentAbsents
-            .Where(sa => sa.Class_Id == classId &&
-                        sa.Date.Date == date.Date &&
-                        sa.AttendanceTypeId == REGULAR_ATTENDANCE_TYPE_ID &&
-                        !sa.IsDeleted)
-            .Include(sa => sa.StudentClassSectionYear)
-                .ThenInclude(scs => scs.Student)
-            .Include(sa => sa.AbsenceReason)
-            .Select(sa => new StudentAbsentsDto
-            {
-                Id = sa.Id,
-                StudentId = sa.StudentClassSectionYear_Student_Id,
-                StudentName = sa.StudentClassSectionYear.Student.Name,
-                Date = sa.Date,
-                AbsenceReasonId = sa.AbsenceReasonId,
-                AbsenceReasonName = sa.AbsenceReason.Name,
-                CustomReasonDetails = sa.CustomReasonDetails
-            })
-            .ToListAsync();
-    }
+    //public async Task<List<StudentAbsentsDto>> GetRegularAbsencesAsync(int classId, DateTime date)
+    //{
+    //    return await _context.StudentAbsents
+    //        .Where(sa => sa.Class_Id == classId &&
+    //                    sa.Date.Date == date.Date &&
+    //                    sa.AttendanceTypeId == REGULAR_ATTENDANCE_TYPE_ID &&
+    //                    !sa.IsDeleted)
+    //        .Include(sa => sa.StudentClassSectionYear)
+    //            .ThenInclude(scs => scs.Student)
+    //        .Include(sa => sa.AbsenceReason)
+    //        .Select(sa => new StudentAbsentsDto
+    //        {
+    //            Id = sa.Id,
+    //            StudentId = sa.StudentClassSectionYear_Student_Id,
+    //            StudentName = sa.StudentClassSectionYear.Student.Name,
+    //            Date = sa.Date,
+    //            AbsenceReasonId = sa.AbsenceReasonId,
+    //            AbsenceReasonName = sa.AbsenceReason.Name,
+    //            CustomReasonDetails = sa.CustomReasonDetails
+    //        })
+    //        .ToListAsync();
+    //}
 
     #endregion
 
@@ -254,28 +254,28 @@ public class AttendanceService : IAttendanceService
         }
     }
 
-    public async Task<List<StudentAbsentsDto>> GetFieldAbsencesAsync(int classId, DateTime date)
-    {
-        return await _context.StudentAbsents
-            .Where(sa => sa.Class_Id == classId &&
-                        sa.Date.Date == date.Date &&
-                        sa.AttendanceTypeId == FIELD_ATTENDANCE_TYPE_ID &&
-                        !sa.IsDeleted)
-            .Include(sa => sa.StudentClassSectionYear)
-                .ThenInclude(scs => scs.Student)
-            .Include(sa => sa.AbsenceReason)
-            .Select(sa => new StudentAbsentsDto
-            {
-                Id = sa.Id,
-                StudentId = sa.StudentClassSectionYear_Student_Id,
-                StudentName = sa.StudentClassSectionYear.Student.Name,
-                Date = sa.Date,
-                AbsenceReasonId = sa.AbsenceReasonId,
-                AbsenceReasonName = sa.AbsenceReason.Name,
-                CustomReasonDetails = sa.CustomReasonDetails
-            })
-            .ToListAsync();
-    }
+    //public async Task<List<StudentAbsentsDto>> GetFieldAbsencesAsync(int classId, DateTime date)
+    //{
+    //    return await _context.StudentAbsents
+    //        .Where(sa => sa.Class_Id == classId &&
+    //                    sa.Date.Date == date.Date &&
+    //                    sa.AttendanceTypeId == FIELD_ATTENDANCE_TYPE_ID &&
+    //                    !sa.IsDeleted)
+    //        .Include(sa => sa.StudentClassSectionYear)
+    //            .ThenInclude(scs => scs.Student)
+    //        .Include(sa => sa.AbsenceReason)
+    //        .Select(sa => new StudentAbsentsDto
+    //        {
+    //            Id = sa.Id,
+    //            StudentId = sa.StudentClassSectionYear_Student_Id,
+    //            StudentName = sa.StudentClassSectionYear.Student.Name,
+    //            Date = sa.Date,
+    //            AbsenceReasonId = sa.AbsenceReasonId,
+    //            AbsenceReasonName = sa.AbsenceReason.Name,
+    //            CustomReasonDetails = sa.CustomReasonDetails
+    //        })
+    //        .ToListAsync();
+    //}
 
     #endregion
 

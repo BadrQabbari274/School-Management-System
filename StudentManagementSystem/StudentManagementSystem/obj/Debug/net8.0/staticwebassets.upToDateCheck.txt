@@ -67,11 +67,11 @@ wwwroot\upload\4\4_Mohamed_Reda_profile.png
 wwwroot\upload\5\5_Ahmed_Hossam_certificate.png
 wwwroot\upload\5\5_Ahmed_Hossam_profile.png
 wwwroot\upload\8\8_mohamed_certificate.png
-wwwroot\upload\8\8_mohamed_profile.png
+wwwroot\upload\13\13_Mohamed_Reda_profile.png
 wwwroot\Images\FathallaLogo.png
 wwwroot\css\student.css
 wwwroot\upload\13\13_Mohamed_Reda_certificate.jpg
-wwwroot\upload\13\13_Mohamed_Reda_profile.jpg
+wwwroot\upload\8\8_mohamed2_profile.png
 wwwroot\upload\14\14_Mohamed_Reda_certificate.jpg
 wwwroot\upload\14\14_Mohamed_Reda_profile.jpg
 wwwroot\upload\15\15_Mohamed_Reda_certificate.jpg

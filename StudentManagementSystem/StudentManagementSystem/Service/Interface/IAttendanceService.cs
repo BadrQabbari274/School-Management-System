@@ -11,12 +11,12 @@ public interface IAttendanceService
     // Regular Attendance (الغياب العادي)
     Task<bool> AddRegularAbsenceAsync(AddRegularAbsenceDto dto);
     Task<bool> EditRegularAbsenceAsync(int id, EditRegularAbsenceDto dto);
-    Task<List<StudentAbsentsDto>> GetRegularAbsencesAsync(int classId, DateTime date);
+    //Task<List<StudentAbsentsDto>> GetRegularAbsencesAsync(int classId, DateTime date);
 
     // Field Attendance (الغياب الميداني)
     Task<bool> AddFieldAbsenceAsync(AddFieldAbsenceDto dto);
     Task<bool> EditFieldAbsenceAsync(int id, EditFieldAbsenceDto dto);
-    Task<List<StudentAbsentsDto>> GetFieldAbsencesAsync(int classId, DateTime date);
+    //Task<List<StudentAbsentsDto>> GetFieldAbsencesAsync(int classId, DateTime date);
 
     // Request Exit
     Task<bool> RequestExitAsync(RequestExitDto dto);
