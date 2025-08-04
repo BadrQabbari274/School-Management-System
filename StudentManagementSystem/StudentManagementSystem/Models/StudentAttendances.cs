@@ -11,8 +11,6 @@ namespace StudentManagementSystem.Models
         public int CreatedBy_Id { get; set; }
         public DateTime Date { get; set; }
         public int AttendanceTypeId { get; set; }
-        public string CustomReasonDetails { get; set; }
-
         // Composite key reference fields
         public int StudentClassSectionYear_Student_Id { get; set; }
         public int Class_Id { get; set; }

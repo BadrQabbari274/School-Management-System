@@ -10,9 +10,9 @@ namespace StudentManagementSystem.Models
         public bool IsDeleted { get; set; }
         public int CreatedBy_Id { get; set; }
         public DateTime Date { get; set; }
-        public int AbsenceReasonId { get; set; }
+        public int? AbsenceReasonId { get; set; }
         public int AttendanceTypeId { get; set; }
-        public string CustomReasonDetails { get; set; }
+        public string? CustomReasonDetails { get; set; }
 
         // Composite key reference fields
         public int StudentClassSectionYear_Student_Id { get; set; }
@@ -26,7 +26,7 @@ namespace StudentManagementSystem.Models
         [ForeignKey("Class_Id")]
         public virtual Classes Class { get; set; }
         [ForeignKey("AbsenceReasonId")]
-        public virtual AbsenceReasons AbsenceReason { get; set; }
+        public virtual AbsenceReasons? AbsenceReason { get; set; }
 
         [ForeignKey("AttendanceTypeId")]
         public virtual AttendanceTypes AttendanceType { get; set; }

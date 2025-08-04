@@ -39,6 +39,20 @@
             </div>
         }
 
+        @* <!-- Debug Information - سيبها لحد ما نتأكد إن الكود شغال -->
+        <div class="alert alert-info">
+            <strong>Debug Info:</strong>
+            Model Count: @(Model?.Count ?? 0)
+            @if (Model != null && Model.Any())
+            {
+                <br />
+                @foreach (var item in Model)
+                {
+                    <br />Section: @(item.section?.Name_Of_Section ?? "No Section Name") - Students: @(item.students?.Count ?? 0)
+                }
+            }
+        </div> *@
+
         <form id="assignStudentsForm" method="post" asp-action="AssignStudents">
             <input type="hidden" name="classId" value="@classId" />
 
@@ -46,7 +60,8 @@
             {
                 @foreach (var sectionWithStudents in Model)
                 {
-                    var sectionName = sectionWithStudents.section.Name_Of_Section?.ToLower() ?? "";
+                    @* تصحيح اسم الخاصية *@
+                    var sectionName = sectionWithStudents.section?.Name_Of_Section?.ToLower() ?? "";
                     var sectionDisplayName = "";
                     var sectionClass = "";
 
@@ -62,14 +77,14 @@
                     }
                     else
                     {
-                        sectionDisplayName = sectionWithStudents.section.Name_Of_Section;
+                        sectionDisplayName = sectionWithStudents.section?.Name_Of_Section ?? "قسم غير محدد";
                         sectionClass = "other";
                     }
 
                     <!-- قسم -->
                     <div class="department-section">
                         <div class="department-header @(sectionClass)-header">
-                            <h3><i class="fas fa-users"></i> قسم @sectionWithStudents.section.Name_Of_Section - @sectionDisplayName</h3>
+                            <h3><i class="fas fa-users"></i> قسم @(sectionWithStudents.section?.Name_Of_Section ?? "غير محدد") - @sectionDisplayName</h3>
                             @if (sectionWithStudents.students != null && sectionWithStudents.students.Any())
                             {
                                 <div class="select-all-container">
@@ -91,10 +106,10 @@
                                         <input type="checkbox" name="selectedStudents" value="@student.Id" id="student@(student.Id)" class="student-checkbox @(sectionClass)-student" />
                                         <label for="student@(student.Id)" class="student-label">
                                             <div class="student-info">
-                                                <div class="student-name">@student.Name</div>
+                                                <div class="student-name">@(student.Name ?? "بدون اسم")</div>
                                                 <div class="student-details">
                                                     <span class="student-id">ID: @student.Id</span>
-                                                    <span class="student-department">@sectionWithStudents.section.Name_Of_Section</span>
+                                                    <span class="student-department">@(sectionWithStudents.section?.Name_Of_Section ?? "غير محدد")</span>
                                                     @if (!string.IsNullOrEmpty(student.Email))
                                                     {
                                                         <span class="student-email">@student.Email</span>
@@ -125,6 +140,13 @@
                     <div class="alert alert-info">
                         <i class="fas fa-info-circle"></i>
                         لا توجد أقسام متاحة أو لا يوجد طلاب للتعيين.
+                        <br /><strong>تحقق من:</strong>
+                        <ul style="text-align: right; margin-top: 10px;">
+                            <li>وجود Working Year نشط</li>
+                            <li>وجود Grade باسم "junior"</li>
+                            <li>وجود طلاب مسجلين في الدرجة Junior</li>
+                            <li>وجود طلاب غير مرتبطين بفصول (Class_Id = null)</li>
+                        </ul>
                     </div>
                 </div>
             }
@@ -192,8 +214,9 @@
             border-radius: 8px;
             font-size: 16px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
+            flex-direction: column;
         }
 
         .alert-success {
@@ -212,6 +235,11 @@
             background-color: #d1ecf1;
             color: #0c5460;
             border: 1px solid #bee5eb;
+        }
+
+        .alert ul {
+            margin: 0;
+            padding-right: 20px;
         }
 
         /* Department Sections */
@@ -241,9 +269,9 @@
             font-weight: bold;
         }
 
-            .department-header h3 i {
-                margin-left: 10px;
-            }
+        .department-header h3 i {
+            margin-left: 10px;
+        }
 
         /* Select All */
         .select-all-container {
@@ -284,11 +312,11 @@
             font-size: 18px;
         }
 
-            .no-students i {
-                font-size: 48px;
-                margin-bottom: 15px;
-                color: #ccc;
-            }
+        .no-students i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
 
         .no-sections {
             text-align: center;
@@ -317,11 +345,11 @@
             min-height: 80px;
         }
 
-            .student-label:hover {
-                border-color: #ff6b35;
-                box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
-                transform: translateY(-2px);
-            }
+        .student-label:hover {
+            border-color: #ff6b35;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+            transform: translateY(-2px);
+        }
 
         .student-checkbox:checked + .student-label {
             background: linear-gradient(135deg, #28a745, #20c997);
@@ -329,10 +357,10 @@
             color: white;
         }
 
-            .student-checkbox:checked + .student-label .student-department {
-                background: rgba(255, 255, 255, 0.2);
-                color: white;
-            }
+        .student-checkbox:checked + .student-label .student-department {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
 
         .student-info {
             flex: 1;
@@ -409,31 +437,31 @@
             color: white;
         }
 
-            .btn i {
-                margin-left: 8px;
-            }
+        .btn i {
+            margin-left: 8px;
+        }
 
         .btn-save {
             background: linear-gradient(135deg, #28a745, #20c997);
             min-width: 200px;
         }
 
-            .btn-save:hover {
-                background: linear-gradient(135deg, #218838, #1e7e34);
-                transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
-            }
+        .btn-save:hover {
+            background: linear-gradient(135deg, #218838, #1e7e34);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+        }
 
         .btn-cancel {
             background: linear-gradient(135deg, #6c757d, #5a6268);
             min-width: 150px;
         }
 
-            .btn-cancel:hover {
-                background: linear-gradient(135deg, #5a6268, #495057);
-                transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(108, 117, 125, 0.3);
-            }
+        .btn-cancel:hover {
+            background: linear-gradient(135deg, #5a6268, #495057);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(108, 117, 125, 0.3);
+        }
 
         /* Selected Students Summary */
         .selected-students-summary {
@@ -444,15 +472,15 @@
             margin-top: 30px;
         }
 
-            .selected-students-summary h4 {
-                color: #ff6b35;
-                margin-bottom: 20px;
-                font-size: 20px;
-            }
+        .selected-students-summary h4 {
+            color: #ff6b35;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
 
-                .selected-students-summary h4 i {
-                    margin-left: 10px;
-                }
+        .selected-students-summary h4 i {
+            margin-left: 10px;
+        }
 
         #selectedStudentsList {
             display: grid;
@@ -470,47 +498,44 @@
 
         /* Responsive Design */
         @@media (max-width: 768px) {
-            .container
+            .container {
+                padding: 10px;
+            }
 
-        {
-            padding: 10px;
-        }
+            .header-title {
+                font-size: 24px;
+            }
 
-        .header-title {
-            font-size: 24px;
-        }
+            .students-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+                gap: 15px;
+            }
 
-        .students-grid {
-            grid-template-columns: 1fr;
-            padding: 20px;
-            gap: 15px;
-        }
-
-        .department-header {
-            flex-direction: column;
-            gap: 15px;
-            text-align: center;
-        }
+            .department-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
 
             .department-header h3 {
                 font-size: 20px;
             }
 
-        .action-buttons {
-            flex-direction: column;
-            align-items: center;
-        }
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
 
-        .btn {
-            width: 100%;
-            max-width: 300px;
-        }
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
 
-        .student-details {
-            flex-direction: column;
-            gap: 5px;
-        }
-
+            .student-details {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
 
