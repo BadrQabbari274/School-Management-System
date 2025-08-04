@@ -174,7 +174,7 @@ namespace StudentManagementSystem.Controllers
         }
 
         //// Generates unique codes for students within a class, reserving codes based on MaxStudents per class.
-        //[HttpPost]
+        //[HttpPost]    `````
         //[ValidateAntiForgeryToken]
         //[Authorize]
         //public async Task<IActionResult> GenerateStudentCodes(int classId)
