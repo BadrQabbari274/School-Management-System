@@ -1,0 +1,66 @@
+﻿@* @model IEnumerable<StudentManagementSystem.Service.Interface.ClassWithStudentCountDto>
+@{
+    ViewData["Title"] = "اختيار الفصل الدراسي";
+    var grade = ViewBag.Grade as StudentManagementSystem.Models.Grades;
+}
+
+<div class="class-registration-container">
+    <div class="page-header">
+        <h1>@grade.Name - @ViewData["Title"]</h1>
+        <p>اختر الفصل الدراسي لتسجيل الطلاب</p>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <div class="classes-grid">
+        @foreach (var classItem in Model)
+        {
+            <a asp-action="ManageStudents" asp-route-gradeId="@grade.Id" asp-route-classId="@classItem.ClassId" class="class-card @(classItem.IsFull ? "disabled" : "")">
+                <div class="class-prefix">@classItem.ClassPrefix</div>
+                <h3 class="class-name">@classItem.ClassName</h3>
+                <div class="class-info">
+                    <div class="student-count">
+                        <i class="fas fa-users"></i>
+                        <span>@classItem.AvailabilityText</span>
+                    </div>
+                    <div class="capacity-badge @(classItem.IsFull ? "capacity-full" : (classItem.CurrentStudentCount >= classItem.MaxStudents * 0.8 ? "capacity-warning" : "capacity-available"))">
+                        @if (classItem.IsFull)
+                        {
+                            <span>ممتلئ</span>
+                        }
+                        else if (classItem.CurrentStudentCount >= classItem.MaxStudents * 0.8)
+                        {
+                            <span>شبه ممتلئ</span>
+                        }
+                        else
+                        {
+                            <span>متاح</span>
+                        }
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+
+    <div class="action-buttons">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-right"></i> رجوع
+        </a>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/classRegistration.css" />
+} *@

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<StudentManagementSystem.Models.Grades>
+@{
+    ViewData["Title"] = "تسجيل الفصول الدراسية";
+}
+
+<div class="class-registration-container">
+    <div class="page-header">
+        <h1>@ViewData["Title"]</h1>
+        <p>اختر الصف الدراسي للبدء في عملية تسجيل الطلاب</p>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="grades-grid">
+        @foreach (var grade in Model)
+        {
+            <a asp-action="SelectClass" asp-route-gradeId="@grade.Id" class="grade-card">
+                <div class="grade-icon">@grade.Name.Substring(0, 1)</div>
+                <h3 class="grade-title">@grade.Name</h3>
+                <p class="grade-description">انقر لاختيار الفصل الدراسي</p>
+            </a>
+        }
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/classRegistration.css" />
+}

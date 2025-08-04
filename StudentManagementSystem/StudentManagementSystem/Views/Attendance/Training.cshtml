@@ -1,0 +1,651 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام حضور الطلاب - الميداني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .selection-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, #ff7b00, #ff9500);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+            .header-section h3 {
+                margin: 0;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+        .check-icon {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #333;
+            font-size: 18px;
+        }
+
+            .form-label i {
+                margin-left: 10px;
+                color: #ff7b00;
+                font-size: 20px;
+            }
+
+        .custom-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+            color: #333;
+            transition: all 0.3s ease;
+            min-width: 180px;
+        }
+
+            .custom-select:focus {
+                outline: none;
+                border-color: #ff7b00;
+                box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.1);
+            }
+
+            .custom-select:disabled {
+                background: #f8f9fa;
+                color: #6c757d;
+                cursor: not-allowed;
+            }
+
+        .custom-reason {
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            min-width: 200px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+            .custom-reason:focus {
+                outline: none;
+                border-color: #ff7b00;
+                box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.1);
+            }
+
+            .custom-reason:disabled {
+                background: #f8f9fa;
+                color: #6c757d;
+                cursor: not-allowed;
+            }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .students-list {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .student-row {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+            .student-row:hover {
+                border-color: #ff7b00;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(255, 123, 0, 0.2);
+            }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .student-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .absence-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .attendance-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .attendance-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            transform: scale(1.2);
+            accent-color: #ff7b00;
+        }
+
+        .status-indicator {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .present {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .absent {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .not-set {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #ff7b00, #ff9500);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            font-size: 16px;
+            min-width: 200px;
+        }
+
+            .btn-primary-custom:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
+            }
+
+        .btn-secondary-custom {
+            background: white;
+            color: #ff7b00;
+            border: 2px solid #ff7b00;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            font-size: 16px;
+            text-decoration: none;
+            text-align: center;
+            min-width: 200px;
+        }
+
+            .btn-secondary-custom:hover {
+                background: #ff7b00;
+                color: white;
+                text-decoration: none;
+            }
+
+        .summary {
+            background: linear-gradient(135deg, #ff7b00, #ff9500);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .summary-item {
+            display: inline-block;
+            margin: 0 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #ff7b00;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(-400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            font-weight: bold;
+            max-width: 400px;
+            word-wrap: break-word;
+        }
+
+            .toast.show {
+                transform: translateX(0);
+            }
+
+        .date-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .date-input {
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+            .date-input:focus {
+                outline: none;
+                border-color: #ff7b00;
+                box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.1);
+            }
+
+        @@media (max-width: 768px) {
+            .student-row
+
+        {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .absence-controls {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        .btn-container {
+            flex-direction: column;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="selection-container">
+        <div class="header-section">
+            <div class="check-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <h3>نظام حضور وغياب الطلاب - الميداني</h3>
+        </div>
+
+        <div class="form-section">
+            <div class="date-section">
+                <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                    <div>
+                        <label for="attendance-date" class="form-label" style="margin-bottom: 5px;">
+                            <i class="fas fa-calendar-alt"></i>
+                            تاريخ اليوم
+                        </label>
+                        <input type="date" id="attendance-date" class="date-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <label class="form-label" style="margin-bottom: 0;">
+                        <i class="fas fa-users"></i>
+                        قائمة الطلاب مع أسباب الغياب
+                    </label>
+                    <button class="btn-secondary-custom" style="flex: none; padding: 10px 20px; font-size: 14px;" onclick="selectAllPresent()">
+                        <i class="fas fa-check-double"></i> تحديد الكل حاضر
+                    </button>
+                </div>
+                <div class="students-list" id="students-list">
+                    <!-- Students will be populated here -->
+                </div>
+            </div>
+
+            <div class="summary" id="summary" style="display: none;">
+                <div class="summary-item">الحاضرين: <span id="present-count">0</span></div>
+                <div class="summary-item">الغائبين: <span id="absent-count">0</span></div>
+                <div class="summary-item">المجموع: <span id="total-count">0</span></div>
+            </div>
+
+            <div class="btn-container">
+                <button class="btn-primary-custom" onclick="saveAttendance()">
+                    <i class="fas fa-save"></i> حفظ بيانات الحضور مع الأسباب
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // Sample student data
+        const students = [
+            'أحمد محمد علي',
+            'فاطمة عبد الرحمن',
+            'محمد حسن إبراهيم',
+            'نورا أحمد سالم',
+            'يوسف عمر محمود',
+            'مريم خالد أحمد',
+            'عبد الله صالح محمد',
+            'سارة علي حسن',
+            'حسام محمد عبد الله',
+            'هدى إبراهيم يوسف',
+            'كريم أحمد محمد',
+            'ليلى حسن علي',
+            'عمر محمود إبراهيم',
+            'دينا خالد سالم',
+            'محمود عبد الرحمن أحمد'
+        ];
+
+        const absenceReasons = [
+            'مرض',
+            'ظروف عائلية',
+            'مواصلات',
+            'مناسبة خاصة',
+            'إجازة رسمية',
+            'أخرى...'
+        ];
+
+        // Initialize the application
+        function init() {
+            // Set today's date
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('attendance-date').value = today;
+
+            // Populate students
+            populateStudents();
+
+            // Show initial summary (all absent by default)
+            updateSummary();
+        }
+
+        function populateStudents() {
+            const container = document.getElementById('students-list');
+            container.innerHTML = '';
+
+            students.forEach((student, index) => {
+                const row = document.createElement('div');
+                row.className = 'student-row';
+                row.innerHTML = `
+                    <div class="student-info">
+                        <span class="student-name">${student}</span>
+                    </div>
+                    <div class="absence-controls">
+                        <div class="attendance-controls">
+                            <span class="status-indicator absent" id="status-${index}">غائب</span>
+                            <input type="checkbox" class="attendance-checkbox" id="present-${index}"
+                                   onchange="updateStatus(${index}, this.checked)">
+                            <label for="present-${index}">حاضر</label>
+                        </div>
+                        <select class="custom-select" id="reason-${index}" onchange="handleReasonChange(${index})">
+                            <option value="">اختر سبب الغياب</option>
+                            ${absenceReasons.map(reason => `<option value="${reason}">${reason}</option>`).join('')}
+                        </select>
+                        <input type="text" class="custom-reason hidden" id="custom-${index}"
+                               placeholder="اكتب السبب المخصص..." disabled>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function selectAllPresent() {
+            const checkboxes = document.querySelectorAll('.attendance-checkbox');
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.checked = true;
+                updateStatus(index, true);
+            });
+            showToast('تم تحديد جميع الطلاب كحاضرين');
+        }
+
+        function updateStatus(index, isPresent) {
+            const statusElement = document.getElementById(`status-${index}`);
+            const reasonSelect = document.getElementById(`reason-${index}`);
+            const customInput = document.getElementById(`custom-${index}`);
+
+            if (isPresent) {
+                statusElement.textContent = 'حاضر';
+                statusElement.className = 'status-indicator present';
+                reasonSelect.disabled = true;
+                customInput.disabled = true;
+                customInput.classList.add('hidden');
+                reasonSelect.value = '';
+                customInput.value = '';
+            } else {
+                statusElement.textContent = 'غائب';
+                statusElement.className = 'status-indicator absent';
+                reasonSelect.disabled = false;
+            }
+            updateSummary();
+        }
+
+        function handleReasonChange(index) {
+            const reasonSelect = document.getElementById(`reason-${index}`);
+            const customInput = document.getElementById(`custom-${index}`);
+
+            if (reasonSelect.value === 'أخرى...') {
+                customInput.classList.remove('hidden');
+                customInput.disabled = false;
+                customInput.focus();
+            } else {
+                customInput.classList.add('hidden');
+                customInput.disabled = true;
+                customInput.value = '';
+            }
+        }
+
+        function updateSummary() {
+            const checkboxes = document.querySelectorAll('.attendance-checkbox');
+            let presentCount = 0;
+            let absentCount = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    presentCount++;
+                } else {
+                    absentCount++;
+                }
+            });
+
+            document.getElementById('present-count').textContent = presentCount;
+            document.getElementById('absent-count').textContent = absentCount;
+            document.getElementById('total-count').textContent = students.length;
+            document.getElementById('summary').style.display = 'block';
+        }
+
+        function saveAttendance() {
+            const date = document.getElementById('attendance-date').value;
+
+            if (!date) {
+                showToast('يرجى اختيار التاريخ أولاً');
+                return;
+            }
+
+            const attendanceData = [];
+            const checkboxes = document.querySelectorAll('.attendance-checkbox');
+            let hasAbsentWithoutReason = false;
+            let absentWithoutReasonNames = [];
+
+            checkboxes.forEach((checkbox, index) => {
+                const reasonSelect = document.getElementById(`reason-${index}`);
+                const customInput = document.getElementById(`custom-${index}`);
+                let absenceReason = '';
+
+                if (!checkbox.checked) {
+                    if (reasonSelect.value === 'أخرى...') {
+                        absenceReason = customInput.value.trim() || '';
+                    } else {
+                        absenceReason = reasonSelect.value || '';
+                    }
+
+                    // Check if absent student has no reason
+                    if (!absenceReason) {
+                        hasAbsentWithoutReason = true;
+                        absentWithoutReasonNames.push(students[index]);
+                    }
+                }
+
+                attendanceData.push({
+                    name: students[index],
+                    present: checkbox.checked,
+                    absenceReason: absenceReason,
+                    date: date
+                });
+            });
+
+            // Check if there are absent students without reasons
+            if (hasAbsentWithoutReason) {
+                showToast(`يجب تحديد سبب الغياب لجميع الطلاب الغائبين. الطلاب بدون سبب: ${absentWithoutReasonNames.slice(0, 3).join(', ')}${absentWithoutReasonNames.length > 3 ? ' وآخرين...' : ''}`);
+
+                // Highlight students without reasons
+                checkboxes.forEach((checkbox, index) => {
+                    if (!checkbox.checked) {
+                        const reasonSelect = document.getElementById(`reason-${index}`);
+                        const customInput = document.getElementById(`custom-${index}`);
+                        let absenceReason = '';
+
+                        if (reasonSelect.value === 'أخرى...') {
+                            absenceReason = customInput.value.trim();
+                        } else {
+                            absenceReason = reasonSelect.value;
+                        }
+
+                        if (!absenceReason) {
+                            const studentRow = reasonSelect.closest('.student-row');
+                            studentRow.style.borderColor = '#dc3545';
+                            studentRow.style.background = '#fff5f5';
+
+                            // Remove highlight after 3 seconds
+                            setTimeout(() => {
+                                studentRow.style.borderColor = '#e9ecef';
+                                studentRow.style.background = 'white';
+                            }, 3000);
+                        }
+                    }
+                });
+
+                return;
+            }
+
+            // Here you would typically send data to a server
+            console.log('Attendance Data:', attendanceData);
+
+            // Show detailed save confirmation
+            const absentStudents = attendanceData.filter(student => !student.present);
+            let message = `تم حفظ بيانات الحضور بنجاح للتاريخ: ${date}`;
+
+            if (absentStudents.length > 0) {
+                const reasonsCount = {};
+                absentStudents.forEach(student => {
+                    if (student.absenceReason) {
+                        reasonsCount[student.absenceReason] = (reasonsCount[student.absenceReason] || 0) + 1;
+                    }
+                });
+
+                console.log('أسباب الغياب:', reasonsCount);
+            }
+
+            showToast(message);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
+        }
+
+        // Initialize the application when the page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

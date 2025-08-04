@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.Models;
+using StudentManagementSystem.Service.Implementation;
 using StudentManagementSystem.Service.Interface;
+using StudentManagementSystem.ViewModels;
 using System.ComponentModel.Design;
 using System.Security.Claims;
 
@@ -16,13 +18,15 @@ namespace StudentManagementSystem.Controllers
         private readonly IClassService _classService;
         private readonly IUserService _employeeService; 
         private readonly IStudentService _studentService;
+        private readonly IGradeService _gradeService;
 
 
-        public ClassController(IClassService classService, IUserService employeeService, IStudentService studentService)
+        public ClassController(IClassService classService, IUserService employeeService, IStudentService studentService, IGradeService gradeService)
         {
             _classService = classService;
             _employeeService = employeeService;
             _studentService = studentService;
+            _gradeService = gradeService;
         }
 
         // GET: Class
@@ -35,16 +39,19 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Class/Details/5
+        // Inside your Controller
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Details(int id)
         {
-            var classEntity = await _classService.GetClassByIdAsync(id);
-            if (classEntity == null)
+            var viewModel = await _classService.GetClassDetailsAsync(id);
+
+            if (viewModel == null)
             {
                 return NotFound();
             }
-            return View(classEntity);
+
+            return View(viewModel);
         }
 
         // GET: Class/Create
@@ -52,7 +59,7 @@ namespace StudentManagementSystem.Controllers
         [Authorize]
         public async Task<IActionResult> Create()
         {
-
+            await PopulateDropDownLists();
             return View();
         }
 
@@ -85,6 +92,7 @@ namespace StudentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
+                await PopulateDropDownLists();
                 ModelState.AddModelError("", "An error occurred while creating the class: " + ex.Message);
             }
 
@@ -101,7 +109,7 @@ namespace StudentManagementSystem.Controllers
             {
                 return NotFound();
             }
-
+             await PopulateDropDownLists();
             return View(classEntity);
         }
 
@@ -124,6 +132,7 @@ namespace StudentManagementSystem.Controllers
                 if (currentUserId == 0) // Check if user ID is valid
                 {
                     ModelState.AddModelError("", "Unable to identify the current user for UpdatedBy. Please log in again.");
+                    await PopulateDropDownLists();
                     return View(classEntity);
                 }
 
@@ -137,6 +146,7 @@ namespace StudentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
+                await PopulateDropDownLists();
                 ModelState.AddModelError("", "An error occurred while updating the class: " + ex.Message);
             }
 
@@ -303,6 +313,121 @@ namespace StudentManagementSystem.Controllers
         //    return RedirectToAction(nameof(Details), new { id = classId });
         //}
 
+
+        // Updated Controller Methods
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> GenerateStudentCodes(int classId)
+        {
+            try
+            {
+                var result = await _classService.GenerateStudentCodesForClassAsync(classId);
+
+                if (result)
+                {
+                    var classEntity = await _classService.GetClassByIdAsync(classId);
+                    var studentsInClass = await _classService.GetStudentsByClassAndWorkingYearAsync(classId,
+                        (await _classService.GetCurrentWorkingYearAsync()).Id);
+                    var maxStudentsForClass = classEntity?.MaxStudents ?? 25;
+
+                    SetSuccessMessage($"تم توليد الأكواد بنجاح لعدد {studentsInClass.Count()} طالب وتخصيص {maxStudentsForClass} كود للفصل.");
+                }
+                else
+                {
+                    // Determine specific error message
+                    var currentWorkingYear = await _classService.GetCurrentWorkingYearAsync();
+                    if (currentWorkingYear == null)
+                    {
+                        SetErrorMessage("لا يوجد عام دراسي نشط حالياً");
+                    }
+                    else
+                    {
+                        var classEntity = await _classService.GetClassByIdAsync(classId);
+                        if (classEntity == null)
+                        {
+                            SetErrorMessage("الفصل غير موجود");
+                        }
+                        else if (!classEntity.Grade.Name.ToLower().Contains("junior"))
+                        {
+                            SetErrorMessage("يمكن توليد الأكواد فقط لفصول المرحلة (Junior)");
+                        }
+                        else
+                        {
+                            var studentsInClass = await _classService.GetStudentsByClassAndWorkingYearAsync(classId, currentWorkingYear.Id);
+                            if (!studentsInClass.Any())
+                            {
+                                SetErrorMessage("لا يوجد طلاب نشطون في هذا الفصل لتوليد الأكواد لهم.");
+                            }
+                            else if (studentsInClass.Any(s => !string.IsNullOrEmpty(s.Student.Code)))
+                            {
+                                SetErrorMessage("بعض الطلاب في هذا الفصل لديهم أكواد بالفعل. لا يمكن إعادة توليد الأكواد للفصل بالكامل.");
+                            }
+                            else
+                            {
+                                SetErrorMessage("لا يوجد طلاب في المرحلة الإعدادية (Junior) في هذا الفصل");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage("حدث خطأ أثناء توليد الأكواد: " + ex.Message);
+            }
+
+            return RedirectToAction(nameof(Details), new { id = classId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> ResetStudentCodes(int classId)
+        {
+            try
+            {
+                var result = await _classService.ResetStudentCodesForClassAsync(classId);
+
+                if (result)
+                {
+                    var currentWorkingYear = await _classService.GetCurrentWorkingYearAsync();
+                    var studentsInClass = await _classService.GetStudentsByClassAndWorkingYearAsync(classId, currentWorkingYear.Id);
+                    SetSuccessMessage($"تم إعادة تعيين الأكواد بنجاح لعدد {studentsInClass.Count()} طالب في الفصل.");
+                }
+                else
+                {
+                    // Determine specific error message (similar logic as GenerateStudentCodes)
+                    var currentWorkingYear = await _classService.GetCurrentWorkingYearAsync();
+                    if (currentWorkingYear == null)
+                    {
+                        SetErrorMessage("لا يوجد عام دراسي نشط حالياً");
+                    }
+                    else
+                    {
+                        var classEntity = await _classService.GetClassByIdAsync(classId);
+                        if (classEntity == null)
+                        {
+                            SetErrorMessage("الفصل غير موجود");
+                        }
+                        else if (!classEntity.Grade.Name.ToLower().Contains("junior"))
+                        {
+                            SetErrorMessage("يمكن إعادة تعيين الأكواد فقط لفصول المرحلة الإعدادية (Junior)");
+                        }
+                        else
+                        {
+                            SetErrorMessage("لا يوجد طلاب نشطون في هذا الفصل لإعادة تعيين أكوادهم.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage("حدث خطأ أثناء إعادة تعيين الأكواد: " + ex.Message);
+            }
+
+            return RedirectToAction(nameof(Details), new { id = classId });
+        }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetByField(int fieldId)
@@ -320,18 +445,18 @@ namespace StudentManagementSystem.Controllers
             return Json(classes.Select(c => new { value = c.Id, text = c.Name }));
         }
 
-        //// Helper method to populate dropdown lists
-        //private async Task PopulateDropDownLists()
-        //{
-        //    try
-        //    {
-        //        var Sections = await _sectionService.GetActiveSectionsAsync();
-        //        ViewBag.SectionId = new SelectList(Sections, "Id", "Name");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.SectionId = new SelectList(new List<SelectListItem>(), "Value", "Text");
-        //    }
-        //}
+        // Helper method to populate dropdown lists
+        private async Task PopulateDropDownLists()
+        {
+            try
+            {
+                var Grades = await _gradeService.GetAllAcademicYearsAsync();
+                ViewBag.GradeId = new SelectList(Grades, "Id", "Name");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.GradeId = new SelectList(new List<SelectListItem>(), "Value", "Text");
+            }
+        }
     }
 }

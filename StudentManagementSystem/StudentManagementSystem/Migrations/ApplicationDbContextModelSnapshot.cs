@@ -85,6 +85,9 @@ namespace StudentManagementSystem.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("GradeId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -98,6 +101,8 @@ namespace StudentManagementSystem.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedBy_Id");
+
+                    b.HasIndex("GradeId");
 
                     b.ToTable("Classes");
                 });
@@ -437,7 +442,7 @@ namespace StudentManagementSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AbsenceReasonId")
+                    b.Property<int?>("AbsenceReasonId")
                         .HasColumnType("int");
 
                     b.Property<int>("AttendanceTypeId")
@@ -450,7 +455,6 @@ namespace StudentManagementSystem.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CustomReasonDetails")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
@@ -499,10 +503,6 @@ namespace StudentManagementSystem.Migrations
 
                     b.Property<int>("CreatedBy_Id")
                         .HasColumnType("int");
-
-                    b.Property<string>("CustomReasonDetails")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -763,7 +763,15 @@ namespace StudentManagementSystem.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("StudentManagementSystem.Models.Grades", "Grade")
+                        .WithMany("CreatedClasses")
+                        .HasForeignKey("GradeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("CreatedBy");
+
+                    b.Navigation("Grade");
                 });
 
             modelBuilder.Entity("StudentManagementSystem.Models.Competences", b =>
@@ -924,8 +932,7 @@ namespace StudentManagementSystem.Migrations
                     b.HasOne("StudentManagementSystem.Models.AbsenceReasons", "AbsenceReason")
                         .WithMany("StudentAbsents")
                         .HasForeignKey("AbsenceReasonId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("StudentManagementSystem.Models.AttendanceTypes", "AttendanceType")
                         .WithMany("StudentAbsents")
@@ -1178,6 +1185,8 @@ namespace StudentManagementSystem.Migrations
 
             modelBuilder.Entity("StudentManagementSystem.Models.Grades", b =>
                 {
+                    b.Navigation("CreatedClasses");
+
                     b.Navigation("StudentGrades");
                 });
 

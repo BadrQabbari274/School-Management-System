@@ -1,0 +1,93 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    direction: rtl; /* Ensure RTL direction for the whole page */
+    text-align: right; /* Align text to the right by default */
+}
+
+.card {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* Custom orange gradient for header and primary buttons */
+.bg-primary-orange {
+    background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%);
+    border: none;
+}
+
+.card-header {
+    border: none;
+}
+
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+    text-align: right; /* Ensure text input is aligned right within the field */
+}
+
+    .form-control::placeholder {
+        text-align: right; /* Align placeholder text to the right */
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #FF8C00; /* Orange focus color */
+        box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25); /* Orange shadow on focus */
+    }
+
+.btn-primary-orange {
+    background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary-orange:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
+        background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
+    }
+
+.btn-outline-secondary-orange {
+    border-radius: 10px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+    border-color: #FF8C00;
+    color: #FF8C00;
+}
+
+    .btn-outline-secondary-orange:hover {
+        transform: translateY(-2px);
+        background-color: #FF8C00;
+        color: white;
+        box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2);
+    }
+
+.text-primary-orange {
+    color: #FF8C00 !important;
+}
+
+.form-label {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.required {
+    color: #dc3545;
+}
+
+.alert {
+    border-radius: 8px;
+}
+
+/* Custom styling for validation summary to match design */
+.custom-validation-summary {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 15px;
+    border-radius: 8px;
+}

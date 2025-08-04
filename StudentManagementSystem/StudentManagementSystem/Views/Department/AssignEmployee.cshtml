@@ -1,30 +1,108 @@
 ﻿@* Views/Field/AssignEmployee.cshtml *@
+@model StudentManagementSystem.Models.Department
 @{
-    ViewData["Title"] = "تعيين موظف";
+    ViewData["Title"] = "تعيين موظف للقسم";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/css/field-styles.css" rel="stylesheet" />
-<div class="orange-theme">
-    <div class="orange-header">
-        <h1>تعيين موظف للقسم</h1>
-    </div>
+<div class="container-fluid p-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h3 class="mb-0 fw-bold">
+                        <i class="fas fa-user-plus me-2"></i>تعيين موظف للقسم
+                    </h3>
+                    <p class="mb-0 mt-2 opacity-75">
+                        <i class="fas fa-university me-2"></i>@ViewBag.Field.Name
+                    </p>
+                </div>
+                <div class="card-body p-5">
+                    <form asp-action="AssignEmployee" asp-route-id="@ViewBag.Field.Id" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
-    <div class="orange-card">
-        <h4 style="color: #FF9800;">القسم: @ViewBag.Field.Name</h4>
-        <hr style="border-color: #FFB74D;" />
+                        <div class="mb-4">
+                            <label for="employeeId" class="form-label fw-bold text-primary">
+                                <i class="fas fa-user me-2"></i>اختر الموظف
+                            </label>
+                            <select name="employeeId" id="employeeId" class="form-select form-select-lg" required>
+                                <option value="">-- اختر موظف --</option>
+                                @foreach (var employee in ViewBag.Employees as SelectList)
+                                {
+                                    <option value="@employee.Value">@employee.Text</option>
+                                }
+                            </select>
+                            <div class="form-text text-muted mt-2">
+                                <i class="fas fa-info-circle me-1"></i>سيتم تعيين الموظف المختار لهذا القسم
+                            </div>
+                        </div>
 
-        <form asp-action="AssignEmployee" method="post">
-            <div class="form-group">
-                <label for="employeeId" class="control-label" style="color: #FF9800; font-weight: bold;">اختر الموظف</label>
-                <select name="employeeId" class="form-control" asp-items="ViewBag.Employees" style="border: 2px solid #FFB74D; border-radius: 5px;">
-                    <option value="">-- اختر الموظف --</option>
-                </select>
+                        <div class="alert alert-info border-0" role="alert">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-lightbulb fa-lg text-info"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <strong>ملاحظة:</strong> إذا كان الموظف مُعيّن مسبقاً لهذا القسم، ستظهر رسالة تنبيه.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                    <i class="fas fa-user-check me-2"></i>تعيين الموظف
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <a asp-action="Details" asp-route-id="@ViewBag.Field.Id" class="btn btn-outline-secondary btn-lg w-100">
+                                    <i class="fas fa-arrow-left me-2"></i>العودة للتفاصيل
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="تعيين الموظف" class="orange-btn" style="padding: 10px 20px;" />
-                <a class="orange-btn" href="@Url.Action("Details", new { id = ViewBag.Field.Id })" style="padding: 10px 20px;">إلغاء</a>
+            <!-- Department Info Card -->
+            <div class="card border-0 shadow-sm mt-4">
+                <div class="card-body p-4">
+                    <h5 class="card-title text-primary mb-3">
+                        <i class="fas fa-info-circle me-2"></i>معلومات القسم
+                    </h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-university text-muted me-2"></i>
+                                <span class="text-muted">اسم القسم:</span>
+                                <strong class="ms-2">@ViewBag.Field.Name</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-toggle-on text-success me-2"></i>
+                                <span class="text-muted">الحالة:</span>
+                                <span class="badge bg-success ms-2">نشط</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar text-muted me-2"></i>
+                                <span class="text-muted">تاريخ الإنشاء:</span>
+                                <span class="ms-2">@ViewBag.Field.CreatedDate.ToString("dd/MM/yyyy")</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-user text-muted me-2"></i>
+                                <span class="text-muted">أُنشئ بواسطة:</span>
+                                <span class="ms-2">@ViewBag.Field.CreatedBy?.FullName</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -32,4 +110,39 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        $(document).ready(function() {
+            // Add select2 styling if available
+            if ($.fn.select2) {
+                $('#employeeId').select2({
+                    placeholder: '-- اختر موظف --',
+                    allowClear: true,
+                    dir: 'rtl'
+                });
+            }
+
+            // Form validation
+            $('form').on('submit', function(e) {
+                const employeeId = $('#employeeId').val();
+                if (!employeeId) {
+                    e.preventDefault();
+                    $('#employeeId').addClass('is-invalid');
+
+                    // Show error message
+                    if (!$('#employeeId').next('.invalid-feedback').length) {
+                        $('#employeeId').after('<div class="invalid-feedback">يرجى اختيار موظف</div>');
+                    }
+                } else {
+                    $('#employeeId').removeClass('is-invalid');
+                    $('#employeeId').next('.invalid-feedback').remove();
+                }
+            });
+
+            // Remove error styling on change
+            $('#employeeId').on('change', function() {
+                $(this).removeClass('is-invalid');
+                $(this).next('.invalid-feedback').remove();
+            });
+        });
+    </script>
 }

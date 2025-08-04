@@ -1,25 +1,44 @@
 ﻿//using Microsoft.EntityFrameworkCore;
 //using StudentManagementSystem.Data;
 //using StudentManagementSystem.Models;
+//using StudentManagementSystem.Service.Implementation;
+//using StudentManagementSystem.Service.Interface;
+//using StudentManagementSystem.ViewModels;
+//using System.Globalization;
 
-//namespace StudentManagementSystem.Services
+
+//namespace StudentManagementSystem.Service.Interface
 //{
 //    public interface IAttendanceService
 //    {
-//        Task<List<Student>> GetStudentsForAttendanceAsync(int classId);
-//        Task<List<StudentAttendance>> GetTodayRegularAttendanceAsync(int classId);
-//        Task<List<StudentAttendance>> GetTodayFieldAttendanceAsync(int classId);
-//        Task<List<StudentAbsent>> GetTodayRegularAbsentAsync(int classId);
-//        Task<List<StudentAbsent>> GetTodayFieldAbsentAsync(int classId);
-//        Task<List<AbsenceReason>> GetAbsenceReasonsAsync();
-//        Task<bool> TakeRegularAttendanceAsync(List<RegularAttendanceDto> attendanceList, int createdBy);
-//        Task<bool> TakeFieldAttendanceAsync(List<FieldAttendanceDto> attendanceList, int createdBy);
-//        Task<bool> CanTakeRegularAttendanceAsync();
-//        Task<bool> HasRegularAttendanceTodayAsync(int classId);
-//        Task<bool> HasFieldAttendanceTodayAsync(int classId);
-//        Task<bool> CanModifyAttendanceAsync(DateTime attendanceDate, int currentUserId, bool isAdmin);
-//        Task<List<Class>> GetActiveClassesAsync();
-//        Task<bool> CreateExitRequestAsync(ExitRequestDto exitRequest, int createdBy);
-//        Task<List<RequestExit>> GetTodayExitRequestsAsync(int classId);
+//        // إعداد أنواع الحضور والغياب
+//        Task InitializeAttendanceTypesAsync();
+
+//        // جلب الطلاب
+//        Task<List<ClassStudentDto>> GetStudentsByClassAsync(int classId);
+
+//        // تسجيل الحضور العادي
+//        Task<bool> RecordRegularAttendanceAsync(RegularAttendanceDto attendanceData);
+
+//        // تسجيل الحضور الميداني
+//        Task<List<AbsenceReasonDto>> GetAbsenceReasonsAsync();
+//        Task<bool> RecordFieldAttendanceAsync(FieldAttendanceDto attendanceData);
+
+//        // عرض سجلات الحضور
+//        Task<AttendanceDisplayDto> GetAttendanceRecordsByDateAsync(int classId, DateTime date, bool isRegular = true);
+
+//        // تعديل سجلات الحضور
+//        Task<bool> UpdateAttendanceRecordAsync(UpdateAttendanceDto updateData);
+
+//        // تقارير الطلاب الفردية
+//        Task<StudentAttendanceReportDto> GetStudentAttendanceReportAsync(int studentId, DateTime fromDate, DateTime toDate);
+
+//        // طلبات الخروج
+//        Task<bool> CreateExitRequestAsync(ExitRequestCreateDto exitRequest);
+
+//        // تقارير الفصول
+//        Task<ClassAttendanceReportDto> GetClassAttendanceReportAsync(int classId, DateTime fromDate, DateTime toDate);
 //    }
+
+
 //}
