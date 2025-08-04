@@ -1,4 +1,4 @@
-﻿@model StudentManagementSystem.Models.Classes
+﻿@model StudentManagementSystem.ViewModels.ClassDetailsViewModel
 
 @{
     ViewData["Title"] = "تفاصيل الفصل";
@@ -23,13 +23,12 @@
             padding: 0;
         }
 
-        /* REMOVED: .header-section background property */
         .header-section {
-            color: black; /* Changed to black for better contrast on white background */
+            color: black;
             padding: 25px 0;
             margin-bottom: 30px;
             border-radius: 0 0 20px 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Slightly lighter shadow */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             position: relative;
         }
 
@@ -46,7 +45,7 @@
             right: 25px;
             top: 50%;
             transform: translateY(-50%);
-            background: linear-gradient(135deg, #ff8a50, #ff6f3f); /* Changed to orange gradient */
+            background: linear-gradient(135deg, #ff8a50, #ff6f3f);
             border: none;
             color: white;
             padding: 10px 18px;
@@ -59,7 +58,7 @@
         }
 
             .back-button:hover {
-                background: linear-gradient(135deg, #ff6f3f, #e05e3a); /* Darker orange on hover */
+                background: linear-gradient(135deg, #ff6f3f, #e05e3a);
                 color: white;
                 transform: translateY(-50%) scale(1.05);
             }
@@ -78,7 +77,7 @@
         }
 
         .card-header {
-            background: linear-gradient(135deg, #ff8a50, #ff6f3f); /* Orange gradient */
+            background: linear-gradient(135deg, #ff8a50, #ff6f3f);
             color: white;
             padding: 25px 30px;
             border-bottom: none;
@@ -99,7 +98,7 @@
 
             .card-title i {
                 font-size: 28px;
-                color: white; /* Icon color to white for better contrast on orange background */
+                color: white;
             }
 
         .card-tools {
@@ -376,81 +375,118 @@
                     transform: translateY(-1px);
                 }
 
+        .grade-badge {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .junior-grade {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .other-grade {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .gender-badge {
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .male-badge {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .female-badge {
+            background-color: #e83e8c;
+            color: white;
+        }
+
         /* Responsive adjustments */
         @@media (max-width: 768px) {
-            .header-title {
-                font-size: 24px;
-            }
+            .header-title
 
-            .back-button {
-                padding: 8px 12px;
+        {
+            font-size: 24px;
+        }
+
+        .back-button {
+            padding: 8px 12px;
+            font-size: 14px;
+            gap: 5px;
+            right: 15px;
+        }
+
+        .card-header {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .card-tools {
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+            .card-tools .btn {
+                width: 48%;
+                justify-content: center;
                 font-size: 14px;
-                gap: 5px;
-                right: 15px;
+                padding: 8px 15px;
+                margin-bottom: 10px;
             }
 
-            .card-header {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 20px;
-            }
+        .info-box {
+            flex-direction: column;
+            text-align: center;
+            padding: 15px;
+        }
 
-            .card-title {
-                font-size: 20px;
-                margin-bottom: 15px;
-            }
+        .info-box-icon {
+            margin: 0 0 10px 0;
+        }
 
-            .card-tools {
+        .info-box-content {
+            text-align: center;
+        }
+
+        .info-box-text {
+            font-size: 14px;
+        }
+
+        .info-box-number {
+            font-size: 20px;
+        }
+
+        .students-table-card .table th,
+        .students-table-card .table td {
+            padding: 10px;
+            font-size: 13px;
+        }
+
+        .student-actions {
+            flex-direction: column;
+            gap: 3px;
+        }
+
+            .student-actions .btn {
                 width: 100%;
-                flex-wrap: wrap;
-                justify-content: space-around;
+                justify-content: center;
             }
 
-                .card-tools .btn {
-                    width: 48%;
-                    justify-content: center;
-                    font-size: 14px;
-                    padding: 8px 15px;
-                    margin-bottom: 10px;
-                }
-
-            .info-box {
-                flex-direction: column;
-                text-align: center;
-                padding: 15px;
-            }
-
-            .info-box-icon {
-                margin: 0 0 10px 0;
-            }
-
-            .info-box-content {
-                text-align: center;
-            }
-
-            .info-box-text {
-                font-size: 14px;
-            }
-
-            .info-box-number {
-                font-size: 20px;
-            }
-
-            .students-table-card .table th,
-            .students-table-card .table td {
-                padding: 10px;
-                font-size: 13px;
-            }
-
-            .student-actions {
-                flex-direction: column;
-                gap: 3px;
-            }
-
-                .student-actions .btn {
-                    width: 100%;
-                    justify-content: center;
-                }
         }
     </style>
 </head>
@@ -479,45 +515,54 @@
             </div>
         }
 
-        @* <div class="card">
+        <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
                     <i class="fas fa-info-circle"></i> معلومات الفصل
                 </h3>
                 <div class="card-tools">
-                    <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning">
+                    <a href="@Url.Action("Edit", new { id = Model.Class.Id })" class="btn btn-warning">
                         <i class="fas fa-edit"></i> تعديل
                     </a>
 
-                    @if (Model.Students != null && Model.Students.Any())
+                    @if (Model.Class.Grade.Name.ToLower().Contains("junior"))
                     {
-                        @if (Model.Students.All(s => string.IsNullOrEmpty(s.Code)))
+                        @if (Model.StudentsInClass != null && Model.StudentsInClass.Any())
                         {
-                            <form method="post" action="@Url.Action("GenerateStudentCodes")" style="display: inline;">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="classId" value="@Model.Id" />
-                                <button type="submit" class="btn btn-success" onclick="return confirm('هل تريد تأكيد اكتمال الفصل؟ لا يمكن التراجع عن هذه العملية.')">
-                                    <i class="fas fa-code"></i>تأكيد اكتمال الفصل
+                            @if (Model.StudentsInClass.All(s => string.IsNullOrEmpty(s.Student.Code)))
+                            {
+                                <form method="post" action="@Url.Action("GenerateStudentCodes")" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="classId" value="@Model.Class.Id" />
+                                    <button type="submit" class="btn btn-success" onclick="return confirm('هل تريد تأكيد توليد الأكواد للطلاب؟ سيتم ترتيب الطلاب حسب الجنس والاسم.')">
+                                        <i class="fas fa-code"></i> توليد أكواد الطلاب
+                                    </button>
+                                </form>
+                            }
+                            else if (Model.StudentsInClass.Any(s => !string.IsNullOrEmpty(s.Student.Code)))
+                            {
+                                <button type="button" class="btn btn-secondary" disabled>
+                                    <i class="fas fa-check"></i> تم توليد الأكواد
                                 </button>
-                            </form>
-                        }
-                        else
-                        {
-                            <button type="button" class="btn btn-secondary" disabled>
-                                <i class="fas fa-check"></i> تم تأكيد اكتمال الفصل
-                            </button>
 
-                            <form method="post" action="@Url.Action("ResetStudentCodes")" style="display: inline;">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="classId" value="@Model.Id" />
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('تحذير: هذا سيؤدي إلى إعادة تعيين الفصل. هل أنت متأكد من المتابعة؟')">
-                                    <i class="fas fa-redo"></i> إعادة تعيين الفصل
-                                </button>
-                            </form>
+                                <form method="post" action="@Url.Action("ResetStudentCodes")" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="classId" value="@Model.Class.Id" />
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('تحذير: هذا سيؤدي إلى إعادة تعيين الأكواد للطلاب. هل أنت متأكد من المتابعة؟')">
+                                        <i class="fas fa-redo"></i> إعادة تعيين الأكواد
+                                    </button>
+                                </form>
+                            }
                         }
                     }
+                    else
+                    {
+                        <button type="button" class="btn btn-secondary" disabled>
+                            <i class="fas fa-info-circle"></i> الأكواد للمرحلة الإعدادية فقط
+                        </button>
+                    }
                 </div>
-            </div> *@
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -527,33 +572,35 @@
                             </span>
                             <div class="info-box-content">
                                 <span class="info-box-text">اسم الفصل</span>
-                                <span class="info-box-number">@Model.Name</span>
+                                <span class="info-box-number">@Model.Class.Name</span>
                             </div>
                         </div>
                     </div>
-                    @* <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="info-box">
                             <span class="info-box-icon bg-info">
                                 <i class="fas fa-bookmark"></i>
                             </span>
-                        
-                        </div>
-                    </div> *@
-                <div class="col-md-6">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-success">
-                            <i class="fas fa-user"></i>
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">أنشأ بواسطة</span>
-                            <span class="info-box-number">@(Model.CreatedBy?.Name ?? "غير محدد")</span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">المرحلة الدراسية</span>
+                                <span class="info-box-number">@Model.Class.Grade.Name</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
 
                 <div class="row">
-                   
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">أنشأ بواسطة</span>
+                                <span class="info-box-number">@(Model.Class.CreatedBy?.Name ?? "غير محدد")</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="info-box">
                             <span class="info-box-icon bg-warning">
@@ -561,71 +608,112 @@
                             </span>
                             <div class="info-box-content">
                                 <span class="info-box-text">تاريخ الإنشاء</span>
-                                <span class="info-box-number">@Model.Date.ToString("dd/MM/yyyy - hh:mm tt")</span>
+                                <span class="info-box-number">@Model.Class.Date.ToString("dd/MM/yyyy - hh:mm tt")</span>
                             </div>
                         </div>
                     </div>
-                <div class="col-md-6">
-                    <div class="info-box">
-                        <span class="info-box-icon @(Model.IsActive ? "bg-success" : "bg-secondary")">
-                            <i class="fas fa-@(Model.IsActive ? "check-circle" : "times-circle")"></i>
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">الحالة</span>
-                            <span class="info-box-number">
-                                @if (Model.IsActive)
-                                {
-                                    <span class="badge bg-success">نشط</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-danger">غير نشط</span>
-                                }
-                            </span>
-                        </div>
-                    </div>
-                </div>
                 </div>
 
-                @*<div class="row">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon @(Model.Class.IsActive ? "bg-success" : "bg-secondary")">
+                                <i class="fas fa-@(Model.Class.IsActive ? "check-circle" : "times-circle")"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">الحالة</span>
+                                <span class="info-box-number">
+                                    @if (Model.Class.IsActive)
+                                    {
+                                        <span class="badge bg-success">نشط</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">غير نشط</span>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="info-box">
                             <span class="info-box-icon bg-danger">
                                 <i class="fas fa-users"></i>
                             </span>
                             <div class="info-box-content">
-                                <span class="info-box-text">عدد الطلاب</span>
-                                <span class="info-box-number">@(Model.Students?.Count ?? 0)</span>
+                                <span class="info-box-text">عدد الطلاب الحاليين</span>
+                                <span class="info-box-number">@(Model.StudentsInClass?.Count() ?? 0) / @(Model.Class.MaxStudents ?? 25)</span>
                             </div>
                         </div>
-                    </div> 
-                    
-                </div>*@
+                    </div>
+                </div>
 
-              @*   @if (Model.Students != null && Model.Students.Any())
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-secondary">
+                                <i class="fas fa-calendar-alt"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">العام الدراسي الحالي</span>
+                                <span class="info-box-number">@(Model.CurrentWorkingYear?.Name ?? "غير محدد")</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-primary">
+                                <i class="fas fa-users-cog"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">طلاب المرحلة الإعدادية</span>
+                                <span class="info-box-number">@(Model.JuniorStudentsCount)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.StudentsInClass != null && Model.StudentsInClass.Any())
                 {
                     <div class="card mt-4 students-table-card">
                         <div class="card-header">
-                            <h4 class="card-title"><i class="fas fa-user-graduate"></i> الطلاب في هذا الفصل</h4>
+                            <h4 class="card-title"><i class="fas fa-user-graduate"></i> الطلاب في هذا الفصل (@Model.CurrentWorkingYear?.Name)</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>الرقم التعريفي للطالب</th>
+                                            <th>الرقم التعريفي</th>
                                             <th>الاسم</th>
+                                            <th>الجنس</th>
+                                            <th>المرحلة الدراسية</th>
                                             <th>البريد الإلكتروني</th>
                                             <th>كود الطالب</th>
                                             <th>العمليات</th>
                                         </tr>
                                     </thead>
-                                    @* <tbody>
-                                        @foreach (var student in Model.Students)
+                                    <tbody>
+                                        @foreach (var studentClass in Model.StudentsInClass)
                                         {
+                                            var student = studentClass.Student;
+                                            var studentGrade = Model.StudentGrades?.FirstOrDefault(sg => sg.StudentId == student.Id);
+                                            var isJunior = studentGrade?.Grade?.Name?.ToLower().Contains("junior") ?? false;
+                                            var gender = Model.GetGenderFromNationalId(student.Natrual_Id);
+
                                             <tr>
                                                 <td>@student.Id</td>
                                                 <td>@student.Name</td>
+                                                <td>
+                                                    <span class="gender-badge @(gender == 0 ? "male-badge" : "female-badge")">
+                                                        @(gender == 0 ? "ذكر" : "أنثى")
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="grade-badge @(isJunior ? "junior-grade" : "other-grade")">
+                                                        @(studentGrade?.Grade?.Name ?? "غير محدد")
+                                                    </span>
+                                                </td>
                                                 <td>@student.Email</td>
                                                 <td class="student-code-column">
                                                     @if (!string.IsNullOrEmpty(student.Code))
@@ -634,7 +722,14 @@
                                                     }
                                                     else
                                                     {
-                                                        <span class="badge bg-secondary">لم يتم الإنشاء</span>
+                                                        @if (isJunior)
+                                                        {
+                                                            <span class="badge bg-warning">جاهز للتوليد</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge bg-secondary">غير مؤهل</span>
+                                                        }
                                                     }
                                                 </td>
                                                 <td>
@@ -645,31 +740,26 @@
                                                         <a href="@Url.Action("Edit", "Student", new { id = student.Id })" class="btn btn-warning">
                                                             <i class="fas fa-edit"></i> تعديل
                                                         </a>
-                                                        <form method="post" action="@Url.Action("Delete", "Student")" style="display: inline;">
-                                                            @Html.AntiForgeryToken()
-                                                            <input type="hidden" name="id" value="@student.Id" />
-                                                            <button type="submit" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من حذف هذا الطالب؟')">
-                                                                <i class="fas fa-trash"></i> حذف
-                                                            </button>
-                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
                                         }
-                                    </tbody> 
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                } 
-                *@
+                }
+                else
+                {
                     <div class="alert alert-info mt-4">
                         <i class="fas fa-info-circle"></i>
                         <div>
                             <h5>لا يوجد طلاب في هذا الفصل</h5>
-                            <p>لم يتم تسجيل أي طلاب في هذا الفصل بعد. يمكنك إضافة طلاب جدد من خلال قسم إدارة الطلاب.</p>
+                            <p>لم يتم تسجيل أي طلاب في هذا الفصل للعام الدراسي الحالي (@(Model.CurrentWorkingYear?.Name ?? "غير محدد")). يمكنك إضافة طلاب جدد من خلال قسم إدارة الطلاب.</p>
                         </div>
                     </div>
+                }
             </div>
         </div>
     </div>

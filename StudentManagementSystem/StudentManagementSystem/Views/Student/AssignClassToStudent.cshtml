@@ -33,7 +33,7 @@
 
     <form asp-action="AssignStudents" method="post" id="assignForm">
         <input type="hidden" name="classId" value="@ViewBag.ClassId" />
-        
+
         @if (!isJunior)
         {
             <!-- اختيار القسم للصفوف المتقدمة -->
@@ -82,16 +82,16 @@
                                     @sectionGroup.section.Name_Of_Section
                                     <span class="badge bg-secondary">@sectionGroup.students.Count طالب</span>
                                 </h6>
-                                
+
                                 <div class="row">
                                     @foreach (var student in sectionGroup.students)
                                     {
                                         <div class="col-md-6 col-lg-4 mb-2">
                                             <div class="form-check p-3 border rounded student-card">
-                                                <input class="form-check-input me-2" 
-                                                       type="checkbox" 
-                                                       name="selectedStudents" 
-                                                       value="@student.Id" 
+                                                <input class="form-check-input me-2"
+                                                       type="checkbox"
+                                                       name="selectedStudents"
+                                                       value="@student.Id"
                                                        id="student_@student.Id">
                                                 <label class="form-check-label w-100" for="student_@student.Id">
                                                     <div class="student-info">
@@ -139,16 +139,16 @@
                                     @classGroup.classes.Name
                                     <span class="badge bg-secondary">@classGroup.students.Count طالب</span>
                                 </h6>
-                                
+
                                 <div class="row">
                                     @foreach (var student in classGroup.students)
                                     {
                                         <div class="col-md-6 col-lg-4 mb-2">
                                             <div class="form-check p-3 border rounded student-card">
-                                                <input class="form-check-input me-2" 
-                                                       type="checkbox" 
-                                                       name="selectedStudents" 
-                                                       value="@student.Id" 
+                                                <input class="form-check-input me-2"
+                                                       type="checkbox"
+                                                       name="selectedStudents"
+                                                       value="@student.Id"
                                                        id="student_@student.Id">
                                                 <label class="form-check-label w-100" for="student_@student.Id">
                                                     <div class="student-info">
@@ -215,17 +215,17 @@
         transition: all 0.3s ease;
         cursor: pointer;
     }
-    
-    .student-card:hover {
-        background-color: #f8f9fa;
-        border-color: #007bff !important;
-    }
-    
+
+        .student-card:hover {
+            background-color: #f8f9fa;
+            border-color: #007bff !important;
+        }
+
     .form-check-input:checked + .form-check-label .student-card {
         background-color: #e3f2fd;
         border-color: #2196f3 !important;
     }
-    
+
     .section-group, .class-group {
         border: 1px solid #dee2e6;
         border-radius: 8px;
@@ -242,22 +242,22 @@
             var count = $('input[name="selectedStudents"]:checked').length;
             $('#selectedCount').text(count);
         }
-        
+
         // تحديث العداد عند تغيير التحديد
         $('input[name="selectedStudents"]').change(updateSelectedCount);
-        
+
         // تحديد الكل
         $('#selectAll').click(function() {
             $('input[name="selectedStudents"]').prop('checked', true);
             updateSelectedCount();
         });
-        
+
         // إلغاء تحديد الكل
         $('#clearAll').click(function() {
             $('input[name="selectedStudents"]').prop('checked', false);
             updateSelectedCount();
         });
-        
+
         // التحقق من وجود طلاب محددين قبل الإرسال
         $('#assignForm').submit(function(e) {
             var selectedStudents = $('input[name="selectedStudents"]:checked').length;
@@ -266,22 +266,22 @@
                 alert('يرجى اختيار طالب واحد على الأقل');
                 return false;
             }
-            
+
             @if (!isJunior)
             {
-                <text>
-                var sectionId = $('select[name="sectionId"]').val();
-                if (!sectionId) {
-                    e.preventDefault();
-                    alert('يرجى اختيار القسم');
-                    return false;
-                }
-                </text>
+                    <text>
+                    var sectionId = $('select[name="sectionId"]').val();
+                    if (!sectionId) {
+                        e.preventDefault();
+                        alert('يرجى اختيار القسم');
+                        return false;
+                    }
+                    </text>
             }
-            
+
             return confirm('هل أنت متأكد من تعيين ' + selectedStudents + ' طالب للفصل؟');
         });
-        
+
         // تحديث العداد في البداية
         updateSelectedCount();
     });
