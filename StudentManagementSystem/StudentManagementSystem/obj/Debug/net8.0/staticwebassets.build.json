@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "crqcuQZtyrTgTvoddTJvYGK8VCExqnLuokeB871y+pY=",
+  "Hash": "yH2FHRlaZyv+tS8BNLFsdXXmyta7M6wPaJfRzfFkuHY=",
   "Source": "StudentManagementSystem",
   "BasePath": "_content/StudentManagementSystem",
   "Mode": "Default",
@@ -136,8 +136,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "1ypv94pzvo",
-      "Integrity": "5+FdoznPZpiWT8ufE1XG/4idoR9mRtuzdH/DrCKjkLg=",
+      "Fingerprint": "gdzy5gkmeg",
+      "Integrity": "bPN3Uj6QKhaEVolCIRqEBBi6o/g0I54HW/VlM+/yX0o=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\student.css"
@@ -1987,51 +1987,6 @@
       ]
     },
     {
-      "Route": "css/student.1ypv94pzvo.css",
-      "AssetFile": "C:\\Users\\Mohamed Reda\\Downloads\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\student.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "35661"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"5+FdoznPZpiWT8ufE1XG/4idoR9mRtuzdH/DrCKjkLg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Tue, 29 Jul 2025 20:36:18 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "1ypv94pzvo"
-        },
-        {
-          "Name": "label",
-          "Value": "css/student.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-5+FdoznPZpiWT8ufE1XG/4idoR9mRtuzdH/DrCKjkLg="
-        }
-      ]
-    },
-    {
       "Route": "css/student.css",
       "AssetFile": "C:\\Users\\Mohamed Reda\\Downloads\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\student.css",
       "Selectors": [],
@@ -2042,7 +1997,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "35661"
+          "Value": "33912"
         },
         {
           "Name": "Content-Type",
@@ -2050,11 +2005,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"5+FdoznPZpiWT8ufE1XG/4idoR9mRtuzdH/DrCKjkLg=\""
+          "Value": "\"bPN3Uj6QKhaEVolCIRqEBBi6o/g0I54HW/VlM+/yX0o=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 29 Jul 2025 20:36:18 GMT"
+          "Value": "Tue, 29 Jul 2025 20:37:43 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2064,7 +2019,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-5+FdoznPZpiWT8ufE1XG/4idoR9mRtuzdH/DrCKjkLg="
+          "Value": "sha256-bPN3Uj6QKhaEVolCIRqEBBi6o/g0I54HW/VlM+/yX0o="
+        }
+      ]
+    },
+    {
+      "Route": "css/student.gdzy5gkmeg.css",
+      "AssetFile": "C:\\Users\\Mohamed Reda\\Downloads\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\student.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "33912"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"bPN3Uj6QKhaEVolCIRqEBBi6o/g0I54HW/VlM+/yX0o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 29 Jul 2025 20:37:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gdzy5gkmeg"
+        },
+        {
+          "Name": "label",
+          "Value": "css/student.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-bPN3Uj6QKhaEVolCIRqEBBi6o/g0I54HW/VlM+/yX0o="
         }
       ]
     },
