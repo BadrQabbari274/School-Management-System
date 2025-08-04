@@ -363,7 +363,11 @@ namespace StudentManagementSystem.Controllers
                 return View(studentForAssign);
             }
         }
-
+        public async Task<IActionResult> Normal(int classId)
+        {
+            var classwithstudent = await _studentService.GetStudentsAsync(classId);
+            return View(classwithstudent);
+        }
         [HttpPost]
         public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents, int? sectionId)
         {

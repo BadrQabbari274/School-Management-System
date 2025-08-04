@@ -47,6 +47,37 @@ namespace StudentManagementSystem.Service.Implementation
             return result;
         }
 
+        public async Task<AttendanceViewModel> GetStudentsAsync(int classId)
+        {
+            // الحصول على السنة الدراسية النشطة
+            var activeWorkingYear = await _context.Working_Years
+                .Where(wy => wy.IsActive)
+                .OrderByDescending(wy => wy.Start_date)
+                .FirstOrDefaultAsync();
+            Classes Class =await _context.Classes.FirstOrDefaultAsync(e=> e.Id == classId);
+   
+
+            // الحصول على الطلاب في الفصل المحدد خلال السنة النشطة
+            var studentsInClass = await _context.Student_Class_Section_Years
+                .Include(scsy => scsy.Student)
+                .Where(scsy => scsy.Class_Id == classId &&
+                              scsy.Working_Year_Id == activeWorkingYear.Id &&
+                              scsy.IsActive)
+                .Select(scsy => new StudentStatusViewModel
+                {
+                    Students = scsy.Student,
+                    Status = true
+               
+                })
+                .ToListAsync();
+            var Attendance = new AttendanceViewModel()
+            {
+                Class = Class,
+                StudentStatus = studentsInClass
+
+            };
+            return Attendance;
+        }
         public async Task<List<SectionWithStudents>> GetStudentsGroupedBySectionAsync()
         {
             var working_year = await GetOrCreateActiveWorkingYearAsync();
