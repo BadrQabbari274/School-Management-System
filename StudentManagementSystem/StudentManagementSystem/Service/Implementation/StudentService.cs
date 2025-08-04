@@ -274,7 +274,6 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Students
                 .Where(s => s.IsActive)
-
                 .ToListAsync();
         }
 
@@ -781,6 +780,11 @@ namespace StudentManagementSystem.Service.Implementation
                 .Where(c => c.GradeId == gradeId && c.IsActive)
                 .OrderBy(c => c.Name)
                 .ToListAsync();
+        }
+
+        public async Task<int> GetActiveStudentsCountAsync()
+        {
+            return await _context.Students.CountAsync(s => s.IsActive);
         }
     }
     // DTOs للإرجاع
