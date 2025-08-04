@@ -542,25 +542,20 @@
                             else if (Model.StudentsInClass.Any(s => !string.IsNullOrEmpty(s.Student.Code)))
                             {
                                 <button type="button" class="btn btn-secondary" disabled>
-                                    <i class="fas fa-check"></i> تم توليد الأكواد
+                                    <i class="fas fa-check"></i> تم تأكيد الفصل
                                 </button>
 
                                 <form method="post" action="@Url.Action("ResetStudentCodes")" style="display: inline;">
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="classId" value="@Model.Class.Id" />
                                     <button type="submit" class="btn btn-danger" onclick="return confirm('تحذير: هذا سيؤدي إلى إعادة تعيين الأكواد للطلاب. هل أنت متأكد من المتابعة؟')">
-                                        <i class="fas fa-redo"></i> إعادة تعيين الأكواد
+                                        <i class="fas fa-redo"></i> إعادة تاكيد الفصل
                                     </button>
                                 </form>
                             }
                         }
                     }
-                    else
-                    {
-                        <button type="button" class="btn btn-secondary" disabled>
-                            <i class="fas fa-info-circle"></i> الأكواد للمرحلة الإعدادية فقط
-                        </button>
-                    }
+                    
                 </div>
             </div>
             <div class="card-body">
@@ -724,7 +719,7 @@
                                                     {
                                                         @if (isJunior)
                                                         {
-                                                            <span class="badge bg-warning">جاهز للتوليد</span>
+                                                            <span class="badge bg-warning">لا يوجد له كود</span>
                                                         }
                                                         else
                                                         {

@@ -7,7 +7,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link href="~/css/student.css" rel="stylesheet" />
 
-<!-- Success/Error Messages -->
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -25,8 +24,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
-@* 
-<style>
+@* <style>
     body {
         direction: rtl;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -137,7 +135,6 @@
 </style> *@
 
 <div class="container-fluid mt-4">
-    <!-- Breadcrumb -->
     <nav class="breadcrumb-custom">
         <div class="d-flex align-items-center">
             <i class="fas fa-home me-2"></i>
@@ -165,7 +162,6 @@
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    <!-- البيانات الأساسية -->
                     <div class="section-title">
                         <i class="fas fa-id-card me-2"></i>البيانات الأساسية
                     </div>
@@ -184,7 +180,7 @@
                             @Html.ValidationMessageFor(model => model.Student.Adress, "", new { @class = "text-danger" })
                         </div>
 
-                @*         <div class="col-md-6 mb-3">
+                        @* <div class="col-md-6 mb-3">
                             @Html.LabelFor(model => model.Code, "كود الطالب", new { @class = "form-label" })
                             <span class="required">*</span>
                             @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل كود الطالب" } })
@@ -196,7 +192,7 @@
                         <div class="col-md-6 mb-3">
                             @Html.LabelFor(model => model.Student.Email, "البريد الإلكتروني", new { @class = "form-label" })
                             <span class="required">*</span>
-                            @Html.EditorFor(model => model.Student.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = "أدخل البريد الإلكتروني" } })
+                            @Html.EditorFor(model => model.Student.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = "أدخل البريد الإلكتروني", @pattern = ".+@gmail\\.com", @title = "البريد الإلكتروني يجب أن ينتهي بـ @gmail.com" } })
                             @Html.ValidationMessageFor(model => model.Student.Email, "", new { @class = "text-danger" })
                         </div>
 
@@ -208,7 +204,7 @@
                         </div>
                     </div>
 
-        
+
 
                     <div class="row">
                         @if (Model.Sections != null && Model.Sections.Any())
@@ -225,7 +221,6 @@
                                         }
                     </div>
 
-                    // تعديل باقي الحقول في الـ View - بيانات الوالدين
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             @Html.LabelFor(model => model.Student.Jop_of_Father, "وظيفة الأب", new { @class = "form-label" })
@@ -242,7 +237,6 @@
                         </div>
                     </div>
 
-                    // تعديل أرقام الهواتف في الـ View
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             @Html.LabelFor(model => model.Student.Phone_Number, "رقم هاتف الطالب", new { @class = "form-label" })
@@ -250,7 +244,7 @@
                             @Html.EditorFor(model => model.Student.Phone_Number, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
                             @Html.ValidationMessageFor(model => model.Student.Phone_Number, "", new { @class = "text-danger" })
                         </div>
-
+                                 
                         <div class="col-md-4 mb-3">
                             @Html.LabelFor(model => model.Student.Phone_Number_Father, "رقم هاتف الأب", new { @class = "form-label" })
                             <span class="required">*</span>
@@ -265,7 +259,6 @@
                             @Html.ValidationMessageFor(model => model.Student.Phone_Number_Mother, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <!-- الملفات -->
                     <div class="section-title mt-4">
                         <i class="fas fa-file me-2"></i>الملفات المرفقة
                     </div>
@@ -296,7 +289,6 @@
                         </div>
                     </div>
 
-                    <!-- الأزرار -->
                     <div class="d-flex justify-content-end gap-3 mt-4">
                         <a href="@Url.Action("Index")" class="btn btn-secondary">
                             <i class="fas fa-times me-2"></i>إلغاء

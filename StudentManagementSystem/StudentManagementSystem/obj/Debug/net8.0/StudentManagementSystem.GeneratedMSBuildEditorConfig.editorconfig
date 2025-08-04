@@ -40,6 +40,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/AttendanceForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxBdHRlbmRhbmNlRm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/DepartmentAttendance.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxEZXBhcnRtZW50QXR0ZW5kYW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,6 +62,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Normal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxOb3JtYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/RecordAttendance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxSZWNvcmRBdHRlbmRhbmNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/source/repos/Midany2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Training.cshtml]
