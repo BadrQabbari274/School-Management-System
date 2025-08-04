@@ -8,5 +8,6 @@ namespace StudentManagementSystem.ViewModels
         public Students Students { get; set; } 
         public bool Status  { get; set; } =true;
         public string? CustomReasonDetails;
+        public string? Reason_Id;
     }
 }
