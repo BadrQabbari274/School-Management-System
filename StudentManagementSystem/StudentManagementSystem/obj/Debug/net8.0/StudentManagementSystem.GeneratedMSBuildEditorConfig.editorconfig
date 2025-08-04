@@ -52,6 +52,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/index2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxpbmRleDIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Normal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxOb3JtYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Training.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxUcmFpbmluZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/ViewAttendance.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxWaWV3QXR0ZW5kYW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -86,14 +98,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Class/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_J.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcQ2xhc3Nlc19KLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Compatences/Classes_W.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcQ2xhc3Nlc19XLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Compatences/students.cshtml]
