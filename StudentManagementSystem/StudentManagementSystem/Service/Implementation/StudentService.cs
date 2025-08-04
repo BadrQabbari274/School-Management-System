@@ -80,23 +80,21 @@ namespace StudentManagementSystem.Service.Implementation
 
         public async Task<List<ClassWithStudents>> GetStudentsGroupedByClassAsync(int GradeID)
         {
-            var working_year = await GetInActiveWorkingYearAsync(); // تأكد إن ده صح - مفروض يكون GetActiveWorkingYearAsync
+            var working_year = await GetInActiveWorkingYearAsync(); // السنة الدراسية غير النشطة
+            var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync(); // السنة الدراسية النشطة الحالية
             var grade = await _context.Grades.FindAsync(GradeID);
 
-            if (grade == null || working_year == null)
+            if (grade == null || working_year == null || activeWorkingYear == null)
                 return new List<ClassWithStudents>();
 
-            // ✅ إصلاح المشكلة الأساسية - استنى النتيجة
             var wheelerGrade = await GetWheeler();
-
-            // ✅ تحقق من إن الـ Grade موجود
             if (wheelerGrade == null)
                 return new List<ClassWithStudents>();
 
             int grade_id;
             if (grade.Id == wheelerGrade.Id)
             {
-                var juniorGrade = await GetJunior(); // ✅ استنى النتيجة
+                var juniorGrade = await GetJunior();
                 if (juniorGrade == null)
                     return new List<ClassWithStudents>();
                 grade_id = juniorGrade.Id;
@@ -105,72 +103,6 @@ namespace StudentManagementSystem.Service.Implementation
             {
                 grade_id = wheelerGrade.Id;
             }
-
-            var result = await _context.Student_Class_Section_Years // ✅ إصلاح اسم الـ Table
-                .Include(s => s.Student)
-                .ThenInclude(student => student.StudentGrades)
-                .Include(s => s.Class)
-                .Where(s =>
-                    s.Working_Year_Id == working_year.Id &&
-                    s.Class_Id != null &&
-                    s.Student.StudentGrades.Any(sg =>
-                        sg.GradeId == grade_id &&
-                        sg.Working_Year_Id == working_year.Id)
-                )
-                .GroupBy(s => s.Class)
-                .Select(g => new ClassWithStudents
-                {
-                    classes = g.Key,
-                    students = g.Select(s => s.Student).Distinct().ToList()
-                })
-                .ToListAsync();
-
-            return result;
-        }
-
-        // ✅ طريقة أفضل - استخدام Cache للـ Grades
-        private Dictionary<string, Grades> _gradesCache = new Dictionary<string, Grades>();
-
-        public async Task<Grades> GetGradeByName(string gradeName)
-        {
-            if (_gradesCache.ContainsKey(gradeName.ToLower()))
-                return _gradesCache[gradeName.ToLower()];
-
-            var grade = await _context.Grades.FirstOrDefaultAsync(s =>
-                s.Name.ToLower() == gradeName.ToLower() && s.IsActive);
-
-            if (grade != null)
-                _gradesCache[gradeName.ToLower()] = grade;
-
-            return grade;
-        }
-
-        // ✅ استخدام الطريقة المُحسنة
-        public async Task<List<ClassWithStudents>> GetStudentsGroupedByClassAsync_Improved(int GradeID)
-        {
-            var working_year = await GetInActiveWorkingYearAsync(); // تأكد من الاسم الصحيح
-            var grade = await _context.Grades.FindAsync(GradeID);
-
-            if (grade == null || working_year == null)
-                return new List<ClassWithStudents>();
-
-            var wheelerGrade = await GetGradeByName("wheeler");
-            if (wheelerGrade == null)
-                return new List<ClassWithStudents>();
-
-            int grade_id;
-            if (grade.Id == wheelerGrade.Id)
-            {
-                var juniorGrade = await GetGradeByName("junior");
-                if (juniorGrade == null)
-                    return new List<ClassWithStudents>();
-                grade_id = juniorGrade.Id;
-            }
-            else
-            {
-                grade_id = wheelerGrade.Id;
-            }
-            var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
 
             var result = await _context.Student_Class_Section_Years
                 .Include(s => s.Student)
@@ -181,8 +113,11 @@ namespace StudentManagementSystem.Service.Implementation
                     s.Class_Id != null &&
                     s.Student.StudentGrades.Any(sg =>
                         sg.GradeId == grade_id &&
-                        sg.Working_Year_Id == working_year.Id)
-                    &&s.Student.StudentClassSectionYears.Any(sg => sg.Working_Year_Id != activeWorkingYear.Id && sg.Student_Id != )
+                        sg.Working_Year_Id == working_year.Id) &&
+                    // استبعاد الطلاب المتسجلين في السنة الدراسية النشطة الحالية
+                    !s.Student.StudentClassSectionYears.Any(activeRecord =>
+                        activeRecord.Working_Year_Id == activeWorkingYear.Id &&
+                        activeRecord.IsActive)
                 )
                 .GroupBy(s => s.Class)
                 .Select(g => new ClassWithStudents
@@ -194,6 +129,73 @@ namespace StudentManagementSystem.Service.Implementation
 
             return result;
         }
+
+        //// ✅ طريقة أفضل - استخدام Cache للـ Grades
+        //private Dictionary<string, Grades> _gradesCache = new Dictionary<string, Grades>();
+
+        //public async Task<Grades> GetGradeByName(string gradeName)
+        //{
+        //    if (_gradesCache.ContainsKey(gradeName.ToLower()))
+        //        return _gradesCache[gradeName.ToLower()];
+
+        //    var grade = await _context.Grades.FirstOrDefaultAsync(s =>
+        //        s.Name.ToLower() == gradeName.ToLower() && s.IsActive);
+
+        //    if (grade != null)
+        //        _gradesCache[gradeName.ToLower()] = grade;
+
+        //    return grade;
+        //}
+
+        //// ✅ استخدام الطريقة المُحسنة
+        //public async Task<List<ClassWithStudents>> GetStudentsGroupedByClassAsync_Improved(int GradeID)
+        //{
+        //    var working_year = await GetInActiveWorkingYearAsync(); // تأكد من الاسم الصحيح
+        //    var grade = await _context.Grades.FindAsync(GradeID);
+
+        //    if (grade == null || working_year == null)
+        //        return new List<ClassWithStudents>();
+
+        //    var wheelerGrade = await GetGradeByName("wheeler");
+        //    if (wheelerGrade == null)
+        //        return new List<ClassWithStudents>();
+
+        //    int grade_id;
+        //    if (grade.Id == wheelerGrade.Id)
+        //    {
+        //        var juniorGrade = await GetGradeByName("junior");
+        //        if (juniorGrade == null)
+        //            return new List<ClassWithStudents>();
+        //        grade_id = juniorGrade.Id;
+        //    }
+        //    else
+        //    {
+        //        grade_id = wheelerGrade.Id;
+        //    }
+        //    var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
+
+        //    var result = await _context.Student_Class_Section_Years
+        //        .Include(s => s.Student)
+        //        .ThenInclude(student => student.StudentGrades)
+        //        .Include(s => s.Class)
+        //        .Where(s =>
+        //            s.Working_Year_Id == working_year.Id &&
+        //            s.Class_Id != null &&
+        //            s.Student.StudentGrades.Any(sg =>
+        //                sg.GradeId == grade_id &&
+        //                sg.Working_Year_Id == working_year.Id)
+        //            &&s.Student.StudentClassSectionYears.Any(sg => sg.Working_Year_Id != activeWorkingYear.Id && sg.Student_Id != )
+        //        )
+        //        .GroupBy(s => s.Class)
+        //        .Select(g => new ClassWithStudents
+        //        {
+        //            classes = g.Key,
+        //            students = g.Select(s => s.Student).Distinct().ToList()
+        //        })
+        //        .ToListAsync();
+
+        //    return result;
+        //}
         public async Task<Students> GetStudentByIdAsync(int id)
         {
             return await _context.Students
