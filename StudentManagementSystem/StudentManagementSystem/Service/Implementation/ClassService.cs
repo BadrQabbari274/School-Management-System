@@ -2,6 +2,7 @@
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
+using StudentManagementSystem.ViewModels;
 
 namespace StudentManagementSystem.Service.Implementation
 {
@@ -241,11 +242,10 @@ namespace StudentManagementSystem.Service.Implementation
 
         public async Task<Working_Year> GetCurrentWorkingYearAsync()
         {
-            var currentDate = DateTime.Now;
             return await _context.Working_Years
-                .FirstOrDefaultAsync(wy => wy.IsActive &&
-                                          wy.Start_date <= currentDate &&
-                                          wy.End_date >= currentDate);
+                .Where(wy => wy.IsActive)
+                .OrderByDescending(wy => wy.Start_date)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<StudentGrades> GetStudentGradeAsync(int studentId, int workingYearId)
@@ -290,6 +290,46 @@ namespace StudentManagementSystem.Service.Implementation
 
             // If digit is odd = male (0), if even = female (1)
             return int.Parse(genderDigit.ToString()) % 2 == 1 ? 0 : 1;
+        }
+
+
+        // Inside ClassService.cs
+        public async Task<ClassDetailsViewModel> GetClassDetailsAsync(int classId)
+        {
+            var classEntity = await GetClassByIdAsync(classId);
+            if (classEntity == null)
+            {
+                return null;
+            }
+
+            var currentWorkingYear = await GetCurrentWorkingYearAsync();
+            var studentsInClass = await GetStudentsByClassAndWorkingYearAsync(classId, currentWorkingYear.Id);
+
+            // Get grades for the students in the class
+            var studentGrades = new List<StudentGrades>();
+            foreach (var studentClass in studentsInClass)
+            {
+                var grade = await GetStudentGradeAsync(studentClass.Student_Id, currentWorkingYear.Id);
+                if (grade != null)
+                {
+                    studentGrades.Add(grade);
+                }
+            }
+
+            // Count junior students
+            var juniorStudentsCount = studentsInClass.Count(s =>
+                studentGrades.Any(sg => sg.StudentId == s.Student_Id && sg.Grade.Name.ToLower().Contains("junior")));
+
+            var viewModel = new ClassDetailsViewModel
+            {
+                Class = classEntity,
+                CurrentWorkingYear = currentWorkingYear,
+                StudentsInClass = studentsInClass,
+                StudentGrades = studentGrades,
+                JuniorStudentsCount = juniorStudentsCount
+            };
+
+            return viewModel;
         }
 
         #endregion

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Implementation;
 using StudentManagementSystem.Service.Interface;
+using StudentManagementSystem.ViewModels;
 using System.ComponentModel.Design;
 using System.Security.Claims;
 
@@ -38,16 +39,19 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Class/Details/5
+        // Inside your Controller
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Details(int id)
         {
-            var classEntity = await _classService.GetClassByIdAsync(id);
-            if (classEntity == null)
+            var viewModel = await _classService.GetClassDetailsAsync(id);
+
+            if (viewModel == null)
             {
                 return NotFound();
             }
-            return View(classEntity);
+
+            return View(viewModel);
         }
 
         // GET: Class/Create
