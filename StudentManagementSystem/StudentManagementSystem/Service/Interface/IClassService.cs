@@ -1,4 +1,5 @@
 ﻿using StudentManagementSystem.Models;
+using StudentManagementSystem.ViewModels;
 
 namespace StudentManagementSystem.Service.Interface
 {
@@ -20,5 +21,6 @@ namespace StudentManagementSystem.Service.Interface
         Task<Working_Year> GetCurrentWorkingYearAsync();
         Task<StudentGrades> GetStudentGradeAsync(int studentId, int workingYearId);
         Task<int> GetNextSequenceNumberForClassAsync(int targetClassId, int workingYearId);
+        Task<ClassDetailsViewModel> GetClassDetailsAsync(int classId);
     }
 }

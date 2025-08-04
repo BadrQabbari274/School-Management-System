@@ -221,6 +221,17 @@
         color: #222;
     }
 
+    /* New styles for total stat card hover effect */
+    .stat-card.total {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .stat-card.total:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(102, 187, 106, 0.2);
+    }
+
     /* Responsive Design */
     @@media (max-width: 1200px) {
         .container-fluid { padding: 1rem; }
@@ -284,12 +295,12 @@
             *@
 
             <!-- Keep only the total students card -->
-            <div class="stat-card total">
+            <div class="stat-card total" style="cursor: pointer;" onclick="window.location.href='@Url.Action("Index", "Student")'">
                 <div class="stat-icon">
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="stat-number">@Model.TotalStudentsCount</div>
-                <div class="stat-label">إجمالي الطلاب</div>
+                <div class="stat-label">الطلاب النشطون</div> <!-- Changed from "إجمالي الطلاب" to "الطلاب النشطون" -->
             </div>
         </div>
 
