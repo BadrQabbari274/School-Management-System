@@ -1,9 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@model StudentManagementSystem.ViewModels.AttendanceViewModel
+
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام حضور الطلاب - البسيط</title>
+    <title>نظام حضور الطلاب - @Model.Class.Name</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -43,6 +45,12 @@
                 margin: 0;
                 font-size: 28px;
                 font-weight: bold;
+            }
+
+            .header-section .class-info {
+                font-size: 16px;
+                margin-top: 10px;
+                opacity: 0.9;
             }
 
         .check-icon {
@@ -280,6 +288,19 @@
                 border-color: #ff7b00;
                 box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.1);
             }
+
+        .reason-select {
+            margin-right: 10px;
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+            display: none;
+        }
+
+            .reason-select.show {
+                display: inline-block;
+            }
     </style>
 </head>
 <body>
@@ -288,102 +309,79 @@
             <div class="check-icon">
                 <i class="fas fa-clipboard-check"></i>
             </div>
-            <h3>نظام حضور وغياب الطلاب - اليومي</h3>
+            <h3>نظام حضور وغياب الطلاب</h3>
+            <div class="class-info">@Model.Class.Name - @Model.Class.Grade</div>
         </div>
 
         <div class="form-section">
-            <div class="date-section">
-                <label for="attendance-date" class="form-label">
-                    <i class="fas fa-calendar-alt"></i>
-                    تاريخ اليوم
-                </label>
-                <input type="date" id="attendance-date" class="date-input">
-            </div>
+            <form asp-action="SaveAttendance" method="post">
+                <input type="hidden" asp-for="Class.Id" />
 
-            <div class="form-group">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <label class="form-label" style="margin-bottom: 0;">
-                        <i class="fas fa-users"></i>
-                        قائمة الطلاب
+                <div class="date-section">
+                    <label for="attendance-date" class="form-label">
+                        <i class="fas fa-calendar-alt"></i>
+                        تاريخ اليوم
                     </label>
-                    <button class="btn-secondary-custom" style="flex: none; padding: 10px 20px; font-size: 14px;" onclick="selectAllPresent()">
-                        <i class="fas fa-check-double"></i> تحديد الكل حاضر
+                    <input type="date" id="attendance-date" name="AttendanceDate" class="date-input" required>
+                </div>
+
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <label class="form-label" style="margin-bottom: 0;">
+                            <i class="fas fa-users"></i>
+                            قائمة الطلاب (@Model.StudentStatus.Count طالب)
+                        </label>
+                        <button type="button" class="btn-secondary-custom" style="flex: none; padding: 10px 20px; font-size: 14px;" onclick="selectAllPresent()">
+                            <i class="fas fa-check-double"></i> تحديد الكل حاضر
+                        </button>
+                    </div>
+
+                    <div class="students-list" id="students-list">
+                        @for (int i = 0; i < Model.StudentStatus.Count; i++)
+                        {
+                            <div class="student-row">
+                                <input type="hidden" asp-for="StudentStatus[i].Students.Id" />
+                                <input type="hidden" asp-for="StudentStatus[i].Students.Name" />
+
+                                <div class="student-info">
+                                    <span class="student-name">@Model.StudentStatus[i].Students.Name</span>
+                                </div>
+
+                                
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="summary" id="summary">
+                    <div class="summary-item">الحاضرين: <span id="present-count">@Model.StudentStatus.Count(s => s.Status)</span></div>
+                    <div class="summary-item">الغائبين: <span id="absent-count">@Model.StudentStatus.Count(s => !s.Status)</span></div>
+                    <div class="summary-item">المجموع: <span id="total-count">@Model.StudentStatus.Count</span></div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" class="btn-primary-custom">
+                        <i class="fas fa-save"></i> حفظ بيانات الحضور
+                    </button>
+                    <button type="button" class="btn-secondary-custom" onclick="window.history.back()">
+                        <i class="fas fa-arrow-right"></i> العودة
                     </button>
                 </div>
-                <div class="students-list" id="students-list">
-                    <!-- Students will be populated here -->
-                </div>
-            </div>
-
-            <div class="summary" id="summary" style="display: none;">
-                <div class="summary-item">الحاضرين: <span id="present-count">0</span></div>
-                <div class="summary-item">الغائبين: <span id="absent-count">0</span></div>
-                <div class="summary-item">المجموع: <span id="total-count">0</span></div>
-            </div>
-
-            <div class="btn-container">
-                <button class="btn-primary-custom" onclick="saveAttendance()">
-                    <i class="fas fa-save"></i> حفظ بيانات الحضور
-                </button>
-            </div>
+            </form>
         </div>
     </div>
 
     <div id="toast" class="toast"></div>
 
     <script>
-        // Sample student data
-        const students = [
-            'أحمد محمد علي',
-            'فاطمة عبد الرحمن',
-            'محمد حسن إبراهيم',
-            'نورا أحمد سالم',
-            'يوسف عمر محمود',
-            'مريم خالد أحمد',
-            'عبد الله صالح محمد',
-            'سارة علي حسن',
-            'حسام محمد عبد الله',
-            'هدى إبراهيم يوسف',
-            'كريم أحمد محمد',
-            'ليلى حسن علي',
-            'عمر محمود إبراهيم',
-            'دينا خالد سالم',
-            'محمود عبد الرحمن أحمد'
-        ];
-
-        // Initialize summary on page load
+        // Initialize on page load
         function init() {
             // Set today's date
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('attendance-date').value = today;
 
-            // Populate students
-            populateStudents();
-
-            // Show initial summary (all absent by default)
+            // Update summary display
             updateSummary();
-        }
-
-        function populateStudents() {
-            const container = document.getElementById('students-list');
-            container.innerHTML = '';
-
-            students.forEach((student, index) => {
-                const row = document.createElement('div');
-                row.className = 'student-row';
-                row.innerHTML = `
-                    <div class="student-info">
-                        <span class="student-name">${student}</span>
-                    </div>
-                    <div class="attendance-controls">
-                        <span class="status-indicator absent" id="status-${index}">غائب</span>
-                        <input type="checkbox" class="attendance-checkbox" id="present-${index}"
-                               onchange="updateStatus(${index}, this.checked)">
-                        <label for="present-${index}">حاضر</label>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
         }
 
         function selectAllPresent() {
@@ -397,13 +395,27 @@
 
         function updateStatus(index, isPresent) {
             const statusElement = document.getElementById(`status-${index}`);
+            const reasonSelect = document.getElementById(`reason-${index}`);
+
             if (isPresent) {
                 statusElement.textContent = 'حاضر';
                 statusElement.className = 'status-indicator present';
+
+                // Hide reason select for present students
+                if (reasonSelect) {
+                    reasonSelect.classList.remove('show');
+                    reasonSelect.value = '';
+                }
             } else {
                 statusElement.textContent = 'غائب';
                 statusElement.className = 'status-indicator absent';
+
+                // Show reason select for absent students
+                if (reasonSelect) {
+                    reasonSelect.classList.add('show');
+                }
             }
+
             updateSummary();
         }
 
@@ -422,31 +434,7 @@
 
             document.getElementById('present-count').textContent = presentCount;
             document.getElementById('absent-count').textContent = absentCount;
-            document.getElementById('total-count').textContent = students.length;
-            document.getElementById('summary').style.display = 'block';
-        }
-
-        function saveAttendance() {
-            const date = document.getElementById('attendance-date').value;
-            if (!date) {
-                showToast('يرجى اختيار التاريخ أولاً');
-                return;
-            }
-
-            const attendanceData = [];
-            const checkboxes = document.querySelectorAll('.attendance-checkbox');
-
-            checkboxes.forEach((checkbox, index) => {
-                attendanceData.push({
-                    name: students[index],
-                    present: checkbox.checked,
-                    date: date
-                });
-            });
-
-            // Here you would typically send data to a server
-            console.log('Attendance Data:', attendanceData);
-            showToast('تم حفظ بيانات الحضور بنجاح!');
+            document.getElementById('total-count').textContent = checkboxes.length;
         }
 
         function showToast(message) {
@@ -459,7 +447,19 @@
             }, 3000);
         }
 
-        // Initialize the application when the page loads
+        // Form validation before submit
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const date = document.getElementById('attendance-date').value;
+            if (!date) {
+                e.preventDefault();
+                showToast('يرجى اختيار التاريخ أولاً');
+                return false;
+            }
+
+            showToast('جاري حفظ البيانات...');
+        });
+
+        // Initialize when page loads
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
