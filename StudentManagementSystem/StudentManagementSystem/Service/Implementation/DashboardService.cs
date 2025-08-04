@@ -25,7 +25,7 @@ namespace StudentManagementSystem.Services
 
             return new DashboardViewModel
             {  
-                TotalStudentsCount = statistics.TotalStudents,
+                TotalStudentsCount = statistics.ActiveStudents, // Changed from TotalStudents to ActiveStudents
                 MonthlyData = monthlyData,
                 WeeklyData = weeklyData,
                 DashboardCards = dashboardCards
