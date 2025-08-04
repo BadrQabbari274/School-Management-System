@@ -6,5 +6,7 @@ namespace StudentManagementSystem.ViewModels
     {
         public Classes Class { get; set; }
         public List< StudentStatusViewModel> StudentStatus { get; set; }
+        public List<AbsenceReasons>? reasons { get; set; }
+  
     }
 }

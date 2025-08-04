@@ -145,3 +145,7 @@ wwwroot\upload\5\5_Ahmed_Hossam_certificate.png
 wwwroot\upload\5\5_Ahmed_Hossam_profile.png
 wwwroot\upload\8\8_mohamed2_profile.png
 wwwroot\upload\8\8_mohamed_certificate.png
+wwwroot\upload\50\50_Kirollos_certificate.png
+wwwroot\upload\50\50_Kirollos_profile.jpg
+wwwroot\upload\51\51_assd_certificate.jpg
+wwwroot\upload\51\51_assd_profile.jpg
