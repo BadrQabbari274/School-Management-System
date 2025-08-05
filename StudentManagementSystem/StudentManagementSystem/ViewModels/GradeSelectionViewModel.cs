@@ -1,7 +1,8 @@
-﻿namespace StudentManagementSystem.ViewModels
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using StudentManagementSystem.Models;
+namespace StudentManagementSystem.ViewModels
 {
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using StudentManagementSystem.Models;
+
 
     public class GradeSelectionViewModel
     {

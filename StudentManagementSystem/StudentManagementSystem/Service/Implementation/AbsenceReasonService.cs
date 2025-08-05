@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
+using StudentManagementSystem.ViewModels;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
 
