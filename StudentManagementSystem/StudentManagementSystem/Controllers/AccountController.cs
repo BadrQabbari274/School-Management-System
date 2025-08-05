@@ -76,7 +76,7 @@ namespace StudentManagementSystem.Controllers
                 await SignInUserAsync(user, model.RememberMe);
                 user.LastLogin = DateTime.Now;
                 await _userService.UpdateUserAsync(user);
-                SetErrorMessage("ok");
+                TempData["Login"] = "ok";
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception ex)
