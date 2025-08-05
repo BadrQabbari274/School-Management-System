@@ -155,5 +155,7 @@ wwwroot\upload\59\59_الحافوزليق_certificate.png
 wwwroot\upload\59\59_الحافوزليق_profile.jpg
 wwwroot\upload\5\5_Ahmed_Hossam_certificate.png
 wwwroot\upload\5\5_Ahmed_Hossam_profile.png
+wwwroot\upload\63\63_m_certificate.png
+wwwroot\upload\63\63_m_profile.png
 wwwroot\upload\8\8_mohamed2_profile.png
 wwwroot\upload\8\8_mohamed_certificate.png
