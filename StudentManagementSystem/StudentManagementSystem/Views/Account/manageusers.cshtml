@@ -342,14 +342,14 @@
                             <td>@user.CreatedBy</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a href="@Url.Action("UserProfile", "User", new { id = user.Id })"
-                                       class="btn btn-info btn-sm" title="⁄—÷ «·„·› «·‘Œ’Ì">
-                                        <i class="fas fa-user"></i>
-                                    </a>
-                                    <a href="@Url.Action("EditUser", "User", new { id = user.Id })"
-                                       class="btn btn-warning btn-sm" title=" ⁄œÌ·">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
+                                        <a href="@Url.Action("UserProfile", "Account", new { id = user.Id })"
+                                           class="btn btn-info btn-sm" title="⁄—÷ «·„·› «·‘Œ’Ì">
+                                            <i class="fas fa-user"></i>
+                                        </a>
+                                        <a href="@Url.Action("Profile", "Account", new { id = user.Id })"
+                                           class="btn btn-warning btn-sm" title=" ⁄œÌ·">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
                                     <button type="button" class="btn btn-danger btn-sm" title="Õ–›"
                                             onclick="showDeleteConfirmation(@user.Id, '@user.Name')">
                                         <i class="fas fa-trash"></i>
@@ -389,8 +389,8 @@
             </div>
         </div>
 
-        @* Make sure this form is present and correctly targets the DeleteUser action in the User controller *@
-        <form id="deleteForm" asp-controller="User" asp-action="DeleteUser" method="post" style="display:none;">
+        @*  €ÌÌ— «·‹ controller „‰ User ≈·Ï Account *@
+        <form id="deleteForm" asp-controller="Account" asp-action="DeleteUser" method="post" style="display:none;">
             @Html.AntiForgeryToken()
             <input type="hidden" name="id" id="userIdToDelete" />
         </form>
@@ -409,47 +409,32 @@
                 var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
                 deleteModal.show();
             }
+                    document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
+            // Hide the modal
+            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+            deleteModal.hide();
 
-            document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
-                // Hide the modal
-                var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
-                deleteModal.hide();
+            const form = document.getElementById('deleteForm');
 
-                const form = document.getElementById('deleteForm');
+            try {
+                const formData = new FormData(form);
 
-                // Construct the URL dynamically using the asp-controller and asp-action attributes of the form
-                // This is safer than hardcoding the URL
-                const actionUrl = form.action;
+                const response = await fetch('@Url.Action("DeleteUser", "Account")', {
+                    method: 'POST',
+                    body: formData
+                });
 
-                try {
-                    const response = await fetch(actionUrl, { // Use the form's action URL
-                        method: 'POST',
-                        body: new FormData(form), // FormData will automatically pick up the hidden input
-                        headers: {
-                            // Ensure the Anti-Forgery Token is correctly sent
-                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-                        }
-                    });
-
-                    if (response.ok) {
-                        // Check if the response indicates a redirect (e.g., from RedirectToAction)
-                        // If so, let the browser handle the redirect, otherwise, reload
-                        if (response.redirected) {
-                            window.location.href = response.url;
-                        } else {
-                            // If no redirect, and success, reload the page to reflect changes
-                            location.reload();
-                        }
-                    } else {
-                        // Attempt to read error message from response if available
-                        const errorText = await response.text();
-                        alert('ÕœÀ Œÿ√ √À‰«¡ «·⁄„·Ì…: ' + errorText || '›‘· ›Ì Õ–› «·„” Œœ„. Ì—ÃÏ «·„Õ«Ê·… „—… √Œ—Ï.');
-                    }
-                } catch (error) {
-                    alert('ÕœÀ Œÿ√ √À‰«¡ «·⁄„·Ì…. Ì—ÃÏ «· Õﬁﬁ „‰ « ’«· «·‘»ﬂ….');
-                    console.error(error);
+                if (response.ok) {
+                    // ≈⁄«œ…  Õ„Ì· «·’›Õ… ·≈ŸÂ«— «· ÕœÌÀ« 
+                    location.reload();
+                } else {
+                    alert('ÕœÀ Œÿ√ √À‰«¡ Õ–› «·„” Œœ„. Ì—ÃÏ «·„Õ«Ê·… „—… √Œ—Ï.');
                 }
-            });
+            } catch (error) {
+                alert('ÕœÀ Œÿ√ √À‰«¡ «·⁄„·Ì…. Ì—ÃÏ «· Õﬁﬁ „‰ « ’«· «·‘»ﬂ….');
+                console.error(error);
+            }
+        });
         </script>
     </body>
 </html>
