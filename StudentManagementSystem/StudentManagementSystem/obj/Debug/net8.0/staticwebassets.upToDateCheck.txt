@@ -141,3 +141,11 @@ wwwroot\upload\5\5_Ahmed_Hossam_certificate.png
 wwwroot\upload\5\5_Ahmed_Hossam_profile.png
 wwwroot\upload\8\8_mohamed2_profile.png
 wwwroot\upload\8\8_mohamed_certificate.png
+wwwroot\upload\50\50_Kirollos_certificate.png
+wwwroot\upload\50\50_Kirollos_profile.jpg
+wwwroot\upload\52\52_mohamed_mohamed_certificate.png
+wwwroot\upload\52\52_mohamed_mohamed_profile.png
+wwwroot\upload\53\53_mohamed_mohamed_certificate.png
+wwwroot\upload\53\53_mohamed_mohamed_profile.png
+wwwroot\upload\54\54_alaa_certificate.png
+wwwroot\upload\54\54_alaa_profile.png
