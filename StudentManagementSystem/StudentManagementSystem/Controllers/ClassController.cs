@@ -30,7 +30,7 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Class
-        [HttpGet]
+        [HttpGet]   
         [Authorize]
         public async Task<IActionResult> Index()
         {
@@ -137,8 +137,6 @@ namespace StudentManagementSystem.Controllers
                 }
 
                 classEntity.CreatedBy_Id = currentUserId; 
-                classEntity.IsActive = true; 
-
                 await _classService.UpdateClassAsync(classEntity);
                 // Use the helper method from BaseController
                 SetSuccessMessage("Class updated successfully!");

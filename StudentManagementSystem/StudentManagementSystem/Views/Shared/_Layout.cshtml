@@ -494,11 +494,13 @@
             <div class="logout-section">
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <!-- Logout Section -->
-                    <a asp-controller="Account" asp-action="Logout" class="logout-btn">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span class="logout-text">Logout</span>
-                    </a>
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="logout-text">Logout</span>
+                        </button>
+                    </form>
                 }
                 else
                 {

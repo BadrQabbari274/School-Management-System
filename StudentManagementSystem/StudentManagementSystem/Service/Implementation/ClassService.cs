@@ -84,6 +84,7 @@ namespace StudentManagementSystem.Service.Implementation
         public async Task<Classes> UpdateClassAsync(Classes classEntity)
         {
             _context.Entry(classEntity).State = EntityState.Modified;
+            classEntity.IsActive = true;
             await _context.SaveChangesAsync();
             return classEntity;
         }

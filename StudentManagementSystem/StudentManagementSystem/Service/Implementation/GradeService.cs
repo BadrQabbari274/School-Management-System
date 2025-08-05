@@ -46,6 +46,7 @@ namespace StudentManagementSystem.Service.Implementation
         public async Task<Grades> UpdateAcademicYearAsync(Grades academicYear)
         {
             _context.Entry(academicYear).State = EntityState.Modified;
+            academicYear.IsActive = true;
             await _context.SaveChangesAsync();
             return academicYear;
         }
