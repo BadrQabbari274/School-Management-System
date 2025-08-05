@@ -591,7 +591,7 @@ namespace StudentManagementSystem.Service.Implementation
                             StudentClassSectionYear_Working_Year_Id = activeWorkingYear.Id,
                             StudentClassSectionYear_Section_id = studentClassSectionYear.Section_id,
                             AbsenceReasonId = int.Parse(studentStatus.Reason_Id),
-                            CustomReasonDetails=studentStatus.CustomReasonDetails
+                            CustomReasonDetails=studentStatus.CustomReason
                             ,
                             IsDeleted = false
 
