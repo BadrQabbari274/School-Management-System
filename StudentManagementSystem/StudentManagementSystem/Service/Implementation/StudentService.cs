@@ -290,7 +290,7 @@ namespace StudentManagementSystem.Service.Implementation
                                        a.AttendanceTypeId == dailyAttendanceTypeId &&
                                        !a.IsDeleted)
                             .FirstOrDefaultAsync();
-
+                        int reason = await GatReasonId();
                         // تحديد الحالة بناءً على الغياب اليومي
                         if (dailyAttendance != null)
                         {
@@ -299,10 +299,7 @@ namespace StudentManagementSystem.Service.Implementation
                         else if (dailyAbsence != null)
                         {
                             studentStatus.Status = false;
-                            if (dailyAbsence.AbsenceReasonId.HasValue)
-                            {
-                                studentStatus.Reason_Id = dailyAbsence.AbsenceReasonId.Value.ToString();
-                            }
+                            studentStatus.Reason_Id = reason.ToString();
                         }
                         else
                         {
@@ -588,7 +585,7 @@ namespace StudentManagementSystem.Service.Implementation
                         {
                             Date = dateOnly,
                             CreatedBy_Id = currentUserId,
-                            AttendanceTypeId = GetDailyAttendanceTypeId(), // معرف نوع الحضور اليومي
+                            AttendanceTypeId = GetFieldAttendanceTypeId(), // معرف نوع الحضور اليومي
                             StudentClassSectionYear_Student_Id = studentStatus.Students.Id,
                             Class_Id = model.Class.Id,
                             StudentClassSectionYear_Working_Year_Id = activeWorkingYear.Id,
@@ -596,14 +593,14 @@ namespace StudentManagementSystem.Service.Implementation
                             AbsenceReasonId = int.Parse(studentStatus.Reason_Id),
                             CustomReasonDetails=studentStatus.CustomReasonDetails
                             ,
-                            IsDeleted = false,
+                            IsDeleted = false
 
                         };
 
                         // إضافة سبب الغياب إذا كان موجود
                         if (!string.IsNullOrEmpty(studentStatus.Reason_Id) && int.TryParse(studentStatus.Reason_Id, out int reasonId))
                         {
-                            absence.AbsenceReasonId = reasonId;
+                            absence.AbsenceReasonId = int.Parse(studentStatus.Reason_Id);
                         }
 
                         _context.StudentAbsents.Add(absence);
