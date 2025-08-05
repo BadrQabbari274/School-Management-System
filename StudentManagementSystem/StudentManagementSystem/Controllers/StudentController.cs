@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
 using StudentManagementSystem.ViewModels;
@@ -363,19 +364,8 @@ namespace StudentManagementSystem.Controllers
                 return View(studentForAssign);
             }
         }
-        public async Task<IActionResult> Normal(int classId)
-        {
-            var classwithstudent = await _studentService.GetStudentsAsync(classId);
-            return View(classwithstudent);
-        }
-
+      
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAttendance(AttendanceViewModel model, DateTime attendanceDate)
-        { 
-        return View(/*model*/);
-        }
-            [HttpPost]
         public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents, int? sectionId)
         {
             try
