@@ -1,5 +1,5 @@
 ﻿using StudentManagementSystem.Models;
-
+using StudentManagementSystem.Service.Implementation;
 using StudentManagementSystem.ViewModels;
 
 namespace StudentManagementSystem.Service.Interface
@@ -12,6 +12,8 @@ namespace StudentManagementSystem.Service.Interface
         Task<Students> UpdateStudentAsync(Students student/*, IFormFile profileImage = null, IFormFile birthCertificate = null*/);
         Task<bool> DeleteStudentAsync(int id);
         Task<IEnumerable<Students>> GetActiveStudentsAsync();
+        Task<AttendanceViewModel> GetStudentsAsync(int classId);
+      
         Task<bool> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
         Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId);
         Task<IEnumerable<Students>> GetStudentsWithTasksAsync();
@@ -29,10 +31,10 @@ namespace StudentManagementSystem.Service.Interface
         Task<bool> AddStudentWithAllDetailsAsync(int studentId, int sectionId, int classId, int createdById, int? workingYearId = null);
 
         // جلب الطلاب مجمعين حسب القسم مع ترتيب أبجدي
-        Task<List<SectionStudentsViewModel>> GetStudentsByDepartmentAsync(int? workingYearId = null);
+        Task<List<SectionStudentsDto>> GetStudentsByDepartmentAsync(int? workingYearId = null);
 
         // جلب الطلاب في قسم معين
-        Task<List<StudentInfoViewModel>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null);
+        Task<List<StudentInfoDto>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null);
 
         Task<IEnumerable<Classes>> GetClassesByGradeAsync(int gradeId);
     }
