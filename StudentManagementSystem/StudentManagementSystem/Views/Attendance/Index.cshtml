@@ -9,22 +9,22 @@
         margin: 0 auto;
         padding: 20px;
     }
-    
+
     .header-section {
         background: linear-gradient(135deg, #ff7b00, #ff9500);
         color: white;
         padding: 20px;
         border-radius: 10px 10px 0 0;
         text-align: center;
-        position: relative; 7
+        position: relative;
     }
-    
-    .header-section h3 {
-        margin: 0;
-        font-size: 24px;
-        font-weight: bold;
-    }
-    
+
+        .header-section h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
     .check-icon {
         position: absolute;
         right: 20px;
@@ -38,18 +38,18 @@
         align-items: center;
         justify-content: center;
     }
-    
+
     .form-section {
         background: #f8f9fa;
         padding: 30px;
         border-radius: 0 0 10px 10px;
         border: 1px solid #e9ecef;
     }
-    
+
     .form-group {
         margin-bottom: 25px;
     }
-    
+
     .form-label {
         display: flex;
         align-items: center;
@@ -58,12 +58,12 @@
         color: #333;
         font-size: 16px;
     }
-    
-    .form-label i {
-        margin-left: 10px;
-        color: #666;
-    }
-    
+
+        .form-label i {
+            margin-left: 10px;
+            color: #666;
+        }
+
     .custom-select {
         width: 100%;
         padding: 12px 15px;
@@ -74,19 +74,19 @@
         color: #333;
         transition: all 0.3s ease;
     }
-    
-    .custom-select:focus {
-        outline: none;
-        border-color: #ff7b00;
-        box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.1);
-    }
-    
+
+        .custom-select:focus {
+            outline: none;
+            border-color: #ff7b00;
+            box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.1);
+        }
+
     .btn-container {
         display: flex;
         gap: 15px;
         margin-top: 30px;
     }
-    
+
     .btn-primary-custom {
         background: linear-gradient(135deg, #ff7b00, #ff9500);
         color: white;
@@ -98,12 +98,12 @@
         transition: all 0.3s ease;
         flex: 1;
     }
-    
-    .btn-primary-custom:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
-    }
-    
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
+        }
+
     .btn-secondary-custom {
         background: white;
         color: #ff7b00;
@@ -115,12 +115,12 @@
         transition: all 0.3s ease;
         flex: 1;
     }
-    
-    .btn-secondary-custom:hover {
-        background: #ff7b00;
-        color: white;
-    }
-    
+
+        .btn-secondary-custom:hover {
+            background: #ff7b00;
+            color: white;
+        }
+
     .error-message {
         background: #fff3cd;
         color: #856404;
@@ -131,93 +131,238 @@
         display: flex;
         align-items: center;
     }
-    
-    .error-message i {
-        margin-left: 10px;
-        color: #ffc107;
-    }
-    
+
+        .error-message i {
+            margin-left: 10px;
+            color: #ffc107;
+        }
+
     .classes-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 15px;
         margin-top: 15px;
+        margin-bottom: 30px;
     }
-    
+
     .class-card {
         background: white;
         border: 2px solid #e9ecef;
         border-radius: 12px;
         padding: 20px;
         text-align: center;
-        cursor: pointer;
         transition: all 0.3s ease;
-        text-decoration: none;
         color: #333;
-        display: block;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        cursor: pointer;
+        position: relative;
     }
-    
-    .class-card:hover {
-        background: #ff7b00;
-        border-color: #ff7b00;
-        color: white;
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(255, 123, 0, 0.3);
-        text-decoration: none;
-    }
-    
+
+        .class-card:hover {
+            border-color: #ff7b00;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 123, 0, 0.2);
+        }
+
+        .class-card.selected {
+            border-color: #28a745;
+            background: #f8fff9;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
     .class-card-content {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
     }
-    
-    .class-card-content i {
-        font-size: 24px;
-        margin-bottom: 5px;
+
+        .class-card-content i {
+            font-size: 24px;
+            color: #ff7b00;
+            transition: all 0.3s ease;
+        }
+
+    .class-card.selected .class-card-content i {
+        color: #28a745;
     }
-    
-    .class-card-content small {
-        font-size: 12px;
-        font-weight: normal;
-        color: #666;
-        transition: color 0.3s ease;
+
+    .class-card-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin: 0;
     }
-    
-    .class-card:hover .class-card-content i,
-    .class-card:hover .class-card-content small {
+
+    .selected-indicator {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 24px;
+        height: 24px;
+        background: #28a745;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: white;
+        font-size: 12px;
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.3s ease;
     }
-    
+
+    .class-card.selected .selected-indicator {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .attendance-actions {
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        padding: 25px;
+        margin-top: 20px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        opacity: 0.5;
+        pointer-events: none;
+        transition: all 0.3s ease;
+    }
+
+        .attendance-actions.enabled {
+            opacity: 1;
+            pointer-events: auto;
+            border-color: #28a745;
+        }
+
+    .attendance-actions-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .selected-class-info {
+        background: rgba(40, 167, 69, 0.1);
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        color: #155724;
+        display: none;
+    }
+
+        .selected-class-info.show {
+            display: block;
+        }
+
+    .attendance-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .attendance-btn {
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        flex: 1;
+        max-width: 200px;
+    }
+
+    .daily-attendance {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        border: none;
+    }
+
+        .daily-attendance:hover {
+            background: linear-gradient(135deg, #218838, #1a9970);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+    .field-attendance {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        border: none;
+    }
+
+        .field-attendance:hover {
+            background: linear-gradient(135deg, #0056b3, #004085);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
     .no-selection-message {
         text-align: center;
         padding: 40px 20px;
         color: #666;
         margin-top: 30px;
     }
-    
-    .no-selection-message i {
-        font-size: 48px;
-        color: #ddd;
-        margin-bottom: 15px;
-    }
-    
-    .no-selection-message p {
-        font-size: 16px;
-        margin: 0;
-    }
-    
+
+        .no-selection-message i {
+            font-size: 48px;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .no-selection-message p {
+            font-size: 16px;
+            margin: 0;
+        }
+
     .classes-section {
         border-top: 1px solid #e9ecef;
         padding-top: 20px;
         margin-top: 20px;
     }
-    
+
+    .selection-hint {
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+
     .rtl {
         direction: rtl;
         text-align: right;
+    }
+
+    @@media (max-width: 768px) {
+        .attendance-buttons
+
+    {
+        flex-direction: column;
+    }
+
+    .attendance-btn {
+        max-width: none;
+    }
+
+    .classes-grid {
+        grid-template-columns: 1fr;
+    }
+
     }
 </style>
 
@@ -228,11 +373,11 @@
             <i class="fas fa-check"></i>
         </div>
     </div>
-    
+
     <div class="form-section">
         <form asp-action="Index" method="post">
             @Html.AntiForgeryToken()
-            
+
             <div class="form-group">
                 <label class="form-label">
                     <i class="fas fa-graduation-cap"></i>
@@ -242,9 +387,7 @@
                     <option value="">-- اختر الصف --</option>
                 </select>
             </div>
-            
 
-            
             @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
             {
                 <div class="error-message">
@@ -252,7 +395,7 @@
                     خطأ في تحميل البيانات
                 </div>
             }
-            
+
             <div class="btn-container">
                 <button type="button" class="btn-secondary-custom" onclick="history.back()">
                     العودة إلى القائمة
@@ -262,9 +405,7 @@
                 </button>
             </div>
         </form>
-        
 
-  
         <!-- Classes Display Section -->
         @if (Model.SelectedGradeId.HasValue)
         {
@@ -273,20 +414,49 @@
                     <i class="fas fa-users"></i>
                     الفصول المتاحة
                 </div>
-                
+
                 @if (Model.ClassesResult.Any())
                 {
+                    <div class="selection-hint">
+                        انقر على الفصل لاختياره
+                    </div>
+
+                    <!-- Display Classes -->
                     <div class="classes-grid">
                         @foreach (var cls in Model.ClassesResult)
                         {
-                            <a href="@Url.Action("Normal", new { classId = cls.Id })" class="class-card">
+                            <div class="class-card" data-class-id="@cls.Id" data-class-name="@cls.Name">
+                                <div class="selected-indicator">
+                                    <i class="fas fa-check"></i>
+                                </div>
                                 <div class="class-card-content">
                                     <i class="fas fa-door-open"></i>
-                                    <strong>@cls.Name</strong>
-                                    <small style="margin-top: 5px; opacity: 0.8;">اضغط للانتقال لتعيين الطلاب</small>
+                                    <div class="class-card-title">@cls.Name</div>
                                 </div>
-                            </a>
+                            </div>
                         }
+                    </div>
+
+                    <!-- Attendance Actions Section -->
+                    <div class="attendance-actions" id="attendanceActions">
+                        <div class="selected-class-info" id="selectedClassInfo">
+                            <i class="fas fa-info-circle"></i>
+                            <span id="selectedClassName"></span> تم اختياره
+                        </div>
+                        <div class="attendance-actions-title">
+                            <i class="fas fa-clipboard-check"></i>
+                            اختر نوع الحضور والغياب
+                        </div>
+                        <div class="attendance-buttons">
+                            <a href="#" id="normalBtn" class="attendance-btn daily-attendance">
+                                <i class="fas fa-calendar-day"></i>
+                                حضور وغياب يومي
+                            </a>
+                            <a href="#" id="fieldBtn" class="attendance-btn field-attendance">
+                                <i class="fas fa-map-marker-alt"></i>
+                                حضور وغياب ميداني
+                            </a>
+                        </div>
                     </div>
                 }
                 else
@@ -311,28 +481,64 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const gradeSelect = document.querySelector('[asp-for="SelectedGradeId"]');
-        
+        const classCards = document.querySelectorAll('.class-card');
+        const attendanceActions = document.getElementById('attendanceActions');
+        const selectedClassInfo = document.getElementById('selectedClassInfo');
+        const selectedClassName = document.getElementById('selectedClassName');
+        const normalBtn = document.getElementById('normalBtn');
+        const fieldBtn = document.getElementById('fieldBtn');
+
+        let selectedClassId = null;
+
+        // Grade selection
         if (gradeSelect) {
             gradeSelect.addEventListener('change', function() {
                 if (this.value) {
-                    // Submit the form automatically when grade is selected
                     this.closest('form').submit();
                 }
             });
         }
-        
-        // Add click animation to class cards
-        const classCards = document.querySelectorAll('.class-card');
+
+        // Class selection
         classCards.forEach(card => {
-            card.addEventListener('click', function(e) {
+            card.addEventListener('click', function() {
+                // Remove selection from all cards
+                classCards.forEach(c => c.classList.remove('selected'));
+
+                // Add selection to clicked card
+                this.classList.add('selected');
+
+                // Get selected class info
+                selectedClassId = this.dataset.classId;
+                const className = this.dataset.className;
+
+                // Update UI
+                selectedClassName.textContent = className;
+                selectedClassInfo.classList.add('show');
+                attendanceActions.classList.add('enabled');
+
+                // Update button links
+                normalBtn.href = '@Url.Action("Normal", new { classId = "__CLASSID__" })'.replace('__CLASSID__', selectedClassId);
+                fieldBtn.href = '@Url.Action("Field", new { classId = "__CLASSID__" })'.replace('__CLASSID__', selectedClassId);
+            });
+        });
+
+        // Add click animation to attendance buttons
+        const attendanceButtons = document.querySelectorAll('.attendance-btn');
+        attendanceButtons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (!selectedClassId) {
+                    e.preventDefault();
+                    return;
+                }
+
                 // Add loading effect
-                const content = this.querySelector('.class-card-content');
-                const icon = content.querySelector('i');
-                
-                // Change icon to loading spinner temporarily
+                const icon = this.querySelector('i');
                 const originalIcon = icon.className;
+
+                // Change icon to loading spinner temporarily
                 icon.className = 'fas fa-spinner fa-spin';
-                
+
                 // Small delay to show the loading effect
                 setTimeout(() => {
                     // The navigation will happen automatically due to the href
