@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام حضور الطلاب - المتقدم</title>
+    <title>نظام حضور الطلاب - الميداني</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -321,7 +321,6 @@
             border-radius: 8px;
             font-size: 16px;
             text-align: center;
-            margin-right: 15px;
         }
 
             .date-input:focus {
@@ -433,8 +432,6 @@
             'أخرى...'
         ];
 
-        let customReasons = [...absenceReasons];
-
         // Initialize the application
         function init() {
             // Set today's date
@@ -472,11 +469,6 @@
                         </select>
                         <input type="text" class="custom-reason hidden" id="custom-${index}"
                                placeholder="اكتب السبب المخصص..." disabled>
-                        <button class="btn-primary-custom hidden" id="submit-reason-${index}"
-                                onclick="submitCustomReason(${index})"
-                                style="flex: none; padding: 8px 15px; font-size: 12px; min-width: auto;">
-                            <i class="fas fa-plus"></i> إضافة
-                        </button>
                     </div>
                 `;
                 container.appendChild(row);
@@ -516,61 +508,16 @@
         function handleReasonChange(index) {
             const reasonSelect = document.getElementById(`reason-${index}`);
             const customInput = document.getElementById(`custom-${index}`);
-            const submitBtn = document.getElementById(`submit-reason-${index}`);
 
             if (reasonSelect.value === 'أخرى...') {
                 customInput.classList.remove('hidden');
                 customInput.disabled = false;
-                submitBtn.classList.remove('hidden');
                 customInput.focus();
             } else {
                 customInput.classList.add('hidden');
                 customInput.disabled = true;
-                submitBtn.classList.add('hidden');
                 customInput.value = '';
             }
-        }
-
-        function submitCustomReason(index) {
-            const customInput = document.getElementById(`custom-${index}`);
-            const reasonSelect = document.getElementById(`reason-${index}`);
-            const submitBtn = document.getElementById(`submit-reason-${index}`);
-
-            const newReason = customInput.value.trim();
-            if (!newReason) {
-                showToast('يرجى كتابة سبب الغياب');
-                return;
-            }
-
-            // Check if reason already exists
-            if (customReasons.includes(newReason)) {
-                showToast('هذا السبب موجود بالفعل');
-                return;
-            }
-
-            // Add new reason to the list (before 'أخرى...')
-            customReasons.splice(-1, 0, newReason);
-
-            // Update all select dropdowns
-            document.querySelectorAll('[id^="reason-"]').forEach(select => {
-                const currentValue = select.value;
-                select.innerHTML = `
-                    <option value="">اختر سبب الغياب</option>
-                    ${customReasons.map(reason => `<option value="${reason}">${reason}</option>`).join('')}
-                `;
-                select.value = currentValue;
-            });
-
-            // Set the new reason as selected
-            reasonSelect.value = newReason;
-
-            // Hide custom input and submit button
-            customInput.classList.add('hidden');
-            customInput.disabled = true;
-            submitBtn.classList.add('hidden');
-            customInput.value = '';
-
-            showToast(`تم إضافة سبب الغياب: ${newReason}`);
         }
 
         function updateSummary() {
@@ -594,12 +541,12 @@
 
         function saveAttendance() {
             const date = document.getElementById('attendance-date').value;
-            const fieldSupervisor = document.getElementById('field-supervisor').value.trim();
 
             if (!date) {
                 showToast('يرجى اختيار التاريخ أولاً');
                 return;
             }
+
             const attendanceData = [];
             const checkboxes = document.querySelectorAll('.attendance-checkbox');
             let hasAbsentWithoutReason = false;
@@ -628,8 +575,7 @@
                     name: students[index],
                     present: checkbox.checked,
                     absenceReason: absenceReason,
-                    date: date,
-                    fieldSupervisor: fieldSupervisor
+                    date: date
                 });
             });
 
@@ -668,11 +614,11 @@
             }
 
             // Here you would typically send data to a server
-            console.log('Advanced Attendance Data:', attendanceData);
+            console.log('Attendance Data:', attendanceData);
 
             // Show detailed save confirmation
             const absentStudents = attendanceData.filter(student => !student.present);
-            let message = `تم حفظ بيانات الحضور بنجاح! الميداني: ${fieldSupervisor}`;
+            let message = `تم حفظ بيانات الحضور بنجاح للتاريخ: ${date}`;
 
             if (absentStudents.length > 0) {
                 const reasonsCount = {};
@@ -695,7 +641,7 @@
 
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 5000); // زيادة الوقت للرسائل الطويلة
+            }, 5000);
         }
 
         // Initialize the application when the page loads
