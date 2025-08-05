@@ -1,309 +1,360 @@
 @model List<StudentManagementSystem.ViewModels.UserManagementViewModel>
 
-    @{
+@{
     ViewData["Title"] = "≈œ«—… «·„” Œœ„Ì‰";
     Layout = null;
-    }
+}
 
-    <!DOCTYPE html>
-    <html lang="ar" dir="rtl">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"]</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-        <style>
-            /* General Body Styles */
-            body {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background-color: #f8f9fa;
-                direction: rtl; /* Ensure Right-to-Left direction */
-                margin: 0;
-                padding: 0;
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* «·ÂÌœ— - «·Ã“¡ «·⁄·ÊÌ */
+        .header-section {
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border-radius: 0 0 20px 20px;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* ⁄‰Ê«‰ «·ÂÌœ— */
+        .header-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 1px;
+            color: #fd7e14;
+        }
+
+        /* Container for content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Control Buttons and Filter */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-select {
+            padding: 8px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            color: #495057;
+            min-width: 150px;
+        }
+
+            .filter-select:focus {
+                outline: none;
+                border-color: #fd7e14;
+                box-shadow: 0 0 0 3px rgba(253, 126, 20, 0.1);
             }
 
-            /* «·ÂÌœ— - «·Ã“¡ «·⁄·ÊÌ */
-            .header-section {
-                background: #fff; /* Œ·›Ì… »Ì÷«¡ */
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-                border-radius: 0 0 20px 20px;
-                padding: 25px 0;
-                margin-bottom: 30px;
+        /* General Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+            .btn i {
+                margin-left: 8px;
+            }
+
+        /* Specific Button Styles with Gradients and Hover Effects */
+        .btn-add {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+            .btn-add:hover {
+                background: linear-gradient(135deg, #218838, #1e7e34);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+            }
+
+        .btn-info {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+        }
+
+            .btn-info:hover {
+                background: linear-gradient(135deg, #0056b3, #003d80);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+            }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #333;
+        }
+
+            .btn-warning:hover {
+                background: linear-gradient(135deg, #e0a800, #c69500);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+            }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+            .btn-success:hover {
+                background: linear-gradient(135deg, #20c997, #17a2b8);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+            }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+        }
+
+            .btn-secondary:hover {
+                background: linear-gradient(135deg, #5a6268, #495057);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(108, 117, 125, 0.3);
+            }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 13px;
+            margin-left: 5px;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Table Styles */
+        .users-table {
+            width: 100%;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+            .table th,
+            .table td {
+                padding: 18px;
                 text-align: center;
+                border-bottom: 1px solid #eee;
             }
 
-            /* ⁄‰Ê«‰ «·ÂÌœ— */
-            .header-title {
-                font-size: 32px;
+            .table th {
+                background-color: #f0f2f5;
                 font-weight: bold;
-                margin: 0;
-                letter-spacing: 1px;
-                color: #fd7e14; /* »— ﬁ«·Ì */
-            }
-
-            /* Container for content */
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 20px;
-            }
-
-            /* Control Buttons (Add New User) */
-            .controls {
-                display: flex;
-                justify-content: flex-end; /* Align to the right in RTL */
-                margin-bottom: 25px;
-            }
-
-            /* General Button Styles */
-            .btn {
-                padding: 10px 20px;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
+                color: #555;
+                border-bottom: 2px solid #dee2e6;
                 font-size: 15px;
-                font-weight: 600;
-                text-decoration: none;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.3s ease;
-                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-                color: white; /* Default text color for gradient buttons */
             }
 
-                .btn i {
-                    margin-left: 8px; /* Space between icon and text in RTL */
-                }
-
-            /* Specific Button Styles with Gradients and Hover Effects */
-            .btn-add {
-                background: linear-gradient(135deg, #28a745, #20c997); /* Green gradient */
+            .table tbody tr:hover {
+                background-color: #e9ecef;
             }
 
-                .btn-add:hover {
-                    background: linear-gradient(135deg, #218838, #1e7e34);
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
-                }
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
 
-            .btn-info { /* For View Profile */
-                background: linear-gradient(135deg, #007bff, #0056b3); /* Blue gradient */
-            }
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-style: italic;
+            font-size: 18px;
+        }
 
-                .btn-info:hover {
-                    background: linear-gradient(135deg, #0056b3, #003d80);
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
-                }
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-align: center;
+        }
 
-            .btn-warning { /* For Edit */
-                background: linear-gradient(135deg, #ffc107, #e0a800); /* Yellow gradient */
-                color: #333; /* Darker text for contrast */
-            }
+        .status-active {
+            background-color: #d4edda;
+            color: #28a745;
+        }
 
-                .btn-warning:hover {
-                    background: linear-gradient(135deg, #e0a800, #c69500);
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
-                }
+        .status-inactive {
+            background-color: #f8d7da;
+            color: #dc3545;
+        }
 
-            .btn-danger { /* For Delete */
-                background: linear-gradient(135deg, #dc3545, #c82333); /* Red gradient */
-            }
+        /* Custom Modal Styles */
+        .custom-modal .modal-content {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
 
-                .btn-danger:hover {
-                    background: linear-gradient(135deg, #c82333, #bd2130);
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
-                }
+        .custom-modal .modal-header {
+            background: linear-gradient(135deg, #fd7e14, #e8590c);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+            border-bottom: none;
+        }
 
-            .btn-sm {
-                padding: 6px 12px;
-                font-size: 13px;
-                margin-left: 5px; /* Space between action buttons in RTL */
-            }
+        .custom-modal .modal-title {
+            font-weight: bold;
+            font-size: 24px;
+        }
 
-            /* Alert Messages */
-            .alert {
-                padding: 15px;
-                margin-bottom: 25px;
-                border-radius: 8px;
-                font-size: 16px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
+        .custom-modal .btn-close {
+            filter: invert(1) brightness(2);
+        }
 
-            .alert-success {
-                background-color: #d4edda;
-                color: #155724;
-                border: 1px solid #c3e6cb;
-            }
+        .custom-modal .modal-body {
+            padding: 30px;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
 
-            .alert-danger { /* Added for error messages */
-                background-color: #f8d7da;
-                color: #721c24;
-                border: 1px solid #f5c6cb;
-            }
+        .custom-modal .modal-footer {
+            border-top: none;
+            padding: 20px;
+            justify-content: center;
+            gap: 15px;
+        }
 
-            /* Table Styles */
-            .users-table { /* Changed class name to be specific to users */
-                width: 100%;
-                background-color: white;
-                border-radius: 12px;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-                overflow: hidden;
-            }
+        /* Responsive Design */
+        @@media (max-width: 768px) {
+            .container
 
-            .table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 0;
-            }
+        {
+            padding: 10px;
+        }
 
-                .table th,
-                .table td {
-                    padding: 18px;
-                    text-align: center;
-                    border-bottom: 1px solid #eee;
-                }
+        .header-title {
+            font-size: 24px;
+        }
 
-                .table th {
-                    background-color: #f0f2f5;
-                    font-weight: bold;
-                    color: #555;
-                    border-bottom: 2px solid #dee2e6;
-                    font-size: 15px;
-                }
+        .controls {
+            flex-direction: column;
+            align-items: stretch;
+        }
 
-                .table tbody tr:hover {
-                    background-color: #e9ecef;
-                }
+        .table th,
+        .table td {
+            padding: 10px;
+            font-size: 12px;
+        }
 
-            .btn-group {
-                display: flex;
-                gap: 8px;
-                justify-content: center;
-            }
+        .btn-group {
+            flex-direction: column;
+            gap: 5px;
+        }
 
-            .no-data {
-                text-align: center;
-                padding: 40px;
-                color: #888;
-                font-style: italic;
-                font-size: 18px;
-            }
+        .btn {
+            padding: 8px 15px;
+            font-size: 13px;
+        }
 
-            /* Status Badges */
-            .status-badge {
-                display: inline-block;
-                padding: 6px 12px;
-                border-radius: 20px;
-                font-size: 0.85em;
-                font-weight: 600;
-                text-align: center;
-            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-section">
+        <div class="container">
+            <h1 class="header-title">≈œ«—… «·„” Œœ„Ì‰</h1>
+        </div>
+    </div>
 
-            .status-active {
-                background-color: #d4edda;
-                color: #28a745;
-            }
-
-            .status-inactive {
-                background-color: #f8d7da;
-                color: #dc3545;
-            }
-
-            /* Custom Modal Styles (for Delete Confirmation) */
-            .custom-modal .modal-content {
-                border-radius: 15px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                border: none;
-            }
-
-            .custom-modal .modal-header {
-                background: linear-gradient(135deg, #dc3545, #c82333);
-                color: white;
-                border-radius: 15px 15px 0 0;
-                padding: 20px;
-                border-bottom: none;
-            }
-
-            .custom-modal .modal-title {
-                font-weight: bold;
-                font-size: 24px;
-            }
-
-            .custom-modal .btn-close {
-                filter: invert(1) brightness(2);
-            }
-
-            .custom-modal .modal-body {
-                padding: 30px;
-                font-size: 18px;
-                color: #333;
-                text-align: center;
-            }
-
-            .custom-modal .modal-footer {
-                border-top: none;
-                padding: 20px;
-                justify-content: center;
-                gap: 15px;
-            }
-
-            /* Responsive Design */
-            @@media (max-width: 768px) {
-                .container {
-                    padding: 10px;
-                }
-
-                .header-title {
-                    font-size: 24px;
-                }
-
-                .table th,
-                .table td {
-                    padding: 10px;
-                    font-size: 12px;
-                }
-
-                .btn-group {
-                    flex-direction: column;
-                    gap: 5px;
-                }
-
-                .btn {
-                    padding: 8px 15px;
-                    font-size: 13px;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="header-section">
-            <div class="container">
-                <h1 class="header-title">≈œ«—… «·„” Œœ„Ì‰</h1>
+    <div class="container">
+        <div class="controls">
+            <div class="filter-section">
+                <label for="statusFilter">›· —… Õ”» «·Õ«·…:</label>
+                <select id="statusFilter" class="filter-select">
+                    <option value="all">Ã„Ì⁄ «·„” Œœ„Ì‰</option>
+                    <option value="active" selected>«·„” Œœ„Ì‰ «·‰‘ÿÌ‰ ›ﬁÿ</option>
+                    <option value="inactive">«·„” Œœ„Ì‰ €Ì— «·‰‘ÿÌ‰ ›ﬁÿ</option>
+                </select>
             </div>
+            <a href="@Url.Action("Register", "Account")" class="btn btn-add">
+                <i class="fas fa-plus-circle"></i> ≈÷«›… „” Œœ„ ÃœÌœ
+            </a>
         </div>
 
-        <div class="container">
-            <div class="controls">
-                <a href="@Url.Action("Register", "Account")" class="btn btn-add">
-                    <i class="fas fa-plus-circle"></i> ≈÷«›… „” Œœ„ ÃœÌœ
-                </a>
-            </div>
-
-            @if (TempData["Success"] != null)
+        @if (TempData["Success"] != null)
         {
             <div class="alert alert-success">
                 <i class="fas fa-check-circle"></i>
                 @TempData["Success"]
             </div>
         }
-            @if (TempData["Error"] != null)
+        @if (TempData["Error"] != null)
         {
             <div class="alert alert-danger">
                 <i class="fas fa-exclamation-circle"></i>
@@ -311,145 +362,172 @@
             </div>
         }
 
-            <div class="users-table">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>«·«”„</th>
-                            <th>«”„ «·„” Œœ„</th>
-                            <th>«·œÊ—</th>
-                            <th> «—ÌŒ «·≈‰‘«¡</th>
-                            <th>«·Õ«·…</th>
-                            <th> „ «·≈‰‘«¡ »Ê«”ÿ…</th>
-                            <th>«·⁄„·Ì« </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model != null && Model.Any())
+        <div class="users-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>«·«”„</th>
+                        <th>«”„ «·„” Œœ„</th>
+                        <th>«·œÊ—</th>
+                        <th> «—ÌŒ «·≈‰‘«¡</th>
+                        <th>«·Õ«·…</th>
+                        <th> „ «·≈‰‘«¡ »Ê«”ÿ…</th>
+                        <th>«·⁄„·Ì« </th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    @if (Model != null && Model.Any())
                     {
                         @foreach (var user in Model)
                         {
-                        <tr>
-                            <td>@user.Name</td>
-                            <td>@user.Username</td>
-                            <td>@user.RoleName</td>
-                            <td>@user.Date.ToString("dd/MM/yyyy")</td>
-                            <td>
-                                <span class="status-badge @(user.IsActive ? "status-active" : "status-inactive")">
-                                    @(user.IsActive ? "‰‘ÿ" : "€Ì— ‰‘ÿ")
-                                </span>
-                            </td>
-                            <td>@user.CreatedBy</td>
-                            <td>
-                                <div class="btn-group" role="group">
-                                    <a href="@Url.Action("UserProfile", "User", new { id = user.Id })"
-                                       class="btn btn-info btn-sm" title="⁄—÷ «·„·› «·‘Œ’Ì">
-                                        <i class="fas fa-user"></i>
-                                    </a>
-                                    <a href="@Url.Action("EditUser", "User", new { id = user.Id })"
-                                       class="btn btn-warning btn-sm" title=" ⁄œÌ·">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" title="Õ–›"
-                                            onclick="showDeleteConfirmation(@user.Id, '@user.Name')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                            <tr data-status="@(user.IsActive ? "active" : "inactive")">
+                                <td>@user.Name</td>
+                                <td>@user.Username</td>
+                                <td>@user.RoleName</td>
+                                <td>@user.Date.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <span class="status-badge @(user.IsActive ? "status-active" : "status-inactive")">
+                                        @(user.IsActive ? "‰‘ÿ" : "€Ì— ‰‘ÿ")
+                                    </span>
+                                </td>
+                                <td>@user.CreatedBy</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="@Url.Action("UserProfile", "Account", new { id = user.Id })"
+                                           class="btn btn-info btn-sm" title="⁄—÷ «·„·› «·‘Œ’Ì">
+                                            <i class="fas fa-user"></i>
+                                        </a>
+                                        <!--  „ ≈’·«Õ “— «· ⁄œÌ· ·ÌÊ’· ··‹ EditUser „⁄ «·‹ id «·’ÕÌÕ -->
+                                        <a href="@Url.Action("EditUser", "Account", new { id = user.Id })"
+                                           class="btn btn-warning btn-sm" title=" ⁄œÌ·">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <!-- “— Toggle Status »œ·« „‰ «·Õ–› -->
+                                        <button type="button"
+                                                class="btn @(user.IsActive ? "btn-secondary" : "btn-success") btn-sm"
+                                                title="@(user.IsActive ? " ⁄ÿÌ· «·„” Œœ„" : " ›⁄Ì· «·„” Œœ„")"
+                                                onclick="showToggleConfirmation(@user.Id, '@user.Name', @user.IsActive.ToString().ToLower())">
+                                            <i class="fas fa-@(user.IsActive ? "user-slash" : "user-check")"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                         }
                     }
                     else
                     {
-                        <tr>
+                        <tr id="noDataRow">
                             <td colspan="7" class="no-data">·« ÌÊÃœ „” Œœ„Ê‰ ·⁄—÷Â„</td>
                         </tr>
                     }
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
+    </div>
 
-        <div class="modal fade custom-modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteConfirmationModalLabel"> √ﬂÌœ «·Õ–›</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Â· √‰  „ √ﬂœ „‰ Õ–› «·„” Œœ„ <strong id="userNameToDelete"></strong>ø</p>
-                        <p class="text-danger">·« Ì„ﬂ‰ «· —«Ã⁄ ⁄‰ Â–« «·≈Ã—«¡.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">≈·€«¡</button>
-                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Õ–›</button>
-                    </div>
+    <!-- Toggle Status Confirmation Modal -->
+    <div class="modal fade custom-modal" id="toggleConfirmationModal" tabindex="-1" aria-labelledby="toggleConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="toggleConfirmationModalLabel"> √ﬂÌœ  €ÌÌ— «·Õ«·…</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="toggleMessage"></p>
+                    <p class="text-warning">”Ì „  €ÌÌ— Õ«·… «·„” Œœ„ ›Ê—«.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">≈·€«¡</button>
+                    <button type="button" class="btn btn-warning" id="confirmToggleBtn"> √ﬂÌœ</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        @* Make sure this form is present and correctly targets the DeleteUser action in the User controller *@
-        <form id="deleteForm" asp-controller="User" asp-action="DeleteUser" method="post" style="display:none;">
-            @Html.AntiForgeryToken()
-            <input type="hidden" name="id" id="userIdToDelete" />
-        </form>
+    <!-- Form for Toggle Status -->
+    <form id="toggleForm" asp-controller="Account" asp-action="ToggleUserStatus" method="post" style="display:none;">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" id="userIdToToggle" />
+    </form>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-        <script>
-            // Global variable to store the ID of the user to be deleted
-            let userIdToDelete = 0;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Global variable to store the ID of the user to toggle
+        let userIdToToggle = 0;
 
-            function showDeleteConfirmation(id, name) {
-                userIdToDelete = id; // Store the ID
-                document.getElementById('userNameToDelete').innerText = name;
-                // Set the value of the hidden input field in the form
-                document.getElementById('userIdToDelete').value = id;
+        // Filter functionality
+        document.getElementById('statusFilter').addEventListener('change', function() {
+            const filterValue = this.value;
+            const rows = document.querySelectorAll('#usersTableBody tr[data-status]');
+            const noDataRow = document.getElementById('noDataRow');
+            let visibleCount = 0;
 
-                var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
-                deleteModal.show();
-            }
+            rows.forEach(row => {
+                const status = row.getAttribute('data-status');
 
-            document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
-                // Hide the modal
-                var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
-                deleteModal.hide();
-
-                const form = document.getElementById('deleteForm');
-
-                // Construct the URL dynamically using the asp-controller and asp-action attributes of the form
-                // This is safer than hardcoding the URL
-                const actionUrl = form.action;
-
-                try {
-                    const response = await fetch(actionUrl, { // Use the form's action URL
-                        method: 'POST',
-                        body: new FormData(form), // FormData will automatically pick up the hidden input
-                        headers: {
-                            // Ensure the Anti-Forgery Token is correctly sent
-                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-                        }
-                    });
-
-                    if (response.ok) {
-                        // Check if the response indicates a redirect (e.g., from RedirectToAction)
-                        // If so, let the browser handle the redirect, otherwise, reload
-                        if (response.redirected) {
-                            window.location.href = response.url;
-                        } else {
-                            // If no redirect, and success, reload the page to reflect changes
-                            location.reload();
-                        }
-                    } else {
-                        // Attempt to read error message from response if available
-                        const errorText = await response.text();
-                        alert('ÕœÀ Œÿ√ √À‰«¡ «·⁄„·Ì…: ' + errorText || '›‘· ›Ì Õ–› «·„” Œœ„. Ì—ÃÏ «·„Õ«Ê·… „—… √Œ—Ï.');
-                    }
-                } catch (error) {
-                    alert('ÕœÀ Œÿ√ √À‰«¡ «·⁄„·Ì…. Ì—ÃÏ «· Õﬁﬁ „‰ « ’«· «·‘»ﬂ….');
-                    console.error(error);
+                if (filterValue === 'all' || filterValue === status) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
                 }
             });
-        </script>
-    </body>
+
+            // Show/hide no data message
+            if (noDataRow) {
+                if (visibleCount === 0 && rows.length > 0) {
+                    noDataRow.style.display = '';
+                    noDataRow.querySelector('td').textContent = '·« ÌÊÃœ „” Œœ„Ê‰ Ìÿ«»ﬁÊ‰ «·›· — «·„Õœœ';
+                } else {
+                    noDataRow.style.display = 'none';
+                }
+            }
+        });
+
+        // Initialize filter to show active users only
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('statusFilter').dispatchEvent(new Event('change'));
+        });
+
+        function showToggleConfirmation(id, name, isActive) {
+            userIdToToggle = id;
+            const action = isActive ? ' ⁄ÿÌ·' : ' ›⁄Ì·';
+            const message = `Â· √‰  „ √ﬂœ „‰ ${action} «·„” Œœ„ <strong>${name}</strong>ø`;
+
+            document.getElementById('toggleMessage').innerHTML = message;
+            document.getElementById('userIdToToggle').value = id;
+
+            var toggleModal = new bootstrap.Modal(document.getElementById('toggleConfirmationModal'));
+            toggleModal.show();
+        }
+
+        document.getElementById('confirmToggleBtn').addEventListener('click', async function () {
+            // Hide the modal
+            var toggleModal = bootstrap.Modal.getInstance(document.getElementById('toggleConfirmationModal'));
+            toggleModal.hide();
+
+            const form = document.getElementById('toggleForm');
+
+            try {
+                const formData = new FormData(form);
+
+                const response = await fetch('@Url.Action("ToggleUserStatus", "Account")', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    // ≈⁄«œ…  Õ„Ì· «·’›Õ… ·≈ŸÂ«— «· ÕœÌÀ« 
+                    location.reload();
+                } else {
+                    alert('ÕœÀ Œÿ√ √À‰«¡  €ÌÌ— Õ«·… «·„” Œœ„. Ì—ÃÏ «·„Õ«Ê·… „—… √Œ—Ï.');
+                }
+            } catch (error) {
+                alert('ÕœÀ Œÿ√ √À‰«¡ «·⁄„·Ì…. Ì—ÃÏ «· Õﬁﬁ „‰ « ’«· «·‘»ﬂ….');
+                console.error(error);
+            }
+        });
+    </script>
+</body>
 </html>
