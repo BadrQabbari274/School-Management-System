@@ -368,7 +368,14 @@ namespace StudentManagementSystem.Controllers
             var classwithstudent = await _studentService.GetStudentsAsync(classId);
             return View(classwithstudent);
         }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveAttendance(AttendanceViewModel model, DateTime attendanceDate)
+        { 
+        return View(/*model*/);
+        }
+            [HttpPost]
         public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents, int? sectionId)
         {
             try
