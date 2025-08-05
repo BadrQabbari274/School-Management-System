@@ -79,22 +79,7 @@ namespace StudentManagementSystem.Service.Implementation
             var section = await _context.Sections.FindAsync(id);
             if (section == null)
                 return false;
-
-            // Check if section is being used in Student_Class_Section_Year
-            var isUsed = await _context.Student_Class_Section_Years
-                .AnyAsync(scsy => scsy.Section_id == id);
-
-            if (isUsed)
-            {
-                // Soft delete if used
                 section.IsActive = false;
-            }
-            else
-            {
-                // Hard delete if not used
-                _context.Sections.Remove(section);
-            }
-
             await _context.SaveChangesAsync();
             return true;
         }
