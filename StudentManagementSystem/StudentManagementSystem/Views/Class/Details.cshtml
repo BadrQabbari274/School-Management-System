@@ -501,17 +501,17 @@
     </div>
 
     <div class="container">
-        @if (TempData["SuccessMessage"] != null)
+        @if (TempData["Success"] != null)
         {
             <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+                <i class="fas fa-check-circle"></i> @TempData["Success"]
             </div>
         }
 
-        @if (TempData["ErrorMessage"] != null)
+        @if (TempData["Error"] != null)
         {
             <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i> @TempData["ErrorMessage"]
+                <i class="fas fa-exclamation-circle"></i> @TempData["Error"]
             </div>
         }
 

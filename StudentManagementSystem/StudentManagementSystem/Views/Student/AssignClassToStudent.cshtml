@@ -420,20 +420,20 @@
     </div>
 
     <div class="content-section">
-        @if (TempData["ErrorMessage"] != null)
+        @if (TempData["Error"] != null)
         {
             <div class="alert alert-danger alert-custom alert-dismissible fade show">
                 <i class="fas fa-exclamation-triangle"></i>
-                @TempData["ErrorMessage"]
+                @TempData["Error"]
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         }
 
-        @if (TempData["SuccessMessage"] != null)
+        @if (TempData["Success"] != null)
         {
             <div class="alert alert-success alert-custom alert-dismissible fade show">
                 <i class="fas fa-check-circle"></i>
-                @TempData["SuccessMessage"]
+                @TempData["Success"]
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         }
