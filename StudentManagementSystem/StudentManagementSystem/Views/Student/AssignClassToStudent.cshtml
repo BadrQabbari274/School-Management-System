@@ -156,29 +156,21 @@
         }
 
         .student-card:hover {
-            background: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-            transform: translateY(-5px);
             box-shadow: var(--hover-shadow);
+            transform: translateY(-5px);
         }
 
             .student-card:hover::before {
                 left: 100%;
             }
 
-        .student-card.selected {
-            background: var(--primary-color);
-            border-color: var(--primary-color);
-            color: white;
-            box-shadow: var(--hover-shadow);
-        }
-
     .form-check-input {
         width: 1.5rem;
         height: 1.5rem;
-        margin-left: 1rem;
         cursor: pointer;
+        margin-right: 1rem;
+        transition: all 0.3s ease;
+        border: 2px solid var(--border-color);
     }
 
         .form-check-input:checked {
@@ -186,10 +178,31 @@
             border-color: var(--primary-color);
         }
 
+    /* تأثير التلوين على البطاقة نفسها عند التحديد، تم إلغاؤه */
+    .student-card.selected {
+        /*
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: var(--hover-shadow);
+            */
+    }
+
+        /* الحفاظ على لون الخطوط داخل البطاقة فقط عند التحديد */
+        .student-card.selected .student-name,
+        .student-card.selected .student-code {
+            color: var(--dark-text); /* أو اللون الذي ترغب فيه عند التحديد */
+        }
+
     .student-info {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+    }
+
+    .form-check-label {
+        width: 100%;
+        cursor: pointer;
     }
 
     .student-name {
@@ -205,15 +218,14 @@
         font-weight: 500;
     }
 
+    /* تم تعديل هذا الجزء ليتناسب مع المطلوب */
     .student-card.selected .student-name,
-    .student-card:hover .student-name {
-        color: white;
+    .student-card.selected .student-code,
+    .student-card:hover .student-name,
+    .student-card:hover .student-code {
+        color: var(--dark-text);
     }
 
-    .student-card.selected .student-code,
-    .student-card:hover .student-code {
-        color: rgba(255, 255, 255, 0.8);
-    }
 
     .section-group, .class-group {
         background: var(--light-bg);
@@ -377,35 +389,32 @@
 
     /* تحسينات للشاشات الصغيرة */
     @@media (max-width: 768px) {
-        .page-container
-
-    {
-        margin: 10px;
-        border-radius: 15px;
-    }
-
-    .page-header {
-        padding: 1.5rem;
-    }
-
-        .page-header h1 {
-            font-size: 2rem;
+        .page-container {
+            margin: 10px;
+            border-radius: 15px;
         }
 
-    .content-section {
-        padding: 1rem;
-    }
+        .page-header {
+            padding: 1.5rem;
+        }
 
-    .control-buttons {
-        padding: 1.5rem;
-    }
+            .page-header h1 {
+                font-size: 2rem;
+            }
 
-    .btn-custom {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-        margin: 0.2rem;
-    }
+        .content-section {
+            padding: 1rem;
+        }
 
+        .control-buttons {
+            padding: 1.5rem;
+        }
+
+        .btn-custom {
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+            margin: 0.2rem;
+        }
     }
 </style>
 
@@ -443,7 +452,6 @@
 
             @if (!isJunior)
             {
-                <!-- اختيار القسم للصفوف المتقدمة -->
                 <div class="info-card">
                     <div class="card-header-custom section-card">
                         <i class="fas fa-layer-group"></i>
@@ -468,7 +476,6 @@
 
             @if (isJunior)
             {
-                <!-- عرض الطلاب للـ Junior مجمعين حسب القسم -->
                 <div class="info-card">
                     <div class="card-header-custom student-selection-card">
                         <i class="fas fa-graduation-cap"></i>
@@ -490,21 +497,17 @@
                                         @foreach (var student in sectionGroup.students)
                                         {
                                             <div class="col-md-6 col-lg-4">
-                                                <div class="student-card" data-student-id="@student.Id">
-                                                    <div class="form-check d-flex align-items-center">
-                                                        <input class="form-check-input"
-                                                               type="checkbox"
-                                                               name="selectedStudents"
-                                                               value="@student.Id"
-                                                               id="student_@student.Id">
-                                                        <label class="form-check-label flex-grow-1" for="student_@student.Id">
-                                                            <div class="student-info">
-                                                                <div class="student-name">@student.Name</div>
-                                                                <div class="student-code">@student.Code</div>
-                                                            </div>
-                                                        </label>
+                                                <label class="student-card d-flex align-items-center" for="student_@student.Id">
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           name="selectedStudents"
+                                                           value="@student.Id"
+                                                           id="student_@student.Id">
+                                                    <div class="student-info">
+                                                        <div class="student-name">@student.Name</div>
+                                                        <div class="student-code">@student.Code</div>
                                                     </div>
-                                                </div>
+                                                </label>
                                             </div>
                                         }
                                     </div>
@@ -524,7 +527,6 @@
             }
             else
             {
-                <!-- عرض الطلاب للـ Wheeler & Senior مجمعين حسب الفصل -->
                 <div class="info-card">
                     <div class="card-header-custom student-selection-card">
                         <i class="fas fa-chalkboard-teacher"></i>
@@ -546,21 +548,17 @@
                                         @foreach (var student in classGroup.students)
                                         {
                                             <div class="col-md-6 col-lg-4">
-                                                <div class="student-card" data-student-id="@student.Id">
-                                                    <div class="form-check d-flex align-items-center">
-                                                        <input class="form-check-input"
-                                                               type="checkbox"
-                                                               name="selectedStudents"
-                                                               value="@student.Id"
-                                                               id="student_@student.Id">
-                                                        <label class="form-check-label flex-grow-1" for="student_@student.Id">
-                                                            <div class="student-info">
-                                                                <div class="student-name">@student.Name</div>
-                                                                <div class="student-code">@student.Code</div>
-                                                            </div>
-                                                        </label>
+                                                <label class="student-card d-flex align-items-center" for="student_@student.Id">
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           name="selectedStudents"
+                                                           value="@student.Id"
+                                                           id="student_@student.Id">
+                                                    <div class="student-info">
+                                                        <div class="student-name">@student.Name</div>
+                                                        <div class="student-code">@student.Code</div>
                                                     </div>
-                                                </div>
+                                                </label>
                                             </div>
                                         }
                                     </div>
@@ -579,7 +577,6 @@
                 </div>
             }
 
-            <!-- أزرار العمليات -->
             <div class="control-buttons">
                 <div class="d-flex justify-content-between align-items-center flex-wrap">
                     <div class="mb-2">
@@ -601,7 +598,8 @@
                             <i class="fas fa-user-plus"></i>
                             تعيين الطلاب المحددين
                         </button>
-                        <a href="@Url.Action("Index", "Classes")" class="btn-custom btn-back">
+                        
+                        <a href="@Url.Action("AssignClass")" class="btn-custom btn-back">
                             <i class="fas fa-arrow-left"></i>
                             رجوع
                         </a>
@@ -645,15 +643,6 @@
         $('#clearAll').click(function() {
             $('input[name="selectedStudents"]').prop('checked', false).trigger('change');
             updateSelectedCount();
-        });
-
-        // النقر على البطاقة لتحديد/إلغاء تحديد الطالب
-        $(document).on('click', '.student-card', function(e) {
-            if (!$(e.target).is('input')) {
-                var checkbox = $(this).find('input[name="selectedStudents"]');
-                checkbox.prop('checked', !checkbox.prop('checked')).trigger('change');
-                updateSelectedCount();
-            }
         });
 
         // التحقق من وجود طلاب محددين قبل الإرسال

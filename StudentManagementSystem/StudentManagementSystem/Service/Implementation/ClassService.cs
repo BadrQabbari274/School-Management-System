@@ -27,6 +27,44 @@ namespace StudentManagementSystem.Service.Implementation
                 .ToListAsync();
         }
 
+         public async Task<ClassDetailsViewModel> GetClassDetailsAsync(int classId)
+        {
+            var classEntity = await GetClassByIdAsync(classId);
+            if (classEntity == null)
+            {
+                return null;
+            }
+
+            var currentWorkingYear = await GetCurrentWorkingYearAsync();
+            var studentsInClass = await GetStudentsByClassAndWorkingYearAsync(classId, currentWorkingYear.Id);
+
+            // Get grades for the students in the class
+            var studentGrades = new List<StudentGrades>();
+            foreach (var studentClass in studentsInClass)
+            {
+                var grade = await GetStudentGradeAsync(studentClass.Student_Id, currentWorkingYear.Id);
+                if (grade != null)
+                {
+                    studentGrades.Add(grade);
+                }
+            }
+
+            // Count junior students
+            var juniorStudentsCount = studentsInClass.Count(s =>
+                studentGrades.Any(sg => sg.StudentId == s.Student_Id && sg.Grade.Name.ToLower().Contains("junior")));
+
+            var viewModel = new ClassDetailsViewModel
+            {
+                Class = classEntity,
+                CurrentWorkingYear = currentWorkingYear,
+                StudentsInClass = studentsInClass,
+                StudentGrades = studentGrades,
+                JuniorStudentsCount = juniorStudentsCount
+            };
+
+            return viewModel;
+        }
+
         public async Task<Classes> GetClassByIdAsync(int id)
         {
             return await _context.Classes
@@ -46,6 +84,7 @@ namespace StudentManagementSystem.Service.Implementation
         public async Task<Classes> UpdateClassAsync(Classes classEntity)
         {
             _context.Entry(classEntity).State = EntityState.Modified;
+            classEntity.IsActive = true;
             await _context.SaveChangesAsync();
             return classEntity;
         }
@@ -132,7 +171,7 @@ namespace StudentManagementSystem.Service.Implementation
 
                 // Sort students by gender (males first) then by name
                 var sortedStudents = validStudents
-                    .OrderBy(s => GetGenderFromNationalId(s.Student.Natrual_Id)) // 0 for male, 1 for female
+                    .OrderBy(s => GetGenderFromNationalId(s.Student.Natrual_Id)) 
                     .ThenBy(s => s.Student.Name)
                     .ToList();
 
@@ -290,46 +329,6 @@ namespace StudentManagementSystem.Service.Implementation
 
             // If digit is odd = male (0), if even = female (1)
             return int.Parse(genderDigit.ToString()) % 2 == 1 ? 0 : 1;
-        }
-
-
-        // Inside ClassService.cs
-        public async Task<ClassDetailsViewModel> GetClassDetailsAsync(int classId)
-        {
-            var classEntity = await GetClassByIdAsync(classId);
-            if (classEntity == null)
-            {
-                return null;
-            }
-
-            var currentWorkingYear = await GetCurrentWorkingYearAsync();
-            var studentsInClass = await GetStudentsByClassAndWorkingYearAsync(classId, currentWorkingYear.Id);
-
-            // Get grades for the students in the class
-            var studentGrades = new List<StudentGrades>();
-            foreach (var studentClass in studentsInClass)
-            {
-                var grade = await GetStudentGradeAsync(studentClass.Student_Id, currentWorkingYear.Id);
-                if (grade != null)
-                {
-                    studentGrades.Add(grade);
-                }
-            }
-
-            // Count junior students
-            var juniorStudentsCount = studentsInClass.Count(s =>
-                studentGrades.Any(sg => sg.StudentId == s.Student_Id && sg.Grade.Name.ToLower().Contains("junior")));
-
-            var viewModel = new ClassDetailsViewModel
-            {
-                Class = classEntity,
-                CurrentWorkingYear = currentWorkingYear,
-                StudentsInClass = studentsInClass,
-                StudentGrades = studentGrades,
-                JuniorStudentsCount = juniorStudentsCount
-            };
-
-            return viewModel;
         }
 
         #endregion

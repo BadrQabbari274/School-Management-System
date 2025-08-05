@@ -45,6 +45,7 @@ namespace StudentManagementSystem.Service
             // Preserve original creation date and created by
             _context.Entry(workingYear).Property(x => x.Date).IsModified = false;
             _context.Entry(workingYear).Property(x => x.CreatedBy_Id).IsModified = false;
+            workingYear.IsActive = true;
 
             await _context.SaveChangesAsync();
             return workingYear;

@@ -13,7 +13,10 @@ namespace StudentManagementSystem.Service.Interface
         Task<bool> DeleteStudentAsync(int id);
         Task<IEnumerable<Students>> GetActiveStudentsAsync();
         Task<AttendanceViewModel> GetStudentsAsync(int classId);
-      
+        Task<AttendanceViewModel> GetStudentsFieldAsync(int classId);
+        Task<bool> SaveAttendanceFieldAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
+
+
         Task<bool> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
         Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId);
         Task<IEnumerable<Students>> GetStudentsWithTasksAsync();

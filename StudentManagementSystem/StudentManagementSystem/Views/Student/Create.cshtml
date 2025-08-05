@@ -7,7 +7,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link href="~/css/student.css" rel="stylesheet" />
 
-<!-- Success/Error Messages -->
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -25,8 +24,325 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
-@* 
+
+<div class="container-fluid mt-4">
+    <nav class="breadcrumb-custom">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-home me-2"></i>
+            <a href="@Url.Action("Index", "Home")" class="me-2">الرئيسية</a>
+            <i class="fas fa-angle-left me-2"></i>
+            <a href="@Url.Action("Index")" class="me-2">إدارة الطلاب</a>
+            <i class="fas fa-angle-left me-2"></i>
+            <span>إضافة طالب جديد</span>
+        </div>
+    </nav>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="form-container">
+                <div class="form-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-plus me-2"></i>
+                        إضافة طالب جديد
+                    </h3>
+                </div>
+
+                @using (Html.BeginForm("Create", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="section-title">
+                        <i class="fas fa-id-card me-2"></i>البيانات الأساسية
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Student.Name, "اسم الطالب", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Student.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل اسم الطالب", @id = "studentName" } })
+                            @Html.ValidationMessageFor(model => model.Student.Name, "", new { @class = "text-danger" })
+                            <div id="studentNameError" class="text-danger" style="display: none;">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                ممنوع كتابة أرقام - حروف فقط
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Student.Adress, "العنوان", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Student.Adress, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل العنوان", @id = "studentAddress" } })
+                            @Html.ValidationMessageFor(model => model.Student.Adress, "", new { @class = "text-danger" })
+                            <div id="studentAddressError" class="text-danger" style="display: none;">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                ممنوع كتابة أرقام فقط - حروف فقط أو أرقام مع حروف
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Student.Email, "البريد الإلكتروني", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Student.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = "أدخل البريد الإلكتروني", @pattern = ".+@gmail\\.com", @title = "البريد الإلكتروني يجب أن ينتهي بـ @gmail.com" } })
+                            @Html.ValidationMessageFor(model => model.Student.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Student.Natrual_Id, "الرقم القومي", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Student.Natrual_Id, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل الرقم القومي" } })
+                            @Html.ValidationMessageFor(model => model.Student.Natrual_Id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        @if (Model.Sections != null && Model.Sections.Any())
+                        {
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">القسم</label>
+                                <span class="required">*</span>
+                                @Html.DropDownListFor(m => m.SelectedSectionId,
+                                Model.Sections,
+                                                "اختر القسم",
+                                                new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.SelectedSectionId, "", new { @class = "text-danger" })
+                    </div>
+                                        }
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Student.Jop_of_Father, "وظيفة الأب", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Student.Jop_of_Father, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل وظيفة الأب", @id = "fatherJob" } })
+                            @Html.ValidationMessageFor(model => model.Student.Jop_of_Father, "", new { @class = "text-danger" })
+                            <div id="fatherJobError" class="text-danger" style="display: none;">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                ممنوع كتابة أرقام - حروف فقط
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Student.Jop_of_Mother, "وظيفة الأم", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Student.Jop_of_Mother, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل وظيفة الأم", @id = "motherJob" } })
+                            @Html.ValidationMessageFor(model => model.Student.Jop_of_Mother, "", new { @class = "text-danger" })
+                            <div id="motherJobError" class="text-danger" style="display: none;">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                ممنوع كتابة أرقام - حروف فقط
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(model => model.Student.Phone_Number, "رقم هاتف الطالب", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Student.Phone_Number, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
+                            @Html.ValidationMessageFor(model => model.Student.Phone_Number, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(model => model.Student.Phone_Number_Father, "رقم هاتف الأب", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Student.Phone_Number_Father, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
+                            @Html.ValidationMessageFor(model => model.Student.Phone_Number_Father, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(model => model.Student.Phone_Number_Mother, "رقم هاتف الأم", new { @class = "form-label" })
+                            <span class="required">*</span>
+                            @Html.EditorFor(model => model.Student.Phone_Number_Mother, new { htmlAttributes = new { @class = "form-control", @type = "tel", @placeholder = "01xxxxxxxxx" } })
+                            @Html.ValidationMessageFor(model => model.Student.Phone_Number_Mother, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="section-title mt-4">
+                        <i class="fas fa-file me-2"></i>الملفات المرفقة
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الصورة الشخصية</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" name="pictureProfile" accept="image/*" id="pictureProfile">
+                                <label for="pictureProfile" class="file-input-label">
+                                    <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                                    <div>اختر الصورة الشخصية</div>
+                                    <small class="text-muted">JPG, PNG, GIF - حد أقصى 5MB</small>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">شهادة الميلاد</label>
+                            <div class="file-input-wrapper">
+                                <input type="file" name="birthCertificate" accept=".pdf,.jpg,.jpeg,.png" id="birthCertificate">
+                                <label for="birthCertificate" class="file-input-label">
+                                    <i class="fas fa-file-pdf fa-2x mb-2"></i>
+                                    <div>اختر شهادة الميلاد</div>
+                                    <small class="text-muted">PDF, JPG, PNG - حد أقصى 5MB</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-4">
+                        <a href="@Url.Action("Index")" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>إلغاء
+                        </a>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <i class="fas fa-save me-2"></i>حفظ الطالب
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to check if text contains numbers
+    function containsNumbers(text) {
+        return /\d/.test(text);
+    }
+
+    // Function to check if text contains only numbers (no letters)
+    function containsOnlyNumbers(text) {
+        return /^\d+$/.test(text.trim());
+    }
+
+    // Function to validate text fields (no numbers allowed)
+    function validateTextField(inputId, errorId) {
+        const input = document.getElementById(inputId);
+        const errorDiv = document.getElementById(errorId);
+
+        if (!input || !errorDiv) return true;
+
+        const value = input.value.trim();
+
+        if (containsNumbers(value) && value !== '') {
+            input.classList.add('is-invalid');
+            errorDiv.style.display = 'block';
+            return false;
+        } else {
+            input.classList.remove('is-invalid');
+            errorDiv.style.display = 'none';
+            return true;
+        }
+    }
+
+    // Function to validate address field (no numbers only, but allows numbers with letters)
+    function validateAddressField(inputId, errorId) {
+        const input = document.getElementById(inputId);
+        const errorDiv = document.getElementById(errorId);
+
+        if (!input || !errorDiv) return true;
+
+        const value = input.value.trim();
+
+        if (containsOnlyNumbers(value) && value !== '') {
+            input.classList.add('is-invalid');
+            errorDiv.style.display = 'block';
+            return false;
+        } else {
+            input.classList.remove('is-invalid');
+            errorDiv.style.display = 'none';
+            return true;
+        }
+    }
+
+    // Real-time validation for student name
+    document.getElementById('studentName').addEventListener('input', function() {
+        validateTextField('studentName', 'studentNameError');
+    });
+
+    // Real-time validation for student address
+    document.getElementById('studentAddress').addEventListener('input', function() {
+        validateAddressField('studentAddress', 'studentAddressError');
+    });
+
+    // Real-time validation for father's job
+    document.getElementById('fatherJob').addEventListener('input', function() {
+        validateTextField('fatherJob', 'fatherJobError');
+    });
+
+    // Real-time validation for mother's job
+    document.getElementById('motherJob').addEventListener('input', function() {
+        validateTextField('motherJob', 'motherJobError');
+    });
+
+    // Form submission validation
+    document.querySelector('form').addEventListener('submit', function(e) {
+        let isValid = true;
+
+        // Validate all text fields
+        isValid &= validateTextField('studentName', 'studentNameError');
+        isValid &= validateAddressField('studentAddress', 'studentAddressError');
+        isValid &= validateTextField('fatherJob', 'fatherJobError');
+        isValid &= validateTextField('motherJob', 'motherJobError');
+
+        if (!isValid) {
+            e.preventDefault();
+
+            // Show alert message
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger alert-dismissible fade show mt-3';
+            alertDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                يرجى تصحيح الأخطاء في النموذج قبل الحفظ
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            // Insert alert at the top of the form
+            const formContainer = document.querySelector('.form-container');
+            formContainer.insertBefore(alertDiv, formContainer.firstChild.nextSibling);
+
+            // Scroll to first error
+            const firstError = document.querySelector('.is-invalid');
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstError.focus();
+            }
+        }
+    });
+
+    // File input change events
+    document.getElementById('pictureProfile').addEventListener('change', function(e) {
+        const label = document.querySelector('label[for="pictureProfile"]');
+        if (e.target.files.length > 0) {
+            label.innerHTML = `
+                <i class="fas fa-check fa-2x mb-2 text-success"></i>
+                <div>تم اختيار: ${e.target.files[0].name}</div>
+                <small class="text-muted">انقر للتغيير</small>
+            `;
+        }
+    });
+
+    document.getElementById('birthCertificate').addEventListener('change', function(e) {
+        const label = document.querySelector('label[for="birthCertificate"]');
+        if (e.target.files.length > 0) {
+            label.innerHTML = `
+                <i class="fas fa-check fa-2x mb-2 text-success"></i>
+                <div>تم اختيار: ${e.target.files[0].name}</div>
+                <small class="text-muted">انقر للتغيير</small>
+            `;
+        }
+    });
+</script>
+
 <style>
+    .is-invalid {
+        border-color: #dc3545 !important;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+    }
+
+    .text-danger {
+        font-size: 0.875em;
+        margin-top: 0.25rem;
+    }
+
     body {
         direction: rtl;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -67,12 +383,11 @@
 
     .form-control:focus {
         border-color: #fd7e14;
-        box-shadow: 0 0 0 0.2rem rgba(102,126,234,0.25);
+        box-shadow: 0 0 0 0.2rem rgba(253,126,20,0.25);
     }
 
     .btn-primary {
         background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
-    
         border: none;
         padding: 12px 30px;
         border-radius: 8px;
@@ -80,7 +395,7 @@
     }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
+            background: linear-gradient(135deg, #e8590c 0%, #d44806 100%);
         }
 
     .btn-secondary {
@@ -129,264 +444,4 @@
             background: #e9ecef;
             border-color: #fd7e14;
         }
-
-    .text-danger {
-        font-size: 0.875em;
-        margin-top: 0.25rem;
-    }
-</style> *@
-
-<div class="container-fluid mt-4">
-    <!-- Breadcrumb -->
-    <nav class="breadcrumb-custom">
-        <div class="d-flex align-items-center">
-            <i class="fas fa-home me-2"></i>
-            <a href="@Url.Action("Index", "Home")" class="me-2">الرئيسية</a>
-            <i class="fas fa-angle-left me-2"></i>
-            <a href="@Url.Action("Index")" class="me-2">إدارة الطلاب</a>
-            <i class="fas fa-angle-left me-2"></i>
-            <span>إضافة طالب جديد</span>
-        </div>
-    </nav>
-
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="form-container">
-                <div class="form-header">
-                    <h3 class="mb-0">
-                        <i class="fas fa-user-plus me-2"></i>
-                        إضافة طالب جديد
-                    </h3>
-                </div>
-
-                @using (Html.BeginForm("Create", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    @Html.AntiForgeryToken()
-
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                    <!-- البيانات الأساسية -->
-                    <div class="section-title">
-                        <i class="fas fa-id-card me-2"></i>البيانات الأساسية
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Student.Name, "اسم الطالب", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.EditorFor(model => model.Student.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل اسم الطالب" } })
-                            @Html.ValidationMessageFor(model => model.Student.Name, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Student.Adress, "العنوان", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.EditorFor(model => model.Student.Adress, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل العنوان" } })
-                            @Html.ValidationMessageFor(model => model.Student.Adress, "", new { @class = "text-danger" })
-                        </div>
-
-                @*         <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Code, "كود الطالب", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل كود الطالب" } })
-                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                        </div> *@
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Student.Email, "البريد الإلكتروني", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.EditorFor(model => model.Student.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", @placeholder = "أدخل البريد الإلكتروني" } })
-                            @Html.ValidationMessageFor(model => model.Student.Email, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Student.Natrual_Id, "الرقم القومي", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.EditorFor(model => model.Student.Natrual_Id, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل الرقم القومي" } })
-                            @Html.ValidationMessageFor(model => model.Student.Natrual_Id, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-        
-
-                    <div class="row">
-                        @if (Model.Sections != null && Model.Sections.Any())
-                        {
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">القسم</label>
-                                <span class="required">*</span>
-                                @Html.DropDownListFor(m => m.SelectedSectionId,
-                                Model.Sections,
-                                                "اختر القسم",
-                                                new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.SelectedSectionId, "", new { @class = "text-danger" })
-                    </div>
-                                        }
-                    </div>
-
-                    // تعديل باقي الحقول في الـ View - بيانات الوالدين
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Student.Jop_of_Father, "وظيفة الأب", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.EditorFor(model => model.Student.Jop_of_Father, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل وظيفة الأب" } })
-                            @Html.ValidationMessageFor(model => model.Student.Jop_of_Father, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            @Html.LabelFor(model => model.Student.Jop_of_Mother, "وظيفة الأم", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            @Html.EditorFor(model => model.Student.Jop_of_Mother, new { htmlAttributes = new { @class = "form-control", @placeholder = "أدخل وظيفة الأم" } })
-                            @Html.ValidationMessageFor(model => model.Student.Jop_of_Mother, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <!-- تعديل أرقام الهواتف في الـ View -->
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            @Html.LabelFor(model => model.Student.Phone_Number, "رقم هاتف الطالب", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            <input type="tel" class="form-control" id="studentPhone" name="Student.Phone_Number" value="+20" placeholder="+20xxxxxxxxxx" />
-                            @Html.ValidationMessageFor(model => model.Student.Phone_Number, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            @Html.LabelFor(model => model.Student.Phone_Number_Father, "رقم هاتف الأب", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            <input type="tel" class="form-control" id="fatherPhone" name="Student.Phone_Number_Father" value="+20" placeholder="+20xxxxxxxxxx" />
-                            @Html.ValidationMessageFor(model => model.Student.Phone_Number_Father, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            @Html.LabelFor(model => model.Student.Phone_Number_Mother, "رقم هاتف الأم", new { @class = "form-label" })
-                            <span class="required">*</span>
-                            <input type="tel" class="form-control" id="motherPhone" name="Student.Phone_Number_Mother" value="+20" placeholder="+20xxxxxxxxxx" />
-                            @Html.ValidationMessageFor(model => model.Student.Phone_Number_Mother, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <!-- الملفات -->
-                    <div class="section-title mt-4">
-                        <i class="fas fa-file me-2"></i>الملفات المرفقة
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">الصورة الشخصية</label>
-                            <div class="file-input-wrapper">
-                                <input type="file" name="pictureProfile" accept="image/*" id="pictureProfile">
-                                <label for="pictureProfile" class="file-input-label">
-                                    <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
-                                    <div>اختر الصورة الشخصية</div>
-                                    <small class="text-muted">JPG, PNG, GIF - حد أقصى 5MB</small>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">شهادة الميلاد</label>
-                            <div class="file-input-wrapper">
-                                <input type="file" name="birthCertificate" accept=".pdf,.jpg,.jpeg,.png" id="birthCertificate">
-                                <label for="birthCertificate" class="file-input-label">
-                                    <i class="fas fa-file-pdf fa-2x mb-2"></i>
-                                    <div>اختر شهادة الميلاد</div>
-                                    <small class="text-muted">PDF, JPG, PNG - حد أقصى 5MB</small>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- الأزرار -->
-                    <div class="d-flex justify-content-end gap-3 mt-4">
-                        <a href="@Url.Action("Index")" class="btn btn-secondary">
-                            <i class="fas fa-times me-2"></i>إلغاء
-                        </a>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save me-2"></i>حفظ الطالب
-                        </button>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // File input change event
-    document.getElementById('pictureProfile').addEventListener('change', function(e) {
-        const label = document.querySelector('label[for="pictureProfile"]');
-        if (e.target.files.length > 0) {
-            label.innerHTML = `
-                <i class="fas fa-check fa-2x mb-2 text-success"></i>
-                <div>تم اختيار: ${e.target.files[0].name}</div>
-                <small class="text-muted">انقر للتغيير</small>
-            `;
-        }
-    });
-
-    document.getElementById('birthCertificate').addEventListener('change', function(e) {
-        const label = document.querySelector('label[for="birthCertificate"]');
-        if (e.target.files.length > 0) {
-            label.innerHTML = `
-                <i class="fas fa-check fa-2x mb-2 text-success"></i>
-                <div>تم اختيار: ${e.target.files[0].name}</div>
-                <small class="text-muted">انقر للتغيير</small>
-            `;
-        }
-    });
-</script>
-<!-- Add this script before the closing </body> tag or at the end of your file -->
-<script>
-function enforcePrefix(input) {
-    if (!input.value.startsWith('+20')) {
-        input.value = '+20';
-    }
-    input.addEventListener('blur', function() {
-        if (!input.value.startsWith('+20')) {
-            input.value = '+20';
-        }
-    });
-}
-
-['studentPhone', 'fatherPhone', 'motherPhone'].forEach(function(id) {
-    const input = document.getElementById(id);
-    enforcePrefix(input);
-});
-
-document.querySelector('form').addEventListener('submit', function(e) {
-    // National ID validation
-    const nationalIdInput = document.querySelector('input[name="Student.Natrual_Id"]');
-    const nationalId = nationalIdInput.value.trim();
-    if (!/^\d{14}$/.test(nationalId)) {
-        alert('الرقم القومي غير صحيح. يجب أن يكون 14 رقمًا.');
-        nationalIdInput.focus();
-        e.preventDefault();
-        return;
-    }
-
-    // Phone number processing function
-    function processPhone(input, label) {
-        let digits = input.value.replace(/^\+20/, '').replace(/\D/g, '');
-        // If first digit is '1' and length is 10, prepend '0'
-        if (digits.length === 10 && digits[0] === '1') {
-            digits = '0' + digits;
-        }
-        // If first digit is '0' and length is 11, send as is
-        // Otherwise, show error
-        if (digits.length !== 11 || digits[0] !== '0') {
-            alert(label + ' غير صحيح. يجب أن يكون رقم مصري صحيح مكون من 11 رقم ويبدأ بـ 0.');
-            input.focus();
-            e.preventDefault();
-            return null;
-        }
-        // Set the value to the processed number (for backend)
-        input.value = digits;
-        return digits;
-    }
-
-    // Student Phone
-    if (!processPhone(document.getElementById('studentPhone'), 'رقم هاتف الطالب')) return;
-    // Father Phone
-    if (!processPhone(document.getElementById('fatherPhone'), 'رقم هاتف الأب')) return;
-    // Mother Phone
-    if (!processPhone(document.getElementById('motherPhone'), 'رقم هاتف الأم')) return;
-});
-</script>
+</style>

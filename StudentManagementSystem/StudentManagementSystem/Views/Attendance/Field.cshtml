@@ -1,9 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@model StudentManagementSystem.ViewModels.AttendanceViewModel
+
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام حضور الطلاب - الميداني</title>
+    <title>نظام حضور الطلاب - @Model.Class.Name</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -43,6 +45,12 @@
                 margin: 0;
                 font-size: 28px;
                 font-weight: bold;
+            }
+
+            .header-section .class-info {
+                font-size: 16px;
+                margin-top: 10px;
+                opacity: 0.9;
             }
 
         .check-icon {
@@ -330,23 +338,20 @@
             }
 
         @@media (max-width: 768px) {
-            .student-row
+            .student-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
 
-        {
-            flex-direction: column;
-            align-items: stretch;
-        }
+            .absence-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
 
-        .absence-controls {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 10px;
-        }
-
-        .btn-container {
-            flex-direction: column;
-        }
-
+            .btn-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -357,122 +362,123 @@
                 <i class="fas fa-clipboard-list"></i>
             </div>
             <h3>نظام حضور وغياب الطلاب - الميداني</h3>
+            <div class="class-info">@Model.Class.Name - @Model.Class.Grade</div>
         </div>
 
         <div class="form-section">
-            <div class="date-section">
-                <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;">
-                    <div>
-                        <label for="attendance-date" class="form-label" style="margin-bottom: 5px;">
-                            <i class="fas fa-calendar-alt"></i>
-                            تاريخ اليوم
-                        </label>
-                        <input type="date" id="attendance-date" class="date-input">
+            <form method="post" action="@Url.Action("SaveAttendanceField")">
+                <input type="hidden" name="Class.Id" value="@Model.Class.Id" />
+
+                <div class="date-section">
+                    <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                        <div>
+                            <label for="attendance-date" class="form-label" style="margin-bottom: 5px;">
+                                <i class="fas fa-calendar-alt"></i>
+                                تاريخ اليوم
+                            </label>
+                            <input type="date" id="attendance-date" name="AttendanceDate" class="date-input" required>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <label class="form-label" style="margin-bottom: 0;">
-                        <i class="fas fa-users"></i>
-                        قائمة الطلاب مع أسباب الغياب
-                    </label>
-                    <button class="btn-secondary-custom" style="flex: none; padding: 10px 20px; font-size: 14px;" onclick="selectAllPresent()">
-                        <i class="fas fa-check-double"></i> تحديد الكل حاضر
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <label class="form-label" style="margin-bottom: 0;">
+                            <i class="fas fa-users"></i>
+                            قائمة الطلاب مع أسباب الغياب (@Model.StudentStatus.Count طالب)
+                        </label>
+                        <button type="button" class="btn-secondary-custom" style="flex: none; padding: 10px 20px; font-size: 14px;" onclick="selectAllPresent()">
+                            <i class="fas fa-check-double"></i> تحديد الكل حاضر
+                        </button>
+                    </div>
+
+                    <div class="students-list" id="students-list">
+                        @for (int i = 0; i < Model.StudentStatus.Count; i++)
+                        {
+                            <div class="student-row">
+                                <input type="hidden" name="StudentStatus[@i].Students.Id" value="@Model.StudentStatus[i].Students.Id" />
+                                <input type="hidden" name="StudentStatus[@i].Students.Name" value="@Model.StudentStatus[i].Students.Name" />
+
+                                <div class="student-info">
+                                    <span class="student-name">@Model.StudentStatus[i].Students.Name</span>
+                                </div>
+
+                                <div class="absence-controls">
+                                    <div class="attendance-controls">
+                                        <span class="status-indicator @(Model.StudentStatus[i].Status ? "present" : "absent")" id="status-@i">
+                                            @(Model.StudentStatus[i].Status ? "حاضر" : "غائب")
+                                        </span>
+                                        <input type="checkbox"
+                                               class="attendance-checkbox"
+                                               id="present-@i"
+                                               name="StudentStatus[@i].Status"
+                                               value="true"
+                                               onchange="updateStatus(@i, this.checked)"
+                                               @(Model.StudentStatus[i].Status ? "checked" : "")>
+                                        <input type="hidden" name="StudentStatus[@i].Status" value="false">
+                                        <label for="present-@i">حاضر</label>
+                                    </div>
+
+                                    <select class="custom-select"
+                                            id="reason-@i"
+                                            name="StudentStatus[@i].AbsenceReason"
+                                            onchange="handleReasonChange(@i)"
+                                            @(Model.StudentStatus[i].Status ? "disabled" : "")>
+                                        <option value="">اختر سبب الغياب</option>
+                                        @if (Model.reasons != null)
+                                        {
+                                            @foreach (var reason in Model.reasons)
+                                            {
+                                                var reasonName = reason.GetType().GetProperty("ReasonName")?.GetValue(reason)?.ToString() ??
+                                                reason.GetType().GetProperty("Name")?.GetValue(reason)?.ToString() ??
+                                                reason.ToString();
+                                                <option value="@reasonName">@reasonName</option>
+                                            }
+                                        }
+                                        <option value="أخرى...">أخرى...</option>
+                                    </select>
+
+                                    <input type="text"
+                                           class="custom-reason hidden"
+                                           id="custom-@i"
+                                           name="StudentStatus[@i].CustomReason"
+                                           placeholder="اكتب السبب المخصص..."
+                                           disabled>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="summary" id="summary">
+                    <div class="summary-item">الحاضرين: <span id="present-count">@Model.StudentStatus.Count(s => s.Status)</span></div>
+                    <div class="summary-item">الغائبين: <span id="absent-count">@Model.StudentStatus.Count(s => !s.Status)</span></div>
+                    <div class="summary-item">المجموع: <span id="total-count">@Model.StudentStatus.Count</span></div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit" class="btn-primary-custom" onclick="return validateForm()">
+                        <i class="fas fa-save"></i> حفظ بيانات الحضور مع الأسباب
+                    </button>
+                    <button type="button" class="btn-secondary-custom" onclick="window.history.back()">
+                        <i class="fas fa-arrow-right"></i> العودة
                     </button>
                 </div>
-                <div class="students-list" id="students-list">
-                    <!-- Students will be populated here -->
-                </div>
-            </div>
-
-            <div class="summary" id="summary" style="display: none;">
-                <div class="summary-item">الحاضرين: <span id="present-count">0</span></div>
-                <div class="summary-item">الغائبين: <span id="absent-count">0</span></div>
-                <div class="summary-item">المجموع: <span id="total-count">0</span></div>
-            </div>
-
-            <div class="btn-container">
-                <button class="btn-primary-custom" onclick="saveAttendance()">
-                    <i class="fas fa-save"></i> حفظ بيانات الحضور مع الأسباب
-                </button>
-            </div>
+            </form>
         </div>
     </div>
 
     <div id="toast" class="toast"></div>
 
     <script>
-        // Sample student data
-        const students = [
-            'أحمد محمد علي',
-            'فاطمة عبد الرحمن',
-            'محمد حسن إبراهيم',
-            'نورا أحمد سالم',
-            'يوسف عمر محمود',
-            'مريم خالد أحمد',
-            'عبد الله صالح محمد',
-            'سارة علي حسن',
-            'حسام محمد عبد الله',
-            'هدى إبراهيم يوسف',
-            'كريم أحمد محمد',
-            'ليلى حسن علي',
-            'عمر محمود إبراهيم',
-            'دينا خالد سالم',
-            'محمود عبد الرحمن أحمد'
-        ];
-
-        const absenceReasons = [
-            'مرض',
-            'ظروف عائلية',
-            'مواصلات',
-            'مناسبة خاصة',
-            'إجازة رسمية',
-            'أخرى...'
-        ];
-
         // Initialize the application
         function init() {
             // Set today's date
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('attendance-date').value = today;
 
-            // Populate students
-            populateStudents();
-
-            // Show initial summary (all absent by default)
+            // Update summary display
             updateSummary();
-        }
-
-        function populateStudents() {
-            const container = document.getElementById('students-list');
-            container.innerHTML = '';
-
-            students.forEach((student, index) => {
-                const row = document.createElement('div');
-                row.className = 'student-row';
-                row.innerHTML = `
-                    <div class="student-info">
-                        <span class="student-name">${student}</span>
-                    </div>
-                    <div class="absence-controls">
-                        <div class="attendance-controls">
-                            <span class="status-indicator absent" id="status-${index}">غائب</span>
-                            <input type="checkbox" class="attendance-checkbox" id="present-${index}"
-                                   onchange="updateStatus(${index}, this.checked)">
-                            <label for="present-${index}">حاضر</label>
-                        </div>
-                        <select class="custom-select" id="reason-${index}" onchange="handleReasonChange(${index})">
-                            <option value="">اختر سبب الغياب</option>
-                            ${absenceReasons.map(reason => `<option value="${reason}">${reason}</option>`).join('')}
-                        </select>
-                        <input type="text" class="custom-reason hidden" id="custom-${index}"
-                               placeholder="اكتب السبب المخصص..." disabled>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
         }
 
         function selectAllPresent() {
@@ -535,29 +541,27 @@
 
             document.getElementById('present-count').textContent = presentCount;
             document.getElementById('absent-count').textContent = absentCount;
-            document.getElementById('total-count').textContent = students.length;
-            document.getElementById('summary').style.display = 'block';
+            document.getElementById('total-count').textContent = checkboxes.length;
         }
 
-        function saveAttendance() {
+        function validateForm() {
             const date = document.getElementById('attendance-date').value;
 
             if (!date) {
                 showToast('يرجى اختيار التاريخ أولاً');
-                return;
+                return false;
             }
 
-            const attendanceData = [];
             const checkboxes = document.querySelectorAll('.attendance-checkbox');
             let hasAbsentWithoutReason = false;
             let absentWithoutReasonNames = [];
 
             checkboxes.forEach((checkbox, index) => {
-                const reasonSelect = document.getElementById(`reason-${index}`);
-                const customInput = document.getElementById(`custom-${index}`);
-                let absenceReason = '';
-
                 if (!checkbox.checked) {
+                    const reasonSelect = document.getElementById(`reason-${index}`);
+                    const customInput = document.getElementById(`custom-${index}`);
+                    let absenceReason = '';
+
                     if (reasonSelect.value === 'أخرى...') {
                         absenceReason = customInput.value.trim() || '';
                     } else {
@@ -567,16 +571,10 @@
                     // Check if absent student has no reason
                     if (!absenceReason) {
                         hasAbsentWithoutReason = true;
-                        absentWithoutReasonNames.push(students[index]);
+                        const studentName = checkbox.closest('.student-row').querySelector('.student-name').textContent;
+                        absentWithoutReasonNames.push(studentName);
                     }
                 }
-
-                attendanceData.push({
-                    name: students[index],
-                    present: checkbox.checked,
-                    absenceReason: absenceReason,
-                    date: date
-                });
             });
 
             // Check if there are absent students without reasons
@@ -610,28 +608,11 @@
                     }
                 });
 
-                return;
+                return false;
             }
 
-            // Here you would typically send data to a server
-            console.log('Attendance Data:', attendanceData);
-
-            // Show detailed save confirmation
-            const absentStudents = attendanceData.filter(student => !student.present);
-            let message = `تم حفظ بيانات الحضور بنجاح للتاريخ: ${date}`;
-
-            if (absentStudents.length > 0) {
-                const reasonsCount = {};
-                absentStudents.forEach(student => {
-                    if (student.absenceReason) {
-                        reasonsCount[student.absenceReason] = (reasonsCount[student.absenceReason] || 0) + 1;
-                    }
-                });
-
-                console.log('أسباب الغياب:', reasonsCount);
-            }
-
-            showToast(message);
+            showToast('جاري حفظ البيانات...');
+            return true;
         }
 
         function showToast(message) {
