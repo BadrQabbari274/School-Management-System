@@ -24,6 +24,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Account/EditUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFZGl0VXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Account/ForgetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3JnZXRQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -34,10 +38,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Account/manageusers.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxtYW5hZ2V1c2Vycy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Account/Profile.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Account/Register.cshtml]
@@ -60,8 +60,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/index2.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxpbmRleDIuY3NodG1s
+[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Index1.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleDEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Normal.cshtml]
@@ -70,10 +70,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/RecordAttendance.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxSZWNvcmRBdHRlbmRhbmNlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Training.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxUcmFpbmluZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/ViewAttendance.cshtml]
@@ -226,6 +222,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Student/Index2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleDIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Student/Training.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxUcmFpbmluZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/WorkingYear/Create.cshtml]
