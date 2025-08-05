@@ -1,131 +1,346 @@
-﻿@{
-    ViewData["Title"] = "نظام الحضور والغياب";
+﻿@model StudentManagementSystem.ViewModels.GradeSelectionViewModel
+@{
+    ViewData["Title"] = "اختيار الصف والفصل";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">نظام الحضور والغياب</h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <!-- اختيار الفصل -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="classSelect">اختر الفصل:</label>
-                                <select class="form-control" id="classSelect">
-                                    <option value="">-- اختر فصل --</option>
-                                    @if (ViewBag.Classes != null)
-                                    {
-                                        @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.Classes)
-                                        {
-                                            <option value="@item.Value">@item.Text</option>
-                                        }
-                                    }
-                                </select>
-                            </div>
-                        </div>
+<style>
+    .selection-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .header-section {
+        background: linear-gradient(135deg, #ff7b00, #ff9500);
+        color: white;
+        padding: 20px;
+        border-radius: 10px 10px 0 0;
+        text-align: center;
+        position: relative; 7
+    }
+    
+    .header-section h3 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .check-icon {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        background: rgba(255,255,255,0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .form-section {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 0 0 10px 10px;
+        border: 1px solid #e9ecef;
+    }
+    
+    .form-group {
+        margin-bottom: 25px;
+    }
+    
+    .form-label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #333;
+        font-size: 16px;
+    }
+    
+    .form-label i {
+        margin-left: 10px;
+        color: #666;
+    }
+    
+    .custom-select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        background: white;
+        font-size: 16px;
+        color: #333;
+        transition: all 0.3s ease;
+    }
+    
+    .custom-select:focus {
+        outline: none;
+        border-color: #ff7b00;
+        box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.1);
+    }
+    
+    .btn-container {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+    
+    .btn-primary-custom {
+        background: linear-gradient(135deg, #ff7b00, #ff9500);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex: 1;
+    }
+    
+    .btn-primary-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
+    }
+    
+    .btn-secondary-custom {
+        background: white;
+        color: #ff7b00;
+        border: 2px solid #ff7b00;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex: 1;
+    }
+    
+    .btn-secondary-custom:hover {
+        background: #ff7b00;
+        color: white;
+    }
+    
+    .error-message {
+        background: #fff3cd;
+        color: #856404;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #ffc107;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .error-message i {
+        margin-left: 10px;
+        color: #ffc107;
+    }
+    
+    .classes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .class-card {
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: #333;
+        display: block;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .class-card:hover {
+        background: #ff7b00;
+        border-color: #ff7b00;
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(255, 123, 0, 0.3);
+        text-decoration: none;
+    }
+    
+    .class-card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .class-card-content i {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+    
+    .class-card-content small {
+        font-size: 12px;
+        font-weight: normal;
+        color: #666;
+        transition: color 0.3s ease;
+    }
+    
+    .class-card:hover .class-card-content i,
+    .class-card:hover .class-card-content small {
+        color: white;
+    }
+    
+    .no-selection-message {
+        text-align: center;
+        padding: 40px 20px;
+        color: #666;
+        margin-top: 30px;
+    }
+    
+    .no-selection-message i {
+        font-size: 48px;
+        color: #ddd;
+        margin-bottom: 15px;
+    }
+    
+    .no-selection-message p {
+        font-size: 16px;
+        margin: 0;
+    }
+    
+    .classes-section {
+        border-top: 1px solid #e9ecef;
+        padding-top: 20px;
+        margin-top: 20px;
+    }
+    
+    .rtl {
+        direction: rtl;
+        text-align: right;
+    }
+</style>
 
-                        <!-- التاريخ -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="attendanceDate">التاريخ:</label>
-                                <input type="date" class="form-control" id="attendanceDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- أزرار العمليات -->
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-primary" id="btnRegularAttendance">
-                                    <i class="fas fa-calendar-day"></i> حضور عادي (يومي)
-                                </button>
-                                <button type="button" class="btn btn-success" id="btnFieldAttendance">
-                                    <i class="fas fa-hiking"></i> حضور ميداني
-                                </button>
-                                <button type="button" class="btn btn-info" id="btnViewRecords">
-                                    <i class="fas fa-eye"></i> عرض السجلات
-                                </button>
-                                <button type="button" class="btn btn-warning" id="btnStudentReports">
-                                    <i class="fas fa-user-graduate"></i> تقارير الطلاب
-                                </button>
-                                <button type="button" class="btn btn-secondary" id="btnClassReports">
-                                    <i class="fas fa-chart-bar"></i> تقارير الفصول
-                                </button>
-                                <button type="button" class="btn btn-dark" id="btnExitRequests">
-                                    <i class="fas fa-sign-out-alt"></i> طلبات الخروج
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- منطقة عرض البيانات -->
-                    <div id="contentArea" class="mt-4" style="display: none;">
-                        <!-- سيتم تحميل المحتوى هنا -->
-                    </div>
-                </div>
-            </div>
+<div class="selection-container rtl">
+    <div class="header-section">
+        <h3>اختيار الصف والفصل</h3>
+        <div class="check-icon">
+            <i class="fas fa-check"></i>
         </div>
+    </div>
+    
+    <div class="form-section">
+        <form asp-action="Index" method="post">
+            @Html.AntiForgeryToken()
+            
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-graduation-cap"></i>
+                    الصف الدراسي
+                </label>
+                <select asp-for="SelectedGradeId" asp-items="@Model.GradesList" class="custom-select">
+                    <option value="">-- اختر الصف --</option>
+                </select>
+            </div>
+            
+
+            
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+            {
+                <div class="error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    خطأ في تحميل البيانات
+                </div>
+            }
+            
+            <div class="btn-container">
+                <button type="button" class="btn-secondary-custom" onclick="history.back()">
+                    العودة إلى القائمة
+                </button>
+                <button type="submit" class="btn-primary-custom">
+                    عرض الفصول
+                </button>
+            </div>
+        </form>
+        
+
+  
+        <!-- Classes Display Section -->
+        @if (Model.SelectedGradeId.HasValue)
+        {
+            <div class="classes-section">
+                <div class="form-label" style="margin-top: 30px; margin-bottom: 15px;">
+                    <i class="fas fa-users"></i>
+                    الفصول المتاحة
+                </div>
+                
+                @if (Model.ClassesResult.Any())
+                {
+                    <div class="classes-grid">
+                        @foreach (var cls in Model.ClassesResult)
+                        {
+                            <a href="@Url.Action("Normal", new { classId = cls.Id })" class="class-card">
+                                <div class="class-card-content">
+                                    <i class="fas fa-door-open"></i>
+                                    <strong>@cls.Name</strong>
+                                    <small style="margin-top: 5px; opacity: 0.8;">اضغط للانتقال لتعيين الطلاب</small>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="error-message">
+                        <i class="fas fa-info-circle"></i>
+                        لا يوجد فصول متاحة للصف المحدد
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="no-selection-message">
+                <i class="fas fa-arrow-up"></i>
+                <p>يرجى اختيار الصف الدراسي لعرض الفصول المتاحة</p>
+            </div>
+        }
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        $(document).ready(function() {
-            // التحقق من اختيار فصل
-            function validateClassSelection() {
-                const classId = $('#classSelect').val();
-                if (!classId) {
-                    Swal.fire({
-                        title: 'تنبيه',
-                        text: 'يجب اختيار فصل أولاً',
-                        icon: 'warning',
-                        confirmButtonText: 'موافق'
-                    });
-                    return false;
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const gradeSelect = document.querySelector('[asp-for="SelectedGradeId"]');
+        
+        if (gradeSelect) {
+            gradeSelect.addEventListener('change', function() {
+                if (this.value) {
+                    // Submit the form automatically when grade is selected
+                    this.closest('form').submit();
                 }
-                return true;
-            }
-
-            // حضور عادي
-            $('#btnRegularAttendance').click(function() {
-                if (!validateClassSelection()) return;
-
-                const classId = $('#classSelect').val();
-                window.location.href = '@Url.Action("RecordRegular", "Attendance")?classId=' + classId;
             });
-
-            // حضور ميداني
-            $('#btnFieldAttendance').click(function() {
-                if (!validateClassSelection()) return;
-
-                const classId = $('#classSelect').val();
-                window.location.href = '@Url.Action("RecordField", "Attendance")?classId=' + classId;
-            });
-
-            // عرض السجلات
-            $('#btnViewRecords').click(function() {
-                window.location.href = '@Url.Action("ViewRecords", "Attendance")';
-            });
-
-            // تقارير الطلاب
-            $('#btnStudentReports').click(function() {
-                window.location.href = '@Url.Action("StudentReports", "Attendance")';
-            });
-
-            // تقارير الفصول
-            $('#btnClassReports').click(function() {
-                window.location.href = '@Url.Action("ClassReports", "Attendance")';
-            });
-
-            // طلبات الخروج
-            $('#btnExitRequests').click(function() {
-                window.location.href = '@Url.Action("ExitRequests", "Attendance")';
+        }
+        
+        // Add click animation to class cards
+        const classCards = document.querySelectorAll('.class-card');
+        classCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Add loading effect
+                const content = this.querySelector('.class-card-content');
+                const icon = content.querySelector('i');
+                
+                // Change icon to loading spinner temporarily
+                const originalIcon = icon.className;
+                icon.className = 'fas fa-spinner fa-spin';
+                
+                // Small delay to show the loading effect
+                setTimeout(() => {
+                    // The navigation will happen automatically due to the href
+                }, 100);
             });
         });
-    </script>
-}
+    });
+</script>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

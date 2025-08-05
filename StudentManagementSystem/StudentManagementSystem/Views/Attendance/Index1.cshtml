@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "نظام الحضور والغياب";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">نظام الحضور والغياب</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- اختيار الفصل -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="classSelect">اختر الفصل:</label>
+                                <select class="form-control" id="classSelect">
+                                    <option value="">-- اختر فصل --</option>
+                                    @if (ViewBag.Classes != null)
+                                    {
+                                        @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.Classes)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- التاريخ -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="attendanceDate">التاريخ:</label>
+                                <input type="date" class="form-control" id="attendanceDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- أزرار العمليات -->
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-primary" id="btnRegularAttendance">
+                                    <i class="fas fa-calendar-day"></i> حضور عادي (يومي)
+                                </button>
+                                <button type="button" class="btn btn-success" id="btnFieldAttendance">
+                                    <i class="fas fa-hiking"></i> حضور ميداني
+                                </button>
+                                <button type="button" class="btn btn-info" id="btnViewRecords">
+                                    <i class="fas fa-eye"></i> عرض السجلات
+                                </button>
+                                <button type="button" class="btn btn-warning" id="btnStudentReports">
+                                    <i class="fas fa-user-graduate"></i> تقارير الطلاب
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="btnClassReports">
+                                    <i class="fas fa-chart-bar"></i> تقارير الفصول
+                                </button>
+                                <button type="button" class="btn btn-dark" id="btnExitRequests">
+                                    <i class="fas fa-sign-out-alt"></i> طلبات الخروج
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- منطقة عرض البيانات -->
+                    <div id="contentArea" class="mt-4" style="display: none;">
+                        <!-- سيتم تحميل المحتوى هنا -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // التحقق من اختيار فصل
+            function validateClassSelection() {
+                const classId = $('#classSelect').val();
+                if (!classId) {
+                    Swal.fire({
+                        title: 'تنبيه',
+                        text: 'يجب اختيار فصل أولاً',
+                        icon: 'warning',
+                        confirmButtonText: 'موافق'
+                    });
+                    return false;
+                }
+                return true;
+            }
+
+            // حضور عادي
+            $('#btnRegularAttendance').click(function() {
+                if (!validateClassSelection()) return;
+
+                const classId = $('#classSelect').val();
+                window.location.href = '@Url.Action("RecordRegular", "Attendance")?classId=' + classId;
+            });
+
+            // حضور ميداني
+            $('#btnFieldAttendance').click(function() {
+                if (!validateClassSelection()) return;
+
+                const classId = $('#classSelect').val();
+                window.location.href = '@Url.Action("RecordField", "Attendance")?classId=' + classId;
+            });
+
+            // عرض السجلات
+            $('#btnViewRecords').click(function() {
+                window.location.href = '@Url.Action("ViewRecords", "Attendance")';
+            });
+
+            // تقارير الطلاب
+            $('#btnStudentReports').click(function() {
+                window.location.href = '@Url.Action("StudentReports", "Attendance")';
+            });
+
+            // تقارير الفصول
+            $('#btnClassReports').click(function() {
+                window.location.href = '@Url.Action("ClassReports", "Attendance")';
+            });
+
+            // طلبات الخروج
+            $('#btnExitRequests').click(function() {
+                window.location.href = '@Url.Action("ExitRequests", "Attendance")';
+            });
+        });
+    </script>
+}
