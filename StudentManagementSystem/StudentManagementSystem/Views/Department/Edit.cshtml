@@ -2,70 +2,132 @@
 @model StudentManagementSystem.Models.Department
 
 @{
-    ViewData["Title"] = "تعديل القسم";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "تعديل القسم";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/css/field-styles.css" rel="stylesheet" />
 
 <div class="container-fluid p-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card border-0 shadow-lg">
-                <div class="card-header bg-primary text-white text-center py-4">
-                    <h3 class="mb-0 fw-bold">
-                        <i class="fas fa-edit me-2"></i>تعديل القسم
-                    </h3>
-                </div>
+	<div class="row justify-content-center">
+		<div class="col-md-8 col-lg-6">
+			<div class="card border-0 shadow-lg">
+				<div class="card-header bg-primary text-white text-center py-4">
+					<h3 class="mb-0 fw-bold">
+						<i class="fas fa-edit me-2"></i>تعديل القسم
+					</h3>
+				</div>
 
-                <div class="card-body p-5">
-                    <form asp-action="Edit" method="post">
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+				<div class="card-body p-5">
+					<form asp-action="Edit" method="post" id="editDepartmentForm">
+						<div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
-                        <input asp-for="Id" type="hidden" />
-                        <input asp-for="CreatedBy_Id" type="hidden" />
-                        <input asp-for="CreatedDate" type="hidden" />
-                        <input asp-for="GradeId" type="hidden" />
+						<input asp-for="Id" type="hidden" />
+						<input asp-for="CreatedBy_Id" type="hidden" />
+						<input asp-for="CreatedDate" type="hidden" />
+						<input asp-for="GradeId" type="hidden" />
 
-                        <div class="mb-4">
-                            <label asp-for="Name" class="form-label fw-bold text-primary">
-                                <i class="fas fa-university me-2"></i>اسم القسم
-                            </label>
-                            <input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم القسم" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
+						<div class="mb-4">
+							<label asp-for="Name" class="form-label fw-bold text-primary">
+								<i class="fas fa-university me-2"></i>اسم القسم
+							</label>
+							<input asp-for="Name" class="form-control form-control-lg" id="departmentNameInput" placeholder="أدخل اسم القسم" />
+							<span asp-validation-for="Name" class="text-danger"></span>
+							<div id="nameError" class="text-danger mt-1" style="display:none;">
+								<i class="fas fa-exclamation-circle me-1"></i>
+								يجب أن يحتوي اسم القسم على أحرف، ولا يمكن أن يتكون من أرقام فقط.
+							</div>
+						</div>
 
-                       @*  <div class="mb-4">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" asp-for="IsActive" id="isActiveSwitch">
-                                <label class="form-check-label fw-bold text-primary" for="isActiveSwitch">
-                                    <i class="fas fa-toggle-on me-2"></i>القسم نشط
-                                </label>
-                            </div>
-                        </div> *@
+						@* <div class="mb-4">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" asp-for="IsActive" id="isActiveSwitch">
+                                <label class="form-check-label fw-bold text-primary" for="isActiveSwitch">
+                                    <i class="fas fa-toggle-on me-2"></i>القسم نشط
+                                </label>
+                            </div>
+                        </div> *@
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
-                                    <i class="fas fa-save me-2"></i>حفظ التعديلات
-                                </button>
-                            </div>
-                            <div class="col-md-6">
-                                <a asp-action="Index" class="btn btn-outline-secondary btn-lg w-100">
-                                    <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+						<div class="row">
+							<div class="col-md-6">
+								<button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+									<i class="fas fa-save me-2"></i>حفظ التعديلات
+								</button>
+							</div>
+							<div class="col-md-6">
+								<a asp-action="Index" class="btn btn-outline-secondary btn-lg w-100">
+									<i class="fas fa-arrow-left me-2"></i>العودة للقائمة
+								</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-
-
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const nameInput = document.getElementById('departmentNameInput');
+			const nameError = document.getElementById('nameError');
+			const form = document.getElementById('editDepartmentForm');
+			const nameErrorSpan = document.querySelector('span[data-valmsg-for="Name"]');
+
+			// دالة للتحقق من أن القيمة ليست أرقاماً فقط
+			function validateName(value) {
+				// يختبر إذا كانت القيمة تتكون من أرقام فقط
+				return !/^\d+$/.test(value) && value.trim() !== '';
+			}
+
+			// دالة لعرض أو إخفاء رسالة الخطأ
+			function updateValidationState(isValid) {
+				if (isValid) {
+					nameError.style.display = 'none';
+					nameInput.classList.remove('is-invalid');
+					if (nameErrorSpan) nameErrorSpan.textContent = '';
+				} else {
+					nameError.style.display = 'block';
+					nameInput.classList.add('is-invalid');
+					if (nameErrorSpan) nameErrorSpan.textContent = 'يجب أن يحتوي اسم القسم على أحرف، ولا يمكن أن يتكون من أرقام فقط.';
+				}
+			}
+
+			// معالجة حدث الكتابة (input)
+			nameInput.addEventListener('input', function() {
+				const isValid = validateName(this.value);
+				updateValidationState(isValid);
+			});
+
+			// معالجة حدث اللصق (paste)
+			nameInput.addEventListener('paste', function(e) {
+				const pastedText = e.clipboardData.getData('text');
+				// نأخذ القيمة الجديدة بعد اللصق ونختبرها
+				const finalValue = this.value.substring(0, this.selectionStart) + pastedText + this.value.substring(this.selectionEnd);
+				const isValid = validateName(finalValue);
+				updateValidationState(isValid);
+			});
+
+			// // منع إرسال النموذج إذا كانت القيمة غير صالحة
+			// form.addEventListener('submit', function (e) {
+			// 	const isValid = validateName(nameInput.value);
+
+			// 	if (!isValid) {
+			// 		e.preventDefault();
+			// 		updateValidationState(false);
+			// 		alert('الرجاء إدخال اسم قسم صحيح. يجب أن يحتوي على أحرف وليس أرقاماً فقط.');
+			// 		nameInput.focus();
+			// 	}
+			// });
+
+			// إزالة الخطأ عند التركيز على الحقل
+			nameInput.addEventListener('focus', function() {
+				updateValidationState(true);
+			});
+		});
+	</script>
 }

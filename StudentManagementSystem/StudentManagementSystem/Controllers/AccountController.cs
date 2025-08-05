@@ -28,6 +28,9 @@ namespace StudentManagementSystem.Controllers
             _roleService = roleService;
         }
 
+        // إضافة هذا الـ action في AccountController
+
+
         #region Authentication
 
         [HttpGet]
@@ -231,6 +234,8 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
+        // تأكد إن الـ EditUser methods في AccountController صحيحة
+
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUser(int id)
@@ -250,7 +255,7 @@ namespace StudentManagementSystem.Controllers
                     Name = user.Name,
                     Username = user.Username,
                     RoleId = user.RoleId,
-                    IsActive = user.IsActive
+                    IsActive = user.IsActive,
                 };
 
                 await PopulateRolesDropDown();
