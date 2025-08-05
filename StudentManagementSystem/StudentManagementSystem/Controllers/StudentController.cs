@@ -372,7 +372,7 @@ namespace StudentManagementSystem.Controllers
             {
                 if (selectedStudents == null || !selectedStudents.Any())
                 {
-                    TempData["ErrorMessage"] = "يرجى اختيار طالب واحد على الأقل.";
+                    SetErrorMessage("يرجى اختيار طالب واحد على الأقل.");
                     return RedirectToAction("AssignClassToStudent", new { Id = classId });
                 }
 
@@ -403,7 +403,7 @@ namespace StudentManagementSystem.Controllers
                         // للـ Wheeler & Senior - استخدام الطريقة الجديدة مع تفاصيل كاملة
                         if (!sectionId.HasValue)
                         {
-                            TempData["ErrorMessage"] = "يرجى اختيار القسم للطلاب في الصفوف المتقدمة.";
+                            SetErrorMessage("يرجى اختيار القسم للطلاب في الصفوف المتقدمة.");
                             return RedirectToAction("AssignClassToStudent", new { Id = classId });
                         }
 
@@ -471,16 +471,16 @@ namespace StudentManagementSystem.Controllers
                 if (messages.Any())
                 {
                     if (failureCount == 0)
-                        TempData["SuccessMessage"] = string.Join(" ", messages);
+                        SetSuccessMessage(string.Join(" ", messages));
                     else
-                        TempData["ErrorMessage"] = string.Join(" ", messages);
+                        SetErrorMessage(string.Join(" ", messages));
                 }
 
                 return RedirectToAction("Index", "Classes");
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = $"حدث خطأ أثناء تعيين الطلاب: {ex.Message}";
+                SetErrorMessage($"حدث خطأ أثناء تعيين الطلاب: {ex.Message}");
                 return RedirectToAction("AssignClassToStudent", new { Id = classId });
             }
         }
