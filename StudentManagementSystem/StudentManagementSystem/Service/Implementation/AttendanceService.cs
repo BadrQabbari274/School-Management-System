@@ -19,7 +19,7 @@ public class AttendanceService : IAttendanceService
 
     #region Regular Attendance (الغياب العادي)
 
-    public async Task<bool> AddRegularAbsenceAsync(AddRegularAbsenceDto dto)
+    public async Task<bool> AddRegularAbsenceAsync(AddRegularAbsenceViewModel dto)
     {
         try
         {
@@ -70,7 +70,7 @@ public class AttendanceService : IAttendanceService
         }
     }
 
-    public async Task<bool> EditRegularAbsenceAsync(int id, EditRegularAbsenceDto dto)
+    public async Task<bool> EditRegularAbsenceAsync(int id, EditRegularAbsenceViewModel dto)
     {
         using var transaction = await _context.Database.BeginTransactionAsync();
         try
@@ -142,7 +142,7 @@ public class AttendanceService : IAttendanceService
 
     #region Field Attendance (الغياب الميداني)
 
-    public async Task<bool> AddFieldAbsenceAsync(AddFieldAbsenceDto dto)
+    public async Task<bool> AddFieldAbsenceAsync(AddFieldAbsenceViewModel dto)
     {
         try
         {
@@ -207,7 +207,7 @@ public class AttendanceService : IAttendanceService
         }
     }
 
-    public async Task<bool> EditFieldAbsenceAsync(int id, EditFieldAbsenceDto dto)
+    public async Task<bool> EditFieldAbsenceAsync(int id, EditFieldAbsenceViewModel dto)
     {
         using var transaction = await _context.Database.BeginTransactionAsync();
         try
@@ -281,7 +281,7 @@ public class AttendanceService : IAttendanceService
 
     #region Request Exit
 
-    public async Task<bool> RequestExitAsync(RequestExitDto dto)
+    public async Task<bool> RequestExitAsync(RequestExitViewModel dto)
     {
         try
         {
@@ -305,12 +305,12 @@ public class AttendanceService : IAttendanceService
         }
     }
 
-    public async Task<List<RequestExitDto>> GetRequestExitsAsync(int attendanceId)
+    public async Task<List<RequestExitViewModel>> GetRequestExitsAsync(int attendanceId)
     {
         return await _context.RequestExits
             .Where(re => re.AttendanceId == attendanceId && !re.IsDeleted)
             .Include(re => re.CreatedBy)
-            .Select(re => new RequestExitDto
+            .Select(re => new RequestExitViewModel
             {
                 Id = re.Id,
                 AttendanceId = re.AttendanceId,
@@ -327,7 +327,7 @@ public class AttendanceService : IAttendanceService
 
     #region Helper Methods
 
-    public async Task<List<StudentForAttendanceDto>> GetStudentsForRegularAttendanceAsync(int classId, int workingYearId, int sectionId, DateTime date)
+    public async Task<List<StudentForAttendanceViewModel>> GetStudentsForRegularAttendanceAsync(int classId, int workingYearId, int sectionId, DateTime date)
     {
         var students = await _context.Student_Class_Section_Years
             .Where(scs => scs.Class_Id == classId &&
@@ -335,7 +335,7 @@ public class AttendanceService : IAttendanceService
                          scs.Section_id == sectionId &&
                          scs.IsActive)
             .Include(scs => scs.Student)
-            .Select(scs => new StudentForAttendanceDto
+            .Select(scs => new StudentForAttendanceViewModel
             {
                 StudentId = scs.Student_Id,
                 StudentName = scs.Student.Name,
@@ -351,7 +351,7 @@ public class AttendanceService : IAttendanceService
         return students;
     }
 
-    public async Task<List<StudentForAttendanceDto>> GetStudentsForFieldAttendanceAsync(int classId, int workingYearId, int sectionId, DateTime date)
+    public async Task<List<StudentForAttendanceViewModel>> GetStudentsForFieldAttendanceAsync(int classId, int workingYearId, int sectionId, DateTime date)
     {
         // الطلاب المتاحين للغياب الميداني (ليسوا غائبين في الغياب العادي)
         var students = await _context.Student_Class_Section_Years
@@ -366,7 +366,7 @@ public class AttendanceService : IAttendanceService
                              sa.AttendanceTypeId == REGULAR_ATTENDANCE_TYPE_ID &&
                              !sa.IsDeleted))
             .Include(scs => scs.Student)
-            .Select(scs => new StudentForAttendanceDto
+            .Select(scs => new StudentForAttendanceViewModel
             {
                 StudentId = scs.Student_Id,
                 StudentName = scs.Student.Name,
@@ -387,7 +387,7 @@ public class AttendanceService : IAttendanceService
 
 #region DTOs
 
-public class AddRegularAbsenceDto
+public class AddRegularAbsenceViewModel
 {
     public int StudentId { get; set; }
     public int ClassId { get; set; }
@@ -399,14 +399,14 @@ public class AddRegularAbsenceDto
     public int CreatedById { get; set; }
 }
 
-public class EditRegularAbsenceDto
+public class EditRegularAbsenceViewModel
 {
     public int AbsenceReasonId { get; set; }
     public string CustomReasonDetails { get; set; }
     public int CreatedById { get; set; }
 }
 
-public class AddFieldAbsenceDto
+public class AddFieldAbsenceViewModel
 {
     public int StudentId { get; set; }
     public int ClassId { get; set; }
@@ -418,14 +418,14 @@ public class AddFieldAbsenceDto
     public int CreatedById { get; set; }
 }
 
-public class EditFieldAbsenceDto
+public class EditFieldAbsenceViewModel
 {
     public int AbsenceReasonId { get; set; }
     public string Reason { get; set; }
     public int CreatedById { get; set; }
 }
 
-public class RequestExitDto
+public class RequestExitViewModel 
 {
     public int? Id { get; set; }
     public int AttendanceId { get; set; }
@@ -436,7 +436,7 @@ public class RequestExitDto
     public string CreatedByName { get; set; }
 }
 
-public class StudentAbsentsDto
+public class StudentAbsentsViewModel
 {
     public int Id { get; set; }
     public int StudentId { get; set; }
@@ -447,7 +447,7 @@ public class StudentAbsentsDto
     public string CustomReasonDetails { get; set; }
 }
 
-public class StudentForAttendanceDto
+public class StudentForAttendanceViewModel
 {
     public int StudentId { get; set; }
     public string StudentName { get; set; }

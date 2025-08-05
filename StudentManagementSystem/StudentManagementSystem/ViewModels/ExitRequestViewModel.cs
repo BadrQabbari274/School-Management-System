@@ -1,4 +1,5 @@
-﻿namespace StudentManagementSystem.ViewModels
+﻿using StudentManagementSystem.Models;
+namespace StudentManagementSystem.ViewModels
 {
 
 
