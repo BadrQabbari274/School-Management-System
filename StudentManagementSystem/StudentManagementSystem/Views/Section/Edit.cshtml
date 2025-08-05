@@ -2,269 +2,234 @@
 @model StudentManagementSystem.Models.Section
 
 @{
-    ViewData["Title"] = "تعديل الشعبة";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "تعديل الشعبة";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 <link href="~/css/field-styles.css" rel="stylesheet" />
 
 <div class="container-fluid p-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card border-0 shadow-lg">
-                <div class="card-header bg-primary text-white text-center py-4">
-                    <h3 class="mb-0 fw-bold">
-                        <i class="fas fa-edit me-2"></i>تعديل الشعبة
-                    </h3>
-                </div>
-                <div class="card-body p-5">
-                    <form asp-action="Edit" method="post" id="editSectionForm">
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+	<div class="row justify-content-center">
+		<div class="col-md-8 col-lg-6">
+			<div class="card border-0 shadow-lg">
+				<div class="card-header bg-primary text-white text-center py-4">
+					<h3 class="mb-0 fw-bold">
+						<i class="fas fa-edit me-2"></i>تعديل الشعبة
+					</h3>
+				</div>
+				<div class="card-body p-5">
+					<form asp-action="Edit" method="post" id="editSectionForm">
+						<div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
-                        <input asp-for="Id" type="hidden" />
-                        <input asp-for="CreatedBy_Id" type="hidden" />
-                        <input asp-for="Date" type="hidden" />
+						<input asp-for="Id" type="hidden" />
+						<input asp-for="CreatedBy_Id" type="hidden" />
+						<input asp-for="Date" type="hidden" />
 
-                        <div class="mb-4">
-                            <label asp-for="Department_Id" class="form-label fw-bold text-primary">
-                                <i class="fas fa-building me-2"></i>القسم
-                            </label>
-                            <select asp-for="Department_Id" class="form-control form-control-lg" asp-items="ViewBag.Department_Id">
-                                <option value="">-- اختر القسم --</option>
-                            </select>
-                            <span asp-validation-for="Department_Id" class="text-danger"></span>
-                        </div>
+						<div class="mb-4">
+							<label asp-for="Department_Id" class="form-label fw-bold text-primary">
+								<i class="fas fa-building me-2"></i>القسم
+							</label>
+							<select asp-for="Department_Id" class="form-control form-control-lg" asp-items="ViewBag.Department_Id">
+								<option value="">-- اختر القسم --</option>
+							</select>
+							<span asp-validation-for="Department_Id" class="text-danger"></span>
+						</div>
 
-                        <div class="mb-4">
-                            <label asp-for="Name_Of_Section" class="form-label fw-bold text-primary">
-                                <i class="fas fa-sitemap me-2"></i>اسم الشعبة
-                            </label>
-                            <input asp-for="Name_Of_Section" class="form-control form-control-lg"
-                                   placeholder="أدخل اسم الشعبة" />
-                            <span asp-validation-for="Name_Of_Section" class="text-danger"></span>
-                            <small id="charCounter" class="form-text text-muted"></small>
-                        </div>
+						<div class="mb-4">
+							<label asp-for="Name_Of_Section" class="form-label fw-bold text-primary">
+								<i class="fas fa-sitemap me-2"></i>اسم الشعبة
+							</label>
+							<input asp-for="Name_Of_Section" id="sectionNameInput" class="form-control form-control-lg"
+								   placeholder="أدخل اسم الشعبة" />
+							<span asp-validation-for="Name_Of_Section" class="text-danger"></span>
+							<div id="sectionNameError" class="text-danger mt-1" style="display:none;">
+								<i class="fas fa-exclamation-circle me-1"></i>
+								يجب أن يحتوي اسم الشعبة على أحرف، ولا يمكن أن يتكون من أرقام فقط.
+							</div>
+							<small id="charCounter" class="form-text text-muted"></small>
+						</div>
 
-                        <div class="mb-4">
-                            <div class="card bg-light border-0">
-                                <div class="card-body p-3">
-                                    <h6 class="card-title text-primary mb-3">
-                                        <i class="fas fa-info-circle me-2"></i>معلومات الشعبة
-                                    </h6>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-2">
-                                            <small class="text-muted">
-                                                <i class="fas fa-user me-1"></i>
-                                                أنشئت بواسطة: <strong>@(Model.CreatedBy?.Name ?? "غير محدد")</strong>
-                                            </small>
-                                        </div>
-                                        <div class="col-md-6 mb-2">
-                                            <small class="text-muted">
-                                                <i class="fas fa-calendar me-1"></i>
-                                                تاريخ الإنشاء: <strong>@Model.Date.ToString("dd/MM/yyyy")</strong>
-                                            </small>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <small class="text-muted">
-                                                <i class="fas fa-hashtag me-1"></i>
-                                                رقم المعرف: <strong>@Model.Id</strong>
-                                            </small>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <small class="text-muted">
-                                                <i class="fas fa-building me-1"></i>
-                                                القسم: <strong>@(Model.Department?.Name ?? "غير محدد")</strong>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+						<div class="mb-4">
+							<div class="card bg-light border-0">
+								<div class="card-body p-3">
+									<h6 class="card-title text-primary mb-3">
+										<i class="fas fa-info-circle me-2"></i>معلومات الشعبة
+									</h6>
+									<div class="row">
+										<div class="col-md-6 mb-2">
+											<small class="text-muted">
+												<i class="fas fa-user me-1"></i>
+												أنشئت بواسطة: <strong>@(Model.CreatedBy?.Name ?? "غير محدد")</strong>
+											</small>
+										</div>
+										<div class="col-md-6 mb-2">
+											<small class="text-muted">
+												<i class="fas fa-calendar me-1"></i>
+												تاريخ الإنشاء: <strong>@Model.Date.ToString("dd/MM/yyyy")</strong>
+											</small>
+										</div>
+										<div class="col-md-6">
+											<small class="text-muted">
+												<i class="fas fa-hashtag me-1"></i>
+												رقم المعرف: <strong>@Model.Id</strong>
+											</small>
+										</div>
+										<div class="col-md-6">
+											<small class="text-muted">
+												<i class="fas fa-building me-1"></i>
+												القسم: <strong>@(Model.Department?.Name ?? "غير محدد")</strong>
+											</small>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3" id="submitBtn">
-                                    <i class="fas fa-save me-2"></i>حفظ التعديلات
-                                </button>
-                            </div>
-                            <div class="col-md-6">
-                                <a asp-action="Index" class="btn btn-outline-secondary btn-lg w-100">
-                                    <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+						<div class="row">
+							<div class="col-md-6">
+								<button type="submit" class="btn btn-primary btn-lg w-100 mb-3" id="submitBtn">
+									<i class="fas fa-save me-2"></i>حفظ التعديلات
+								</button>
+							</div>
+							<div class="col-md-6">
+								<a asp-action="Index" class="btn btn-outline-secondary btn-lg w-100">
+									<i class="fas fa-arrow-left me-2"></i>العودة للقائمة
+								</a>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-@* 
-<style>
-    .card {
-        border-radius: 20px;
-        overflow: hidden;
-    }
-    .card-header {
-        background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
-        border: none;
-    }
-    .form-control {
-        border-radius: 10px;
-        border: 2px solid #e9ecef;
-        padding: 12px 15px;
-        transition: all 0.3s ease;
-    }
-        .form-control:focus {
-            border-color: #fd7e14;
-            box-shadow: 0 0 0 0.2rem rgba(253, 126, 20, 0.25);
-        }
-    .btn-primary {
-        background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
-        border: none;
-        border-radius: 10px;
-        padding: 12px 24px;
-        transition: all 0.3s ease;
-    }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(253, 126, 20, 0.4);
-        }
-    .btn-outline-secondary {
-        border-radius: 10px;
-        padding: 12px 24px;
-        transition: all 0.3s ease;
-        border: 2px solid #6c757d;
-    }
-        .btn-outline-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
-        }
-    .text-primary {
-        color: #fd7e14 !important;
-    }
-    .form-label {
-        margin-bottom: 8px;
-        font-size: 1.1rem;
-    }
-    .bg-light {
-        background-color: #f8f9fa !important;
-        border-radius: 15px;
-    }
-    .is-invalid {
-        border-color: #dc3545 !important;
-    }
-    .border-warning {
-        border-color: #ffc107 !important;
-        box-shadow: 0 0 0 0.1rem rgba(255, 193, 7, 0.25);
-    }
-</style> *@
-<!-- Success/Error Messages -->
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="fas fa-check-circle me-2"></i>
-        @TempData["Success"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
-
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="fas fa-exclamation-circle me-2"></i>
-        @TempData["Error"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 
-    <script>
-        $(document).ready(function () {
-            // Form submission with loading state
-            $('#editSectionForm').on('submit', function (e) {
-                var submitBtn = $('#submitBtn');
-                var departmentId = $('#Department_Id').val();
-                var sectionName = $('#Name_Of_Section').val().trim();
+	<script>
+		$(document).ready(function () {
+			const nameInput = $('#sectionNameInput');
+			const nameError = $('#sectionNameError');
+			const submitBtn = $('#submitBtn');
 
-                // Basic validation
-                if (!departmentId) {
-                    e.preventDefault();
-                    $('#Department_Id').addClass('is-invalid');
-                    return false;
-                } else {
-                    $('#Department_Id').removeClass('is-invalid');
-                }
+			// Function to validate that the name is not numbers-only
+			function validateName(value) {
+				const trimmedValue = value.trim();
+				// Check if the value is empty or consists of only digits
+				return trimmedValue !== '' && !/^\d+$/.test(trimmedValue);
+			}
 
-                if (!sectionName) {
-                    e.preventDefault();
-                    $('#Name_Of_Section').addClass('is-invalid');
-                    return false;
-                } else {
-                    $('#Name_Of_Section').removeClass('is-invalid');
-                }
+			// Function to update the validation state of the input field and error message
+			function updateValidationState() {
+				const isValid = validateName(nameInput.val());
+				if (isValid) {
+					nameError.hide();
+					nameInput.removeClass('is-invalid');
+				} else {
+					nameError.show();
+					nameInput.addClass('is-invalid');
+				}
+				// The existing ASP.NET validation span will also handle this via the form submit.
+				// We keep this client-side for better user experience.
+			}
 
-                // Show loading state
-                submitBtn.prop('disabled', true);
-                submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>جاري الحفظ...');
-            });
+			// Event listener for input: validates in real-time
+			nameInput.on('input', updateValidationState);
 
-            // Remove validation classes on input change
-            $('#Department_Id, #Name_Of_Section').on('change input', function () {
-                $(this).removeClass('is-invalid');
-            });
+			// Event listener for paste: validates after the paste action
+			nameInput.on('paste', function(e) {
+				// Wait for the paste event to complete before validating
+				setTimeout(updateValidationState, 0);
+			});
 
-            // Auto-focus on section name input
-            $('#Name_Of_Section').focus();
+			// Form submission logic
+			$('#editSectionForm').on('submit', function (e) {
+				const departmentId = $('#Department_Id').val();
+				const sectionName = nameInput.val();
 
-            // Character counter for section name
-            $('#Name_Of_Section').on('input', function () {
-                var maxLength = 100;
-                var currentLength = $(this).val().length;
-                var remaining = maxLength - currentLength;
+				// Final validation checks
+				let isFormValid = true;
 
-                $('#charCounter').text('عدد الأحرف المتبقية: ' + remaining);
+				if (!departmentId) {
+					isFormValid = false;
+					$('#Department_Id').addClass('is-invalid');
+				} else {
+					$('#Department_Id').removeClass('is-invalid');
+				}
 
-                if (remaining < 10) {
-                    $('#charCounter').removeClass('text-muted').addClass('text-warning');
-                } else {
-                    $('#charCounter').removeClass('text-warning').addClass('text-muted');
-                }
-            });
+				if (!validateName(sectionName)) {
+					isFormValid = false;
+					nameInput.addClass('is-invalid');
+					nameError.show();
+					alert('الرجاء إدخال اسم شعبة صحيح. يجب أن يحتوي على أحرف وليس أرقاماً فقط.');
+				} else {
+					nameInput.removeClass('is-invalid');
+					nameError.hide();
+				}
 
-            // Highlight changes with modern styling
-            var originalValues = {
-                department: $('#Department_Id').val(),
-                name: $('#Name_Of_Section').val()
-            };
+				if (!isFormValid) {
+					e.preventDefault();
+					nameInput.focus();
+					return false;
+				}
 
-            $('#Department_Id, #Name_Of_Section').on('change', function () {
-                var fieldName = $(this).attr('id');
-                var currentValue = $(this).val();
-                var originalValue;
+				// Show loading state and disable button if valid
+				submitBtn.prop('disabled', true);
+				submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>جاري الحفظ...');
+			});
 
-                switch(fieldName) {
-                    case 'Department_Id':
-                        originalValue = originalValues.department;
-                        break;
-                    case 'Name_Of_Section':
-                        originalValue = originalValues.name;
-                        break;
-                }
+			// Remove validation classes on input change
+			$('#Department_Id').on('change', function () {
+				$(this).removeClass('is-invalid');
+			});
+			// Remove validation class when user starts typing
+			nameInput.on('keydown', function() {
+				$(this).removeClass('is-invalid');
+			});
 
-                if (currentValue !== originalValue) {
-                    $(this).addClass('border-warning');
-                } else {
-                    $(this).removeClass('border-warning');
-                }
-            });
+			// Initialize character counter on page load
+			const maxLength = 100;
+			nameInput.on('input', function () {
+				const currentLength = $(this).val().length;
+				const remaining = maxLength - currentLength;
+				$('#charCounter').text('عدد الأحرف المتبقية: ' + remaining);
 
-            // Initialize character counter on page load
-            $('#Name_Of_Section').trigger('input');
-        });
-    </script>
+				if (remaining < 10) {
+					$('#charCounter').removeClass('text-muted').addClass('text-warning');
+				} else {
+					$('#charCounter').removeClass('text-warning').addClass('text-muted');
+				}
+			}).trigger('input'); // Trigger on load to set initial state
+
+			// Auto-focus on section name input
+			nameInput.focus();
+
+			// Highlight changes with modern styling
+			const originalValues = {
+				department: $('#Department_Id').val(),
+				name: nameInput.val()
+			};
+
+			$('#Department_Id, #sectionNameInput').on('change', function () {
+				const fieldName = $(this).attr('id');
+				const currentValue = $(this).val();
+				let originalValue;
+
+				if (fieldName === 'Department_Id') {
+					originalValue = originalValues.department;
+				} else if (fieldName === 'sectionNameInput') {
+					originalValue = originalValues.name;
+				}
+
+				if (currentValue !== originalValue) {
+					$(this).addClass('border-warning');
+				} else {
+					$(this).removeClass('border-warning');
+				}
+			});
+		});
+	</script>
 }
