@@ -29,7 +29,24 @@ namespace StudentManagementSystem.Controllers
             var classwithstudent = await _studentService.GetStudentsFieldAsync(classId);
             return View(classwithstudent);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveAttendanceField(AttendanceViewModel model, DateTime attendanceDate)
+        {
+            bool success = await _studentService.SaveAttendanceFieldAsync(model, attendanceDate, GetCurrentUserId());
 
+            if (success)
+            {
+                SetSuccessMessage("تم حفظ الحضور بنجاح");
+                return RedirectToAction("Index"); // أو أي صفحة تريد التوجه إليها
+            }
+            else
+            {
+                SetErrorMessage("حدث خطأ أثناء حفظ الحضور");
+
+                return View("Field", model);
+            }
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveAttendance(AttendanceViewModel model, DateTime attendanceDate)
