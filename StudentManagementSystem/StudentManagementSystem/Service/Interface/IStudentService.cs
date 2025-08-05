@@ -12,6 +12,7 @@ namespace StudentManagementSystem.Service.Interface
         Task<Students> UpdateStudentAsync(Students student/*, IFormFile profileImage = null, IFormFile birthCertificate = null*/);
         Task<bool> DeleteStudentAsync(int id);
         Task<IEnumerable<Students>> GetActiveStudentsAsync();
+        Task<bool> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
         Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId);
         Task<IEnumerable<Students>> GetStudentsWithTasksAsync();
         // إضافة طالب بدون فصل (فقط student_id, working_year_id, section_id)
