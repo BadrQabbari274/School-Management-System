@@ -9,10 +9,10 @@
         <p>اختر الصف الدراسي للبدء في عملية تسجيل الطلاب</p>
     </div>
 
-    @if (TempData["ErrorMessage"] != null)
+    @if (TempData["Error"] != null)
     {
         <div class="alert alert-danger">
-            @TempData["ErrorMessage"]
+            @TempData["Error"]
         </div>
     }
 

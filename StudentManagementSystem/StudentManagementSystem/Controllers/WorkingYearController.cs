@@ -58,7 +58,7 @@ namespace StudentManagementSystem.Controllers
                 }
 
                 await _workingYearService.CreateWorkingYearAsync(workingYear);
-                TempData["SuccessMessage"] = "تم إنشاء السنة العملية بنجاح.";
+            SetSuccessMessage("تم إنشاء السنة العملية بنجاح.");
                 return RedirectToAction(nameof(Index));
  
         }
@@ -101,7 +101,7 @@ namespace StudentManagementSystem.Controllers
                     }
 
                     await _workingYearService.UpdateWorkingYearAsync(workingYear);
-                    TempData["SuccessMessage"] = "تم تحديث السنة العملية بنجاح.";
+                SetSuccessMessage("تم تحديث السنة العملية بنجاح.");
                 }
                 catch (Exception)
                 {
@@ -143,11 +143,11 @@ namespace StudentManagementSystem.Controllers
             var result = await _workingYearService.DeleteWorkingYearAsync(id);
             if (result)
             {
-                TempData["SuccessMessage"] = "تم حذف السنة العملية بنجاح.";
+                SetSuccessMessage ("تم حذف السنة العملية بنجاح.");
             }
             else
             {
-                TempData["ErrorMessage"] = "حدث خطأ أثناء حذف السنة العملية.";
+                SetErrorMessage("حدث خطأ أثناء حذف السنة العملية.");
             }
             return RedirectToAction(nameof(Index));
         }
