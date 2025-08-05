@@ -6,178 +6,8 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link href="~/css/student.css" rel="stylesheet" />
-@* <style>
-    body {
-        direction: rtl;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
 
-    .breadcrumb-custom {
-        background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
-        color: white;
-        padding: 15px 20px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-    }
-
-        .breadcrumb-custom a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-            .breadcrumb-custom a:hover {
-                text-decoration: underline;
-            }
-
-    .student-card {
-        background: white;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        position: relative;
-    }
-
-        .student-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-
-    .student-avatar {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 4px solid #fd7e14;
-    }
-
-    .delete-btn {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: #dc3545;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-
-        .delete-btn:hover {
-            background: #c82333;
-            transform: scale(1.1);
-            color: white;
-        }
-
-    .add-student-btn {
-        background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
-        border: none;
-        color: white;
-        padding: 12px 30px;
-        border-radius: 25px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        text-decoration: none;
-    }
-
-        .add-student-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,165,0,0.4);
-            color: white;
-        }
-
-    .student-info {
-        margin-right: 20px;
-    }
-
-    .student-code {
-        background: #e9ecef;
-        padding: 5px 10px;
-        border-radius: 15px;
-        font-size: 0.9em;
-        color: #6c757d;
-    }
-
-    .class-info {
-        background: #fd7e14;
-        color: white;
-        padding: 5px 12px;
-        border-radius: 20px;
-        font-size: 0.85em;
-    }
-
-    .no-students {
-        text-align: center;
-        padding: 50px;
-        color: #6c757d;
-    }
-
-    .not-specified {
-        color: #6c757d;
-        font-style: italic;
-    }
-
-    /* Delete Modal Styles */
-    .modal-header {
-        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-        color: white;
-        border-bottom: none;
-    }
-
-        .modal-header .btn-close {
-            filter: invert(1);
-        }
-
-    .modal-body {
-        padding: 30px;
-        text-align: center;
-    }
-
-        .modal-body .student-info-modal {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
-    .confirm-delete-btn {
-        background: #dc3545;
-        border: none;
-        padding: 10px 30px;
-        border-radius: 25px;
-        color: white;
-        font-weight: bold;
-        margin-left: 10px;
-    }
-
-        .confirm-delete-btn:hover {
-            background: #c82333;
-            color: white;
-        }
-
-    .cancel-btn {
-        background: #6c757d;
-        border: none;
-        padding: 10px 30px;
-        border-radius: 25px;
-        color: white;
-        font-weight: bold;
-    }
-
-        .cancel-btn:hover {
-            background: #5a6268;
-            color: white;
-        }
-</style>
- *@
 <div class="container-fluid mt-4">
-    <!-- Breadcrumb -->
     <nav class="breadcrumb-custom">
         <div class="d-flex align-items-center">
             <i class="fas fa-home me-2"></i>
@@ -187,23 +17,42 @@
         </div>
     </nav>
 
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2><i class="fas fa-users me-2"></i>إدارة الطلاب (@Model.Count() طالب)</h2>
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="search-filter-card">
+                <div class="card-body">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-9 col-lg-10">
+                            <div class="input-group search-input-group">
+                                <input type="text" class="form-control form-control-lg" id="searchInput"
+                                       placeholder="البحث بالاسم أو الكود...">
+                            </div>
+                        </div>
 
-        <a href="@Url.Action("Create")" class="btn add-student-btn">
-            <i class="fas fa-plus me-2"></i>إضافة طالب جديد
-        </a>
+                        <div class="col-md-3 col-lg-2">
+                            <button type="button" class="btn btn-clear-filter btn-lg w-100" id="clearFilters">
+                                <i class="fas fa-times me-1"></i>مسح الفلاتر
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="d-flex justify-content-between align-items-center mb-4">
-       <i class="  "></i>
 
-        <a href="@Url.Action("AssignClass")" class="btn add-student-btn">
-            <i class="fas fa-plus me-2"></i> تعيين الطلاب
-        </a>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-users me-2"></i>إدارة الطلاب (<span id="studentsCount">@Model.Count()</span> طالب)</h2>
+
+        <div class="d-flex align-items-center gap-3">
+            <a href="@Url.Action("Create")" class="btn add-student-btn-custom">
+                <i class="fas fa-plus me-2"></i>إضافة طالب جديد
+            </a>
+            <a href="@Url.Action("AssignClass")" class="btn assign-student-btn-custom">
+                <i class="fas fa-plus me-2"></i>تعيين الطلاب
+            </a>
+        </div>
     </div>
-   
-    <!-- Success/Error Messages -->
+
     @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -222,78 +71,95 @@
         </div>
     }
 
-    <!-- Students Grid -->
-    @if (Model.Any())
-    {
-        <div class="row">
-            @foreach (var student in Model)
-            {
-                <div class="col-md-6 col-lg-4">
-                    <div class="student-card">
-                        <button class="delete-btn"
-                                onclick="showDeleteModal(@student.Id, '@student.Name', '@student.Code')"
-                                title="حذف الطالب">
-                            <i class="fas fa-trash"></i>
-                        </button>
+    <div id="studentsContainer">
+        @if (Model.Any())
+        {
+            <div class="row" id="studentsGrid">
+                @foreach (var student in Model)
+                {
+                    <div class="col-md-6 col-lg-4 student-item"
+                         data-name="@(student.Name ?? "")"
+                         data-code="@(student.Code ?? "")"
+                         data-section="@(GetStudentSection(student))">
+                        <div class="student-card">
+                            <button class="delete-btn"
+                                    onclick="showDeleteModal(@student.Id, '@student.Name', '@student.Code')"
+                                    title="حذف الطالب">
+                                <i class="fas fa-trash"></i>
+                            </button>
 
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="@(!string.IsNullOrEmpty(student.Picture_Profile) ? "/" + student.Picture_Profile : "/images/default-avatar.png")"
-                                 alt="@student.Name"
-                                 class="student-avatar">
-                            <div class="student-info">
-                                <h5 class="mb-1">@(string.IsNullOrEmpty(student.Name) ? "لم تحدد بعد" : student.Name)</h5>
-                                <span class="student-code">@(string.IsNullOrEmpty(student.Code) ? "لم تحدد بعد" : student.Code)</span>
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="@(!string.IsNullOrEmpty(student.Picture_Profile) ? "/" + student.Picture_Profile : "/images/default-avatar.png")"
+                                     alt="@student.Name"
+                                     class="student-avatar">
+                                <div class="student-info">
+                                    <h5 class="mb-1">@(string.IsNullOrEmpty(student.Name) ? "لم تحدد بعد" : student.Name)</h5>
+                                    <span class="student-code">@(string.IsNullOrEmpty(student.Code) ? "لم تحدد بعد" : student.Code)</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-2">
+                                <i class="fas fa-envelope me-2 text-muted"></i>
+                                <small class="@(string.IsNullOrEmpty(student.Email) ? "not-specified" : "")">
+                                    @(string.IsNullOrEmpty(student.Email) ? "لم تحدد بعد" : student.Email)
+                                </small>
+                            </div>
+
+                            <div class="mb-2">
+                                <i class="fas fa-phone me-2 text-muted"></i>
+                                <small class="@(string.IsNullOrEmpty(student.Phone_Number) ? "not-specified" : "")">
+                                    @(string.IsNullOrEmpty(student.Phone_Number) ? "لم تحدد بعد" : student.Phone_Number)
+                                </small>
+                            </div>
+
+                            <div class="mb-2">
+                                <i class="fas fa-map-marker-alt me-2 text-muted"></i>
+                                <small class="@(string.IsNullOrEmpty(student.Governate) ? "not-specified" : "")">
+                                    @(string.IsNullOrEmpty(student.Governate) ? "لم تحدد بعد" : student.Governate)
+                                </small>
+                            </div>
+
+                            <div class="mb-2">
+                                <i class="fas fa-layer-group me-2 text-muted"></i>
+                                <small class="section-info">@GetStudentSection(student)</small>
+                            </div>
+
+                            <div class="d-flex gap-2 mt-3">
+                                <a href="@Url.Action("Edit", new { id = student.Id })" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-edit me-1"></i>تعديل
+                                </a>
+                                <a href="@Url.Action("Details", new { id = student.Id })" class="btn btn-sm btn-outline-info">
+                                    <i class="fas fa-eye me-1"></i>عرض
+                                </a>
                             </div>
                         </div>
-
-                        <div class="mb-2">
-                            <i class="fas fa-envelope me-2 text-muted"></i>
-                            <small class="@(string.IsNullOrEmpty(student.Email) ? "not-specified" : "")">
-                                @(string.IsNullOrEmpty(student.Email) ? "لم تحدد بعد" : student.Email)
-                            </small>
-                        </div>
-
-                        <div class="mb-2">
-                            <i class="fas fa-phone me-2 text-muted"></i>
-                            <small class="@(string.IsNullOrEmpty(student.Phone_Number) ? "not-specified" : "")">
-                                @(string.IsNullOrEmpty(student.Phone_Number) ? "لم تحدد بعد" : student.Phone_Number)
-                            </small>
-                        </div>
-
-                        <div class="mb-2">
-                            <i class="fas fa-map-marker-alt me-2 text-muted"></i>
-                            <small class="@(string.IsNullOrEmpty(student.Governate) ? "not-specified" : "")">
-                                @(string.IsNullOrEmpty(student.Governate) ? "لم تحدد بعد" : student.Governate)
-                            </small>
-                        </div>
-
-                        <div class="d-flex gap-2 mt-3">
-                            <a href="@Url.Action("Edit", new { id = student.Id })" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-edit me-1"></i>تعديل
-                            </a>
-                            <a href="@Url.Action("Details", new { id = student.Id })" class="btn btn-sm btn-outline-info">
-                                <i class="fas fa-eye me-1"></i>عرض
-                            </a>
-                        </div>
                     </div>
-                </div>
-            }
-        </div>
-    }
-    else
-    {
-        <div class="no-students">
-            <i class="fas fa-users fa-3x mb-3"></i>
-            <h4>لا توجد طلاب مسجلين</h4>
-            <p>يمكنك إضافة الطلاب الجدد باستخدام زر "إضافة طالب جديد"</p>
-            <a href="@Url.Action("Create")" class="btn add-student-btn">
-                <i class="fas fa-plus me-2"></i>إضافة أول طالب
-            </a>
-        </div>
-    }
+                }
+            </div>
+        }
+        else
+        {
+            <div class="no-students">
+                <i class="fas fa-users fa-3x mb-3"></i>
+                <h4>لا توجد طلاب مسجلين</h4>
+                <p>يمكنك إضافة الطلاب الجدد باستخدام زر "إضافة طالب جديد"</p>
+                <a href="@Url.Action("Create")" class="btn add-student-btn">
+                    <i class="fas fa-plus me-2"></i>إضافة أول طالب
+                </a>
+            </div>
+        }
+    </div>
+
+    <div id="noResultsMessage" class="no-students" style="display: none;">
+        <i class="fas fa-search fa-3x mb-3"></i>
+        <h4>لا توجد نتائج</h4>
+        <p>لم يتم العثور على طلاب مطابقين لمعايير البحث</p>
+        <button type="button" class="btn add-student-btn" onclick="clearAllFilters()">
+            <i class="fas fa-times me-2"></i>مسح البحث
+        </button>
+    </div>
 </div>
 
-<!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -330,8 +196,98 @@
     </div>
 </div>
 
+@functions {
+    string GetStudentSection(StudentManagementSystem.Models.Students student)
+    {
+        var section = student.StudentClassSectionYears?.FirstOrDefault()?.Section?.Name_Of_Section;
+        return string.IsNullOrEmpty(section) ? "لم تحدد بعد" : section;
+    }
+}
+
 <script>
-    // Auto-hide alerts after 5 seconds
+    let allStudents = [];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeData();
+        setupEventListeners();
+    });
+
+    function initializeData() {
+        const studentItems = document.querySelectorAll('.student-item');
+        studentItems.forEach(item => {
+            const studentData = {
+                element: item,
+                name: item.dataset.name.toLowerCase(),
+                code: item.dataset.code.toLowerCase(),
+                section: item.dataset.section
+            };
+            allStudents.push(studentData);
+        });
+    }
+
+    function setupEventListeners() {
+        const searchInput = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearFilters');
+
+        let searchTimeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                filterStudents();
+            }, 300);
+        });
+
+        clearButton.addEventListener('click', clearAllFilters);
+    }
+
+    function filterStudents() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+        let visibleCount = 0;
+
+        allStudents.forEach(student => {
+            let showStudent = true;
+
+            if (searchTerm) {
+                const matchesName = student.name.includes(searchTerm);
+                const matchesCode = student.code.includes(searchTerm);
+                const nameWords = student.name.split(' ').filter(word => word.length > 0);
+                const matchesPartialName = nameWords.some(word => word.toLowerCase().includes(searchTerm));
+
+                showStudent = showStudent && (matchesName || matchesCode || matchesPartialName);
+            }
+
+            if (showStudent) {
+                student.element.style.display = 'block';
+                visibleCount++;
+            } else {
+                student.element.style.display = 'none';
+            }
+        });
+
+        updateUI(visibleCount);
+    }
+
+    function updateUI(visibleCount) {
+        const studentsCount = document.getElementById('studentsCount');
+        const studentsGrid = document.getElementById('studentsGrid');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        studentsCount.textContent = visibleCount;
+
+        if (visibleCount === 0 && allStudents.length > 0) {
+            if (studentsGrid) studentsGrid.style.display = 'none';
+            noResultsMessage.style.display = 'block';
+        } else {
+            if (studentsGrid) studentsGrid.style.display = 'flex';
+            noResultsMessage.style.display = 'none';
+        }
+    }
+
+    function clearAllFilters() {
+        document.getElementById('searchInput').value = '';
+        filterStudents();
+    }
+
     setTimeout(function() {
         document.querySelectorAll('.alert').forEach(function(alert) {
             if (alert.classList.contains('show')) {
@@ -340,16 +296,13 @@
         });
     }, 5000);
 
-    // Show delete confirmation modal
     function showDeleteModal(studentId, studentName, studentCode) {
         document.getElementById('studentName').textContent = studentName || 'لم تحدد بعد';
         document.getElementById('studentCode').textContent = studentCode || 'لم تحدد بعد';
 
-        // Set the form action to the delete endpoint
         const form = document.getElementById('deleteForm');
         form.action = '@Url.Action("DeleteConfirmed", "Student")';
 
-        // Add hidden input for the student ID
         let hiddenInput = form.querySelector('input[name="id"]');
         if (!hiddenInput) {
             hiddenInput = document.createElement('input');
@@ -359,8 +312,156 @@
         }
         hiddenInput.value = studentId;
 
-        // Show the modal
         const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
         modal.show();
     }
 </script>
+
+<style>
+    /* New search bar design */
+    .search-filter-card {
+        background: white;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+    }
+
+        .search-filter-card .card-body {
+            padding: 5px 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+    .search-input-group .form-control {
+        border-radius: 50px !important;
+        border: 1px solid #dee2e6;
+        padding-left: 1.5rem;
+    }
+
+        .search-input-group .form-control:focus {
+            border-color: #fd7e14;
+            box-shadow: 0 0 0 0.2rem rgba(253, 126, 20, 0.25);
+        }
+
+    .form-control-lg {
+        height: calc(1.5em + 1rem + 2px); /* Increased size */
+        padding: 0.5rem 1rem;
+        font-size: 1.25rem;
+    }
+
+    .btn-lg {
+        height: calc(1.5em + 1rem + 2px); /* Match search input size */
+        padding: 0.5rem 1rem;
+        font-size: 1.25rem;
+        border-radius: 50px !important;
+    }
+
+    /* Clear Filter Button */
+    .btn-clear-filter {
+        background-color: white;
+        color: #fd7e14;
+        border: 1px solid #fd7e14;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px !important;
+    }
+
+        .btn-clear-filter:hover {
+            background-color: #fd7e14;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+        }
+
+    /* Buttons "إضافة طالب جديد" and "تعيين الطلاب" with new design */
+    .add-student-btn-custom, .assign-student-btn-custom {
+        background-color: white;
+        color: #fd7e14;
+        border: 1px solid #fd7e14;
+        border-radius: 50px !important;
+        font-weight: 500;
+        padding: 0.5rem 1.5rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+        .add-student-btn-custom:hover, .assign-student-btn-custom:hover {
+            background-color: #fd7e14;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+        }
+
+        .add-student-btn-custom i, .assign-student-btn-custom i {
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+
+    /* General styling */
+    .add-student-btn {
+        background-color: #0d6efd;
+        color: white;
+        border: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .add-student-btn:hover {
+            background-color: #0b5ed7;
+            color: white;
+        }
+
+    .section-info {
+        background: linear-gradient(135deg, #fd7e14, #e8590c);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.8em;
+        font-weight: 500;
+        display: inline-block;
+    }
+
+    .student-card {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .student-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #fd7e14, #e8590c);
+        }
+
+    .not-specified {
+        color: #6c757d;
+        font-style: italic;
+        font-size: 0.9em;
+    }
+
+    .text-orange {
+        color: #fd7e14 !important;
+    }
+
+    .confirm-delete-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .cancel-btn {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+</style>
