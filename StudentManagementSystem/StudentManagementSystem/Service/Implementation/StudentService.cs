@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Controllers;
@@ -7,7 +7,7 @@ using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
 using StudentManagementSystem.ViewModels;
 using System.Security.Claims;
-using static System.Collections.Specialized.BitVector32;
+
 
 namespace StudentManagementSystem.Service.Implementation
 {
@@ -46,37 +46,580 @@ namespace StudentManagementSystem.Service.Implementation
             var result = await _context.Grades.FirstOrDefaultAsync(s => s.Name.ToLower() == "wheeler" &&s.IsActive);
             return result;
         }
-
+        public async Task<int> GatReasonId()
+        {
+          var reason =await   _context.AbsenceReasons.FirstOrDefaultAsync(r => r.Name =="غياب يومي"&&!r.IsDeleted);
+            return reason.Id;
+        }
         public async Task<AttendanceViewModel> GetStudentsAsync(int classId)
         {
-            // الحصول على السنة الدراسية النشطة
-            var activeWorkingYear = await _context.Working_Years
-                .Where(wy => wy.IsActive)
-                .OrderByDescending(wy => wy.Start_date)
-                .FirstOrDefaultAsync();
-            Classes Class =await _context.Classes.FirstOrDefaultAsync(e=> e.Id == classId);
-   
-
-            // الحصول على الطلاب في الفصل المحدد خلال السنة النشطة
-            var studentsInClass = await _context.Student_Class_Section_Years
-                .Include(scsy => scsy.Student)
-                .Where(scsy => scsy.Class_Id == classId &&
-                              scsy.Working_Year_Id == activeWorkingYear.Id &&
-                              scsy.IsActive)
-                .Select(scsy => new StudentStatusViewModel
-                {
-                    Students = scsy.Student,
-                    Status = true
-               
-                })
-                .ToListAsync();
-            var Attendance = new AttendanceViewModel()
+            try
             {
-                Class = Class,
-                StudentStatus = studentsInClass
+                // الحصول على السنة الدراسية النشطة
+                var activeWorkingYear = await _context.Working_Years
+                    .Where(wy => wy.IsActive)
+                    .OrderByDescending(wy => wy.Start_date)
+                    .FirstOrDefaultAsync();
 
-            };
-            return Attendance;
+                if (activeWorkingYear == null)
+                    return null;
+
+                // الحصول على معلومات الفصل
+                Classes Class = await _context.Classes.FirstOrDefaultAsync(e => e.Id == classId);
+
+                if (Class == null)
+                    return null;
+
+                // الحصول على التاريخ بدون الوقت
+                var dateOnly = DateTime.Now.Date;
+
+                // الحصول على معرف نوع الحضور اليومي
+                var dailyAttendanceTypeId = GetDailyAttendanceTypeId();
+
+                // الحصول على الطلاب في الفصل المحدد خلال السنة النشطة
+                var studentsInClass = await _context.Student_Class_Section_Years
+                    .Include(scsy => scsy.Student)
+                    .Where(scsy => scsy.Class_Id == classId &&
+                                  scsy.Working_Year_Id == activeWorkingYear.Id &&
+                                  scsy.IsActive)
+                    .ToListAsync();
+
+                var studentStatusList = new List<StudentStatusViewModel>();
+
+                foreach (var studentClassSection in studentsInClass)
+                {
+                    // فحص حالة الطالب في الغياب اليومي لهذا اليوم
+                    var dailyAttendance = await _context.StudentAttendances
+                        .Where(a => a.StudentClassSectionYear_Student_Id == studentClassSection.Student_Id &&
+                                   a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                   a.Class_Id == classId &&
+                                   a.StudentClassSectionYear_Section_id == studentClassSection.Section_id &&
+                                   a.Date.Date == dateOnly &&
+                                   a.AttendanceTypeId == dailyAttendanceTypeId &&
+                                   !a.IsDeleted)
+                        .FirstOrDefaultAsync();
+
+                    var dailyAbsence = await _context.StudentAbsents
+                        .Where(a => a.StudentClassSectionYear_Student_Id == studentClassSection.Student_Id &&
+                                   a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                   a.Class_Id == classId &&
+                                   a.StudentClassSectionYear_Section_id == studentClassSection.Section_id &&
+                                   a.Date.Date == dateOnly &&
+                                   a.AttendanceTypeId == dailyAttendanceTypeId &&
+                                   !a.IsDeleted)
+                        .FirstOrDefaultAsync();
+
+                    // تحديد حالة الطالب بناء على التسجيل
+                    bool studentStatus;
+                    string reasonId = null;
+
+                    if (dailyAttendance != null)
+                    {
+                        // الطالب مسجل حضور
+                        studentStatus = true;
+                    }
+                    else if (dailyAbsence != null)
+                    {
+                        // الطالب مسجل غياب
+                        studentStatus = false;
+                        if (dailyAbsence.AbsenceReasonId.HasValue)
+                        {
+                            reasonId = dailyAbsence.AbsenceReasonId.Value.ToString();
+                        }
+                    }
+                    else
+                    {
+                        // الطالب غير مسجل (لا حضور ولا غياب)
+                        studentStatus = false;
+                    }
+
+                    var studentStatusViewModel = new StudentStatusViewModel
+                    {
+                        Students = studentClassSection.Student,
+                        Status = studentStatus,
+                        Reason_Id = reasonId
+                    };
+
+                    studentStatusList.Add(studentStatusViewModel);
+                }
+
+                // الحصول على أسباب الغياب من قاعدة البيانات
+                var absenceReasons = await _context.AbsenceReasons
+                    .Where(r => !r.IsDeleted)
+                    .OrderBy(r => r.Name)
+                    .ToListAsync();
+
+                var attendanceViewModel = new AttendanceViewModel()
+                {
+                    Class = Class,
+                    StudentStatus = studentStatusList,
+                    reasons = absenceReasons
+                };
+
+                return attendanceViewModel;
+            }
+            catch (Exception ex)
+            {
+                // تسجيل الخطأ
+                // _logger.LogError(ex, "Error getting students attendance");
+                return null;
+            }
+        }
+        public async Task<AttendanceViewModel> GetStudentsFieldAsync(int classId)
+        {
+            try
+            {
+                // الحصول على السنة الدراسية النشطة
+                var activeWorkingYear = await _context.Working_Years
+                    .Where(wy => wy.IsActive)
+                    .OrderByDescending(wy => wy.Start_date)
+                    .FirstOrDefaultAsync();
+
+                if (activeWorkingYear == null)
+                    return null;
+
+                // الحصول على معلومات الفصل
+                Classes Class = await _context.Classes.FirstOrDefaultAsync(e => e.Id == classId);
+
+                if (Class == null)
+                    return null;
+
+                // الحصول على التاريخ بدون الوقت
+                var dateOnly = DateTime.Now.Date;
+
+                // الحصول على معرف نوع الحضور اليومي
+                var dailyAttendanceTypeId = GetDailyAttendanceTypeId();
+
+                // الحصول على معرف نوع الحضور الميداني
+                var fieldAttendanceTypeId = GetFieldAttendanceTypeId();
+
+                // الحصول على جميع الطلاب في الفصل
+                var studentsInClass = await _context.Student_Class_Section_Years
+                    .Include(scsy => scsy.Student)
+                    .Where(scsy => scsy.Class_Id == classId &&
+                                  scsy.Working_Year_Id == activeWorkingYear.Id &&
+                                  scsy.IsActive)
+                    .ToListAsync();
+
+                // فحص إذا كان هناك أي تسجيل غياب ميداني للفصل اليوم
+                var hasFieldAttendanceToday = await _context.StudentAttendances
+                    .AnyAsync(a => a.Class_Id == classId &&
+                                  a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                  a.Date.Date == dateOnly &&
+                                  a.AttendanceTypeId == fieldAttendanceTypeId &&
+                                  !a.IsDeleted) ||
+                    await _context.StudentAbsents
+                    .AnyAsync(a => a.Class_Id == classId &&
+                                  a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                  a.Date.Date == dateOnly &&
+                                  a.AttendanceTypeId == fieldAttendanceTypeId &&
+                                  !a.IsDeleted);
+
+                var studentStatusList = new List<StudentStatusViewModel>();
+
+                foreach (var studentClassSection in studentsInClass)
+                {
+                    var studentStatus = new StudentStatusViewModel
+                    {
+                        Students = studentClassSection.Student,
+                        Status = true, // افتراضي حاضر
+                        Reason_Id = null
+                    };
+
+                    if (hasFieldAttendanceToday)
+                    {
+                        // إذا كان هناك تسجيل غياب ميداني، استخدم حالة الغياب الميداني
+                        var fieldAttendance = await _context.StudentAttendances
+                            .Where(a => a.StudentClassSectionYear_Student_Id == studentClassSection.Student_Id &&
+                                       a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                       a.Class_Id == classId &&
+                                       a.StudentClassSectionYear_Section_id == studentClassSection.Section_id &&
+                                       a.Date.Date == dateOnly &&
+                                       a.AttendanceTypeId == fieldAttendanceTypeId &&
+                                       !a.IsDeleted)
+                            .FirstOrDefaultAsync();
+
+                        var fieldAbsence = await _context.StudentAbsents
+                            .Where(a => a.StudentClassSectionYear_Student_Id == studentClassSection.Student_Id &&
+                                       a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                       a.Class_Id == classId &&
+                                       a.StudentClassSectionYear_Section_id == studentClassSection.Section_id &&
+                                       a.Date.Date == dateOnly &&
+                                       a.AttendanceTypeId == fieldAttendanceTypeId &&
+                                       !a.IsDeleted)
+                            .FirstOrDefaultAsync();
+
+                        // تحديد الحالة بناءً على الغياب الميداني
+                        if (fieldAttendance != null)
+                        {
+                            studentStatus.Status = true;
+                        }
+                        else if (fieldAbsence != null)
+                        {
+                            studentStatus.Status = false;
+                            if (fieldAbsence.AbsenceReasonId.HasValue)
+                            {
+                                studentStatus.Reason_Id = fieldAbsence.AbsenceReasonId.Value.ToString();
+                            }
+                        }
+                        else
+                        {
+                            // لم يتم تسجيل حضور أو غياب ميداني - افتراضي حاضر
+                            studentStatus.Status = true;
+                        }
+                    }
+                    else
+                    {
+                        // إذا لم يكن هناك تسجيل غياب ميداني، استخدم حالة الغياب اليومي
+                        var dailyAttendance = await _context.StudentAttendances
+                            .Where(a => a.StudentClassSectionYear_Student_Id == studentClassSection.Student_Id &&
+                                       a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                       a.Class_Id == classId &&
+                                       a.StudentClassSectionYear_Section_id == studentClassSection.Section_id &&
+                                       a.Date.Date == dateOnly &&
+                                       a.AttendanceTypeId == dailyAttendanceTypeId &&
+                                       !a.IsDeleted)
+                            .FirstOrDefaultAsync();
+
+                        var dailyAbsence = await _context.StudentAbsents
+                            .Where(a => a.StudentClassSectionYear_Student_Id == studentClassSection.Student_Id &&
+                                       a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                       a.Class_Id == classId &&
+                                       a.StudentClassSectionYear_Section_id == studentClassSection.Section_id &&
+                                       a.Date.Date == dateOnly &&
+                                       a.AttendanceTypeId == dailyAttendanceTypeId &&
+                                       !a.IsDeleted)
+                            .FirstOrDefaultAsync();
+
+                        // تحديد الحالة بناءً على الغياب اليومي
+                        if (dailyAttendance != null)
+                        {
+                            studentStatus.Status = true;
+                        }
+                        else if (dailyAbsence != null)
+                        {
+                            studentStatus.Status = false;
+                            if (dailyAbsence.AbsenceReasonId.HasValue)
+                            {
+                                studentStatus.Reason_Id = dailyAbsence.AbsenceReasonId.Value.ToString();
+                            }
+                        }
+                        else
+                        {
+                            // لم يتم تسجيل حضور أو غياب يومي - افتراضي حاضر
+                            studentStatus.Status = true;
+                        }
+                    }
+
+                    studentStatusList.Add(studentStatus);
+                }
+
+                // الحصول على أسباب الغياب من قاعدة البيانات
+                var absenceReasons = await _context.AbsenceReasons
+                    .Where(r => !r.IsDeleted)
+                    .OrderBy(r => r.Name)
+                    .ToListAsync();
+
+                var attendanceViewModel = new AttendanceViewModel()
+                {
+                    Class = Class,
+                    StudentStatus = studentStatusList,
+                    reasons = absenceReasons
+                };
+
+                return attendanceViewModel;
+            }
+            catch (Exception ex)
+            {
+                // تسجيل الخطأ
+                // _logger.LogError(ex, "Error getting field attendance students");
+                return null;
+            }
+        }
+        // دالة للحصول على معرف نوع الحضور الميداني
+        private int GetFieldAttendanceTypeId()
+        {
+            // الحصول على معرف نوع الحضور الميداني من جدول AttendanceTypes
+            return _context.AttendanceTypes
+                .Where(at => at.Name == "ميداني" || at.Name == "Field")
+                .Select(at => at.Id)
+                .FirstOrDefault();
+        }
+        private int GetDailyAttendanceTypeId()
+        {
+            // الحصول على معرف نوع الحضور اليومي من جدول AttendanceTypes
+            // يمكنك إما تخزين هذا المعرف في إعدادات التطبيق أو البحث عنه في قاعدة البيانات
+            return _context.AttendanceTypes
+                .Where(at => at.Name == "يومي" || at.Name == "Daily")
+                .Select(at => at.Id)
+                .FirstOrDefault();
+        }
+        public async Task<bool> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate,int UserId)
+        {
+            try
+            {
+                // التأكد من أن النموذج صحيح
+                if (model?.StudentStatus == null || !model.StudentStatus.Any())
+                    return false;
+
+                // الحصول على التاريخ باليوم فقط (بدون الوقت)
+                var dateOnly = attendanceDate.Date;
+
+                // الحصول على آخر سنة دراسية نشطة
+                var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
+
+                if (activeWorkingYear == null)
+                    return false;
+
+                // معرف المستخدم الحالي (يجب تمريره من الكونترولر)
+                var currentUserId = UserId; // تحتاج لتنفيذ هذه الدالة
+
+                foreach (var studentStatus in model.StudentStatus)
+                {
+                    // البحث عن تسجيل الطالب في الصف والقسم للسنة النشطة
+                    var studentClassSectionYear = await _context.Student_Class_Section_Years
+                        .Where(s => s.Student_Id == studentStatus.Students.Id &&
+                                   s.Working_Year_Id == activeWorkingYear.Id &&
+                                   s.Class_Id == model.Class.Id &&
+                                   s.IsActive)
+                        .FirstOrDefaultAsync();
+
+                    if (studentClassSectionYear == null)
+                        continue; // الطالب غير مسجل في هذا الصف
+
+                    // البحث عن تسجيل سابق في نفس اليوم في جدول الحضور
+                    var existingAttendance = await _context.StudentAttendances
+                        .Where(a => a.StudentClassSectionYear_Student_Id == studentStatus.Students.Id &&
+                                   a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                   a.Class_Id == model.Class.Id &&
+                                   a.StudentClassSectionYear_Section_id == studentClassSectionYear.Section_id &&
+                                   a.Date.Date == dateOnly &&
+                                   !a.IsDeleted)
+                        .FirstOrDefaultAsync();
+
+                    // البحث عن تسجيل سابق في نفس اليوم في جدول الغياب
+                    var existingAbsence = await _context.StudentAbsents
+                        .Where(a => a.StudentClassSectionYear_Student_Id == studentStatus.Students.Id &&
+                                   a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                   a.Class_Id == model.Class.Id &&
+                                   a.StudentClassSectionYear_Section_id == studentClassSectionYear.Section_id &&
+                                   a.Date.Date == dateOnly &&
+                                   !a.IsDeleted)
+                        .FirstOrDefaultAsync();
+
+                    // تحديد الحالة الحالية للطالب
+                    bool isCurrentlyPresent = studentStatus.Status;
+
+                    // التحقق من الحالة السابقة
+                    bool? previousStatus = null;
+                    if (existingAttendance != null)
+                        previousStatus = true; // كان حاضر
+                    else if (existingAbsence != null)
+                        previousStatus = false; // كان غائب
+
+                    // إذا لم تتغير الحالة، لا نفعل شيء
+                    if (previousStatus.HasValue && previousStatus.Value == isCurrentlyPresent)
+                        continue;
+
+                    // حذف التسجيلات السابقة إذا كانت موجودة
+                    if (existingAttendance != null)
+                    {
+                        _context.StudentAttendances.Remove(existingAttendance);
+                    }
+                    if (existingAbsence != null)
+                    {
+                        _context.StudentAbsents.Remove(existingAbsence);
+                    }
+
+                    // إنشاء تسجيل جديد حسب الحالة
+                    if (isCurrentlyPresent)
+                    {
+                        // الطالب حاضر - تسجيل في جدول الحضور
+                        var attendance = new StudentAttendances
+                        {
+                            Date = dateOnly,
+                            CreatedBy_Id = currentUserId,
+                            AttendanceTypeId = GetDailyAttendanceTypeId(), // معرف نوع الحضور اليومي
+                            StudentClassSectionYear_Student_Id = studentStatus.Students.Id,
+                            Class_Id = model.Class.Id,
+                            StudentClassSectionYear_Working_Year_Id = activeWorkingYear.Id,
+                            StudentClassSectionYear_Section_id = studentClassSectionYear.Section_id,
+                            IsDeleted = false
+                        };
+                        _context.StudentAttendances.Add(attendance);
+                    }
+                    else
+                    {
+                        // الطالب غائب - تسجيل في جدول الغياب
+                        var absence = new StudentAbsents
+                        {
+                            Date = dateOnly,
+                            CreatedBy_Id = currentUserId,
+                            AttendanceTypeId = GetDailyAttendanceTypeId(), // معرف نوع الحضور اليومي
+                            StudentClassSectionYear_Student_Id = studentStatus.Students.Id,
+                            Class_Id = model.Class.Id,
+                            StudentClassSectionYear_Working_Year_Id = activeWorkingYear.Id,
+                            StudentClassSectionYear_Section_id = studentClassSectionYear.Section_id,
+                            IsDeleted = false,
+                           
+                        };
+
+                        // إضافة سبب الغياب إذا كان موجود
+                        if (!string.IsNullOrEmpty(studentStatus.Reason_Id) && int.TryParse(studentStatus.Reason_Id, out int reasonId))
+                        {
+                            absence.AbsenceReasonId = reasonId;
+                        }
+
+                        _context.StudentAbsents.Add(absence);
+                    }
+                }
+
+                // حفظ التغييرات
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // تسجيل الخطأ
+                // _logger.LogError(ex, "Error saving attendance");
+                return false;
+            }
+        }
+        public async Task<bool> SaveAttendanceFieldAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId)
+        {
+            try
+            {
+                // التأكد من أن النموذج صحيح
+                if (model?.StudentStatus == null || !model.StudentStatus.Any())
+                    return false;
+
+                // الحصول على التاريخ باليوم فقط (بدون الوقت)
+                var dateOnly = attendanceDate.Date;
+
+                // الحصول على آخر سنة دراسية نشطة
+                var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
+
+                if (activeWorkingYear == null)
+                    return false;
+
+                // معرف المستخدم الحالي (يجب تمريره من الكونترولر)
+                var currentUserId = UserId; // تحتاج لتنفيذ هذه الدالة
+
+                foreach (var studentStatus in model.StudentStatus)
+                {
+                    // البحث عن تسجيل الطالب في الصف والقسم للسنة النشطة
+                    var studentClassSectionYear = await _context.Student_Class_Section_Years
+                        .Where(s => s.Student_Id == studentStatus.Students.Id &&
+                                   s.Working_Year_Id == activeWorkingYear.Id &&
+                                   s.Class_Id == model.Class.Id &&
+                                   s.IsActive)
+                        .FirstOrDefaultAsync();
+
+                    if (studentClassSectionYear == null)
+                        continue; // الطالب غير مسجل في هذا الصف
+
+                    // البحث عن تسجيل سابق في نفس اليوم في جدول الحضور
+                    var existingAttendance = await _context.StudentAttendances
+                        .Where(a => a.StudentClassSectionYear_Student_Id == studentStatus.Students.Id &&
+                                   a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                   a.Class_Id == model.Class.Id &&
+                                   a.StudentClassSectionYear_Section_id == studentClassSectionYear.Section_id &&
+                                   a.Date.Date == dateOnly &&
+                                   !a.IsDeleted&&a.AttendanceTypeId == GetFieldAttendanceTypeId())
+                        .FirstOrDefaultAsync();
+
+                    // البحث عن تسجيل سابق في نفس اليوم في جدول الغياب
+                    var existingAbsence = await _context.StudentAbsents
+                        .Where(a => a.StudentClassSectionYear_Student_Id == studentStatus.Students.Id &&
+                                   a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                   a.Class_Id == model.Class.Id &&
+                                   a.StudentClassSectionYear_Section_id == studentClassSectionYear.Section_id &&
+                                   a.Date.Date == dateOnly &&
+                                   !a.IsDeleted && a.AttendanceTypeId == GetFieldAttendanceTypeId())
+                        .FirstOrDefaultAsync();
+
+                    // تحديد الحالة الحالية للطالب
+                    bool isCurrentlyPresent = studentStatus.Status;
+
+                    // التحقق من الحالة السابقة
+                    bool? previousStatus = null;
+                    if (existingAttendance != null)
+                        previousStatus = true; // كان حاضر
+                    else if (existingAbsence != null)
+                        previousStatus = false; // كان غائب
+
+                    // إذا لم تتغير الحالة، لا نفعل شيء
+                    if (previousStatus.HasValue && previousStatus.Value == isCurrentlyPresent)
+                        continue;
+
+                    // حذف التسجيلات السابقة إذا كانت موجودة
+                    if (existingAttendance != null)
+                    {
+                        _context.StudentAttendances.Remove(existingAttendance);
+                    }
+                    if (existingAbsence != null)
+                    {
+                        _context.StudentAbsents.Remove(existingAbsence);
+                    }
+
+                    // إنشاء تسجيل جديد حسب الحالة
+                    if (isCurrentlyPresent)
+                    {
+                        // الطالب حاضر - تسجيل في جدول الحضور
+                        var attendance = new StudentAttendances
+                        {
+                            Date = dateOnly,
+                            CreatedBy_Id = currentUserId,
+                            AttendanceTypeId = GetFieldAttendanceTypeId(), // معرف نوع الحضور اليومي
+                            StudentClassSectionYear_Student_Id = studentStatus.Students.Id,
+                            Class_Id = model.Class.Id,
+                            StudentClassSectionYear_Working_Year_Id = activeWorkingYear.Id,
+                            StudentClassSectionYear_Section_id = studentClassSectionYear.Section_id
+                            
+                            ,
+                            IsDeleted = false
+                        };
+                        _context.StudentAttendances.Add(attendance);
+                    }
+                    else
+                    {
+                        // الطالب غائب - تسجيل في جدول الغياب
+                        var absence = new StudentAbsents
+                        {
+                            Date = dateOnly,
+                            CreatedBy_Id = currentUserId,
+                            AttendanceTypeId = GetDailyAttendanceTypeId(), // معرف نوع الحضور اليومي
+                            StudentClassSectionYear_Student_Id = studentStatus.Students.Id,
+                            Class_Id = model.Class.Id,
+                            StudentClassSectionYear_Working_Year_Id = activeWorkingYear.Id,
+                            StudentClassSectionYear_Section_id = studentClassSectionYear.Section_id,
+                            AbsenceReasonId = int.Parse(studentStatus.Reason_Id),
+                            CustomReasonDetails=studentStatus.CustomReasonDetails
+                            ,
+                            IsDeleted = false,
+
+                        };
+
+                        // إضافة سبب الغياب إذا كان موجود
+                        if (!string.IsNullOrEmpty(studentStatus.Reason_Id) && int.TryParse(studentStatus.Reason_Id, out int reasonId))
+                        {
+                            absence.AbsenceReasonId = reasonId;
+                        }
+
+                        _context.StudentAbsents.Add(absence);
+                    }
+                }
+
+                // حفظ التغييرات
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // تسجيل الخطأ
+                // _logger.LogError(ex, "Error saving attendance");
+                return false;
+            }
         }
         public async Task<List<SectionWithStudents>> GetStudentsGroupedBySectionAsync()
         {
@@ -694,7 +1237,7 @@ namespace StudentManagementSystem.Service.Implementation
             }
         }
         // جلب الطلاب مجمعين حسب القسم مع ترتيب أبجدي
-        public async Task<List<SectionStudentsDto>> GetStudentsByDepartmentAsync(int? workingYearId = null)
+        public async Task<List<SectionStudentsViewModel>> GetStudentsByDepartmentAsync(int? workingYearId = null)
         {
             try
             {
@@ -707,7 +1250,7 @@ namespace StudentManagementSystem.Service.Implementation
                         .FirstOrDefaultAsync();
 
                     if (activeWorkingYear == null)
-                        return new List<SectionStudentsDto>();
+                        return new List<SectionStudentsViewModel>();
 
                     workingYearId = activeWorkingYear.Id;
                 }
@@ -726,14 +1269,14 @@ namespace StudentManagementSystem.Service.Implementation
                         SectionId = scss.Section_id,
                         SectionName = scss.Section.Name_Of_Section
                     })
-                    .Select(g => new SectionStudentsDto
+                    .Select(g => new SectionStudentsViewModel
                     {
                         DepartmentId = g.Key.DepartmentId,
                         DepartmentName = g.Key.DepartmentName,
                         SectionId = g.Key.SectionId,
                         SectionName = g.Key.SectionName,
                         WorkingYearId = workingYearId.Value,
-                        Students = g.Select(scss => new StudentInfoDto
+                        Students = g.Select(scss => new StudentInfoViewModel
                         {
                             StudentId = scss.Student_Id,
                             StudentName = scss.Student.Name,
@@ -753,12 +1296,12 @@ namespace StudentManagementSystem.Service.Implementation
             }
             catch
             {
-                return new List<SectionStudentsDto>();
+                return new List<SectionStudentsViewModel>();
             }
         }
 
         // جلب الطلاب في قسم معين
-        public async Task<List<StudentInfoDto>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null)
+        public async Task<List<StudentInfoViewModel>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null)
         {
             try
             {
@@ -771,7 +1314,7 @@ namespace StudentManagementSystem.Service.Implementation
                         .FirstOrDefaultAsync();
 
                     if (activeWorkingYear == null)
-                        return new List<StudentInfoDto>();
+                        return new List<StudentInfoViewModel>();
 
                     workingYearId = activeWorkingYear.Id;
                 }
@@ -782,7 +1325,7 @@ namespace StudentManagementSystem.Service.Implementation
                                   scss.IsActive)
                     .Include(scss => scss.Student)
                     .Include(scss => scss.Class)
-                    .Select(scss => new StudentInfoDto
+                    .Select(scss => new StudentInfoViewModel
                     {
                         StudentId = scss.Student_Id,
                         StudentName = scss.Student.Name,
@@ -800,7 +1343,7 @@ namespace StudentManagementSystem.Service.Implementation
             }
             catch
             {
-                return new List<StudentInfoDto>();
+                return new List<StudentInfoViewModel>();
             }
         }
 
@@ -819,25 +1362,25 @@ namespace StudentManagementSystem.Service.Implementation
         }
     }
     // DTOs للإرجاع
-    public class SectionStudentsDto
-    {
-        public int DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
-        public int SectionId { get; set; }
-        public string SectionName { get; set; }
-        public int WorkingYearId { get; set; }
-        public List<StudentInfoDto> Students { get; set; } = new List<StudentInfoDto>();
-    }
+    //public class SectionStudentsViewModel
+    //{
+    //    public int DepartmentId { get; set; }
+    //    public string DepartmentName { get; set; }
+    //    public int SectionId { get; set; }
+    //    public string SectionName { get; set; }
+    //    public int WorkingYearId { get; set; }
+    //    public List<StudentInfoViewModel> Students { get; set; } = new List<StudentInfoViewModel>();
+    //}
 
-    public class StudentInfoDto
-    {
-        public int StudentId { get; set; }
-        public string StudentName { get; set; }
-        public string StudentCode { get; set; }
-        public string ClassName { get; set; }
-        public int? ClassId { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
-    }
+    //public class StudentInfoViewModel
+    //{
+    //    public int StudentId { get; set; }
+    //    public string StudentName { get; set; }
+    //    public string StudentCode { get; set; }
+    //    public string ClassName { get; set; }
+    //    public int? ClassId { get; set; }
+    //    public string Phone { get; set; }
+    //    public string Email { get; set; }
+    //    public string Address { get; set; }
+    //}
 }

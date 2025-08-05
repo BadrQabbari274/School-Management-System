@@ -15,7 +15,7 @@ namespace StudentManagementSystem.Controllers
     //ValidateAntiForgeryToken ->  CSRF (Cross-Site Request Forgery)
     //We use it in the post while we are collecting data from the user
     //AllowAnonymous -> Entry is allowed without authentication on the action.
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
@@ -76,7 +76,7 @@ namespace StudentManagementSystem.Controllers
                 await SignInUserAsync(user, model.RememberMe);
                 user.LastLogin = DateTime.Now;
                 await _userService.UpdateUserAsync(user);
-                TempData["login"] = "ok";
+                TempData["Login"] = "ok";
                 return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception ex)
@@ -181,7 +181,7 @@ namespace StudentManagementSystem.Controllers
                 };
 
                 await _userService.CreateUserAsync(user);
-                TempData["Success"] = "تم إنشاء المستخدم بنجاح";
+                SetSuccessMessage ("تم إنشاء المستخدم بنجاح");
                 return RedirectToAction("ManageUsers");
             }
             catch (Exception ex)
@@ -226,7 +226,7 @@ namespace StudentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "حدث خطأ أثناء تحميل بيانات المستخدمين";
+                SetErrorMessage("حدث خطأ أثناء تحميل بيانات المستخدمين");
                 return View(new List<UserManagementViewModel>());
             }
         }
@@ -240,7 +240,7 @@ namespace StudentManagementSystem.Controllers
                 var user = await _userService.GetUserByIdAsync(id);
                 if (user == null)
                 {
-                    TempData["Error"] = "المستخدم غير موجود";
+                    SetErrorMessage("المستخدم غير موجود");
                     return RedirectToAction("ManageUsers");
                 }
 
@@ -258,7 +258,7 @@ namespace StudentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "حدث خطأ أثناء تحميل بيانات المستخدم";
+                SetErrorMessage("حدث خطأ أثناء تحميل بيانات المستخدم");
                 return RedirectToAction("ManageUsers");
             }
         }
@@ -279,8 +279,8 @@ namespace StudentManagementSystem.Controllers
                 var user = await _userService.GetUserByIdAsync(model.Id);
                 if (user == null)
                 {
-                    TempData["Error"] = "المستخدم غير موجود";
-                    return RedirectToAction("ManageUsers");
+                    SetSuccessMessage("المستخدم غير موجود");
+                        return RedirectToAction("ManageUsers");
                 }
 
                 // Check if username is taken by another user
@@ -304,7 +304,7 @@ namespace StudentManagementSystem.Controllers
                 }
 
                 await _userService.UpdateUserAsync(user);
-                TempData["Success"] = "تم تحديث المستخدم بنجاح";
+                SetSuccessMessage("تم تحديث المستخدم بنجاح");
                 return RedirectToAction("ManageUsers");
             }
             catch (Exception ex)
@@ -325,23 +325,23 @@ namespace StudentManagementSystem.Controllers
                 var currentUserId = GetCurrentUserId();
                 if (currentUserId == id)
                 {
-                    TempData["Error"] = "لا يمكن حذف المستخدم الحالي";
+                    SetSuccessMessage("لا يمكن حذف المستخدم الحالي");
                     return RedirectToAction("ManageUsers");
                 }
 
                 var result = await _userService.DeleteUserAsync(id);
                 if (result)
                 {
-                    TempData["Success"] = "تم حذف المستخدم بنجاح";
+                    SetSuccessMessage ("تم حذف المستخدم بنجاح");
                 }
                 else
                 {
-                    TempData["Error"] = "فشل في حذف المستخدم";
+                    SetSuccessMessage("فشل في حذف المستخدم");
                 }
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "حدث خطأ أثناء حذف المستخدم";
+                SetSuccessMessage("حدث خطأ أثناء حذف المستخدم");
             }
 
             return RedirectToAction("ManageUsers");
@@ -358,14 +358,14 @@ namespace StudentManagementSystem.Controllers
                 var currentUserId = GetCurrentUserId();
                 if (currentUserId == id)
                 {
-                    TempData["Error"] = "لا يمكن تعطيل المستخدم الحالي";
+                    SetSuccessMessage("لا يمكن تعطيل المستخدم الحالي");
                     return RedirectToAction("ManageUsers");
                 }
 
                 var user = await _userService.GetUserByIdAsync(id);
                 if (user == null)
                 {
-                    TempData["Error"] = "المستخدم غير موجود";
+                    SetSuccessMessage("المستخدم غير موجود");
                     return RedirectToAction("ManageUsers");
                 }
 
@@ -373,11 +373,11 @@ namespace StudentManagementSystem.Controllers
                 await _userService.UpdateUserAsync(user);
 
                 string status = user.IsActive ? "تم تفعيل" : "تم تعطيل";
-                TempData["Success"] = $"{status} المستخدم بنجاح";
+                SetSuccessMessage($"{status} المستخدم بنجاح");
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "حدث خطأ أثناء تحديث حالة المستخدم";
+                SetSuccessMessage("حدث خطأ أثناء تحديث حالة المستخدم");
             }
 
             return RedirectToAction("ManageUsers");
@@ -414,7 +414,7 @@ namespace StudentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "حدث خطأ أثناء تحميل الملف الشخصي";
+                SetSuccessMessage("حدث خطأ أثناء تحميل الملف الشخصي");
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -457,7 +457,7 @@ namespace StudentManagementSystem.Controllers
                 }
 
                 await _userService.UpdateUserAsync(user);
-                TempData["Success"] = "تم تحديث الملف الشخصي بنجاح";
+                SetSuccessMessage("تم تحديث الملف الشخصي بنجاح");
 
                 // Update claims if username changed
                 if (User.Identity.Name != model.Username)
