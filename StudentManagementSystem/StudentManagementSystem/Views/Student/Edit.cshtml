@@ -7,20 +7,20 @@
 <link href="~/css/student.css" rel="stylesheet" />
 
 <!-- Success/Error Messages -->
-@if (TempData["SuccessMessage"] != null)
+@if (TempData["Success"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <i class="fas fa-check-circle me-2"></i>
-        @TempData["SuccessMessage"]
+        @TempData["Success"]
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
 
-@if (TempData["ErrorMessage"] != null)
+@if (TempData["Error"] != null)
 {
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <i class="fas fa-exclamation-circle me-2"></i>
-        @TempData["ErrorMessage"]
+        @TempData["Error"]
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
@@ -158,22 +158,13 @@
                         <hr>
                     </div>
 
-@*                     <div class="col-md-6 mb-3">
+                    @*                     <div class="col-md-6 mb-3">
                         <label asp-for="ClassId" class="form-label">الفصل</label>
                         <select asp-for="ClassId" class="form-select" asp-items="ViewBag.ClassId">
                             <option value="">-- اختر الفصل --</option>
                         </select>
                         <span asp-validation-for="ClassId" class="text-danger"></span>
                     </div> *@
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="IsActive" class="form-label">الحالة</label>
-                        <select asp-for="IsActive" class="form-select">
-                            <option value="true">نشط</option>
-                            <option value="false">غير نشط</option>
-                        </select>
-                        <span asp-validation-for="IsActive" class="text-danger"></span>
-                    </div>
 
                     <!-- Documents Section -->
                     <div class="col-12 mb-4 mt-4">
@@ -373,4 +364,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    }
+}
