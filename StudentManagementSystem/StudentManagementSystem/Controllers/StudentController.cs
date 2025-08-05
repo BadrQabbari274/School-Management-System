@@ -364,30 +364,7 @@ namespace StudentManagementSystem.Controllers
                 return View(studentForAssign);
             }
         }
-        public async Task<IActionResult> Normal(int classId)
-        {
-            var classwithstudent = await _studentService.GetStudentsAsync(classId);
-            return View(classwithstudent);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAttendance(AttendanceViewModel model, DateTime attendanceDate)
-        {
-            bool success = await _studentService.SaveAttendanceAsync(model, attendanceDate,GetCurrentUserId());
-
-            if (success)
-            {
-               SetSuccessMessage("تم حفظ الحضور بنجاح");
-                return RedirectToAction("Index"); // أو أي صفحة تريد التوجه إليها
-            }
-            else
-            {
-               SetErrorMessage ( "حدث خطأ أثناء حفظ الحضور");
-
-                return View("Normal",model);
-            }
-        }
+      
         [HttpPost]
         public async Task<IActionResult> AssignStudents(int classId, List<int> selectedStudents, int? sectionId)
         {
