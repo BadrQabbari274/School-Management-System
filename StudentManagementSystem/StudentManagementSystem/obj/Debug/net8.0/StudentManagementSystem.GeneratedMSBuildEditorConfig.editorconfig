@@ -56,12 +56,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxFeGl0UmVxdWVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleC5jc2h0bWw=
+[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxpbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/index2.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxpbmRleDIuY3NodG1s
+[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Index1.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleDEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Normal.cshtml]
