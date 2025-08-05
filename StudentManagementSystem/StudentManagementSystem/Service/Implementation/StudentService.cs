@@ -7,7 +7,7 @@ using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
 using StudentManagementSystem.ViewModels;
 using System.Security.Claims;
-using static System.Collections.Specialized.BitVector32;
+
 
 namespace StudentManagementSystem.Service.Implementation
 {
@@ -835,7 +835,7 @@ namespace StudentManagementSystem.Service.Implementation
             }
         }
         // جلب الطلاب مجمعين حسب القسم مع ترتيب أبجدي
-        public async Task<List<SectionStudentsDto>> GetStudentsByDepartmentAsync(int? workingYearId = null)
+        public async Task<List<SectionStudentsViewModel>> GetStudentsByDepartmentAsync(int? workingYearId = null)
         {
             try
             {
@@ -848,7 +848,7 @@ namespace StudentManagementSystem.Service.Implementation
                         .FirstOrDefaultAsync();
 
                     if (activeWorkingYear == null)
-                        return new List<SectionStudentsDto>();
+                        return new List<SectionStudentsViewModel>();
 
                     workingYearId = activeWorkingYear.Id;
                 }
@@ -867,14 +867,14 @@ namespace StudentManagementSystem.Service.Implementation
                         SectionId = scss.Section_id,
                         SectionName = scss.Section.Name_Of_Section
                     })
-                    .Select(g => new SectionStudentsDto
+                    .Select(g => new SectionStudentsViewModel
                     {
                         DepartmentId = g.Key.DepartmentId,
                         DepartmentName = g.Key.DepartmentName,
                         SectionId = g.Key.SectionId,
                         SectionName = g.Key.SectionName,
                         WorkingYearId = workingYearId.Value,
-                        Students = g.Select(scss => new StudentInfoDto
+                        Students = g.Select(scss => new StudentInfoViewModel
                         {
                             StudentId = scss.Student_Id,
                             StudentName = scss.Student.Name,
@@ -894,12 +894,12 @@ namespace StudentManagementSystem.Service.Implementation
             }
             catch
             {
-                return new List<SectionStudentsDto>();
+                return new List<SectionStudentsViewModel>();
             }
         }
 
         // جلب الطلاب في قسم معين
-        public async Task<List<StudentInfoDto>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null)
+        public async Task<List<StudentInfoViewModel>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null)
         {
             try
             {
@@ -912,7 +912,7 @@ namespace StudentManagementSystem.Service.Implementation
                         .FirstOrDefaultAsync();
 
                     if (activeWorkingYear == null)
-                        return new List<StudentInfoDto>();
+                        return new List<StudentInfoViewModel>();
 
                     workingYearId = activeWorkingYear.Id;
                 }
@@ -923,7 +923,7 @@ namespace StudentManagementSystem.Service.Implementation
                                   scss.IsActive)
                     .Include(scss => scss.Student)
                     .Include(scss => scss.Class)
-                    .Select(scss => new StudentInfoDto
+                    .Select(scss => new StudentInfoViewModel
                     {
                         StudentId = scss.Student_Id,
                         StudentName = scss.Student.Name,
@@ -941,7 +941,7 @@ namespace StudentManagementSystem.Service.Implementation
             }
             catch
             {
-                return new List<StudentInfoDto>();
+                return new List<StudentInfoViewModel>();
             }
         }
 
@@ -960,25 +960,25 @@ namespace StudentManagementSystem.Service.Implementation
         }
     }
     // DTOs للإرجاع
-    public class SectionStudentsDto
-    {
-        public int DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
-        public int SectionId { get; set; }
-        public string SectionName { get; set; }
-        public int WorkingYearId { get; set; }
-        public List<StudentInfoDto> Students { get; set; } = new List<StudentInfoDto>();
-    }
+    //public class SectionStudentsViewModel
+    //{
+    //    public int DepartmentId { get; set; }
+    //    public string DepartmentName { get; set; }
+    //    public int SectionId { get; set; }
+    //    public string SectionName { get; set; }
+    //    public int WorkingYearId { get; set; }
+    //    public List<StudentInfoViewModel> Students { get; set; } = new List<StudentInfoViewModel>();
+    //}
 
-    public class StudentInfoDto
-    {
-        public int StudentId { get; set; }
-        public string StudentName { get; set; }
-        public string StudentCode { get; set; }
-        public string ClassName { get; set; }
-        public int? ClassId { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
-    }
+    //public class StudentInfoViewModel
+    //{
+    //    public int StudentId { get; set; }
+    //    public string StudentName { get; set; }
+    //    public string StudentCode { get; set; }
+    //    public string ClassName { get; set; }
+    //    public int? ClassId { get; set; }
+    //    public string Phone { get; set; }
+    //    public string Email { get; set; }
+    //    public string Address { get; set; }
+    //}
 }
