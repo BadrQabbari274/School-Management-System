@@ -24,6 +24,11 @@ namespace StudentManagementSystem.Controllers
             var classwithstudent = await _studentService.GetStudentsAsync(classId);
             return View(classwithstudent);
         }
+        public async Task<IActionResult> Field(int classId)
+        {
+            var classwithstudent = await _studentService.GetStudentsFieldAsync(classId);
+            return View(classwithstudent);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
