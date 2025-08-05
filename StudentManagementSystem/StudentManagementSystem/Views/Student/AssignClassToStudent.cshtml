@@ -2,238 +2,617 @@
 @{
     ViewData["Title"] = "تعيين طلاب للفصل";
     var isJunior = ViewBag.IsJunior ?? false;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="page-header mb-4">
-        <h2 class="text-primary">
+<style>
+    /* استخدام نفس ألوان الكود المرجعي */
+    :root {
+        --primary-color: #ff7b00;
+        --secondary-color: #ff9500;
+        --accent-color: #ff7b00;
+        --warning-color: #ffc107;
+        --danger-color: #e74c3c;
+        --light-bg: #f8f9fa;
+        --dark-text: #333;
+        --border-color: #e9ecef;
+        --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        --hover-shadow: 0 8px 25px rgba(255, 123, 0, 0.3);
+    }
+
+    body {
+        background: #f8f9fa;
+        min-height: 100vh;
+        font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .page-container {
+        background: white;
+        border-radius: 10px;
+        box-shadow: var(--card-shadow);
+        margin: 20px auto;
+        max-width: 1200px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        border-radius: 10px 10px 0 0;
+    }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-header::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 27px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+    .content-section {
+        padding: 2rem;
+    }
+
+    .info-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: var(--card-shadow);
+        border: none;
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+        .info-card:hover {
+            box-shadow: var(--hover-shadow);
+            transform: translateY(-5px);
+        }
+
+    .card-header-custom {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 1.5rem;
+        border: none;
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+        .card-header-custom i {
+            margin-left: 10px;
+            font-size: 1.3rem;
+        }
+
+    .section-card {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+    }
+
+    .student-selection-card {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+    }
+
+    .student-card {
+        background: white;
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .student-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .student-card:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+            .student-card:hover::before {
+                left: 100%;
+            }
+
+        .student-card.selected {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: var(--hover-shadow);
+        }
+
+    .form-check-input {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-left: 1rem;
+        cursor: pointer;
+    }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+    .student-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .student-name {
+        font-weight: 600;
+        color: var(--dark-text);
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .student-code {
+        color: #666;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    .student-card.selected .student-name,
+    .student-card:hover .student-name {
+        color: white;
+    }
+
+    .student-card.selected .student-code,
+    .student-card:hover .student-code {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .section-group, .class-group {
+        background: var(--light-bg);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-color);
+    }
+
+    .section-title {
+        color: var(--dark-text);
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .student-count-badge {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .control-buttons {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
+        margin-top: 2rem;
+    }
+
+    .btn-custom {
+        padding: 0.8rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+
+    .btn-select-all {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+    }
+
+        .btn-select-all:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+    .btn-clear-all {
+        background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        color: white;
+    }
+
+        .btn-clear-all:hover {
+            background: linear-gradient(135deg, #7f8c8d, #6c7b7d);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.4);
+        }
+
+    .btn-assign {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+    }
+
+        .btn-assign:hover {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+    .btn-back {
+        background: linear-gradient(135deg, #6c757d, #5a6268);
+        color: white;
+    }
+
+        .btn-back:hover {
+            background: linear-gradient(135deg, #5a6268, #495057);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+
+    .selected-counter {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .alert-custom {
+        border: none;
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--card-shadow);
+    }
+
+    .alert-success {
+        background: #fff3cd;
+        color: #856404;
+        border-left: 4px solid var(--warning-color);
+    }
+
+    .alert-danger {
+        background: #fff3cd;
+        color: #856404;
+        border-left: 4px solid var(--warning-color);
+    }
+
+    .form-select-custom {
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+        .form-select-custom:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 123, 0, 0.25);
+            outline: none;
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: var(--dark-text);
+    }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.6;
+        }
+
+        .empty-state h5 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+    /* تحسينات للشاشات الصغيرة */
+    @@media (max-width: 768px) {
+        .page-container
+
+    {
+        margin: 10px;
+        border-radius: 15px;
+    }
+
+    .page-header {
+        padding: 1.5rem;
+    }
+
+        .page-header h1 {
+            font-size: 2rem;
+        }
+
+    .content-section {
+        padding: 1rem;
+    }
+
+    .control-buttons {
+        padding: 1.5rem;
+    }
+
+    .btn-custom {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        margin: 0.2rem;
+    }
+
+    }
+</style>
+
+<div class="page-container">
+    <div class="page-header">
+        <h1>
             <i class="fas fa-users"></i>
-            تعيين طلاب للفصل: @ViewBag.ClassName - @ViewBag.GradeName
-        </h2>
-        <p class="text-muted">اختر الطلاب المراد تعيينهم للفصل</p>
+            تعيين طلاب للفصل
+        </h1>
+        <p>@ViewBag.ClassName - @ViewBag.GradeName</p>
+        <p>اختر الطلاب المراد تعيينهم للفصل</p>
     </div>
 
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show">
-            <i class="fas fa-exclamation-triangle"></i>
-            @TempData["ErrorMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    }
-
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show">
-            <i class="fas fa-check-circle"></i>
-            @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    }
-
-    <form asp-action="AssignStudents" method="post" id="assignForm">
-        <input type="hidden" name="classId" value="@ViewBag.ClassId" />
-        
-        @if (!isJunior)
+    <div class="content-section">
+        @if (TempData["ErrorMessage"] != null)
         {
-            <!-- اختيار القسم للصفوف المتقدمة -->
-            <div class="card mb-4">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">
+            <div class="alert alert-danger alert-custom alert-dismissible fade show">
+                <i class="fas fa-exclamation-triangle"></i>
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-custom alert-dismissible fade show">
+                <i class="fas fa-check-circle"></i>
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <form asp-action="AssignStudents" method="post" id="assignForm">
+            <input type="hidden" name="classId" value="@ViewBag.ClassId" />
+
+            @if (!isJunior)
+            {
+                <!-- اختيار القسم للصفوف المتقدمة -->
+                <div class="info-card">
+                    <div class="card-header-custom section-card">
                         <i class="fas fa-layer-group"></i>
                         اختيار القسم
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">القسم المطلوب:</label>
-                            <select name="sectionId" class="form-select" required>
-                                <option value="">-- اختر القسم --</option>
-                                @foreach (var sections in Model.sections)
-                                {
-                                    <option value="@sections.Id">@sections.Name_Of_Section</option>
-                                }
-                            </select>
+                    </div>
+                    <div class="card-body" style="padding: 2rem;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label" style="font-weight: 600; color: var(--dark-text); margin-bottom: 1rem;">القسم المطلوب:</label>
+                                <select name="sectionId" class="form-select-custom w-100" required>
+                                    <option value="">-- اختر القسم --</option>
+                                    @foreach (var sections in Model.sections)
+                                    {
+                                        <option value="@sections.Id">@sections.Name_Of_Section</option>
+                                    }
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
 
-        @if (isJunior)
-        {
-            <!-- عرض الطلاب للـ Junior مجمعين حسب القسم -->
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">
+            @if (isJunior)
+            {
+                <!-- عرض الطلاب للـ Junior مجمعين حسب القسم -->
+                <div class="info-card">
+                    <div class="card-header-custom student-selection-card">
                         <i class="fas fa-graduation-cap"></i>
                         الطلاب المتاحين (مجمعين حسب القسم)
-                    </h5>
-                </div>
-                <div class="card-body">
-                    @if (Model.SectionWithStudents != null && Model.SectionWithStudents.Any())
-                    {
-                        @foreach (var sectionGroup in Model.SectionWithStudents)
+                    </div>
+                    <div class="card-body" style="padding: 2rem;">
+                        @if (Model.SectionWithStudents != null && Model.SectionWithStudents.Any())
                         {
-                            <div class="section-group mb-4">
-                                <h6 class="text-info fw-bold mb-3">
-                                    <i class="fas fa-folder"></i>
-                                    @sectionGroup.section.Name_Of_Section
-                                    <span class="badge bg-secondary">@sectionGroup.students.Count طالب</span>
-                                </h6>
-                                
-                                <div class="row">
-                                    @foreach (var student in sectionGroup.students)
-                                    {
-                                        <div class="col-md-6 col-lg-4 mb-2">
-                                            <div class="form-check p-3 border rounded student-card">
-                                                <input class="form-check-input me-2" 
-                                                       type="checkbox" 
-                                                       name="selectedStudents" 
-                                                       value="@student.Id" 
-                                                       id="student_@student.Id">
-                                                <label class="form-check-label w-100" for="student_@student.Id">
-                                                    <div class="student-info">
-                                                        <div class="fw-bold text-primary">@student.Name</div>
-                                                        <small class="text-muted">@student.Code</small>
+                            @foreach (var sectionGroup in Model.SectionWithStudents)
+                            {
+                                <div class="section-group">
+                                    <h6 class="section-title">
+                                        <i class="fas fa-folder"></i>
+                                        @sectionGroup.section.Name_Of_Section
+                                        <span class="student-count-badge">@sectionGroup.students.Count طالب</span>
+                                    </h6>
+
+                                    <div class="row">
+                                        @foreach (var student in sectionGroup.students)
+                                        {
+                                            <div class="col-md-6 col-lg-4">
+                                                <div class="student-card" data-student-id="@student.Id">
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input class="form-check-input"
+                                                               type="checkbox"
+                                                               name="selectedStudents"
+                                                               value="@student.Id"
+                                                               id="student_@student.Id">
+                                                        <label class="form-check-label flex-grow-1" for="student_@student.Id">
+                                                            <div class="student-info">
+                                                                <div class="student-name">@student.Name</div>
+                                                                <div class="student-code">@student.Code</div>
+                                                            </div>
+                                                        </label>
                                                     </div>
-                                                </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                    }
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                            <hr />
+                            }
                         }
-                    }
-                    else
-                    {
-                        <div class="text-center py-5">
-                            <i class="fas fa-user-graduate fa-3x text-muted"></i>
-                            <h5 class="mt-3 text-muted">لا يوجد طلاب متاحين</h5>
-                            <p class="text-muted">جميع الطلاب مسجلين بالفعل أو لا يوجد طلاب مؤهلين</p>
-                        </div>
-                    }
+                        else
+                        {
+                            <div class="empty-state">
+                                <i class="fas fa-user-graduate"></i>
+                                <h5>لا يوجد طلاب متاحين</h5>
+                                <p>جميع الطلاب مسجلين بالفعل أو لا يوجد طلاب مؤهلين</p>
+                            </div>
+                        }
+                    </div>
                 </div>
-            </div>
-        }
-        else
-        {
-            <!-- عرض الطلاب للـ Wheeler & Senior مجمعين حسب الفصل -->
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">
+            }
+            else
+            {
+                <!-- عرض الطلاب للـ Wheeler & Senior مجمعين حسب الفصل -->
+                <div class="info-card">
+                    <div class="card-header-custom student-selection-card">
                         <i class="fas fa-chalkboard-teacher"></i>
                         الطلاب المتاحين (مجمعين حسب الفصل)
-                    </h5>
-                </div>
-                <div class="card-body">
-                    @if (Model.ClassWithStudents != null && Model.ClassWithStudents.Any())
-                    {
-                        @foreach (var classGroup in Model.ClassWithStudents)
+                    </div>
+                    <div class="card-body" style="padding: 2rem;">
+                        @if (Model.ClassWithStudents != null && Model.ClassWithStudents.Any())
                         {
-                            <div class="class-group mb-4">
-                                <h6 class="text-success fw-bold mb-3">
-                                    <i class="fas fa-door-open"></i>
-                                    @classGroup.classes.Name
-                                    <span class="badge bg-secondary">@classGroup.students.Count طالب</span>
-                                </h6>
-                                
-                                <div class="row">
-                                    @foreach (var student in classGroup.students)
-                                    {
-                                        <div class="col-md-6 col-lg-4 mb-2">
-                                            <div class="form-check p-3 border rounded student-card">
-                                                <input class="form-check-input me-2" 
-                                                       type="checkbox" 
-                                                       name="selectedStudents" 
-                                                       value="@student.Id" 
-                                                       id="student_@student.Id">
-                                                <label class="form-check-label w-100" for="student_@student.Id">
-                                                    <div class="student-info">
-                                                        <div class="fw-bold text-primary">@student.Name</div>
-                                                        <small class="text-muted">@student.Code</small>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                            <hr />
-                        }
-                    }
-                    else
-                    {
-                        <div class="text-center py-5">
-                            <i class="fas fa-user-graduate fa-3x text-muted"></i>
-                            <h5 class="mt-3 text-muted">لا يوجد طلاب متاحين</h5>
-                            <p class="text-muted">جميع الطلاب مسجلين بالفعل أو لا يوجد طلاب مؤهلين</p>
-                        </div>
-                    }
-                </div>
-            </div>
-        }
+                            @foreach (var classGroup in Model.ClassWithStudents)
+                            {
+                                <div class="class-group">
+                                    <h6 class="section-title">
+                                        <i class="fas fa-door-open"></i>
+                                        @classGroup.classes.Name
+                                        <span class="student-count-badge">@classGroup.students.Count طالب</span>
+                                    </h6>
 
-        <!-- أزرار العمليات -->
-        <div class="card mt-4">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <button type="button" class="btn btn-outline-primary" id="selectAll">
+                                    <div class="row">
+                                        @foreach (var student in classGroup.students)
+                                        {
+                                            <div class="col-md-6 col-lg-4">
+                                                <div class="student-card" data-student-id="@student.Id">
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input class="form-check-input"
+                                                               type="checkbox"
+                                                               name="selectedStudents"
+                                                               value="@student.Id"
+                                                               id="student_@student.Id">
+                                                        <label class="form-check-label flex-grow-1" for="student_@student.Id">
+                                                            <div class="student-info">
+                                                                <div class="student-name">@student.Name</div>
+                                                                <div class="student-code">@student.Code</div>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="empty-state">
+                                <i class="fas fa-user-graduate"></i>
+                                <h5>لا يوجد طلاب متاحين</h5>
+                                <p>جميع الطلاب مسجلين بالفعل أو لا يوجد طلاب مؤهلين</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            <!-- أزرار العمليات -->
+            <div class="control-buttons">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="mb-2">
+                        <button type="button" class="btn-custom btn-select-all" id="selectAll">
                             <i class="fas fa-check-double"></i>
                             تحديد الكل
                         </button>
-                        <button type="button" class="btn btn-outline-secondary ms-2" id="clearAll">
+                        <button type="button" class="btn-custom btn-clear-all" id="clearAll">
                             <i class="fas fa-times"></i>
                             إلغاء التحديد
                         </button>
                     </div>
-                    <div>
-                        <span class="me-3">
-                            <strong>المحدد: </strong>
-                            <span id="selectedCount" class="badge bg-info">0</span>
+                    <div class="mb-2">
+                        <span class="selected-counter me-3">
+                            <i class="fas fa-users"></i>
+                            المحدد: <span id="selectedCount">0</span>
                         </span>
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn-custom btn-assign">
                             <i class="fas fa-user-plus"></i>
                             تعيين الطلاب المحددين
                         </button>
-                        <a href="@Url.Action("Index", "Classes")" class="btn btn-secondary ms-2">
+                        <a href="@Url.Action("Index", "Classes")" class="btn-custom btn-back">
                             <i class="fas fa-arrow-left"></i>
                             رجوع
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
-<style>
-    .student-card {
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-    
-    .student-card:hover {
-        background-color: #f8f9fa;
-        border-color: #007bff !important;
-    }
-    
-    .form-check-input:checked + .form-check-label .student-card {
-        background-color: #e3f2fd;
-        border-color: #2196f3 !important;
-    }
-    
-    .section-group, .class-group {
-        border: 1px solid #dee2e6;
-        border-radius: 8px;
-        padding: 15px;
-        background-color: #fafafa;
-    }
-</style>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -241,23 +620,42 @@
         function updateSelectedCount() {
             var count = $('input[name="selectedStudents"]:checked').length;
             $('#selectedCount').text(count);
+
+            // تحديث مظهر البطاقات
+            $('input[name="selectedStudents"]').each(function() {
+                var card = $(this).closest('.student-card');
+                if ($(this).is(':checked')) {
+                    card.addClass('selected');
+                } else {
+                    card.removeClass('selected');
+                }
+            });
         }
-        
+
         // تحديث العداد عند تغيير التحديد
-        $('input[name="selectedStudents"]').change(updateSelectedCount);
-        
+        $(document).on('change', 'input[name="selectedStudents"]', updateSelectedCount);
+
         // تحديد الكل
         $('#selectAll').click(function() {
-            $('input[name="selectedStudents"]').prop('checked', true);
+            $('input[name="selectedStudents"]').prop('checked', true).trigger('change');
             updateSelectedCount();
         });
-        
+
         // إلغاء تحديد الكل
         $('#clearAll').click(function() {
-            $('input[name="selectedStudents"]').prop('checked', false);
+            $('input[name="selectedStudents"]').prop('checked', false).trigger('change');
             updateSelectedCount();
         });
-        
+
+        // النقر على البطاقة لتحديد/إلغاء تحديد الطالب
+        $(document).on('click', '.student-card', function(e) {
+            if (!$(e.target).is('input')) {
+                var checkbox = $(this).find('input[name="selectedStudents"]');
+                checkbox.prop('checked', !checkbox.prop('checked')).trigger('change');
+                updateSelectedCount();
+            }
+        });
+
         // التحقق من وجود طلاب محددين قبل الإرسال
         $('#assignForm').submit(function(e) {
             var selectedStudents = $('input[name="selectedStudents"]:checked').length;
@@ -266,22 +664,22 @@
                 alert('يرجى اختيار طالب واحد على الأقل');
                 return false;
             }
-            
+
             @if (!isJunior)
             {
-                <text>
-                var sectionId = $('select[name="sectionId"]').val();
-                if (!sectionId) {
-                    e.preventDefault();
-                    alert('يرجى اختيار القسم');
-                    return false;
-                }
-                </text>
+                    <text>
+                    var sectionId = $('select[name="sectionId"]').val();
+                    if (!sectionId) {
+                        e.preventDefault();
+                        alert('يرجى اختيار القسم');
+                        return false;
+                    }
+                    </text>
             }
-            
+
             return confirm('هل أنت متأكد من تعيين ' + selectedStudents + ' طالب للفصل؟');
         });
-        
+
         // تحديث العداد في البداية
         updateSelectedCount();
     });

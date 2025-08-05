@@ -1,6 +1,8 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using StudentManagementSystem.Services;
-//using Microsoft.AspNetCore.Authorization;
+﻿//using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Mvc;
+//using StudentManagementSystem.Service.Interface;
+//using StudentManagementSystem.Service.Implementation;
+//using Microsoft.AspNetCore.Mvc.Rendering;
 
 //namespace StudentManagementSystem.Controllers
 //{
@@ -14,162 +16,455 @@
 //            _attendanceService = attendanceService;
 //        }
 
-//        // GET: Attendance
+//        #region جلب الطلاب وعرض صفحة التسجيل
+
+//        /// <summary>
+//        /// عرض صفحة اختيار الفصل
+//        /// </summary>
 //        public async Task<IActionResult> Index()
 //        {
-//            var classes = await _attendanceService.GetActiveClassesAsync();
-//            return View(classes);
+//            await LoadClassesDropdown();
+//            return View();
 //        }
 
-//        // GET: Attendance/RegularAttendance/5
-//        public async Task<IActionResult> RegularAttendance(int classId)
+//        /// <summary>
+//        /// جلب طلاب الفصل عبر Ajax
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> GetStudentsByClass(int classId)
 //        {
-//            if (!await _attendanceService.CanTakeRegularAttendanceAsync())
+//            try
 //            {
-//                SetErrorMessage("لا يمكن أخذ الغياب في يوم الجمعة والسبت");
-//                return RedirectToAction(nameof(Index));
+//                var students = await _attendanceService.GetStudentsByClassAsync(classId);
+//                return Json(new { success = true, data = students });
+//            }
+//            catch (Exception ex)
+//            {
+//                return Json(new { success = false, message = ex.Message });
+//            }
+//        }
+
+//        #endregion
+
+//        #region تسجيل الحضور والغياب العادي
+
+//        /// <summary>
+//        /// عرض صفحة تسجيل الحضور العادي
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> RecordRegular(int classId)
+//        {
+//            if (classId == 0)
+//            {
+//                SetErrorMessage("يجب اختيار فصل صحيح");
+//                return RedirectToAction("Index");
 //            }
 
-//            var students = await _attendanceService.GetStudentsForAttendanceAsync(classId);
-//            var todayAttendance = await _attendanceService.GetTodayRegularAttendanceAsync(classId);
-//            var todayAbsent = await _attendanceService.GetTodayRegularAbsentAsync(classId);
-//            var absenceReasons = await _attendanceService.GetAbsenceReasonsAsync();
-//            var hasAttendanceToday = await _attendanceService.HasRegularAttendanceTodayAsync(classId);
+//            try
+//            {
+//                var students = await _attendanceService.GetStudentsByClassAsync(classId);
+//                if (!students.Any())
+//                {
+//                    SetWarningMessage("لا يوجد طلاب في هذا الفصل");
+//                    return RedirectToAction("Index");
+//                }
 
-//            ViewBag.ClassId = classId;
-//            ViewBag.TodayAttendance = todayAttendance;
-//            ViewBag.TodayAbsent = todayAbsent;
-//            ViewBag.AbsenceReasons = absenceReasons;
-//            ViewBag.HasAttendanceToday = hasAttendanceToday;
-//            ViewBag.CanModify = await _attendanceService.CanModifyAttendanceAsync(DateTime.Today, GetCurrentUserId(), IsAdmin());
+//                ViewBag.ClassId = classId;
+//                ViewBag.ClassName = students.First().ClassName;
+//                ViewBag.WorkingYearId = students.First().WorkingYearId;
+//                ViewBag.SectionId = students.First().SectionId;
+//                ViewBag.AttendanceType = "عادي (يومي)";
 
-//            return View(students);
+//                return View("RecordAttendance", students);
+//            }
+//            catch (Exception ex)
+//            {
+//                SetErrorMessage($"حدث خطأ: {ex.Message}");
+//                return RedirectToAction("Index");
+//            }
 //        }
 
-//        // POST: Attendance/TakeRegularAttendance
+//        /// <summary>
+//        /// حفظ الحضور العادي
+//        /// </summary>
 //        [HttpPost]
 //        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> TakeRegularAttendance(int classId, List<RegularAttendanceDto> attendance)
+//        public async Task<IActionResult> SaveRegularAttendance(RegularAttendanceDto model)
 //        {
-//            if (!await _attendanceService.CanTakeRegularAttendanceAsync())
+//            try
 //            {
-//                SetErrorMessage("لا يمكن أخذ الغياب في يوم الجمعة والسبت");
-//                return RedirectToAction(nameof(RegularAttendance), new { classId });
-//            }
+//                // التحقق من صحة التاريخ - لا يمكن تعديل تاريخ قديم إلا للأدمن
+//                if (model.Date.Date < DateTime.Now.Date && !IsAdmin())
+//                {
+//                    return Json(new { success = false, message = "لا يمكن تسجيل حضور لتاريخ سابق. الأدمن فقط يمكنه ذلك." });
+//                }
 
-//            if (!await _attendanceService.CanModifyAttendanceAsync(DateTime.Today, GetCurrentUserId(), IsAdmin()))
+//                model.CreatedById = GetCurrentUserId();
+//                var result = await _attendanceService.RecordRegularAttendanceAsync(model);
+
+//                if (result)
+//                {
+//                    return Json(new { success = true, message = "تم حفظ الحضور بنجاح" });
+//                }
+//                else
+//                {
+//                    return Json(new { success = false, message = "فشل في حفظ الحضور" });
+//                }
+//            }
+//            catch (Exception ex)
 //            {
-//                SetErrorMessage("لا يمكنك تعديل الغياب لهذا اليوم");
-//                return RedirectToAction(nameof(RegularAttendance), new { classId });
+//                return Json(new { success = false, message = ex.Message });
 //            }
-
-//            var result = await _attendanceService.TakeRegularAttendanceAsync(attendance, GetCurrentUserId());
-
-//            if (result)
-//            {
-//                SetSuccessMessage("تم حفظ الغياب بنجاح");
-//            }
-//            else
-//            {
-//                SetErrorMessage("حدث خطأ أثناء حفظ الغياب");
-//            }
-
-//            return RedirectToAction(nameof(RegularAttendance), new { classId });
 //        }
 
-//        // GET: Attendance/FieldAttendance/5
-//        public async Task<IActionResult> FieldAttendance(int classId)
+//        #endregion
+
+//        #region تسجيل الحضور والغياب الميداني
+
+//        /// <summary>
+//        /// عرض صفحة تسجيل الحضور الميداني
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> RecordField(int classId)
 //        {
-//            var hasRegularAttendance = await _attendanceService.HasRegularAttendanceTodayAsync(classId);
-//            if (!hasRegularAttendance)
+//            if (classId == 0)
 //            {
-//                SetErrorMessage("يجب أخذ الغياب العادي أولاً قبل أخذ الغياب الميداني");
-//                return RedirectToAction(nameof(RegularAttendance), new { classId });
+//                SetErrorMessage("يجب اختيار فصل صحيح");
+//                return RedirectToAction("Index");
 //            }
 
-//            var students = await _attendanceService.GetStudentsForAttendanceAsync(classId);
-//            var todayRegularAttendance = await _attendanceService.GetTodayRegularAttendanceAsync(classId);
-//            var todayRegularAbsent = await _attendanceService.GetTodayRegularAbsentAsync(classId);
-//            var todayFieldAttendance = await _attendanceService.GetTodayFieldAttendanceAsync(classId);
-//            var todayFieldAbsent = await _attendanceService.GetTodayFieldAbsentAsync(classId);
-//            var absenceReasons = await _attendanceService.GetAbsenceReasonsAsync();
+//            try
+//            {
+//                var students = await _attendanceService.GetStudentsByClassAsync(classId);
+//                if (!students.Any())
+//                {
+//                    SetWarningMessage("لا يوجد طلاب في هذا الفصل");
+//                    return RedirectToAction("Index");
+//                }
 
-//            ViewBag.ClassId = classId;
-//            ViewBag.TodayRegularAttendance = todayRegularAttendance;
-//            ViewBag.TodayRegularAbsent = todayRegularAbsent;
-//            ViewBag.TodayFieldAttendance = todayFieldAttendance;
-//            ViewBag.TodayFieldAbsent = todayFieldAbsent;
-//            ViewBag.AbsenceReasons = absenceReasons;
+//                // جلب أسباب الغياب
+//                var absenceReasons = await _attendanceService.GetAbsenceReasonsAsync();
+//                ViewBag.AbsenceReasons = new SelectList(absenceReasons, "Id", "Name");
 
-//            return View(students);
+//                ViewBag.ClassId = classId;
+//                ViewBag.ClassName = students.First().ClassName;
+//                ViewBag.WorkingYearId = students.First().WorkingYearId;
+//                ViewBag.SectionId = students.First().SectionId;
+//                ViewBag.AttendanceType = "ميداني";
+//                ViewBag.IsField = true;
+
+//                return View("RecordAttendance", students);
+//            }
+//            catch (Exception ex)
+//            {
+//                SetErrorMessage($"حدث خطأ: {ex.Message}");
+//                return RedirectToAction("Index");
+//            }
 //        }
 
-//        // POST: Attendance/TakeFieldAttendance
+//        /// <summary>
+//        /// حفظ الحضور الميداني
+//        /// </summary>
 //        [HttpPost]
 //        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> TakeFieldAttendance(int classId, List<FieldAttendanceDto> attendance)
+//        public async Task<IActionResult> SaveFieldAttendance(FieldAttendanceDto model)
 //        {
-//            var result = await _attendanceService.TakeFieldAttendanceAsync(attendance, GetCurrentUserId());
-
-//            if (result)
+//            try
 //            {
-//                SetSuccessMessage("تم حفظ الغياب الميداني بنجاح");
-//            }
-//            else
-//            {
-//                SetErrorMessage("حدث خطأ أثناء حفظ الغياب الميداني");
-//            }
+//                // التحقق من صحة التاريخ - لا يمكن تعديل تاريخ قديم إلا للأدمن
+//                if (model.Date.Date < DateTime.Now.Date && !IsAdmin())
+//                {
+//                    return Json(new { success = false, message = "لا يمكن تسجيل حضور لتاريخ سابق. الأدمن فقط يمكنه ذلك." });
+//                }
 
-//            return RedirectToAction(nameof(FieldAttendance), new { classId });
+//                model.CreatedById = GetCurrentUserId();
+
+//                // التحقق من وجود غياب عادي للطلاب وتطبيق القواعد
+//                await ApplyFieldAttendanceRules(model);
+
+//                var result = await _attendanceService.RecordFieldAttendanceAsync(model);
+
+//                if (result)
+//                {
+//                    return Json(new { success = true, message = "تم حفظ الحضور الميداني بنجاح" });
+//                }
+//                else
+//                {
+//                    return Json(new { success = false, message = "فشل في حفظ الحضور الميداني" });
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                return Json(new { success = false, message = ex.Message });
+//            }
 //        }
 
-//        // GET: Attendance/ExitRequest/5
-//        public async Task<IActionResult> ExitRequest(int classId)
+//        /// <summary>
+//        /// جلب حالة الطلاب للحضور الميداني مع تطبيق القواعد
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> GetStudentsForFieldAttendance(int classId, DateTime date)
 //        {
-//            var students = await _attendanceService.GetStudentsForAttendanceAsync(classId);
-//            var todayAttendance = await _attendanceService.GetTodayRegularAttendanceAsync(classId);
-//            var exitRequests = await _attendanceService.GetTodayExitRequestsAsync(classId);
+//            try
+//            {
+//                var students = await _attendanceService.GetStudentsByClassAsync(classId);
 
-//            ViewBag.ClassId = classId;
-//            ViewBag.TodayAttendance = todayAttendance;
-//            ViewBag.ExitRequests = exitRequests;
+//                // جلب الحضور العادي لنفس اليوم
+//                var regularAttendance = await _attendanceService.GetAttendanceRecordsByDateAsync(classId, date, true);
 
-//            return View(students);
+//                var studentsWithStatus = students.Select(s => new
+//                {
+//                    StudentId = s.StudentId,
+//                    StudentName = s.StudentName,
+//                    StudentCode = s.StudentCode,
+//                    Gender = s.Gender,
+//                    IsRegularAbsent = regularAttendance?.Records?.Any(r => r.StudentId == s.StudentId && !r.IsPresent) ?? false,
+//                    CanEdit = !(regularAttendance?.Records?.Any(r => r.StudentId == s.StudentId && !r.IsPresent) ?? false)
+//                }).ToList();
+
+//                return Json(new { success = true, data = studentsWithStatus });
+//            }
+//            catch (Exception ex)
+//            {
+//                return Json(new { success = false, message = ex.Message });
+//            }
 //        }
 
-//        // POST: Attendance/CreateExitRequest
+//        #endregion
+
+//        #region عرض سجلات الحضور والغياب
+
+//        /// <summary>
+//        /// عرض صفحة استعلام الحضور
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> ViewRecords()
+//        {
+//            await LoadClassesDropdown();
+//            return View();
+//        }
+
+//        /// <summary>
+//        /// عرض سجلات الحضور لتاريخ معين
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> GetAttendanceRecords(int classId, DateTime date, bool isRegular = true)
+//        {
+//            try
+//            {
+//                var records = await _attendanceService.GetAttendanceRecordsByDateAsync(classId, date, isRegular);
+
+//                if (records == null)
+//                {
+//                    return Json(new { success = false, message = "لا توجد بيانات للعرض" });
+//                }
+
+//                // إضافة معلومة إمكانية التعديل
+//                //foreach (var record in records.Records)
+//                //{
+//                //    record.CanEdit = date.Date >= DateTime.Now.Date || IsAdmin();
+//                //}
+
+//                return Json(new { success = true, data = records });
+//            }
+//            catch (Exception ex)
+//            {
+//                return Json(new { success = false, message = ex.Message });
+//            }
+//        }
+
+//        #endregion
+
+//        #region تعديل سجلات الحضور
+
+//        /// <summary>
+//        /// تعديل سجل حضور طالب
+//        /// </summary>
 //        [HttpPost]
 //        [ValidateAntiForgeryToken]
-//        public async Task<IActionResult> CreateExitRequest(int classId, ExitRequestDto exitRequest)
+//        public async Task<IActionResult> UpdateAttendance([FromBody] UpdateAttendanceDto model)
 //        {
-//            var result = await _attendanceService.CreateExitRequestAsync(exitRequest, GetCurrentUserId());
-
-//            if (result)
+//            try
 //            {
-//                SetSuccessMessage("تم إنشاء طلب الخروج بنجاح");
-//            }
-//            else
-//            {
-//                SetErrorMessage("حدث خطأ أثناء إنشاء طلب الخروج. تأكد من أن الطالب حاضر اليوم");
-//            }
+//                // التحقق من صحة التاريخ - لا يمكن تعديل تاريخ قديم إلا للأدمن
+//                if (model.Date.Date < DateTime.Now.Date && !IsAdmin())
+//                {
+//                    return Json(new { success = false, message = "لا يمكن تعديل حضور لتاريخ سابق. الأدمن فقط يمكنه ذلك." });
+//                }
 
-//            return RedirectToAction(nameof(ExitRequest), new { classId });
+//                model.CreatedById = GetCurrentUserId();
+//                var result = await _attendanceService.UpdateAttendanceRecordAsync(model);
+
+//                if (result)
+//                {
+//                    return Json(new { success = true, message = "تم تحديث السجل بنجاح" });
+//                }
+//                else
+//                {
+//                    return Json(new { success = false, message = "فشل في تحديث السجل" });
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                return Json(new { success = false, message = ex.Message });
+//            }
 //        }
 
-//        // GET: Attendance/ViewAttendance/5
-//        public async Task<IActionResult> ViewAttendance(int classId, DateTime? date)
+//        #endregion
+
+//        #region تقارير الطلاب الفردية
+
+//        /// <summary>
+//        /// عرض صفحة تقارير الطلاب
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> StudentReports()
 //        {
-//            var selectedDate = date ?? DateTime.Today;
-//            var students = await _attendanceService.GetStudentsForAttendanceAsync(classId);
-
-//            // Get attendance for selected date
-//            // This would need additional methods in service for historical data
-
-//            ViewBag.ClassId = classId;
-//            ViewBag.SelectedDate = selectedDate;
-
-//            return View(students);
+//            await LoadClassesDropdown();
+//            return View();
 //        }
+
+//        /// <summary>
+//        /// جلب تقرير طالب معين
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> GetStudentReport(int studentId, DateTime fromDate, DateTime toDate)
+//        {
+//            try
+//            {
+//                var report = await _attendanceService.GetStudentAttendanceReportAsync(studentId, fromDate, toDate);
+
+//                if (report == null)
+//                {
+//                    return Json(new { success = false, message = "لا توجد بيانات للطالب المحدد" });
+//                }
+
+//                return Json(new { success = true, data = report });
+//            }
+//            catch (Exception ex)
+//            {
+//                return Json(new { success = false, message = ex.Message });
+//            }
+//        }
+
+//        #endregion
+
+//        #region طلبات الخروج
+
+//        /// <summary>
+//        /// عرض صفحة طلبات الخروج
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> ExitRequests()
+//        {
+//            await LoadClassesDropdown();
+//            return View();
+//        }
+
+//        /// <summary>
+//        /// إنشاء طلب خروج
+//        /// </summary>
+//        [HttpPost]
+//        [ValidateAntiForgeryToken]
+//        public async Task<IActionResult> CreateExitRequest([FromBody] ExitRequestCreateDto model)
+//        {
+//            try
+//            {
+//                model.CreatedById = GetCurrentUserId();
+//                var result = await _attendanceService.CreateExitRequestAsync(model);
+
+//                if (result)
+//                {
+//                    return Json(new { success = true, message = "تم إنشاء طلب الخروج بنجاح" });
+//                }
+//                else
+//                {
+//                    return Json(new { success = false, message = "فشل في إنشاء طلب الخروج. تأكد من أن الطالب حاضر ولا يوجد طلب خروج مسبق" });
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                return Json(new { success = false, message = ex.Message });
+//            }
+//        }
+
+//        #endregion
+
+//        #region تقارير الفصول
+
+//        /// <summary>
+//        /// عرض صفحة تقارير الفصول
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> ClassReports()
+//        {
+//            await LoadClassesDropdown();
+//            return View();
+//        }
+
+//        /// <summary>
+//        /// جلب تقرير فصل معين
+//        /// </summary>
+//        [HttpGet]
+//        public async Task<IActionResult> GetClassReport(int classId, DateTime fromDate, DateTime toDate)
+//        {
+//            try
+//            {
+//                var report = await _attendanceService.GetClassAttendanceReportAsync(classId, fromDate, toDate);
+
+//                if (report == null)
+//                {
+//                    return Json(new { success = false, message = "لا توجد بيانات للفصل المحدد" });
+//                }
+
+//                return Json(new { success = true, data = report });
+//            }
+//            catch (Exception ex)
+//            {
+//                return Json(new { success = false, message = ex.Message });
+//            }
+//        }
+
+//        #endregion
+
+//        #region Helper Methods
+
+//        /// <summary>
+//        /// تحميل قائمة الفصول
+//        /// </summary>
+//        private async Task LoadClassesDropdown()
+//        {
+//            // يجب إنشاء خدمة للفصول أو استخدام DbContext مباشرة
+//            // هذا مثال مؤقت - يجب تعديله حسب التطبيق
+//            ViewBag.Classes = new SelectList(new List<object>(), "Id", "Name");
+//        }
+
+//        /// <summary>
+//        /// تطبيق قواعد الحضور الميداني
+//        /// </summary>
+//        private async Task ApplyFieldAttendanceRules(FieldAttendanceDto model)
+//        {
+//            // جلب الحضور العادي لنفس اليوم
+//            var regularAttendance = await _attendanceService.GetAttendanceRecordsByDateAsync(
+//                model.ClassId, model.Date, true);
+
+//            if (regularAttendance?.Records != null)
+//            {
+//                foreach (var studentRecord in model.StudentsAttendance)
+//                {
+//                    var regularRecord = regularAttendance.Records
+//                        .FirstOrDefault(r => r.StudentId == studentRecord.StudentId);
+
+//                    // إذا كان الطالب غائباً في الحضور العادي، يسجل تلقائياً كغائب ميداني
+//                    if (regularRecord != null && !regularRecord.IsPresent)
+//                    {
+//                        studentRecord.IsPresent = false;
+//                        studentRecord.CustomReasonDetails = "غائب من الحضور اليومي";
+//                    }
+//                }
+//            }
+//        }
+
+//        #endregion
 //    }
 //}
-
