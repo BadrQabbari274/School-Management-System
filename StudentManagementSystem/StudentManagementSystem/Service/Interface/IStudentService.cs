@@ -31,10 +31,10 @@ namespace StudentManagementSystem.Service.Interface
         Task<bool> AddStudentWithAllDetailsAsync(int studentId, int sectionId, int classId, int createdById, int? workingYearId = null);
 
         // جلب الطلاب مجمعين حسب القسم مع ترتيب أبجدي
-        Task<List<SectionStudentsDto>> GetStudentsByDepartmentAsync(int? workingYearId = null);
+        Task<List<SectionStudentsViewModel>> GetStudentsByDepartmentAsync(int? workingYearId = null);
 
         // جلب الطلاب في قسم معين
-        Task<List<StudentInfoDto>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null);
+        Task<List<StudentInfoViewModel>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null);
 
         Task<IEnumerable<Classes>> GetClassesByGradeAsync(int gradeId);
     }
