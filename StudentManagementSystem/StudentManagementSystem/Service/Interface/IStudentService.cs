@@ -12,6 +12,8 @@ namespace StudentManagementSystem.Service.Interface
         Task<Students> UpdateStudentAsync(Students student/*, IFormFile profileImage = null, IFormFile birthCertificate = null*/);
         Task<bool> DeleteStudentAsync(int id);
         Task<IEnumerable<Students>> GetActiveStudentsAsync();
+        Task<AttendanceViewModel> GetStudentsAsync(int classId);
+      
         Task<bool> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
         Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId);
         Task<IEnumerable<Students>> GetStudentsWithTasksAsync();
@@ -30,7 +32,7 @@ namespace StudentManagementSystem.Service.Interface
 
         // جلب الطلاب مجمعين حسب القسم مع ترتيب أبجدي
         Task<List<SectionStudentsDto>> GetStudentsByDepartmentAsync(int? workingYearId = null);
-        Task<AttendanceViewModel> GetStudentsAsync(int classId);
+
         // جلب الطلاب في قسم معين
         Task<List<StudentInfoDto>> GetStudentsInSectionAsync(int sectionId, int? workingYearId = null);
 
