@@ -17,248 +17,179 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
 	<style>
-				body {
-						font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-						background-color: #f8f9fa;
-						direction: rtl;
-
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #f8f9fa;
+			direction: rtl;
+			text-align: right;
 		}
 
-				.card {
-						border-radius: 20px;
-						overflow: hidden;
-						box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-
+		.card {
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 		}
 
-				.card-header {
-						background: linear-gradient(135deg, #ff8a50 0%, #ff6b35 100%) !important; /* Orange gradient */
-						color: white;
-						border: none;
-						padding: 20px 0;
-						text-align: center;
-
+		.bg-primary-orange {
+			background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%) !important;
+			border: none;
 		}
 
-				.header-title {
-						font-size: 28px;
-						font-weight: bold;
-						margin: 0;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-
+		.card-header {
+			border: none;
+			padding: 20px 0;
+			text-align: center;
 		}
 
-					.header-title i {
-							margin-left: 10px; /* Adjust margin for RTL */
-
+		.header-title {
+			font-size: 28px;
+			font-weight: bold;
+			margin: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 
-				.back-button {
-						position: absolute;
-						right: 20px;
-						top: 50%;
-						transform: translateY(-50%);
-						background: rgba(255,255,255,0.2);
-						border: none;
-						color: white;
-						padding: 10px 15px;
-						border-radius: 8px;
-						transition: all 0.3s ease;
-						text-decoration: none;
-						display: flex;
-						align-items: center;
-
-		}
-
-					.back-button:hover {
-							background: rgba(255,255,255,0.3);
-							color: white;
-
-		}
-
-				.card-body {
-						padding: 40px;
-
-		}
-
-				.form-label {
-						font-weight: 600;
-						color: #ff8a50; /* Orange color for labels */
-						margin-bottom: 8px;
-						display: block;
-						font-size: 1.1rem;
-
-		}
-
-				.form-control, .form-select {
-						border-radius: 10px;
-						border: 2px solid #e9ecef;
-						padding: 12px 15px;
-						transition: all 0.3s ease;
-						font-size: 16px;
-
-		}
-
-						.form-control:focus, .form-select:focus {
-								border-color: #ff8a50; /* Orange border on focus */
-								box-shadow: 0 0 0 0.2rem rgba(255, 138, 80, 0.25);
-
+			.header-title i {
+				margin-left: 10px;
 			}
 
-					.form-control:read-only {
-							background-color: #f8f9fa;
-							border-color: #dee2e6;
-							color: #6c757d;
-
+		.back-button {
+			position: absolute;
+			right: 20px;
+			top: 50%;
+			transform: translateY(-50%);
+			background: rgba(255,255,255,0.2);
+			border: none;
+			color: white;
+			padding: 10px 15px;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
 		}
 
-				.form-check {
-						margin-bottom: 20px;
+			.back-button:hover {
+				background: rgba(255,255,255,0.3);
+				color: white;
+			}
 
+		.card-body {
+			padding: 40px;
 		}
 
-				.form-check-input:checked {
-						background-color: #ff8a50; /* Orange for checked checkbox */
-						border-color: #ff8a50;
-
+		.form-label {
+			font-weight: 600;
+			margin-bottom: 8px;
+			display: block;
+			font-size: 1.1rem;
 		}
 
-				.form-check-label {
-						font-weight: 500;
-						color: #333;
-						margin-right: 10px; /* Adjust margin for RTL */
-
+		.text-primary-orange {
+			color: #FF8C00 !important;
 		}
 
-				.btn-primary {
-						background: linear-gradient(135deg, #ff8a50, #ff6b35); /* Orange gradient for primary button */
-						border: none;
-						padding: 12px 30px;
-						font-size: 16px;
-						font-weight: 600;
-						border-radius: 10px;
-						color: white;
-						transition: all 0.3s ease;
-
+		.form-control, .form-select {
+			border-radius: 10px;
+			border: 2px solid #e9ecef;
+			padding: 12px 15px;
+			transition: all 0.3s ease;
+			font-size: 16px;
+			text-align: right;
 		}
 
-					.btn-primary:hover {
-							background: linear-gradient(135deg, #ff6b35, #ff8a50);
-							transform: translateY(-2px);
-							box-shadow: 0 5px 15px rgba(255, 138, 80, 0.4);
-							color: white;
+			.form-control::placeholder {
+				text-align: right;
+			}
 
+			.form-control:focus, .form-select:focus {
+				border-color: #FF8C00;
+				box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25);
+			}
+
+			.form-control:read-only {
+				background-color: #f8f9fa;
+				border-color: #dee2e6;
+				color: #6c757d;
+			}
+
+		.btn-primary-orange {
+			background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%);
+			border: none;
+			border-radius: 10px;
+			padding: 12px 24px;
+			transition: all 0.3s ease;
+			color: white;
 		}
 
-				.btn-secondary {
-						background: #6c757d;
-						border: none;
-						padding: 12px 30px;
-						font-size: 16px;
-						font-weight: 600;
-						border-radius: 10px;
-						color: white;
-						transition: all 0.3s ease;
+			.btn-primary-orange:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
+				background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
+				color: white;
+			}
 
+		.btn-outline-secondary-orange {
+			border-radius: 10px;
+			padding: 12px 24px;
+			transition: all 0.3s ease;
+			border-color: #FF8C00;
+			color: #FF8C00;
 		}
 
-					.btn-secondary:hover {
-							background: #5a6268;
-							transform: translateY(-2px);
+			.btn-outline-secondary-orange:hover {
+				transform: translateY(-2px);
+				background-color: #FF8C00;
+				color: white;
+				box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2);
+			}
 
+		.text-danger {
+			font-size: 14px;
+			margin-top: 5px;
+			color: #dc3545 !important;
 		}
 
-				.text-danger {
-						font-size: 14px;
-						margin-top: 5px;
-						color: #dc3545 !important;
-
+		.required {
+			color: #dc3545;
 		}
 
-				.required {
-						color: #dc3545;
-
+		.alert {
+			border-radius: 8px;
+			margin-bottom: 20px;
 		}
 
-				.input-group {
-						position: relative;
-
+		.info-section {
+			background-color: #fff3e0;
+			padding: 15px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+			border: 1px solid #ffcc80;
 		}
 
-				.form-icon {
-						position: absolute;
-						left: 15px; /* Adjust position for RTL */
-						top: 50%;
-						transform: translateY(-50%);
-						color: #ced4da; /* Light gray for icons */
-						pointer-events: none; /* Make icon not interfere with input clicks */
-
+		.info-label {
+			font-weight: 600;
+			color: #e65100;
+			margin-bottom: 5px;
 		}
 
-				.form-control.is-invalid + .form-icon {
-						color: #dc3545; /* Red icon for invalid input */
-
+		.info-value {
+			color: #FF8C00;
+			font-weight: 500;
 		}
 
-				.alert {
-						border-radius: 8px;
-						margin-bottom: 20px;
-
+		.is-invalid {
+			border-color: #dc3545 !important;
 		}
-
-				.validation-summary-errors {
-						background-color: #f8d7da;
-						border: 1px solid #f5c6cb;
-						color: #721c24;
-						padding: 12px;
-						border-radius: 8px;
-						margin-bottom: 20px;
-
-		}
-
-					.validation-summary-errors ul {
-							margin: 0;
-							padding-right: 20px;
-
-		}
-
-				.info-section {
-						background-color: #fff3e0; /* Light orange background */
-						padding: 15px;
-						border-radius: 8px;
-						margin-bottom: 20px;
-						border: 1px solid #ffcc80; /* Orange border */
-
-		}
-
-				.info-label {
-						font-weight: 600;
-						color: #e65100; /* Darker orange for info label */
-						margin-bottom: 5px;
-
-		}
-
-				.info-value {
-						color: #ff8a50; /* Orange for info value */
-						font-weight: 500;
-
-		}
-
-
 	</style>
 </head>
 <body>
 	<div class="container-fluid p-4">
 		<div class="row justify-content-center">
 			<div class="col-md-8 col-lg-6">
-				<div class="card">
-					<div class="card-header position-relative">
-						<a href="@Url.Action("Index")" class="back-button">
-							<i class="fas fa-arrow-right me-2"></i>
-							العودة
-						</a>
+				<div class="card border-0 shadow-lg">
+					<div class="card-header bg-primary-orange text-white position-relative">
 						<h1 class="header-title">
 							<i class="fas fa-edit"></i>تعديل الفصل
 						</h1>
@@ -267,50 +198,49 @@
 					<div class="card-body">
 						@if (TempData["SuccessMessage"] != null)
 						{
-							<div class="alert alert-success">
+							<div class="alert alert-success alert-dismissible fade show" role="alert">
 								<i class="fas fa-check-circle me-2"></i>
 								@TempData["SuccessMessage"]
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 							</div>
 						}
 
 						@if (TempData["ErrorMessage"] != null)
 						{
-							<div class="alert alert-danger">
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
 								<i class="fas fa-exclamation-circle me-2"></i>
 								@TempData["ErrorMessage"]
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 							</div>
 						}
 
 						<form asp-action="Edit" method="post" id="editClassForm">
-							<div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+							<div asp-validation-summary="ModelOnly" class="text-danger mb-4 text-center custom-validation-summary"></div>
 
 							<input type="hidden" asp-for="Id" />
 							<input type="hidden" asp-for="Date" />
 							<input type="hidden" asp-for="CreatedBy" />
 
 							<div class="mb-4">
-								<label asp-for="Name" class="form-label">
-									اسم الفصل <span class="required">*</span>
+								<label asp-for="Name" class="form-label fw-bold text-primary-orange">
+									<i class="fas fa-chalkboard me-2"></i>اسم الفصل <span class="required">*</span>
 								</label>
-								<div class="input-group">
-									<input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم الفصل" required />
-									<i class="fas fa-graduation-cap form-icon"></i>
-								</div>
+								<input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم الفصل" required />
 								<span asp-validation-for="Name" class="text-danger"></span>
+								<div id="classNameError" class="text-danger mt-1" style="display:none;">
+									<i class="fas fa-exclamation-circle me-1"></i>
+									لا يمكن أن يبدأ اسم الفصل بأرقام.
+								</div>
+								<small id="charCounter" class="form-text text-muted"></small>
 							</div>
 
 							<div class="mb-4">
 								<label asp-for="MaxStudents" class="form-label fw-bold text-primary-orange">
 									<i class="fas fa-user-friends me-2"></i>السعة القصوى للطلاب <span class="required">*</span>
 								</label>
-								<input asp-for="MaxStudents" type="number" class="form-control form-control-lg" id="maxStudentsInput" placeholder="ادخل السعة القصوى" required />
+								<input asp-for="MaxStudents" type="number" class="form-control form-control-lg" placeholder="ادخل السعة القصوى" required />
 								<span asp-validation-for="MaxStudents" class="text-danger"></span>
-								<div id="maxStudentsError" class="text-danger mt-1" style="display:none;">
-									<i class="fas fa-exclamation-circle me-1"></i>
-									عفواً، لا يمكنك كتابة أحرف في هذا الحقل.
-								</div>
 							</div>
-
 
 							<div class="info-section">
 								<div class="info-label">تاريخ الإنشاء</div>
@@ -321,16 +251,14 @@
 							</div>
 
 							<div class="row">
-								<div class="col-md-6 mb-3">
-									<button type="submit" class="btn btn-primary w-100">
-										<i class="fas fa-save me-2"></i>
-										تحديث الفصل
+								<div class="col-md-6">
+									<button type="submit" class="btn btn-primary-orange btn-lg w-100 mb-3" id="submitBtn">
+										<i class="fas fa-save me-2"></i>تحديث الفصل
 									</button>
 								</div>
-								<div class="col-md-6 mb-3">
-									<a href="@Url.Action("Index")" class="btn btn-secondary w-100">
-										<i class="fas fa-times me-2"></i>
-										إلغاء
+								<div class="col-md-6">
+									<a asp-action="Index" class="btn btn-outline-secondary-orange btn-lg w-100">
+										<i class="fas fa-arrow-right me-2"></i>العودة إلى القائمة
 									</a>
 								</div>
 							</div>
@@ -342,115 +270,117 @@
 	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
-		const maxStudentsInput = document.getElementById('maxStudentsInput');
-		const maxStudentsError = document.getElementById('maxStudentsError');
-		const nameInput = document.querySelector('input[name="Name"]');
+		$(document).ready(function () {
+			const nameInput = $('#Name');
+			const nameError = $('#classNameError');
+			const maxStudentsInput = $('#MaxStudents');
+			const submitBtn = $('#submitBtn');
 
-		function validateMaxStudents(inputValue) {
-			const hasNonNumeric = /[^\d]/.test(inputValue);
-			if (hasNonNumeric) {
-				maxStudentsInput.classList.add('is-invalid');
-				maxStudentsError.style.display = 'block';
-				return false;
-			} else {
-				maxStudentsInput.classList.remove('is-invalid');
-				maxStudentsError.style.display = 'none';
-				return true;
-			}
-		}
-
-		// Real-time input filtering and validation
-		maxStudentsInput.addEventListener('input', function (e) {
-			const originalValue = this.value;
-			// Remove non-numeric characters
-			const filteredValue = originalValue.replace(/[^0-9]/g, '');
-			// Update the input value with only numbers
-			this.value = filteredValue;
-
-			// Show error message if original value contained non-numeric chars
-			if (originalValue !== filteredValue) {
-				maxStudentsInput.classList.add('is-invalid');
-				maxStudentsError.style.display = 'block';
-			} else {
-				maxStudentsInput.classList.remove('is-invalid');
-				maxStudentsError.style.display = 'none';
-			}
-		});
-
-		// Handle paste events to remove non-numeric characters and validate
-		maxStudentsInput.addEventListener('paste', function(e) {
-			const pasteData = e.clipboardData.getData('text/plain');
-			const filteredData = pasteData.replace(/[^0-9]/g, '');
-
-			// If non-numeric characters were present, show error
-			if (pasteData !== filteredData) {
-				maxStudentsInput.classList.add('is-invalid');
-				maxStudentsError.style.display = 'block';
+			// Function to validate that the name doesn't start with numbers
+			function validateName(value) {
+				const trimmedValue = value.trim();
+				// Check if the value is empty or starts with digits
+				return trimmedValue !== '' && !/^\d/.test(trimmedValue);
 			}
 
-			// Prevent default paste behavior and insert the filtered data
-			e.preventDefault();
-			const currentVal = this.value;
-			const selectionStart = this.selectionStart;
-			const selectionEnd = this.selectionEnd;
-			this.value = currentVal.substring(0, selectionStart) + filteredData + currentVal.substring(selectionEnd);
-			this.setSelectionRange(selectionStart + filteredData.length, selectionStart + filteredData.length);
-		});
-
-		// Client-side validation on form submission
-		document.getElementById('editClassForm').addEventListener('submit', function (e) {
-			let isValid = true;
-			const nameErrorSpan = document.querySelector('span[data-valmsg-for="Name"]');
-			const maxStudentsValue = maxStudentsInput.value.trim();
-
-			// Clear previous errors
-			nameInput.classList.remove('is-invalid');
-			maxStudentsInput.classList.remove('is-invalid');
-			if (nameErrorSpan) nameErrorSpan.textContent = '';
-			maxStudentsError.style.display = 'none';
-
-			// Validate Name field
-			if (!nameInput.value.trim()) {
-				isValid = false;
-				nameInput.classList.add('is-invalid');
-				if (nameErrorSpan) nameErrorSpan.textContent = 'اسم الفصل مطلوب.';
-			}
-
-			// Validate MaxStudents field
-			const isNumber = /^\d+$/.test(maxStudentsValue);
-			const numberValue = parseInt(maxStudentsValue, 10);
-
-			// Check for empty or non-numeric value or zero/negative number
-			if (!maxStudentsValue || !isNumber || numberValue <= 0) {
-				isValid = false;
-				maxStudentsInput.classList.add('is-invalid');
-				maxStudentsError.style.display = 'block';
-				maxStudentsError.textContent = 'يجب إدخال رقم صحيح موجب للسعة القصوى.';
-			}
-
-
-			if (isValid) {
-				// Confirmation dialog before submission
-				if (!confirm('هل أنت متأكد من تحديث بيانات الفصل؟')) {
-					e.preventDefault(); // Prevent form submission if user cancels
+			// Function to update the validation state of the input field and error message
+			function updateValidationState() {
+				const isValid = validateName(nameInput.val());
+				if (isValid) {
+					nameError.hide();
+					nameInput.removeClass('is-invalid');
+				} else {
+					nameError.show();
+					nameInput.addClass('is-invalid');
 				}
-			} else {
-				e.preventDefault(); // Prevent form submission if validation fails
 			}
-		});
 
-		// Remove is-invalid class on input for better UX
-		document.querySelectorAll('.form-control').forEach(function (element) {
-			element.addEventListener('input', function () {
-				if (this.classList.contains('is-invalid')) {
-					this.classList.remove('is-invalid');
-					const errorSpan = document.querySelector(`span[data-valmsg-for="${this.name}"]`);
-					if (errorSpan) {
-						errorSpan.textContent = '';
-					}
+			// Event listener for input: validates in real-time
+			nameInput.on('input', function() {
+				updateValidationState();
+
+				// عداد الأحرف المتبقية
+				const maxLength = 100;
+				const currentLength = $(this).val().length;
+				const remaining = maxLength - currentLength;
+
+				$('#charCounter').text('عدد الأحرف المتبقية: ' + remaining);
+
+				if (remaining < 10) {
+					$('#charCounter').removeClass('text-muted').addClass('text-warning');
+				} else {
+					$('#charCounter').removeClass('text-warning').addClass('text-muted');
 				}
 			});
+
+			// Event listener for paste: validates after the paste action
+			nameInput.on('paste', function(e) {
+				// Wait for the paste event to complete before validating
+				setTimeout(updateValidationState, 0);
+			});
+
+			// Form submission with enhanced validation
+			$('#editClassForm').on('submit', function (e) {
+				const className = nameInput.val();
+				const maxStudents = maxStudentsInput.val();
+
+				// Final validation checks
+				let isFormValid = true;
+
+				// Validate class name
+				if (!validateName(className)) {
+					isFormValid = false;
+					nameInput.addClass('is-invalid');
+					nameError.show();
+				} else {
+					nameInput.removeClass('is-invalid');
+					nameError.hide();
+				}
+
+				// Validate max students
+				if (!maxStudents || isNaN(maxStudents) || parseInt(maxStudents) <= 0) {
+					isFormValid = false;
+					maxStudentsInput.addClass('is-invalid');
+				} else {
+					maxStudentsInput.removeClass('is-invalid');
+				}
+
+				if (!isFormValid) {
+					e.preventDefault();
+					if (!validateName(className)) {
+						alert('الرجاء إدخال اسم فصل صحيح. لا يمكن أن يبدأ اسم الفصل بأرقام.');
+						nameInput.focus();
+					} else if (!maxStudents || isNaN(maxStudents) || parseInt(maxStudents) <= 0) {
+						alert('السعة القصوى مطلوبة ويجب أن تكون رقمًا موجبًا.');
+						maxStudentsInput.focus();
+					}
+					return false;
+				}
+
+				// Confirmation dialog for submission
+				if (!confirm('هل أنت متأكد من تحديث بيانات الفصل؟')) {
+					e.preventDefault();
+					return false;
+				}
+
+				// Show loading state
+				submitBtn.prop('disabled', true);
+				submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>جاري التحديث...');
+			});
+
+			// Remove validation classes on input change
+			nameInput.on('keydown', function() {
+				$(this).removeClass('is-invalid');
+			});
+
+			maxStudentsInput.on('input', function() {
+				$(this).removeClass('is-invalid');
+			});
+
+			// Auto-focus on name input
+			nameInput.focus();
 		});
 	</script>
 </body>

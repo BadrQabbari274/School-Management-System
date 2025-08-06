@@ -100,11 +100,8 @@
     }
     
     .btn-primary-custom:hover {
-        background: #fff;
-        color: #ff7b00;
-        border: 2px solid #ff7b00;
-        box-shadow: 0 5px 15px rgba(255, 123, 0, 0.15);
         transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
     }
     
     .btn-secondary-custom {
@@ -257,10 +254,11 @@
             }
             
             <div class="btn-container">
-                <button type="button" class="btn-secondary-custom" onclick="history.back()">
-                    العودة إلى القائمة
-                </button>
-                <button type="submit" class="btn-secondary-custom">
+                <a href="index" class="btn-secondary-custom">
+                    <i class="fas fa-arrow-right"></i>
+                    العودة الي القائمه
+                </a>
+                <button type="submit" class="btn-primary-custom">
                     عرض الفصول
                 </button>
             </div>

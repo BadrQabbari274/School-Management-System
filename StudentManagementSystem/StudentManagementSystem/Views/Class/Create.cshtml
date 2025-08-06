@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "إنشاء فصل جديد";
-    Layout = "~/Views/Shared/_Layout.cshtml"; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
     <link href="~/css/styles.css" rel="stylesheet" />
@@ -37,7 +37,7 @@
                         </div>
                     }
 
-                    <form asp-action="Create" method="post">
+                    <form asp-action="Create" method="post" id="createClassForm">
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-4 text-center custom-validation-summary"></div>
 
                         <div class="mb-4">
@@ -46,6 +46,11 @@
                             </label>
                             <input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم الفصل" required />
                             <span asp-validation-for="Name" class="text-danger"></span>
+                            <div id="classNameError" class="text-danger mt-1" style="display:none;">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                لا يمكن أن يبدأ اسم الفصل بأرقام.
+                            </div>
+                            <small id="charCounter" class="form-text text-muted"></small>
                         </div>
 
                         <div class="mb-4">
@@ -68,7 +73,7 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary-orange btn-lg w-100 mb-3">
+                                <button type="submit" class="btn btn-primary-orange btn-lg w-100 mb-3" id="submitBtn">
                                     <i class="fas fa-save me-2"></i>إنشاء الفصل
                                 </button>
                             </div>
@@ -179,6 +184,10 @@
         padding: 15px;
         border-radius: 8px;
     }
+
+    .is-invalid {
+        border-color: #dc3545 !important;
+    }
 </style>
 
 @section Scripts {
@@ -186,65 +195,132 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-        // Optional: Custom client-side validation for "Name" and "MaxStudents"
-        document.querySelector('form').addEventListener('submit', function(e) {
-            let isValid = true;
+        $(document).ready(function () {
+            const nameInput = $('#Name');
+            const nameError = $('#classNameError');
+            const maxStudentsInput = $('#MaxStudents');
+            const gradeInput = $('#GradeId');
+            const submitBtn = $('#submitBtn');
 
-            const nameInput = document.querySelector('input[name="Name"]');
-            if (nameInput && nameInput.value.trim() === '') {
-                isValid = false;
-                nameInput.classList.add('is-invalid');
-                if (!nameInput.nextElementSibling || !nameInput.nextElementSibling.classList.contains('text-danger')) {
-                    const span = document.createElement('span');
-                    span.className = 'text-danger';
-                    span.textContent = 'اسم الفصل مطلوب.';
-                    nameInput.parentNode.appendChild(span);
-                }
-            } else if (nameInput) {
-                nameInput.classList.remove('is-invalid');
-                const existingError = nameInput.parentNode.querySelector('.text-danger');
-                if (existingError && existingError.textContent === 'اسم الفصل مطلوب.') {
-                    existingError.remove();
+            // Function to validate that the name doesn't start with numbers
+            function validateName(value) {
+                const trimmedValue = value.trim();
+                // Check if the value is empty or starts with digits
+                return trimmedValue !== '' && !/^\d/.test(trimmedValue);
+            }
+
+            // Function to update the validation state of the input field and error message
+            function updateValidationState() {
+                const isValid = validateName(nameInput.val());
+                if (isValid) {
+                    nameError.hide();
+                    nameInput.removeClass('is-invalid');
+                } else {
+                    nameError.show();
+                    nameInput.addClass('is-invalid');
                 }
             }
 
-            const maxStudentsInput = document.querySelector('input[name="MaxStudents"]');
-            if (maxStudentsInput && (maxStudentsInput.value.trim() === '' || isNaN(maxStudentsInput.value) || parseInt(maxStudentsInput.value) <= 0)) {
-                isValid = false;
-                maxStudentsInput.classList.add('is-invalid');
-                if (!maxStudentsInput.nextElementSibling || !maxStudentsInput.nextElementSibling.classList.contains('text-danger')) {
-                    const span = document.createElement('span');
-                    span.className = 'text-danger';
-                    span.textContent = 'السعة القصوى مطلوبة ويجب أن تكون رقمًا موجبًا.';
-                    maxStudentsInput.parentNode.appendChild(span);
-                }
-            } else if (maxStudentsInput) {
-                maxStudentsInput.classList.remove('is-invalid');
-                const existingError = maxStudentsInput.parentNode.querySelector('.text-danger');
-                if (existingError && existingError.textContent === 'السعة القصوى مطلوبة ويجب أن تكون رقمًا موجبًا.') {
-                    existingError.remove();
-                }
-            }
+            // Event listener for input: validates in real-time
+            nameInput.on('input', function() {
+                updateValidationState();
 
-            if (!isValid) {
-                e.preventDefault();
-            } else {
+                // عداد الأحرف المتبقية
+                const maxLength = 100;
+                const currentLength = $(this).val().length;
+                const remaining = maxLength - currentLength;
+
+                $('#charCounter').text('عدد الأحرف المتبقية: ' + remaining);
+
+                if (remaining < 10) {
+                    $('#charCounter').removeClass('text-muted').addClass('text-warning');
+                } else {
+                    $('#charCounter').removeClass('text-warning').addClass('text-muted');
+                }
+            });
+
+            // Event listener for paste: validates after the paste action
+            nameInput.on('paste', function(e) {
+                // Wait for the paste event to complete before validating
+                setTimeout(updateValidationState, 0);
+            });
+
+            // Form submission with enhanced validation
+            $('#createClassForm').on('submit', function (e) {
+                const className = nameInput.val();
+                const maxStudents = maxStudentsInput.val();
+                const gradeId = gradeInput.val();
+
+                // Final validation checks
+                let isFormValid = true;
+
+                // Validate class name
+                if (!validateName(className)) {
+                    isFormValid = false;
+                    nameInput.addClass('is-invalid');
+                    nameError.show();
+                } else {
+                    nameInput.removeClass('is-invalid');
+                    nameError.hide();
+                }
+
+                // Validate max students
+                if (!maxStudents || isNaN(maxStudents) || parseInt(maxStudents) <= 0) {
+                    isFormValid = false;
+                    maxStudentsInput.addClass('is-invalid');
+                } else {
+                    maxStudentsInput.removeClass('is-invalid');
+                }
+
+                // Validate grade selection
+                if (!gradeId) {
+                    isFormValid = false;
+                    gradeInput.addClass('is-invalid');
+                } else {
+                    gradeInput.removeClass('is-invalid');
+                }
+
+                if (!isFormValid) {
+                    e.preventDefault();
+                    if (!validateName(className)) {
+                        alert('الرجاء إدخال اسم فصل صحيح. لا يمكن أن يبدأ اسم الفصل بأرقام.');
+                        nameInput.focus();
+                    } else if (!maxStudents || isNaN(maxStudents) || parseInt(maxStudents) <= 0) {
+                        alert('السعة القصوى مطلوبة ويجب أن تكون رقمًا موجبًا.');
+                        maxStudentsInput.focus();
+                    } else if (!gradeId) {
+                        alert('يرجى اختيار السنة الدراسية.');
+                        gradeInput.focus();
+                    }
+                    return false;
+                }
+
                 // Confirmation dialog for submission
                 if (!confirm('هل أنت متأكد من إنشاء هذا الفصل؟')) {
                     e.preventDefault();
+                    return false;
                 }
-            }
-        });
 
-        // Remove validation error on input change
-        document.querySelectorAll('.form-control, .form-select').forEach(function(element) {
-            element.addEventListener('input', function() {
-                this.classList.remove('is-invalid');
-                const errorSpan = this.nextElementSibling;
-                if (errorSpan && errorSpan.classList.contains('text-danger')) {
-                    errorSpan.textContent = ''; // Clear the text
-                }
+                // Show loading state
+                submitBtn.prop('disabled', true);
+                submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>جاري الإنشاء...');
             });
+
+            // Remove validation classes on input change
+            nameInput.on('keydown', function() {
+                $(this).removeClass('is-invalid');
+            });
+
+            maxStudentsInput.on('input', function() {
+                $(this).removeClass('is-invalid');
+            });
+
+            gradeInput.on('change', function() {
+                $(this).removeClass('is-invalid');
+            });
+
+            // Auto-focus on name input
+            nameInput.focus();
         });
     </script>
 }
