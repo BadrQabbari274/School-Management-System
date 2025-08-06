@@ -366,7 +366,7 @@
         </div>
 
         <div class="form-section">
-            <form method="post" action="@Url.Action("SaveAttendanceField")">
+            <form asp-action="SaveAttendanceField" method="post">
                 <input type="hidden" name="Class.Id" value="@Model.Class.Id" />
 
                 <div class="date-section">
@@ -408,45 +408,67 @@
                                         <span class="status-indicator @(Model.StudentStatus[i].Status ? "present" : "absent")" id="status-@i">
                                             @(Model.StudentStatus[i].Status ? "حاضر" : "غائب")
                                         </span>
-                                        <input type="checkbox"
-                                               class="attendance-checkbox"
-                                               id="present-@i"
-                                               name="StudentStatus[@i].Status"
-                                               value="true"
-                                               onchange="updateStatus(@i, this.checked)"
-                                               @(Model.StudentStatus[i].Status ? "checked" : "")>
-                                        <input type="hidden" name="StudentStatus[@i].Status" value="false">
-                                        <label for="present-@i">حاضر</label>
+                                        @if (Model.StudentStatus[i].Status)
+                                        {
+                                            <input type="checkbox"
+                                                   class="attendance-checkbox"
+                                                   id="present-@i"
+                                                   name="StudentStatus[@i].Status"
+                                                   value="true"
+                                                   onchange="updateStatus(@i, this.checked)"
+                                                   checked>
+                                            <input type="hidden" name="StudentStatus[@i].Status" value="false">
+                                            <label for="present-@i">حاضر</label>
+                                        }
+                                        else
+                                        {
+                                            <input type="hidden" name="StudentStatus[@i].Status" value="false">
+                                            <span style="margin-right: 10px;">(غير قابل للتعديل)</span>
+                                        }
                                     </div>
 
-                                    <select class="custom-select"
-                                            id="reason-@i"
-                                            name="StudentStatus[@i].AbsenceReason"
-                                            onchange="handleReasonChange(@i)"
-                                            @(Model.StudentStatus[i].Status ? "disabled" : "")>
-                                        <option value="">اختر سبب الغياب</option>
-                                        @if (Model.reasons != null)
-                                        {
-                                            @foreach (var reason in Model.reasons)
+                                    @if (Model.StudentStatus[i].Status)
+                                    {
+                                        <select class="custom-select"
+                                                id="reason-@i"
+                                                name="StudentStatus[@i].AbsenceReason"
+                                                onchange="handleReasonChange(@i)"
+                                                disabled>
+                                            <option value="">اختر سبب الغياب</option>
+                                            @if (Model.reasons != null)
                                             {
-                                                var reasonName = reason.GetType().GetProperty("ReasonName")?.GetValue(reason)?.ToString() ??
-                                                reason.GetType().GetProperty("Name")?.GetValue(reason)?.ToString() ??
-                                                reason.ToString();
-                                                <option value="@reasonName">@reasonName</option>
+                                                @foreach (var reason in Model.reasons)
+                                                {
+                                                    var reasonName = reason.GetType().GetProperty("ReasonName")?.GetValue(reason)?.ToString() ??
+                                                    reason.GetType().GetProperty("Name")?.GetValue(reason)?.ToString() ??
+                                                    reason.ToString();
+                                                    <option value="@reasonName">@reasonName</option>
+                                                }
                                             }
-                                        }
-                                        <option value="أخرى...">أخرى...</option>
-                                    </select>
+                                            <option value="أخرى...">أخرى...</option>
+                                        </select>
 
-                                    <input type="text"
-                                           class="custom-reason hidden"
-                                           id="custom-@i"
-                                           name="StudentStatus[@i].CustomReason"
-                                           placeholder="اكتب السبب المخصص..."
-                                           disabled>
+                                        <input type="text"
+                                               class="custom-reason hidden"
+                                               id="custom-@i"
+                                               name="StudentStatus[@i].CustomReason"
+                                               placeholder="اكتب السبب المخصص..."
+                                               disabled>
+                                    }
+                                    else
+                                    {
+                                        <input type="hidden" name="StudentStatus[@i].AbsenceReason" value="@Model.StudentStatus[i].AbsenceReason" />
+                                        <input type="hidden" name="StudentStatus[@i].CustomReason" value="@Model.StudentStatus[i].CustomReason" />
+                                        <input type="hidden" name="StudentStatus[@i].Reason_Id" value="@Model.StudentStatus[i].Reason_Id" />
+
+                                        <div style="padding: 12px 15px; border: 2px solid #e9ecef; border-radius: 8px; background: #f8f9fa;">
+                                            سبب الغياب: @(string.IsNullOrEmpty(Model.StudentStatus[i].CustomReason) ? Model.StudentStatus[i].AbsenceReason : Model.StudentStatus[i].CustomReason)
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         }
+                        
                     </div>
                 </div>
 
@@ -460,9 +482,10 @@
                     <button type="submit" class="btn-primary-custom" onclick="return validateForm()">
                         <i class="fas fa-save"></i> حفظ بيانات الحضور مع الأسباب
                     </button>
-                    <button type="button" class="btn-secondary-custom" onclick="window.history.back()">
-                        <i class="fas fa-arrow-right"></i> العودة
-                    </button>
+                    <a href="index" class="btn-secondary-custom">
+                        <i class="fas fa-arrow-right"></i>
+                        العودة
+                    </a>
                 </div>
             </form>
         </div>

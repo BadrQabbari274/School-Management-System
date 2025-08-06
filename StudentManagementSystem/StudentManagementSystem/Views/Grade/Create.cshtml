@@ -1,7 +1,6 @@
 ﻿@model StudentManagementSystem.Models.Grades
-
 @{
-    ViewData["Title"] = "انشاء سنة دراسية جديدة";
+    ViewData["Title"] = "Add New Class Year";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
@@ -10,8 +9,9 @@
     <title>@ViewData["Title"] - StudentManagementSystem</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> @* Or ~/css/grades.css *@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
+
 <div class="container-fluid p-4">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
@@ -19,34 +19,25 @@
                 <div class="card-header bg-primary text-white text-center py-4">
                     <h3 class="mb-0 fw-bold">
                         <i class="fas fa-plus-circle me-2"></i>إضافة سنة دراسية جديدة
-                    </h3>
+                    </h3>   
                 </div>
-
                 <div class="card-body p-5">
-                    <form asp-action="Create" method="post">
+                    <form asp-action="Create" method="post" id="createForm">
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
-
                         <div class="mb-4">
                             <label asp-for="Name" class="form-label fw-bold text-primary">
                                 <i class="fas fa-graduation-cap me-2"></i>اسم السنة الدراسية
                             </label>
-                            <input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم السنة الدراسية (مثل: السنة الأولى، السنة الثانية)" />
+                            <input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم السنة الدراسية (مثل: السنة الأولى، السنة الثانية)" id="classYearName" />
                             <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
-
-                        @*                         <div class="mb-4">
-                            <div class="form-check form-switch">
-                                <input asp-for="IsActive" class="form-check-input" type="checkbox" checked />
-                                <label asp-for="IsActive" class="form-check-label fw-bold text-primary">
-                                    <i class="fas fa-toggle-on me-2"></i>حالة النشاط
-                                </label>
+                            <div id="nameError" class="text-danger mt-2" style="display: none;">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                يرجى إدخال حروف فقط - الأرقام غير مسموحة
                             </div>
-                            <small class="text-muted">اضغط لتفعيل/إلغاء تفعيل هذه السنة الدراسية</small>
-                        </div> *@
-
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3" id="submitBtn">
                                     <i class="fas fa-save me-2"></i>إنشاء السنة الدراسية
                                 </button>
                             </div>
@@ -63,27 +54,130 @@
     </div>
 </div>
 
-<!-- Success/Error Messages -->
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="fas fa-check-circle me-2"></i>
-        @TempData["Success"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
+<script>
+    // Function to check if text contains numbers
+    function containsNumbers(text) {
+        return /\d/.test(text);
+    }
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="fas fa-exclamation-circle me-2"></i>
-        @TempData["Error"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
+    // Function to validate class year name (no numbers allowed)
+    function validateClassName(inputId, errorId) {
+        const input = document.getElementById(inputId);
+        const errorDiv = document.getElementById(errorId);
+
+        if (!input || !errorDiv) return true;
+
+        const value = input.value.trim();
+
+        if (containsNumbers(value) && value !== '') {
+            input.classList.add('is-invalid');
+            errorDiv.style.display = 'block';
+            return false;
+        } else {
+            input.classList.remove('is-invalid');
+            errorDiv.style.display = 'none';
+            return true;
+        }
+    }
+
+    // Real-time validation for class year name
+    document.getElementById('classYearName').addEventListener('input', function() {
+        validateClassName('classYearName', 'nameError');
+    });
+
+    // Form submission validation
+    document.getElementById('createForm').addEventListener('submit', function(e) {
+        const isValid = validateClassName('classYearName', 'nameError');
+
+        if (!isValid) {
+            e.preventDefault();
+
+            // Show alert message
+            const existingAlert = document.querySelector('.validation-alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger alert-dismissible fade show validation-alert';
+            alertDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                يرجى تصحيح الأخطاء في النموذج قبل الحفظ
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            // Insert alert at the top of the form
+            const formElement = document.getElementById('createForm');
+            formElement.insertBefore(alertDiv, formElement.firstChild);
+
+            // Scroll to the input field and focus it
+            const nameInput = document.getElementById('classYearName');
+            nameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            nameInput.focus();
+        }
+    });
+
+    // Remove invalid class when user starts typing correctly
+    document.getElementById('classYearName').addEventListener('keyup', function() {
+        if (!containsNumbers(this.value)) {
+            this.classList.remove('is-invalid');
+            document.getElementById('nameError').style.display = 'none';
+
+            // Remove alert if it exists
+            const alert = document.querySelector('.validation-alert');
+            if (alert) {
+                alert.remove();
+            }
+        }
+    });
+</script>
+
+<style>
+    .is-invalid {
+        border-color: #dc3545 !important;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+    }
+
+    .text-danger {
+        font-size: 0.875em;
+    }
+
+    .btn-back {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: white;
+    }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+            color: white;
+        }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+    }
+
+    .form-control-lg {
+        border-radius: 10px;
+    }
+
+    .btn-lg {
+        border-radius: 10px;
+        font-weight: 600;
+    }
+
+    .validation-alert {
+        margin-bottom: 1rem;
+    }
+</style>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}ك
+}
