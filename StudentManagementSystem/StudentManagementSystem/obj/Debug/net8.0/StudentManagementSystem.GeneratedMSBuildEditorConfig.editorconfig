@@ -44,6 +44,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Account/UserProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxVc2VyUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/AttendanceForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxBdHRlbmRhbmNlRm9ybS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -54,6 +58,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/ExitRequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxFeGl0UmVxdWVzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Field.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxGaWVsZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Index.cshtml]
@@ -222,10 +230,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Student/Index2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleDIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Student/Training.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxUcmFpbmluZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/WorkingYear/Create.cshtml]
