@@ -6,8 +6,9 @@ namespace StudentManagementSystem.ViewModels
     {
         public Students Students { get; set; }
         public bool Status { get; set; } = true;
-        public string? AbsenceReason { get; set; } // تم تغيير الاسم ليكون أكثر وضوحًا
-        public string? CustomReason { get; set; } // تم فصل السبب المخصص
-        public string? Reason_Id { get; set; }
+        public string? AbsenceReason { get; set; }
+        public string? CustomReason { get; set; }
+        public int? Reason_Id { get; set; }
+        public bool IsEditable { get; set; } = true; // إضافة خاصية القابلية للتعديل
     }
 }
