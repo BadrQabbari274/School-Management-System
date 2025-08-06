@@ -44,7 +44,7 @@
             تفاصيل المستخدم: @Model.Name
         </h2>
         <div class="btn-group">
-            <a href="@Url.Action("EditUser")" class="btn btn-warning">
+            <a href="@Url.Action("EditUser", new { id = Model.Id })" class="btn btn-warning">
                 <i class="fas fa-edit me-2"></i>
                 تعديل
             </a>
@@ -113,10 +113,6 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">البريد الإلكتروني:</label>
                             <p class="form-control-plaintext">@Model.Email</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">كلمة المرور:</label>
-                            <p class="form-control-plaintext">@Model.MaskedPassword</p>
                         </div>
                     </div>
                 </div>
