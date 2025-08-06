@@ -28,8 +28,149 @@ namespace StudentManagementSystem.Controllers
             _roleService = roleService;
         }
 
-        // إضافة هذا الـ action في AccountController
+        // إضافة هذه الـ Methods في AccountController
 
+        #region User Profile Details
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> UserProfile()
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                var user = await _userService.GetUserByIdAsync(userId);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                var viewModel = new UserShowProfileViewModel
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Username = user.Username,
+                    Email = user.Email,
+                    MaskedPassword = new string('*', 8), // عرض 8 نجوم
+                    RoleName = user.Role?.Name ?? "غير محدد",
+                    IsActive = user.IsActive,
+                    Date = user.Date,
+                    JoinDate = user.Join_Date,
+                    LastLogin = user.LastLogin,
+                    CreatedByName = user.CreatedBy?.Name ?? "غير محدد"
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage("حدث خطأ أثناء تحميل الملف الشخصي");
+                return RedirectToAction("Index", "Dashboard");
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> EditUserProfile()
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                var user = await _userService.GetUserByIdAsync(userId);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                var viewModel = new UserShowProfileViewModel
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Username = user.Username,
+                    Email = user.Email,
+                    RoleName = user.Role?.Name ?? "غير محدد",
+                    IsActive = user.IsActive
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage("حدث خطأ أثناء تحميل بيانات التعديل");
+                return RedirectToAction("UserProfile");
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditUserProfile(UserShowProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                var userId = GetCurrentUserId();
+                var user = await _userService.GetUserByIdAsync(userId);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                // Check if username is taken by another user
+                var existingUser = await _userService.GetUserByNameAsync(model.Username);
+                if (existingUser != null && existingUser.Id != userId)
+                {
+                    ModelState.AddModelError("Username", "اسم المستخدم موجود بالفعل");
+                    return View(model);
+                }
+
+                // Update basic info
+                user.Name = model.Name;
+                user.Username = model.Username;
+                user.Email = model.Email;
+
+                // Update password if provided
+                if (!string.IsNullOrEmpty(model.NewPassword))
+                {
+                    if (model.NewPassword.Length < 4)
+                    {
+                        ModelState.AddModelError("NewPassword", "كلمة المرور يجب أن تكون على الأقل 4 أحرف");
+                        return View(model);
+                    }
+                    if (model.NewPassword == "0000")
+                    {
+                        ModelState.AddModelError("NewPassword", "لا يمكن استخدام 0000 كلمة مرور");
+                        return View(model);
+                    }
+                    user.Password = model.NewPassword;
+                }
+
+                await _userService.UpdateUserAsync(user);
+                SetSuccessMessage("تم تحديث الملف الشخصي بنجاح");
+
+                // Update claims if username changed
+                if (User.Identity.Name != model.Username)
+                {
+                    await SignInUserAsync(user, false);
+                }
+
+                return RedirectToAction("UserProfile");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "حدث خطأ أثناء تحديث الملف الشخصي");
+                return View(model);
+            }
+        }
+
+        #endregion
 
         #region Authentication
 
