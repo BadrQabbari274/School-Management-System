@@ -56,21 +56,29 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        background: #dc3545;
+        background: #fd7e14; /* Orange */
         color: white;
         border: none;
         border-radius: 50%;
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
         cursor: pointer;
+        box-shadow: 0 2px 8px rgba(253, 126, 20, 0.15);
+        padding: 0;
+    }
+
+    .delete-btn i {
+        font-size: 1.3rem;
+        margin: 0;
+        margin-left: 2px; /* Move icon slightly to the left for better centering */
     }
 
         .delete-btn:hover {
-            background: #c82333;
+            background: #e8590c;
             transform: scale(1.1);
             color: white;
         }

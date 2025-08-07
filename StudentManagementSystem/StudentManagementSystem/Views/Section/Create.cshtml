@@ -39,6 +39,10 @@
                             <input asp-for="Name_Of_Section" class="form-control form-control-lg"
                                    placeholder="أدخل اسم الشعبة" />
                             <span asp-validation-for="Name_Of_Section" class="text-danger"></span>
+                            <div id="sectionNameError" class="text-danger mt-1" style="display:none;">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                لا يمكن أن يبدأ اسم الشعبة بأرقام.
+                            </div>
                             <small id="charCounter" class="form-text text-muted"></small>
                         </div>
 
@@ -84,7 +88,7 @@
         </div>
     </div>
 </div>
-@* 
+
 <style>
     .card {
         border-radius: 20px;
@@ -155,7 +159,8 @@
     .is-invalid {
         border-color: #dc3545 !important;
     }
-</style> *@
+</style>
+
 <!-- Success/Error Messages -->
 @if (TempData["Success"] != null)
 {
@@ -182,47 +187,37 @@
 
     <script>
         $(document).ready(function () {
-            // Form submission with loading state
-            $('#createSectionForm').on('submit', function (e) {
-                var submitBtn = $('#submitBtn');
-                var departmentId = $('#Department_Id').val();
-                var sectionName = $('#Name_Of_Section').val().trim();
+            const nameInput = $('#Name_Of_Section');
+            const nameError = $('#sectionNameError');
+            const submitBtn = $('#submitBtn');
 
-                // Basic validation
-                if (!departmentId) {
-                    e.preventDefault();
-                    $('#Department_Id').addClass('is-invalid');
-                    return false;
+            // Function to validate that the name is not numbers-only and doesn't start with numbers
+            function validateName(value) {
+                const trimmedValue = value.trim();
+                // Check if the value is empty, consists of only digits, or starts with digits
+                return trimmedValue !== '' && !/^\d/.test(trimmedValue);
+            }
+
+            // Function to update the validation state of the input field and error message
+            function updateValidationState() {
+                const isValid = validateName(nameInput.val());
+                if (isValid) {
+                    nameError.hide();
+                    nameInput.removeClass('is-invalid');
                 } else {
-                    $('#Department_Id').removeClass('is-invalid');
+                    nameError.show();
+                    nameInput.addClass('is-invalid');
                 }
+            }
 
-                if (!sectionName) {
-                    e.preventDefault();
-                    $('#Name_Of_Section').addClass('is-invalid');
-                    return false;
-                } else {
-                    $('#Name_Of_Section').removeClass('is-invalid');
-                }
+            // Event listener for input: validates in real-time
+            nameInput.on('input', function() {
+                updateValidationState();
 
-                // Show loading state
-                submitBtn.prop('disabled', true);
-                submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>جاري الحفظ...');
-            });
-
-            // Remove validation classes on input change
-            $('#Department_Id, #Name_Of_Section').on('change input', function () {
-                $(this).removeClass('is-invalid');
-            });
-
-            // Auto-focus on first input
-            $('#Department_Id').focus();
-
-            // Character counter for section name
-            $('#Name_Of_Section').on('input', function () {
-                var maxLength = 100;
-                var currentLength = $(this).val().length;
-                var remaining = maxLength - currentLength;
+                // عداد الأحرف المتبقية
+                const maxLength = 100;
+                const currentLength = $(this).val().length;
+                const remaining = maxLength - currentLength;
 
                 $('#charCounter').text('عدد الأحرف المتبقية: ' + remaining);
 
@@ -232,6 +227,61 @@
                     $('#charCounter').removeClass('text-warning').addClass('text-muted');
                 }
             });
+
+            // Event listener for paste: validates after the paste action
+            nameInput.on('paste', function(e) {
+                // Wait for the paste event to complete before validating
+                setTimeout(updateValidationState, 0);
+            });
+
+            // Form submission with loading state
+            $('#createSectionForm').on('submit', function (e) {
+                const departmentId = $('#Department_Id').val();
+                const sectionName = nameInput.val();
+
+                // Final validation checks
+                let isFormValid = true;
+
+                if (!departmentId) {
+                    isFormValid = false;
+                    $('#Department_Id').addClass('is-invalid');
+                } else {
+                    $('#Department_Id').removeClass('is-invalid');
+                }
+
+                if (!validateName(sectionName)) {
+                    isFormValid = false;
+                    nameInput.addClass('is-invalid');
+                    nameError.show();
+                    alert('الرجاء إدخال اسم شعبة صحيح. يجب أن يحتوي على أحرف وليس أرقاماً فقط.');
+                   
+                } else {
+                    nameInput.removeClass('is-invalid');
+                    nameError.hide();
+                }
+
+                if (!isFormValid) {
+                    e.preventDefault();
+                    nameInput.focus();
+                    return false;
+                }
+
+                // Show loading state
+                submitBtn.prop('disabled', true);
+                submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>جاري الحفظ...');
+            });
+
+            // Remove validation classes on input change
+            $('#Department_Id').on('change', function () {
+                $(this).removeClass('is-invalid');
+            });
+            // Remove validation class when user starts typing
+            nameInput.on('keydown', function() {
+                $(this).removeClass('is-invalid');
+            });
+
+            // Auto-focus on first input
+            $('#Department_Id').focus();
         });
     </script>
 }

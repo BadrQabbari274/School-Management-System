@@ -11,13 +11,16 @@ namespace StudentManagementSystem.Service.Interface
         Task<Students> CreateStudentAsync(Students student, IFormFile profileImage = null, IFormFile birthCertificate = null);
         Task<Students> UpdateStudentAsync(Students student/*, IFormFile profileImage = null, IFormFile birthCertificate = null*/);
         Task<bool> DeleteStudentAsync(int id);
+        Task<bool> ConfirmFieldAttendanceChangesAsync(int classId, List<int> studentIds, List<bool> newStatuses, int userId);
+        Task<List<StudentFieldChangeViewModel>> GetStudentsRequiringFieldUpdateAsync(int classId, List<int> changedStudentIds);
+
         Task<IEnumerable<Students>> GetActiveStudentsAsync();
         Task<AttendanceViewModel> GetStudentsAsync(int classId);
         Task<AttendanceViewModel> GetStudentsFieldAsync(int classId);
         Task<bool> SaveAttendanceFieldAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
 
 
-        Task<bool> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
+        Task<(bool success, List<int> changedStudentIds)> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
         Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId);
 
         // إضافة طالب بدون فصل (فقط student_id, working_year_id, section_id)

@@ -139,6 +139,16 @@
                 cursor: not-allowed;
             }
 
+        .readonly-reason {
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: #f8f9fa;
+            color: #6c757d;
+            font-size: 14px;
+            min-width: 200px;
+        }
+
         .hidden {
             display: none !important;
         }
@@ -169,12 +179,40 @@
                 box-shadow: 0 8px 25px rgba(255, 123, 0, 0.2);
             }
 
+        .student-row.non-editable {
+            background: #f8f9fa;
+            border-color: #d1d3d4;
+            opacity: 0.8;
+        }
+
+            .student-row.non-editable:hover {
+                transform: none;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
         .student-info {
             display: flex;
             align-items: center;
             gap: 15px;
             flex: 1;
             min-width: 200px;
+        }
+
+        .student-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff7b00, #ff9500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .student-avatar.non-editable {
+            background: linear-gradient(135deg, #6c757d, #495057);
         }
 
         .student-name {
@@ -204,6 +242,11 @@
             accent-color: #ff7b00;
         }
 
+            .attendance-checkbox:disabled {
+                cursor: not-allowed;
+                opacity: 0.6;
+            }
+
         .status-indicator {
             padding: 6px 12px;
             border-radius: 20px;
@@ -224,9 +267,9 @@
             color: #721c24;
         }
 
-        .not-set {
-            background: #e2e3e5;
-            color: #383d41;
+        .absent.daily {
+            background: #fff3cd;
+            color: #856404;
         }
 
         .btn-container {
@@ -248,6 +291,10 @@
             flex: 1;
             font-size: 16px;
             min-width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
             .btn-primary-custom:hover {
@@ -269,12 +316,37 @@
             text-decoration: none;
             text-align: center;
             min-width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
             .btn-secondary-custom:hover {
                 background: #ff7b00;
                 color: white;
                 text-decoration: none;
+            }
+
+        .btn-select-all {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: none;
+        }
+
+            .btn-select-all:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             }
 
         .summary {
@@ -362,12 +434,13 @@
                 <i class="fas fa-clipboard-list"></i>
             </div>
             <h3>نظام حضور وغياب الطلاب - الميداني</h3>
-            <div class="class-info">@Model.Class.Name - @Model.Class.Grade</div>
+            <div class="class-info">@Model.Class.Name - @Model.Class.Grade?.Name</div>
         </div>
 
         <div class="form-section">
-            <form asp-action="SaveAttendanceField" method="post">
+            <form asp-action="SaveAttendanceField" method="post" id="attendanceForm">
                 <input type="hidden" name="Class.Id" value="@Model.Class.Id" />
+                @Html.AntiForgeryToken()
 
                 <div class="date-section">
                     <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;">
@@ -382,12 +455,12 @@
                 </div>
 
                 <div class="form-group">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 15px;">
                         <label class="form-label" style="margin-bottom: 0;">
                             <i class="fas fa-users"></i>
                             قائمة الطلاب مع أسباب الغياب (@Model.StudentStatus.Count طالب)
                         </label>
-                        <button type="button" class="btn-secondary-custom" style="flex: none; padding: 10px 20px; font-size: 14px;" onclick="selectAllPresent()">
+                        <button type="button" class="btn-select-all" onclick="selectAllPresent()">
                             <i class="fas fa-check-double"></i> تحديد الكل حاضر
                         </button>
                     </div>
@@ -395,20 +468,33 @@
                     <div class="students-list" id="students-list">
                         @for (int i = 0; i < Model.StudentStatus.Count; i++)
                         {
-                            <div class="student-row">
+                            var isEditable = Model.StudentStatus[i].IsEditable;
+                            var isDailyAbsence = !isEditable && !Model.StudentStatus[i].Status;
+                            
+                            <div class="student-row @(isEditable ? "" : "non-editable")">
                                 <input type="hidden" name="StudentStatus[@i].Students.Id" value="@Model.StudentStatus[i].Students.Id" />
                                 <input type="hidden" name="StudentStatus[@i].Students.Name" value="@Model.StudentStatus[i].Students.Name" />
 
                                 <div class="student-info">
+                                    <div class="student-avatar @(isEditable ? "" : "non-editable")">
+                                        @Model.StudentStatus[i].Students.Name?.Substring(0, 1).ToUpper()
+                                    </div>
                                     <span class="student-name">@Model.StudentStatus[i].Students.Name</span>
+                                    @if (!isEditable)
+                                    {
+                                        <small style="color: #6c757d; font-style: italic;">
+                                            <i class="fas fa-lock"></i> غير قابل للتعديل
+                                        </small>
+                                    }
                                 </div>
 
                                 <div class="absence-controls">
                                     <div class="attendance-controls">
-                                        <span class="status-indicator @(Model.StudentStatus[i].Status ? "present" : "absent")" id="status-@i">
-                                            @(Model.StudentStatus[i].Status ? "حاضر" : "غائب")
+                                        <span class="status-indicator @(Model.StudentStatus[i].Status ? "present" : (isDailyAbsence ? "absent daily" : "absent"))" id="status-@i">
+                                            @(Model.StudentStatus[i].Status ? "حاضر" : (isDailyAbsence ? "غائب يومياً" : "غائب"))
                                         </span>
-                                        @if (Model.StudentStatus[i].Status)
+                                        
+                                        @if (isEditable)
                                         {
                                             <input type="checkbox"
                                                    class="attendance-checkbox"
@@ -416,19 +502,20 @@
                                                    name="StudentStatus[@i].Status"
                                                    value="true"
                                                    onchange="updateStatus(@i, this.checked)"
-                                                   checked>
+                                                   checked="@Model.StudentStatus[i].Status">
                                             <input type="hidden" name="StudentStatus[@i].Status" value="false">
                                             <label for="present-@i">حاضر</label>
                                         }
                                         else
                                         {
-                                            <input type="hidden" name="StudentStatus[@i].Status" value="false">
-                                            <span style="margin-right: 10px;">(غير قابل للتعديل)</span>
+                                            <input type="hidden" name="StudentStatus[@i].Status" value="@Model.StudentStatus[i].Status.ToString().ToLower()">
+                                            <span style="color: #6c757d; font-size: 12px;">محدد تلقائياً</span>
                                         }
                                     </div>
 
-                                    @if (Model.StudentStatus[i].Status)
+                                    @if (isEditable && Model.StudentStatus[i].Status)
                                     {
+                                        <!-- عناصر التحكم للطلاب القابلين للتعديل والحاضرين -->
                                         <select class="custom-select"
                                                 id="reason-@i"
                                                 name="StudentStatus[@i].AbsenceReason"
@@ -439,10 +526,8 @@
                                             {
                                                 @foreach (var reason in Model.reasons)
                                                 {
-                                                    var reasonName = reason.GetType().GetProperty("ReasonName")?.GetValue(reason)?.ToString() ??
-                                                    reason.GetType().GetProperty("Name")?.GetValue(reason)?.ToString() ??
-                                                    reason.ToString();
-                                                    <option value="@reasonName">@reasonName</option>
+                                                    var reasonName = reason.GetType().GetProperty("Name")?.GetValue(reason)?.ToString() ?? reason.ToString();
+                                                    <option value="@reasonName" data-id="@reason.GetType().GetProperty("Id")?.GetValue(reason)">@reasonName</option>
                                                 }
                                             }
                                             <option value="أخرى...">أخرى...</option>
@@ -454,37 +539,85 @@
                                                name="StudentStatus[@i].CustomReason"
                                                placeholder="اكتب السبب المخصص..."
                                                disabled>
+
+                                        <input type="hidden" name="StudentStatus[@i].Reason_Id" id="reason-id-@i" value="">
+                                    }
+                                    else if (isEditable && !Model.StudentStatus[i].Status)
+                                    {
+                                        <!-- عناصر التحكم للطلاب القابلين للتعديل والغائبين -->
+     <select class="custom-select"
+        id="reason-@i"
+        name="StudentStatus[@i].AbsenceReason"
+        onchange="handleReasonChange(@i)">
+    <option value="">اختر سبب الغياب</option>
+    @if (Model.reasons != null)
+    {
+        @foreach (var reason in Model.reasons)
+        {
+            var reasonName = reason.GetType().GetProperty("Name")?.GetValue(reason)?.ToString() ?? reason.ToString();
+            var selected = Model.StudentStatus[i].AbsenceReason == reasonName ? "selected" : "";
+            @:<option value="@reasonName" data-id="@reason.GetType().GetProperty("Id")?.GetValue(reason)" @selected>@reasonName</option>
+        }
+    }
+    @{
+        var otherSelected = Model.StudentStatus[i].AbsenceReason == "أخرى..." ? "selected" : "";
+    }
+    <option value="أخرى..." >أخرى...</option>
+</select>
+
+                                        <input type="text"
+                                               class="custom-reason @(Model.StudentStatus[i].AbsenceReason == "أخرى..." && !string.IsNullOrEmpty(Model.StudentStatus[i].CustomReason) ? "" : "hidden")"
+                                               id="custom-@i"
+                                               name="StudentStatus[@i].CustomReason"
+                                               placeholder="اكتب السبب المخصص..."
+                                               value="@Model.StudentStatus[i].CustomReason">
+
+                                        <input type="hidden" name="StudentStatus[@i].Reason_Id" id="reason-id-@i" value="@Model.StudentStatus[i].Reason_Id">
                                     }
                                     else
                                     {
+                                        <!-- عرض للطلاب غير القابلين للتعديل -->
                                         <input type="hidden" name="StudentStatus[@i].AbsenceReason" value="@Model.StudentStatus[i].AbsenceReason" />
                                         <input type="hidden" name="StudentStatus[@i].CustomReason" value="@Model.StudentStatus[i].CustomReason" />
                                         <input type="hidden" name="StudentStatus[@i].Reason_Id" value="@Model.StudentStatus[i].Reason_Id" />
 
-                                        <div style="padding: 12px 15px; border: 2px solid #e9ecef; border-radius: 8px; background: #f8f9fa;">
-                                            سبب الغياب: @(string.IsNullOrEmpty(Model.StudentStatus[i].CustomReason) ? Model.StudentStatus[i].AbsenceReason : Model.StudentStatus[i].CustomReason)
-                                        </div>
+                                        @if (!Model.StudentStatus[i].Status)
+                                        {
+                                            <div class="readonly-reason">
+                                                <i class="fas fa-info-circle" style="margin-left: 8px; color: #856404;"></i>
+                                                سبب الغياب: @(string.IsNullOrEmpty(Model.StudentStatus[i].CustomReason) ? Model.StudentStatus[i].AbsenceReason : Model.StudentStatus[i].CustomReason)
+                                            </div>
+                                        }
                                     }
                                 </div>
                             </div>
                         }
-                        
                     </div>
                 </div>
 
                 <div class="summary" id="summary">
-                    <div class="summary-item">الحاضرين: <span id="present-count">@Model.StudentStatus.Count(s => s.Status)</span></div>
-                    <div class="summary-item">الغائبين: <span id="absent-count">@Model.StudentStatus.Count(s => !s.Status)</span></div>
-                    <div class="summary-item">المجموع: <span id="total-count">@Model.StudentStatus.Count</span></div>
+                    <div class="summary-item">
+                        <i class="fas fa-user-check"></i>
+                        الحاضرين: <span id="present-count">@Model.StudentStatus.Count(s => s.Status)</span>
+                    </div>
+                    <div class="summary-item">
+                        <i class="fas fa-user-times"></i>
+                        الغائبين: <span id="absent-count">@Model.StudentStatus.Count(s => !s.Status)</span>
+                    </div>
+                    <div class="summary-item">
+                        <i class="fas fa-users"></i>
+                        المجموع: <span id="total-count">@Model.StudentStatus.Count</span>
+                    </div>
                 </div>
 
                 <div class="btn-container">
                     <button type="submit" class="btn-primary-custom" onclick="return validateForm()">
                         <i class="fas fa-save"></i> حفظ بيانات الحضور مع الأسباب
                     </button>
-                    <button type="button" class="btn-secondary-custom" onclick="window.history.back()">
-                        <i class="fas fa-arrow-right"></i> العودة
-                    </button>
+                    <a href="@Url.Action("Index")" class="btn-secondary-custom">
+                        <i class="fas fa-arrow-right"></i>
+                        العودة
+                    </a>
                 </div>
             </form>
         </div>
@@ -492,163 +625,215 @@
 
     <div id="toast" class="toast"></div>
 
-    <script>
-        // Initialize the application
-        function init() {
-            // Set today's date
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('attendance-date').value = today;
+<script>
+    // Initialize the application
+    function init() {
+        // Set today's date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('attendance-date').value = today;
 
-            // Update summary display
-            updateSummary();
-        }
+        // Update summary display
+        updateSummary();
 
-        function selectAllPresent() {
-            const checkboxes = document.querySelectorAll('.attendance-checkbox');
-            checkboxes.forEach((checkbox, index) => {
-                checkbox.checked = true;
-                updateStatus(index, true);
+        // Initialize existing reason selections
+        initializeReasonSelections();
+
+        // Add event listeners for smooth animations
+        document.querySelectorAll('.attendance-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const row = this.closest('.student-row');
+                if (!row.classList.contains('non-editable')) {
+                    row.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        row.style.transform = 'scale(1)';
+                    }, 150);
+                }
             });
-            showToast('تم تحديد جميع الطلاب كحاضرين');
-        }
+        });
+    }
 
-        function updateStatus(index, isPresent) {
-            const statusElement = document.getElementById(`status-${index}`);
-            const reasonSelect = document.getElementById(`reason-${index}`);
-            const customInput = document.getElementById(`custom-${index}`);
+    function initializeReasonSelections() {
+        const reasonSelects = document.querySelectorAll('.custom-select');
+        reasonSelects.forEach((select, index) => {
+            if (select.value === 'أخرى...') {
+                const customInput = document.getElementById(`custom-${index}`);
+                if (customInput) {
+                    customInput.classList.remove('hidden');
+                }
+            }
+            // Update reason ID based on selected option
+            updateReasonId(index);
+        });
+    }
 
-            if (isPresent) {
-                statusElement.textContent = 'حاضر';
-                statusElement.className = 'status-indicator present';
+    function selectAllPresent() {
+        const checkboxes = document.querySelectorAll('.attendance-checkbox:not(:disabled)');
+        checkboxes.forEach((checkbox, index) => {
+            const studentIndex = parseInt(checkbox.id.replace('present-', ''));
+            checkbox.checked = true;
+            updateStatus(studentIndex, true);
+        });
+        showToast('تم تحديد جميع الطلاب القابلين للتعديل كحاضرين');
+    }
+
+    function updateStatus(index, isPresent) {
+        const statusElement = document.getElementById(`status-${index}`);
+        const reasonSelect = document.getElementById(`reason-${index}`);
+        const customInput = document.getElementById(`custom-${index}`);
+
+        if (isPresent) {
+            statusElement.textContent = 'حاضر';
+            statusElement.className = 'status-indicator present';
+            if (reasonSelect) {
                 reasonSelect.disabled = true;
+                reasonSelect.value = '';
+                updateReasonId(index);
+            }
+            if (customInput) {
                 customInput.disabled = true;
                 customInput.classList.add('hidden');
-                reasonSelect.value = '';
                 customInput.value = '';
-            } else {
-                statusElement.textContent = 'غائب';
-                statusElement.className = 'status-indicator absent';
+            }
+        } else {
+            statusElement.textContent = 'غائب';
+            statusElement.className = 'status-indicator absent';
+            if (reasonSelect) {
                 reasonSelect.disabled = false;
             }
-            updateSummary();
+        }
+        updateSummary();
+    }
+
+    function handleReasonChange(index) {
+        const reasonSelect = document.getElementById(`reason-${index}`);
+        const customInput = document.getElementById(`custom-${index}`);
+
+        if (reasonSelect.value === 'أخرى...') {
+            customInput.classList.remove('hidden');
+            customInput.disabled = false;
+            customInput.focus();
+            // Clear reason ID for custom reason
+            document.getElementById(`reason-id-${index}`).value = '';
+        } else {
+            customInput.classList.add('hidden');
+            customInput.disabled = true;
+            customInput.value = '';
+            updateReasonId(index);
+        }
+    }
+
+    function updateReasonId(index) {
+        const reasonSelect = document.getElementById(`reason-${index}`);
+        const reasonIdInput = document.getElementById(`reason-id-${index}`);
+        
+        if (reasonSelect && reasonIdInput) {
+            const selectedOption = reasonSelect.options[reasonSelect.selectedIndex];
+            if (selectedOption && selectedOption.getAttribute('data-id')) {
+                reasonIdInput.value = selectedOption.getAttribute('data-id');
+            } else {
+                reasonIdInput.value = '';
+            }
+        }
+    }
+
+    function updateSummary() {
+        const statusIndicators = document.querySelectorAll('.status-indicator');
+        let presentCount = 0;
+        let absentCount = 0;
+
+        statusIndicators.forEach(indicator => {
+            if (indicator.textContent.includes('حاضر')) {
+                presentCount++;
+            } else {
+                absentCount++;
+            }
+        });
+
+        document.getElementById('present-count').textContent = presentCount;
+        document.getElementById('absent-count').textContent = absentCount;
+        document.getElementById('total-count').textContent = statusIndicators.length;
+    }
+
+    function validateForm() {
+        const date = document.getElementById('attendance-date').value;
+        if (!date) {
+            showToast('يرجى اختيار التاريخ أولاً');
+            return false;
         }
 
-        function handleReasonChange(index) {
+        let hasAbsentWithoutReason = false;
+        let absentWithoutReasonNames = [];
+
+        // التحقق من جميع الطلاب الغائبين
+        document.querySelectorAll('.status-indicator.absent:not(.daily)').forEach(indicator => {
+            const index = indicator.id.split('-')[1];
             const reasonSelect = document.getElementById(`reason-${index}`);
             const customInput = document.getElementById(`custom-${index}`);
+            let absenceReason = '';
 
-            if (reasonSelect.value === 'أخرى...') {
-                customInput.classList.remove('hidden');
-                customInput.disabled = false;
-                customInput.focus();
-            } else {
-                customInput.classList.add('hidden');
-                customInput.disabled = true;
-                customInput.value = '';
-            }
-        }
-
-        function updateSummary() {
-            const checkboxes = document.querySelectorAll('.attendance-checkbox');
-            let presentCount = 0;
-            let absentCount = 0;
-
-            checkboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    presentCount++;
+            if (reasonSelect && !reasonSelect.disabled) {
+                if (reasonSelect.value === 'أخرى...') {
+                    absenceReason = customInput ? customInput.value.trim() : '';
                 } else {
-                    absentCount++;
+                    absenceReason = reasonSelect.value || '';
                 }
-            });
 
-            document.getElementById('present-count').textContent = presentCount;
-            document.getElementById('absent-count').textContent = absentCount;
-            document.getElementById('total-count').textContent = checkboxes.length;
-        }
-
-        function validateForm() {
-            const date = document.getElementById('attendance-date').value;
-
-            if (!date) {
-                showToast('يرجى اختيار التاريخ أولاً');
-                return false;
-            }
-
-            const checkboxes = document.querySelectorAll('.attendance-checkbox');
-            let hasAbsentWithoutReason = false;
-            let absentWithoutReasonNames = [];
-
-            checkboxes.forEach((checkbox, index) => {
-                if (!checkbox.checked) {
-                    const reasonSelect = document.getElementById(`reason-${index}`);
-                    const customInput = document.getElementById(`custom-${index}`);
-                    let absenceReason = '';
-
-                    if (reasonSelect.value === 'أخرى...') {
-                        absenceReason = customInput.value.trim() || '';
-                    } else {
-                        absenceReason = reasonSelect.value || '';
-                    }
-
-                    // Check if absent student has no reason
-                    if (!absenceReason) {
-                        hasAbsentWithoutReason = true;
-                        const studentName = checkbox.closest('.student-row').querySelector('.student-name').textContent;
-                        absentWithoutReasonNames.push(studentName);
-                    }
+                if (!absenceReason) {
+                    hasAbsentWithoutReason = true;
+                    const studentName = indicator.closest('.student-row').querySelector('.student-name').textContent;
+                    absentWithoutReasonNames.push(studentName);
+                    
+                    // إبراز الصف
+                    const studentRow = indicator.closest('.student-row');
+                    studentRow.style.borderColor = '#dc3545';
+                    studentRow.style.background = '#fff5f5';
+                    setTimeout(() => {
+                        studentRow.style.borderColor = '#e9ecef';
+                        studentRow.style.background = 'white';
+                    }, 3000);
                 }
-            });
-
-            // Check if there are absent students without reasons
-            if (hasAbsentWithoutReason) {
-                showToast(`يجب تحديد سبب الغياب لجميع الطلاب الغائبين. الطلاب بدون سبب: ${absentWithoutReasonNames.slice(0, 3).join(', ')}${absentWithoutReasonNames.length > 3 ? ' وآخرين...' : ''}`);
-
-                // Highlight students without reasons
-                checkboxes.forEach((checkbox, index) => {
-                    if (!checkbox.checked) {
-                        const reasonSelect = document.getElementById(`reason-${index}`);
-                        const customInput = document.getElementById(`custom-${index}`);
-                        let absenceReason = '';
-
-                        if (reasonSelect.value === 'أخرى...') {
-                            absenceReason = customInput.value.trim();
-                        } else {
-                            absenceReason = reasonSelect.value;
-                        }
-
-                        if (!absenceReason) {
-                            const studentRow = reasonSelect.closest('.student-row');
-                            studentRow.style.borderColor = '#dc3545';
-                            studentRow.style.background = '#fff5f5';
-
-                            // Remove highlight after 3 seconds
-                            setTimeout(() => {
-                                studentRow.style.borderColor = '#e9ecef';
-                                studentRow.style.background = 'white';
-                            }, 3000);
-                        }
-                    }
-                });
-
-                return false;
             }
+        });
 
-            showToast('جاري حفظ البيانات...');
-            return true;
+        if (hasAbsentWithoutReason) {
+            showToast(`يجب تحديد سبب الغياب لجميع الطلاب الغائبين. الطلاب بدون سبب: ${absentWithoutReasonNames.slice(0, 3).join(', ')}${absentWithoutReasonNames.length > 3 ? ' وآخرين...' : ''}`);
+            return false;
         }
 
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
+        // عرض رسالة التحميل
+        const submitBtn = document.querySelector('.btn-primary-custom');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        submitBtn.disabled = true;
 
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 5000);
+        // إرسال النموذج يدويًا إذا لم يتم إرساله تلقائيًا
+        setTimeout(() => {
+            document.getElementById('attendanceForm').submit();
+        }, 1000);
+
+        return true;
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 5000);
+    }
+
+    // Initialize the application when the page loads
+    document.addEventListener('DOMContentLoaded', init);
+
+    // Add event listeners for reason selects to update reason IDs
+    document.addEventListener('change', function(e) {
+        if (e.target.classList.contains('custom-select')) {
+            const index = parseInt(e.target.id.replace('reason-', ''));
+            updateReasonId(index);
         }
-
-        // Initialize the application when the page loads
-        document.addEventListener('DOMContentLoaded', init);
-    </script>
+    });
+</script>
 </body>
 </html>
