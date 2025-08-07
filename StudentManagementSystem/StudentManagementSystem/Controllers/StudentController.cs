@@ -699,19 +699,19 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Student/GetStudentsWithTasks
-        public async Task<IActionResult> GetStudentsWithTasks()
-        {
-            try
-            {
-                var students = await _studentService.GetStudentsWithTasksAsync();
-                return View(students);
-            }
-            catch (Exception ex)
-            {
-                SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
-                return RedirectToAction(nameof(Index));
-            }
-        }
+        //public async Task<IActionResult> GetStudentsWithTasks()
+        //{
+        //    try
+        //    {
+        //        var students = await _studentService.GetStudentsWithTasksAsync();
+        //        return View(students);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //}
 
         [HttpGet]
         public async Task<IActionResult> AssignClass()

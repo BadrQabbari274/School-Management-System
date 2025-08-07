@@ -45,10 +45,10 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 //builder.Services.AddScoped<ICompetenceService, CompetenceService>();
 //builder.Services.AddScoped<IOutcomeService, OutcomeService>();
 //builder.Services.AddScoped<ITaskEvaluationService, TaskEvaluationServices>();
-builder.Services.AddScoped<IPictureService, PictureService>();
+
 //builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddScoped<IAbsenceReasonService, AbsenceReasonService>();
-builder.Services.AddScoped<IStudentManagementService, StudentManagementService>();
+
 
 // Add Session (optional)
 builder.Services.AddSession(options =>
