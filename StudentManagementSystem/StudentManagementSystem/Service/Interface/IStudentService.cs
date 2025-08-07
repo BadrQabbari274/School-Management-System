@@ -20,7 +20,7 @@ namespace StudentManagementSystem.Service.Interface
         Task<bool> SaveAttendanceFieldAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
 
 
-        Task<(bool success, List<int> changedStudentIds)> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
+        Task<bool> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
         Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId);
 
         // إضافة طالب بدون فصل (فقط student_id, working_year_id, section_id)
