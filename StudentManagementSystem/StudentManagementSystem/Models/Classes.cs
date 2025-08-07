@@ -22,5 +22,6 @@ namespace StudentManagementSystem.Models
         public virtual Grades Grade { get; set; }
 
         public virtual ICollection<Student_Class_Section_Year> StudentClassSectionYears { get; set; }
+        public virtual ICollection<Student_Evidence> StudentEvidences { get; set; }
     }
 }
