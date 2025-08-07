@@ -15,12 +15,10 @@ namespace StudentManagementSystem.Models
         public int CreatedBy_Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public int Class_Id { get; set; }
-
         // Composite key reference fields for Student_Class_Section_Year
         public int Student_Id { get; set; }
         public int Working_Year_Id { get; set; }
         public int Section_id { get; set; }
-
         // Navigation properties
         [ForeignKey("CreatedBy_Id")]
         public virtual Employees CreatedBy { get; set; }
