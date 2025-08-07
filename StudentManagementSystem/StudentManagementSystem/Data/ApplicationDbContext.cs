@@ -16,17 +16,19 @@ namespace StudentManagementSystem.Data
         public DbSet<AttendanceTypes> AttendanceTypes { get; set; }
         public DbSet<Student_Class_Section_Year> Student_Class_Section_Years { get; set; }
         public DbSet<AbsenceReasons> AbsenceReasons { get; set; }
-        public DbSet<Competences> Competences { get; set; }
+        public DbSet<Competencies> Competencies { get; set; }
         public DbSet<Employees> Employees { get; set; }
         public DbSet<EmployeeTypes> EmployeeTypes { get; set; }
         public DbSet<Employee_Department> Employee_Departments { get; set; }
-        public DbSet<Outcomes> Outcomes { get; set; }
-        public DbSet<Pictures> Pictures { get; set; }
+        public DbSet<Learning_Outcome> Outcomes { get; set; }
+     
         public DbSet<RequestExits> RequestExits { get; set; }
+        public DbSet<Try> Try { get; set; }
+        public DbSet<Evidence> Evidences { get; set; }
         public DbSet<StudentAbsents> StudentAbsents { get; set; }
         public DbSet<StudentAttendances> StudentAttendances { get; set; }
         public DbSet<StudentGrades> StudentGrades { get; set; }
-        public DbSet<TaskEvaluations> TaskEvaluations { get; set; }
+        public DbSet<Student_Evidence> Student_Evidence { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,15 +40,15 @@ namespace StudentManagementSystem.Data
             modelBuilder.Entity<StudentAbsents>()
                 .HasOne(sa => sa.StudentClassSectionYear)
                 .WithMany(scsy => scsy.StudentAbsents)
-                .HasForeignKey(sa => new { sa.StudentClassSectionYear_Student_Id,  sa.StudentClassSectionYear_Working_Year_Id, sa.StudentClassSectionYear_Section_id })
-                .OnDelete(DeleteBehavior.NoAction); // Added NoAction here as well for consistency
+                .HasForeignKey(sa => new { sa.StudentClassSectionYear_Student_Id, sa.StudentClassSectionYear_Working_Year_Id, sa.StudentClassSectionYear_Section_id })
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Configure composite foreign key relationships for StudentAttendances
             modelBuilder.Entity<StudentAttendances>()
                 .HasOne(sa => sa.StudentClassSectionYear)
                 .WithMany(scsy => scsy.StudentAttendances)
                 .HasForeignKey(sa => new { sa.StudentClassSectionYear_Student_Id, sa.StudentClassSectionYear_Working_Year_Id, sa.StudentClassSectionYear_Section_id })
-                .OnDelete(DeleteBehavior.NoAction); // Added NoAction here as well for consistency
+                .OnDelete(DeleteBehavior.NoAction);
 
             // --- Start of configurations to resolve cascade delete issue for all relationships ---
 
@@ -67,7 +69,7 @@ namespace StudentManagementSystem.Data
             // Department and Employees (CreatedBy)
             modelBuilder.Entity<Department>()
                 .HasOne(d => d.CreatedBy)
-                .WithMany(e => e.CreatedDepartments) // Assuming Employees has a collection for CreatedDepartments
+                .WithMany(e => e.CreatedDepartments)
                 .HasForeignKey(d => d.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
@@ -120,20 +122,18 @@ namespace StudentManagementSystem.Data
                 .HasForeignKey(c => c.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
-
-
-            // Competences and Employees (CreatedBy)
-            modelBuilder.Entity<Competences>()
+            // Competencies and Employees (CreatedBy)
+            modelBuilder.Entity<Competencies>()
                 .HasOne(c => c.CreatedBy)
                 .WithMany(e => e.CreatedCompetences)
                 .HasForeignKey(c => c.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Competences and Department
-            modelBuilder.Entity<Competences>()
-                .HasOne(c => c.Department)
-                .WithMany(d => d.Competences)
-                .HasForeignKey(c => c.Department_Id)
+            // Competencies and Section
+            modelBuilder.Entity<Competencies>()
+                .HasOne(c => c.Section)
+                .WithMany(s => s.Competencies)
+                .HasForeignKey(c => c.Section_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
             // Grades and Employees (CreatedBy)
@@ -143,33 +143,76 @@ namespace StudentManagementSystem.Data
                 .HasForeignKey(g => g.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Outcomes and Competences
-            modelBuilder.Entity<Outcomes>()
-                .HasOne(o => o.Competence)
-                .WithMany(c => c.Outcomes)
-                .HasForeignKey(o => o.CompId)
+            // Outcomes and Competencies
+            modelBuilder.Entity<Learning_Outcome>()
+                .HasOne(o => o.Competency)
+                .WithMany(c => c.Learning_Outcomes)
+                .HasForeignKey(o => o.Competency_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Pictures and Employees (CreatedBy)
-            modelBuilder.Entity<Pictures>()
-                .HasOne(p => p.CreatedBy)
-                .WithMany(e => e.CreatedPictures)
-                .HasForeignKey(p => p.CreatedBy_Id)
+            // Outcomes and Employees (CreatedBy)
+            modelBuilder.Entity<Learning_Outcome>()
+                .HasOne(lo => lo.CreatedBy)
+                .WithMany(e => e.CreatedLearningOutcomes)
+                .HasForeignKey(lo => lo.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Pictures and Students
-            modelBuilder.Entity<Pictures>()
-                .HasOne(p => p.Student)
-                .WithMany(s => s.Pictures)
-                .HasForeignKey(p => p.StudentId)
+            // Evidence and Learning_Outcome
+            modelBuilder.Entity<Evidence>()
+                .HasOne(e => e.Learning_Outcome)
+                .WithMany(lo => lo.Evidences)
+                .HasForeignKey(e => e.Outcome_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            // Pictures and TaskEvaluations
-            modelBuilder.Entity<Pictures>()
-                .HasOne(p => p.Task)
-                .WithMany(te => te.Pictures)
-                .HasForeignKey(p => p.TaskId)
+            // Evidence and Employees (CreatedBy)
+            modelBuilder.Entity<Evidence>()
+                .HasOne(e => e.CreatedBy)
+                .WithMany(emp => emp.CreatedEvidences)
+                .HasForeignKey(e => e.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            // Try and Employees (CreatedBy)
+            modelBuilder.Entity<Try>()
+                .HasOne(t => t.CreatedBy)
+                .WithMany(e => e.CreatedTries)
+                .HasForeignKey(t => t.CreatedBy_Id)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Student_Evidence and Employees (CreatedBy)
+            modelBuilder.Entity<Student_Evidence>()
+                .HasOne(se => se.CreatedBy)
+                .WithMany(e => e.CreatedStudentEvidences)
+                .HasForeignKey(se => se.CreatedBy_Id)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Student_Evidence and Evidence
+            modelBuilder.Entity<Student_Evidence>()
+                .HasOne(se => se.Evidence)
+                .WithMany(e => e.Student_Evidences)
+                .HasForeignKey(se => se.Evidence_Id)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Student_Evidence and Try
+            modelBuilder.Entity<Student_Evidence>()
+                .HasOne(se => se.Try)
+                .WithMany(t => t.Student_Evidences)
+                .HasForeignKey(se => se.Try_Id)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Student_Evidence and Classes
+            modelBuilder.Entity<Student_Evidence>()
+                .HasOne(se => se.Class)
+                .WithMany(c => c.StudentEvidences)
+                .HasForeignKey(se => se.Class_Id)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Student_Evidence and Student_Class_Section_Year
+            modelBuilder.Entity<Student_Evidence>()
+                .HasOne(se => se.StudentClassSectionYear)
+                .WithMany(scsy => scsy.StudentEvidences)
+                .HasForeignKey(se => new { se.Student_Id, se.Working_Year_Id, se.Section_id })
+                .OnDelete(DeleteBehavior.NoAction);
+
 
             // RequestExits and Employees (CreatedBy)
             modelBuilder.Entity<RequestExits>()
@@ -226,7 +269,8 @@ namespace StudentManagementSystem.Data
                 .WithMany(g => g.StudentGrades)
                 .HasForeignKey(sg => sg.GradeId)
                 .OnDelete(DeleteBehavior.NoAction);
-            // StudentGrades and Grades
+
+            // StudentGrades and Grades (Duplicate config)
             modelBuilder.Entity<Classes>()
                 .HasOne(sg => sg.Grade)
                 .WithMany(g => g.CreatedClasses)
@@ -254,20 +298,6 @@ namespace StudentManagementSystem.Data
                 .HasForeignKey(s => s.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
-
-            // TaskEvaluations and Outcomes
-            modelBuilder.Entity<TaskEvaluations>()
-                .HasOne(te => te.Outcome)
-                .WithMany(o => o.TaskEvaluations)
-                .HasForeignKey(te => te.OutcomeId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            // TaskEvaluations and Students
-            modelBuilder.Entity<TaskEvaluations>()
-                .HasOne(te => te.Student)
-                .WithMany(s => s.TaskEvaluations)
-                .HasForeignKey(te => te.StudentId)
-                .OnDelete(DeleteBehavior.NoAction);
 
             // Configure relationships for Student_Class_Section_Year to prevent cascade delete cycles
             // Explicitly map navigation properties to their foreign keys and set delete behavior to NoAction.

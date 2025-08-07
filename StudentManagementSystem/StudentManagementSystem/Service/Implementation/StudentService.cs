@@ -771,8 +771,6 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Students
                 .Include(s => s.CreatedBy)
-                .Include(s => s.TaskEvaluations)
-                .Include(s => s.Pictures)
                 .FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
         }
 
@@ -855,13 +853,6 @@ namespace StudentManagementSystem.Service.Implementation
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Students>> GetStudentsWithTasksAsync()
-        {
-            return await _context.Students
-                .Include(s => s.TaskEvaluations)
-                .Where(s => s.IsActive && s.TaskEvaluations.Any())
-                .ToListAsync();
-        }
 
         private async Task HandleStudentImagesAsync(Students student, IFormFile profileImage, IFormFile birthCertificate)
         {

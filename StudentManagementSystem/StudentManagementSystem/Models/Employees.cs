@@ -32,11 +32,17 @@ namespace StudentManagementSystem.Models
         public virtual ICollection<Employee_Department> EmployeeDepartments { get; set; }
         public virtual ICollection<AbsenceReasons> CreatedAbsenceReasons { get; set; }
         public virtual ICollection<Classes> CreatedClasses { get; set; }
-        public virtual ICollection<Competences> CreatedCompetences { get; set; }
+        public virtual ICollection<Competencies> CreatedCompetences { get; set; }
+        public virtual ICollection<Learning_Outcome> CreatedLearningOutcomes { get; set; }
+
         public virtual ICollection<Department> CreatedDepartments { get; set; }
         public virtual ICollection<Grades> CreatedGrades { get; set; }
+        public virtual ICollection<Student_Evidence> CreatedStudentEvidences { get; set; }
+
+        public virtual ICollection<Try> CreatedTries { get; set; }
+        public virtual ICollection<Evidence> CreatedEvidences { get; set; }
         public virtual ICollection<Section> CreatedSections { get; set; }
-        public virtual ICollection<Pictures> CreatedPictures { get; set; }
+     
         public virtual ICollection<RequestExits> CreatedRequestExits { get; set; }
         public virtual ICollection<StudentAbsents> CreatedStudentAbsents { get; set; }
         public virtual ICollection<StudentAttendances> CreatedStudentAttendances { get; set; }
