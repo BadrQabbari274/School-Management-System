@@ -29,9 +29,9 @@ namespace StudentManagementSystem.Models
         [ForeignKey("CreatedBy_Id")]
         public virtual Employees CreatedBy { get; set; }
 
-        public virtual ICollection<Pictures> Pictures { get; set; }
+    
         public virtual ICollection<StudentGrades> StudentGrades { get; set; }
-        public virtual ICollection<TaskEvaluations> TaskEvaluations { get; set; }
+    
         public virtual ICollection<Student_Class_Section_Year> StudentClassSectionYears { get; set; }
         
     }

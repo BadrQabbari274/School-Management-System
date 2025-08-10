@@ -20,9 +20,9 @@ namespace StudentManagementSystem.Service.Interface
         Task<bool> SaveAttendanceFieldAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
 
 
-        Task<(bool success, List<int> changedStudentIds)> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
+        Task<bool> SaveAttendanceAsync(AttendanceViewModel model, DateTime attendanceDate, int UserId);
         Task<IEnumerable<Students>> GetStudentsByClassAsync(int classId);
-        Task<IEnumerable<Students>> GetStudentsWithTasksAsync();
+
         // إضافة طالب بدون فصل (فقط student_id, working_year_id, section_id)
         Task<bool> AddStudentWithoutClassAsync(int studentId, int sectionId, int userid, int? workingYearId = null);
         Task<List<SectionWithStudents>> GetStudentsGroupedBySectionAsync();

@@ -505,7 +505,13 @@
                                                    checked="@Model.StudentStatus[i].Status">
                                             <input type="hidden" name="StudentStatus[@i].Status" value="false">
                                             <label for="present-@i">حاضر</label>
-                                        }
+    @if (!string.IsNullOrEmpty(Model.StudentStatus[i].message))
+    {
+        <small class="student-message" id="message-@i" style="color: #dc3545; font-weight: bold; display: block; margin-top: 5px;">
+            @Model.StudentStatus[i].message
+        </small>
+    }
+    }
                                         else
                                         {
                                             <input type="hidden" name="StudentStatus[@i].Status" value="@Model.StudentStatus[i].Status.ToString().ToLower()">
@@ -676,10 +682,11 @@
         showToast('تم تحديد جميع الطلاب القابلين للتعديل كحاضرين');
     }
 
-    function updateStatus(index, isPresent) {
+     function updateStatus(index, isPresent) {
         const statusElement = document.getElementById(`status-${index}`);
         const reasonSelect = document.getElementById(`reason-${index}`);
         const customInput = document.getElementById(`custom-${index}`);
+        const messageElement = document.getElementById(`message-${index}`); // إضافة هذا السطر للحصول على عنصر الرسالة
 
         if (isPresent) {
             statusElement.textContent = 'حاضر';
@@ -694,11 +701,19 @@
                 customInput.classList.add('hidden');
                 customInput.value = '';
             }
+            // إخفاء الرسالة عندما يكون الطالب حاضرًا
+            if (messageElement) {
+                messageElement.style.display = 'none';
+            }
         } else {
             statusElement.textContent = 'غائب';
             statusElement.className = 'status-indicator absent';
             if (reasonSelect) {
                 reasonSelect.disabled = false;
+            }
+            // إظهار الرسالة عندما يكون الطالب غائبًا
+            if (messageElement) {
+                messageElement.style.display = 'block';
             }
         }
         updateSummary();

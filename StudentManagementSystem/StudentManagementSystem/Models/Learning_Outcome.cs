@@ -1,13 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Policy;
 
 namespace StudentManagementSystem.Models
 {
-    public class Department
+    public class Learning_Outcome
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Competency_Id { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy_Id { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -16,9 +18,9 @@ namespace StudentManagementSystem.Models
         [ForeignKey("CreatedBy_Id")]
         public virtual Employees CreatedBy { get; set; }
 
+        [ForeignKey("Competency_Id")]
+        public virtual Competencies Competency { get; set; }
 
-        public virtual ICollection<Employee_Department> EmployeeDepartments { get; set; }
-        public virtual ICollection<Section> Sections { get; set; }
-        public int GradeId { get; internal set; }
+        public virtual ICollection<Evidence> Evidences { get; set; }
     }
 }

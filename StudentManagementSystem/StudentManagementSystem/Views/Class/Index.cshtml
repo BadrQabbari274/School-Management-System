@@ -287,6 +287,7 @@
                         <th>منشئ الفصل</th>
                         <th>تاريخ الإنشاء</th>
                         @* <th>عدد الطلاب</th> *@
+                        <th>السنه الدراسية</th>
                         <th>العمليات</th>
                     </tr>
                 </thead>
@@ -300,6 +301,7 @@
                                
                                 <td>@(item.CreatedBy?.Name ?? "غير محدد")</td>
                                 <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                                <td>@item.Grade.Name</td>
                                 @* <td>@(item.Students?.Count ?? 0)</td> *@
                                 <td>
                                     <div class="btn-group" role="group">

@@ -6,6 +6,7 @@ namespace StudentManagementSystem.ViewModels
     {
         public Students Students { get; set; }
         public bool Status { get; set; } = true;
+        public string? message { get; set; }
         public string? AbsenceReason { get; set; }
         public string? CustomReason { get; set; }
         public int? Reason_Id { get; set; }
