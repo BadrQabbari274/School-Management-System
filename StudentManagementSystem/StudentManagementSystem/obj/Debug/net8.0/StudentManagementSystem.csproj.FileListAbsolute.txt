@@ -843,3 +843,7 @@ D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microso
 D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

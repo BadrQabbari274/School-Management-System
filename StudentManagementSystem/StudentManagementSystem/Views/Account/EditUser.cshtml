@@ -421,7 +421,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="@Url.Action("UserManagement", "Account")">إدارة المستخدمين</a>
+                        <a href="@Url.Action("manageusers", "Account")">إدارة المستخدمين</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">تعديل المستخدم</li>
                 </ol>
@@ -493,47 +493,7 @@
                         </div>
                     </div>
 
-                    <!-- حالة الحساب -->
-                    <div class="checkbox-container">
-                        <div class="checkbox-group">
-                            @Html.CheckBoxFor(m => m.IsActive, new { @id = "IsActive" })
-                            <label for="IsActive">
-                                <i class="fas fa-toggle-on"></i>
-                                الحساب نشط
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- قسم تغيير كلمة المرور -->
-                    <div class="password-section">
-                        <h3>
-                            <i class="fas fa-key"></i>
-                            تغيير كلمة المرور (اختياري)
-                        </h3>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="NewPassword">كلمة المرور الجديدة</label>
-                                @Html.PasswordFor(m => m.NewPassword, new {
-                                                                @class = "form-control",
-                                                                placeholder = "أدخل كلمة المرور الجديدة",
-                                                                autocomplete = "new-password"
-                                                                })
-                                @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "field-validation-error" })
-                            </div>
-
-                            <div class="form-group">
-                                <label for="ConfirmNewPassword">تأكيد كلمة المرور الجديدة</label>
-                                @Html.PasswordFor(m => m.ConfirmNewPassword, new {
-                                                                @class = "form-control",
-                                                                placeholder = "أعد إدخال كلمة المرور الجديدة",
-                                                                autocomplete = "new-password"
-                                                                })
-                                @Html.ValidationMessageFor(m => m.ConfirmNewPassword, "", new { @class = "field-validation-error" })
-                            </div>
-                        </div>
-                    </div>
-
+      
                     <!-- الأزرار -->
                     <div class="btn-container">
                         <button type="submit" class="btn btn-primary" id="saveBtn">
@@ -541,7 +501,7 @@
                             حفظ التغييرات
                         </button>
 
-                        <a href="@Url.Action("UserManagement", "Account")" class="btn btn-secondary">
+                        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-secondary">
                             <i class="fas fa-times"></i>
                             إلغاء
                         </a>
@@ -598,18 +558,7 @@
 
             // معالجة إرسال النموذج
             form.addEventListener('submit', function(e) {
-                // التحقق من تطابق كلمات المرور
-                const newPassword = document.getElementById('NewPassword');
-                const confirmPassword = document.getElementById('ConfirmNewPassword');
-
-                if (newPassword && confirmPassword) {
-                    if (newPassword.value && newPassword.value !== confirmPassword.value) {
-                        e.preventDefault();
-                        alert('كلمة المرور الجديدة وتأكيد كلمة المرور غير متطابقين');
-                        confirmPassword.focus();
-                        return;
-                    }
-                }
+                // التحقق من تطابق كلمات المرور (فقط إذا كانت موجودة)
 
                 // تأثير التحميل
                 saveBtn.classList.add('btn-loading');
@@ -639,15 +588,7 @@
                 });
             });
 
-            // تحسين تجربة الـ checkbox
-            const checkbox = document.getElementById('IsActive');
-            const checkboxLabel = document.querySelector('label[for="IsActive"]');
-
-            if (checkbox && checkboxLabel) {
-                checkboxLabel.addEventListener('click', function() {
-                    checkbox.checked = !checkbox.checked;
-                });
-            }
+        
         });
 
         // إظهار تأكيد عند محاولة الخروج مع وجود تغييرات غير محفوظة
