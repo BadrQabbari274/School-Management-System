@@ -267,6 +267,7 @@ namespace StudentManagementSystem.Controllers
                     Date = u.Date,
                     IsActive = u.IsActive,
                     CreatedBy = u.CreatedBy?.Name ?? "غير محدد"
+                   , LastEditBy = u.LastEditBy?.Name ?? "غير محدد"
                 }).ToList();
 
                 return View(viewModel);
@@ -300,6 +301,7 @@ namespace StudentManagementSystem.Controllers
                     Username = user.Username,
                     RoleId = user.RoleId,
                     IsActive = user.IsActive,
+                    LastEditBy_Id = GetCurrentUserId(),
                 };
 
                 await PopulateRolesDropDown();
@@ -345,12 +347,8 @@ namespace StudentManagementSystem.Controllers
                 user.Username = model.Username;
                 user.RoleId = (int)model.RoleId;
                 user.IsActive = model.IsActive;
-
+                user.LastEditBy_Id =GetCurrentUserId();
                 // Update password if provided
-                if (!string.IsNullOrEmpty(model.NewPassword))
-                {
-                    user.Password = model.NewPassword; // Note: Hash password in production
-                }
 
                 await _userService.UpdateUserAsync(user);
                 SetSuccessMessage("تم تحديث المستخدم بنجاح");
@@ -395,7 +393,7 @@ namespace StudentManagementSystem.Controllers
 
             return RedirectToAction("ManageUsers");
         }
-
+    
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
@@ -500,10 +498,6 @@ namespace StudentManagementSystem.Controllers
                 user.Username = model.Username;
 
                 // Update password if provided
-                if (!string.IsNullOrEmpty(model.NewPassword))
-                {
-                    user.Password = model.NewPassword; // Note: Hash password in production
-                }
 
                 await _userService.UpdateUserAsync(user);
                 SetSuccessMessage("تم تحديث الملف الشخصي بنجاح");

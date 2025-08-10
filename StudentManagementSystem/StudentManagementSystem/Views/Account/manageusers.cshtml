@@ -145,14 +145,16 @@
             }
 
         .btn-secondary {
-            background: linear-gradient(135deg, #6c757d, #5a6268);
+            background: linear-gradient(135deg, #dc3545, #c82333); /* ·Ê‰ Œ·›Ì… «·“— */
+            color: white; /* ·Ê‰ «·‰’ */
         }
 
-            .btn-secondary:hover {
-                background: linear-gradient(135deg, #5a6268, #495057);
+        .btn-secondary:hover {
+                background: linear-gradient(135deg, #c82333, #bd2130); /* ·Ê‰ «·Œ·›Ì… ⁄‰œ «· „—Ì— */
                 transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(108, 117, 125, 0.3);
+                box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3); /*  √ÀÌ— «·Ÿ· ⁄‰œ «· „—Ì— */
             }
+
 
         .btn-sm {
             padding: 6px 12px;
@@ -373,6 +375,7 @@
                         <th> «—ÌŒ «·≈‰‘«¡</th>
                         <th>«·Õ«·…</th>
                         <th> „ «·≈‰‘«¡ »Ê«”ÿ…</th>
+                        <th>«Œ—  ⁄œÌ·</th>
                         <th>«·⁄„·Ì« </th>
                     </tr>
                 </thead>
@@ -392,6 +395,7 @@
                                     </span>
                                 </td>
                                 <td>@user.CreatedBy</td>
+                                <td>@user.LastEditBy</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="@Url.Action("UserProfile", "Account", new { id = user.Id })"
@@ -404,7 +408,7 @@
                                         </a>
                                         <button type="button"
                                                 class="btn btn-secondary btn-sm btn-rounded-left"
-                                                title=" ⁄ÿÌ· «·„” Œœ„"
+                                                title="Õ–› «·„” Œœ„"
                                                 onclick="showToggleConfirmation(@user.Id, '@user.Name', true)">
                                             <i class="fas fa-user-slash"></i>
                                         </button>

@@ -9,5 +9,6 @@
         public DateTime Date { get; set; }
         public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
+        public string LastEditBy { get; set; }
     }
 }
