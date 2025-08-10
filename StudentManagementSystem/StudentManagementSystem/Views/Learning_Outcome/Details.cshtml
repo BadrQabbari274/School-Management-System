@@ -1,0 +1,272 @@
+@model StudentManagementSystem.Models.Learning_Outcome
+
+@{
+    ViewData["Title"] = " ›«’Ì· ‰« Ã «· ⁄·„";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #fff5e6, #ffffff);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        direction: rtl;
+        min-height: 100vh;
+    }
+
+    .page-header {
+        background: linear-gradient(135deg, #00000, #ff6600);
+        color: #ff6600;
+        padding: 20px 0;
+        margin-bottom: 30px;
+        border-radius: 8px;
+    }
+    .details-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(255, 140, 0, 0.1);
+        padding: 40px;
+        margin: 20px auto;
+        max-width: 900px;
+    }
+
+    .info-card {
+        background: #fff8f0;
+        border: 2px solid #ffe4cc;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 15px 0;
+        transition: all 0.3s ease;
+    }
+
+        .info-card:hover {
+            border-color: #ff8c00;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.1);
+        }
+
+    .info-label {
+        color: #ff6600;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .info-value {
+        color: #333;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .btn-orange {
+        background: linear-gradient(135deg, #ff8c00, #ff6600);
+        border: none;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-orange:hover {
+            background: linear-gradient(135deg, #ff6600, #e55a00);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+            color: white;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .badge-active {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .badge-inactive {
+        background: linear-gradient(135deg, #dc3545, #e74c3c);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .icon-large {
+        font-size: 1.2em;
+        margin-left: 10px;
+        color: #ff8c00;
+    }
+
+    .evidences-section {
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 2px solid #ffe4cc;
+    }
+
+    .evidence-card {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+        border-left: 4px solid #ff8c00;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="page-header text-center">
+        <div class="container">
+            <h1><i class="fas fa-eye"></i>  ›«’Ì· ‰« Ã «· ⁄·„</h1>
+            <p>⁄—÷ „⁄·Ê„«  ‰« Ã «· ⁄·„ »«· ›’Ì·</p>
+        </div>
+    </div>
+
+    <div class="details-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="info-card">
+                    <span class="info-label">
+                        <i class="fas fa-tag icon-large"></i>
+                        «”„ ‰« Ã «· ⁄·„
+                    </span>
+                    <div class="info-value">@Html.DisplayFor(model => model.Name)</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-card">
+                            <span class="info-label">
+                                <i class="fas fa-certificate icon-large"></i>
+                                «·ﬂ›«¡… «·„— »ÿ…
+                            </span>
+                            <div class="info-value">@Html.DisplayFor(model => model.Competency.Name)</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="info-card">
+                            <span class="info-label">
+                                <i class="fas fa-user icon-large"></i>
+                                √‰‘√ »Ê«”ÿ…
+                            </span>
+                            <div class="info-value">@Html.DisplayFor(model => model.CreatedBy.Name)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-card">
+                            <span class="info-label">
+                                <i class="fas fa-calendar icon-large"></i>
+                                 «—ÌŒ «·≈‰‘«¡
+                            </span>
+                            <div class="info-value">@Html.DisplayFor(model => model.CreatedDate)</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="info-card">
+                            <span class="info-label">
+                                <i class="fas fa-toggle-on icon-large"></i>
+                                Õ«·… «·‰‘«ÿ
+                            </span>
+                            <div class="info-value">
+                                @if (Model.IsActive)
+                                {
+                                    <span class="badge-active">
+                                        <i class="fas fa-check"></i> ‰‘ÿ
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge-inactive">
+                                        <i class="fas fa-times"></i> €Ì— ‰‘ÿ
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.Evidences != null && Model.Evidences.Any())
+                {
+                    <div class="evidences-section">
+                        <h4>
+                            <i class="fas fa-file-alt icon-large"></i>
+                            «·√œ·… «·„— »ÿ… (@Model.Evidences.Count())
+                        </h4>
+                        @foreach (var evidence in Model.Evidences)
+                        {
+                            <div class="evidence-card">
+                                <strong>@evidence.Name</strong>
+                               @*  <small class="text-muted d-block">@evidence.Description</small> *@
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="evidences-section text-center">
+                        <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
+                        <p class="text-muted">·«  ÊÃœ √œ·… „— »ÿ… »Â–« ‰« Ã «· ⁄·„</p>
+                    </div>
+                }
+
+                <div class="text-center mt-4">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-orange">
+                        <i class="fas fa-edit"></i>  ⁄œÌ·
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Õ–›
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> «·⁄Êœ… ··ﬁ«∆„…
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />

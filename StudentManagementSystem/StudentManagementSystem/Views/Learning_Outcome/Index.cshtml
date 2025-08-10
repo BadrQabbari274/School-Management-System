@@ -1,0 +1,228 @@
+@model IEnumerable<StudentManagementSystem.Models.Learning_Outcome>
+
+@{
+    ViewData["Title"] = "‰Ê« Ã «· ⁄·„";
+}
+
+<style>
+    body {
+        background-color: #fff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        direction: rtl;
+    }
+    
+    .page-header {
+        background: linear-gradient(135deg, #00000, #ff6600);
+        color: #ff6600;
+        padding: 20px 0;
+        margin-bottom: 30px;
+        border-radius: 8px;
+    }
+    
+    .btn-orange {
+        background-color: #ff8c00;
+        border-color: #ff8c00;
+        color: white;
+        border-radius: 5px;
+        padding: 8px 16px;
+        text-decoration: none;
+        display: inline-block;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-orange:hover {
+        background-color: #ff6600;
+        border-color: #ff6600;
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .table-container {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(255, 140, 0, 0.1);
+        overflow: hidden;
+        margin-top: 20px;
+    }
+    
+    .table {
+        margin-bottom: 0;
+    }
+    
+    .table thead th {
+        background-color: #ff8c00;
+        color: white;
+        border: none;
+        padding: 15px;
+        font-weight: 600;
+    }
+    
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+    
+    .table tbody tr:hover {
+        background-color: #fff5e6;
+    }
+    
+    .table tbody td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ffe4cc;
+        vertical-align: middle;
+    }
+    
+    .badge-active {
+        background-color: #28a745;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+    }
+    
+    .badge-inactive {
+        background-color: #dc3545;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+    }
+    
+    .action-buttons {
+        white-space: nowrap;
+    }
+    
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 4px;
+        margin: 2px;
+        text-decoration: none;
+    }
+    
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+        color: white;
+    }
+    
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: #212529;
+    }
+    
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: white;
+    }
+    
+    .alert-success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+        padding: 10px 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="page-header text-center">
+        <div class="container">
+            <h1><i class="fas fa-graduation-cap"></i> ≈œ«—… ‰Ê« Ã «· ⁄·„</h1>
+            <p> ’›Õ Ê≈œ«—… Ã„Ì⁄ ‰Ê« Ã «· ⁄·„ ›Ì «·‰Ÿ«„</p>
+        </div>
+    </div>
+    
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+        </div>
+    }
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3><i class="fas fa-list"></i> ﬁ«∆„… ‰Ê« Ã «· ⁄·„</h3>
+                <a asp-action="Create" class="btn btn-orange">
+                    <i class="fas fa-plus"></i> ≈÷«›… ‰« Ã  ⁄·„ ÃœÌœ
+                </a>
+            </div>
+            
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>«·«”„</th>
+                            <th>«·ﬂ›«¡…</th>
+                            <th>√‰‘√ »Ê«”ÿ…</th>
+                            <th> «—ÌŒ «·≈‰‘«¡</th>
+                            <th>«·Õ«·…</th>
+                            <th>«·≈Ã—«¡« </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+                                </td>
+                                <td>
+                                    <i class="fas fa-certificate text-warning"></i>
+                                    @Html.DisplayFor(modelItem => item.Competency.Name)
+                                </td>
+                                <td>
+                                    <i class="fas fa-user text-info"></i>
+                                    @Html.DisplayFor(modelItem => item.CreatedBy.Name)
+                                </td>
+                                <td>
+                                    <i class="fas fa-calendar text-muted"></i>
+                                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                                </td>
+                                <td>
+                                    @if (item.IsActive)
+                                    {
+                                        <span class="badge-active">‰‘ÿ</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge-inactive">€Ì— ‰‘ÿ</span>
+                                    }
+                                </td>
+                                <td class="action-buttons">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i> ⁄—÷
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>  ⁄œÌ·
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Õ–›
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            
+            @if (!Model.Any())
+            {
+                <div class="text-center p-5">
+                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">·«  ÊÃœ ‰Ê« Ã  ⁄·„</h4>
+                    <p class="text-muted">«»œ√ »≈÷«›… ‰« Ã  ⁄·„ ÃœÌœ</p>
+                    <a asp-action="Create" class="btn btn-orange">
+                        <i class="fas fa-plus"></i> ≈÷«›… «·√Ê·
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
