@@ -44,16 +44,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/AttendanceForm.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxBdHRlbmRhbmNlRm9ybS5jc2h0bWw=
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Account/UserProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxVc2VyUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/DepartmentAttendance.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxEZXBhcnRtZW50QXR0ZW5kYW5jZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/ExitRequest.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxFeGl0UmVxdWVzdC5jc2h0bWw=
+[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/ConfirmFieldChanges.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxDb25maXJtRmllbGRDaGFuZ2VzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Field.cshtml]
@@ -64,20 +60,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Index1.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleDEuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Normal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxOb3JtYWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/RecordAttendance.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxSZWNvcmRBdHRlbmRhbmNlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/Attendance/ViewAttendance.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxWaWV3QXR0ZW5kYW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Repo2/StudentManagementSystem/StudentManagementSystem/Views/ClassAssignment/AssignStudents.cshtml]
