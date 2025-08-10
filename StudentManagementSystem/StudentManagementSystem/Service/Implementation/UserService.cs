@@ -80,7 +80,7 @@ namespace StudentManagementSystem.Service.Implementation
 
         public async Task<Employees> GetUserByNameAsync(string name)
         {
-            return await _context.Employees
+            return await _context.Employees.Include(e =>e.LastEditBy)
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.Username == name);
         }
