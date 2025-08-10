@@ -983,3 +983,7 @@ C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\
 C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\project\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\project\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\project\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\project\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll

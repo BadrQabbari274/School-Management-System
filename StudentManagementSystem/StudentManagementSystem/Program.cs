@@ -43,6 +43,7 @@ builder.Services.AddScoped<ISectionService, SectionService>();
 builder.Services.AddScoped<IWorkingYearService, WorkingYearService>();
 builder.Services.AddScoped<ICompetenciesService, CompetenciesService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IEvidenceService, EvidenceService>();
 //builder.Services.AddScoped<ICompetenceService, CompetenceService>();
 //builder.Services.AddScoped<IOutcomeService, OutcomeService>();
 //builder.Services.AddScoped<ITaskEvaluationService, TaskEvaluationServices>();

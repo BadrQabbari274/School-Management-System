@@ -1,0 +1,166 @@
+﻿@model StudentManagementSystem.Models.Evidence
+
+@{
+    ViewData["Title"] = "إضافة دليل جديد";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="header-section">
+        <div class="container">
+            <h1 class="header-title">إضافة دليل جديد</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-plus-circle"></i> بيانات الدليل الجديد
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                <i class="fas fa-exclamation-circle"></i>
+                                @TempData["Error"]
+                            </div>
+                        }
+
+                        <form asp-action="Create" method="post">
+                            @Html.AntiForgeryToken()
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label asp-for="Name" class="form-label">اسم الدليل <span class="text-danger">*</span></label>
+                                        <input asp-for="Name" class="form-control" placeholder="أدخل اسم الدليل" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                               @*  <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label asp-for="Outcome_Id" class="form-label">نتاج التعلم <span class="text-danger">*</span></label>
+                                        <select asp-for="Outcome_Id" class="form-select" id="outcomeSelect">
+                                            <option value="">-- اختر نتاج التعلم --</option>
+                                            @* سيتم تحميل نتائج التعلم من خلال JavaScript أو من الكنترولر
+                                        </select>
+                                        <span asp-validation-for="Outcome_Id" class="text-danger"></span>
+                                    </div>
+                                </div> *@
+                                <input asp-for="Outcome_Id" type="hidden" value="Outcome_Id" class="form-check-input" id="Outcome_Id" />
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">نوع الدليل</label>
+                                        <div class="form-check-container">
+                                            <div class="form-check">
+                                                <input asp-for="Ispractical" type="radio" value="true" class="form-check-input" id="practical" />
+                                                <label class="form-check-label" for="practical">
+                                                    <i class="fas fa-tools"></i> عملي
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input asp-for="Ispractical" type="radio" value="false" class="form-check-input" id="theoretical" checked />
+                                                <label class="form-check-label" for="theoretical">
+                                                    <i class="fas fa-book"></i> نظري
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
+                                            <input asp-for="IsActive" class="form-check-input" type="checkbox" checked />
+                                            <label asp-for="IsActive" class="form-check-label">
+                                                <i class="fas fa-toggle-on"></i> حالة التفعيل
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> حفظ الدليل
+                                </button>
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> رجوع للقائمة
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Load Learning Outcomes - يجب تعديل هذا الجزء حسب API المتاح
+            loadLearningOutcomes();
+        });
+
+            // للاختبار - إضافة بعض الخيارات الوهمية
+            // $('#outcomeSelect').append('<option value="1">نتاج التعلم الأول</option>');
+            // $('#outcomeSelect').append('<option value="2">نتاج التعلم الثاني</option>');
+        }
+    </script>
+
+    <style>
+        .form-check-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-check {
+            flex: 1;
+        }
+
+        .form-check-label {
+            font-weight: 500;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+
+        .card {
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 10px;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+    </style>
+</body>
+</html>
