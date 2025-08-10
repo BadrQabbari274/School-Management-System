@@ -41,6 +41,7 @@ builder.Services.AddScoped<IClassService, ClassService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ISectionService, SectionService>();
 builder.Services.AddScoped<IWorkingYearService, WorkingYearService>();
+builder.Services.AddScoped<ICompetenciesService, CompetenciesService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 //builder.Services.AddScoped<ICompetenceService, CompetenceService>();
 //builder.Services.AddScoped<IOutcomeService, OutcomeService>();
