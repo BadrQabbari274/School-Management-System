@@ -220,29 +220,25 @@ namespace StudentManagementSystem.Controllers
         }
 
         // POST: Competencies/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteAjax(int id)
         {
             try
             {
                 var result = await _competenciesService.DeleteCompetencyAsync(id);
-
                 if (result)
                 {
-                   SetSuccessMessage("تم حذف الجدارة بنجاح") ;
+                    return Json(new { success = true, message = "تم حذف الجدارة بنجاح" });
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "الجدارة غير موجودة";
+                    return Json(new { success = false, message = "الجدارة غير موجودة" });
                 }
-
-                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "حدث خطأ أثناء حذف الجدارة: " + ex.Message;
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = false, message = "حدث خطأ أثناء حذف الجدارة: " + ex.Message });
             }
         }
 
