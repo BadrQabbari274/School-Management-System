@@ -7,20 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Compatences\students.cs" />
+    <Compile Remove="Views\Competencies\students.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Compatences\NewFile.cshtml" />
+    <Content Remove="Views\Competencies\NewFile.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Views\Account\NewFile.txt" />
-    <None Remove="Views\Compatences\NewFile" />
-    <None Remove="Views\Compatences\NewFile.txt" />
-    <None Remove="Views\Compatences\NewFile1.txt" />
-    <None Remove="Views\Compatences\students" />
-    <None Remove="Views\Compatences\سفعي" />
+    <None Remove="Views\Competencies\NewFile" />
+    <None Remove="Views\Competencies\NewFile.txt" />
+    <None Remove="Views\Competencies\NewFile1.txt" />
+    <None Remove="Views\Competencies\students" />
+    <None Remove="Views\Competencies\سفعي" />
   </ItemGroup>
 
   <ItemGroup>
