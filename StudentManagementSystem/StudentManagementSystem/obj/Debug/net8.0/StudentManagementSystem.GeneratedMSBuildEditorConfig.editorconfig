@@ -64,6 +64,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxOb3JtYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Statistics.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxTdGF0aXN0aWNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Attendance/StatisticsResult.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxTdGF0aXN0aWNzUmVzdWx0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -100,8 +104,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Compatences/students.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGF0ZW5jZXNcc3R1ZGVudHMuY3NodG1s
+[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Competencies/create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXGNyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Competencies/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Competencies/edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXGVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Competencies/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXGluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/7-16/StudentManagementSystem/StudentManagementSystem/Views/Dashboard/Index.cshtml]
