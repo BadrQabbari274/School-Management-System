@@ -979,3 +979,7 @@ C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\
 C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
 C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
 C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
+C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\sd\source\repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
