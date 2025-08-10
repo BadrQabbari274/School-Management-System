@@ -36,6 +36,7 @@ namespace StudentManagementSystem.Models
 
         // Navigation properties for related entities
         public virtual ICollection<StudentAbsents> StudentAbsents { get; set; }
+        public virtual ICollection<Student_Evidence> StudentEvidences { get; set; }
         public virtual ICollection<StudentAttendances> StudentAttendances { get; set; }
     }
 }

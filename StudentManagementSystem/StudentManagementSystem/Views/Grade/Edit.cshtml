@@ -10,7 +10,119 @@
     <title>@ViewData["Title"] - StudentManagementSystem</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" /> @* Or ~/css/grades.css *@
+    <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .bg-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important;
+            border: none;
+        }
+
+        .card-header {
+            border: none;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .text-warning {
+            color: #ffc107 !important;
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            text-align: right;
+        }
+
+            .form-control::placeholder {
+                text-align: right;
+            }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #ffc107;
+                box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+            }
+
+            .form-control:read-only {
+                background-color: #f8f9fa;
+                border-color: #dee2e6;
+                color: #6c757d;
+            }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+            .btn-warning:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
+                background: linear-gradient(135deg, #ff9800 0%, #ffc107 100%);
+                color: white;
+            }
+
+        .btn-back {
+            border-radius: 10px;
+            padding: 12px 24px;
+            transition: all 0.3s ease;
+            border-color: #6c757d;
+            color: #6c757d;
+            background: transparent;
+            border: 2px solid #6c757d;
+        }
+
+            .btn-back:hover {
+                transform: translateY(-2px);
+                background-color: #6c757d;
+                color: white;
+                box-shadow: 0 8px 25px rgba(108, 117, 125, 0.2);
+            }
+
+        .text-danger {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #dc3545 !important;
+        }
+
+        .alert {
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+
+        .text-muted {
+            color: #6c757d !important;
+        }
+    </style>
 </head>
 <div class="container-fluid p-4">
     <div class="row justify-content-center">
@@ -23,8 +135,27 @@
                 </div>
 
                 <div class="card-body p-5">
-                    <form asp-action="Edit" method="post">
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                    <!-- Success/Error Messages -->
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>
+                            @TempData["Success"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            @TempData["Error"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <form asp-action="Edit" method="post" id="editGradeForm">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4 text-center"></div>
 
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="Date" type="hidden" />
@@ -32,21 +163,16 @@
 
                         <div class="mb-4">
                             <label asp-for="Name" class="form-label fw-bold text-warning">
-                                <i class="fas fa-graduation-cap me-2"></i>اسم السنة الدراسية
+                                <i class="fas fa-graduation-cap me-2"></i>اسم السنة الدراسية <span class="text-danger">*</span>
                             </label>
-                            <input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم السنة الدراسية" />
+                            <input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم السنة الدراسية (حروف فقط)" required />
                             <span asp-validation-for="Name" class="text-danger"></span>
+                            <div id="gradeNameError" class="text-danger mt-1" style="display:none;">
+                                <i class="fas fa-exclamation-circle me-1"></i>
+                                لا يُسمح بإدخال أرقام في اسم السنة الدراسية.
+                            </div>
+                            <small id="charCounter" class="form-text text-muted"></small>
                         </div>
-
-                        @*    <div class="mb-4">
-                             <div class="form-check form-switch">
-                                <input asp-for="IsActive" class="form-check-input" type="checkbox" />
-                                <label asp-for="IsActive" class="form-check-label fw-bold text-warning">
-                                    <i class="fas fa-toggle-on me-2"></i>حالة النشاط
-                                </label>
-                            </div> 
-                            <small class="text-muted">اضغط لتفعيل/إلغاء تفعيل هذه السنة الدراسية</small>
-                        </div> *@
 
                         <div class="mb-4">
                             <label class="form-label fw-bold text-muted">
@@ -57,13 +183,13 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-warning btn-lg w-100 mb-3">
+                                <button type="submit" class="btn btn-warning btn-lg w-100 mb-3" id="submitBtn">
                                     <i class="fas fa-save me-2"></i>تحديث السنة الدراسية
                                 </button>
                             </div>
                             <div class="col-md-6">
                                 <a asp-action="Index" class="btn btn-back btn-lg w-100 mb-3">
-                                    <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
+                                    <i class="fas fa-times me-2"></i>إلغاء
                                 </a>
                             </div>
                         </div>
@@ -73,27 +199,166 @@
         </div>
     </div>
 </div>
-<!-- Success/Error Messages -->
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="fas fa-check-circle me-2"></i>
-        @TempData["Success"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
-
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="fas fa-exclamation-circle me-2"></i>
-        @TempData["Error"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const nameInput = $('#Name');
+            const nameError = $('#gradeNameError');
+            const submitBtn = $('#submitBtn');
+
+            // Function to validate that the name doesn't contain any numbers
+            function validateName(value) {
+                const trimmedValue = value.trim();
+                // Check if the value is empty or contains any digits
+                return trimmedValue !== '' && !/\d/.test(trimmedValue);
+            }
+
+            // Function to remove any numbers from the input
+            function removeNumbers(value) {
+                return value.replace(/\d/g, '');
+            }
+
+            // Function to update the validation state of the input field and error message
+            function updateValidationState() {
+                const isValid = validateName(nameInput.val());
+                if (isValid) {
+                    nameError.hide();
+                    nameInput.removeClass('is-invalid');
+                } else {
+                    nameError.show();
+                    nameInput.addClass('is-invalid');
+                }
+            }
+
+            // Prevent numbers from being typed
+            nameInput.on('keypress', function(e) {
+                // Get the character that was pressed
+                const char = String.fromCharCode(e.which);
+
+                // If it's a digit, prevent it
+                if (/\d/.test(char)) {
+                    e.preventDefault();
+
+                    // Show error message briefly
+                    nameError.show();
+                    nameInput.addClass('is-invalid');
+
+                    // Hide error after 2 seconds
+                    setTimeout(function() {
+                        if (validateName(nameInput.val())) {
+                            nameError.hide();
+                            nameInput.removeClass('is-invalid');
+                        }
+                    }, 2000);
+
+                    return false;
+                }
+            });
+
+            // Event listener for input: validates in real-time and removes numbers
+            nameInput.on('input', function() {
+                const originalValue = $(this).val();
+                const cleanedValue = removeNumbers(originalValue);
+
+                // If numbers were removed, update the input value
+                if (originalValue !== cleanedValue) {
+                    $(this).val(cleanedValue);
+                }
+
+                updateValidationState();
+
+                // عداد الأحرف المتبقية
+                const maxLength = 100;
+                const currentLength = $(this).val().length;
+                const remaining = maxLength - currentLength;
+
+                $('#charCounter').text('عدد الأحرف المتبقية: ' + remaining);
+
+                if (remaining < 10) {
+                    $('#charCounter').removeClass('text-muted').addClass('text-warning');
+                } else {
+                    $('#charCounter').removeClass('text-warning').addClass('text-muted');
+                }
+            });
+
+            // Event listener for paste: removes numbers after paste
+            nameInput.on('paste', function(e) {
+                setTimeout(function() {
+                    const originalValue = nameInput.val();
+                    const cleanedValue = removeNumbers(originalValue);
+
+                    if (originalValue !== cleanedValue) {
+                        nameInput.val(cleanedValue);
+                        // Show a message that numbers were removed
+                        nameError.show();
+                        nameInput.addClass('is-invalid');
+
+                        setTimeout(function() {
+                            updateValidationState();
+                        }, 1000);
+                    } else {
+                        updateValidationState();
+                    }
+
+                    // Update character counter
+                    nameInput.trigger('input');
+                }, 0);
+            });
+
+            // Form submission with enhanced validation
+            $('#editGradeForm').on('submit', function (e) {
+                const gradeName = nameInput.val();
+
+                // Final validation checks
+                let isFormValid = true;
+
+                // Validate grade name
+                if (!validateName(gradeName)) {
+                    isFormValid = false;
+                    nameInput.addClass('is-invalid');
+                    nameError.show();
+                } else {
+                    nameInput.removeClass('is-invalid');
+                    nameError.hide();
+                }
+
+                if (!isFormValid) {
+                    e.preventDefault();
+                    if (!validateName(gradeName)) {
+                        alert('الرجاء إدخال اسم سنة دراسية صحيح. لا يُسمح بإدخال أرقام في اسم السنة الدراسية.');
+                        nameInput.focus();
+                    }
+                    return false;
+                }
+
+                // Confirmation dialog for submission
+                if (!confirm('هل أنت متأكد من تحديث بيانات السنة الدراسية؟')) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Show loading state
+                submitBtn.prop('disabled', true);
+                submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>جاري التحديث...');
+            });
+
+            // Remove validation classes on input change
+            nameInput.on('keydown', function() {
+                if (validateName($(this).val())) {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+            // Auto-focus on name input
+            nameInput.focus();
+
+            // Initialize character counter
+            nameInput.trigger('input');
+        });
+    </script>
 }

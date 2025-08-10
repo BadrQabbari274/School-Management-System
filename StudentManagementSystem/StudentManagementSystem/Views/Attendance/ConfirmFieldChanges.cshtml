@@ -1,0 +1,121 @@
+﻿@model StudentManagementSystem.ViewModels.FieldUpdateConfirmationViewModel
+
+@{
+    ViewData["Title"] = "تأكيد تحديث الحضور الميداني";
+    Layout = "_Layout";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3 class="card-title">@ViewData["Title"]</h3>
+    </div>
+    <div class="card-body">
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="alert alert-info">
+                @Model.Message
+            </div>
+        }
+
+        <form asp-action="ConfirmFieldChanges" method="post">
+            <input type="hidden" name="Class.Id" value="@Model.Class.Id" />
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="bg-secondary text-white">
+                        <tr>
+                            <th>اسم الطالب</th>
+                            <th>الحالة السابقة</th>
+                            <th>الحالة الجديدة</th>
+                            <th>الحضور الميداني</th>
+                            <th>سبب الغياب</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.StudentsRequiringUpdate.Count; i++)
+                        {
+                            var student = Model.StudentsRequiringUpdate[i];
+                            <tr>
+                                <td>
+                                    @student.Student.Name
+                                    <input type="hidden" name="StudentsRequiringUpdate[@i].Student.Id" value="@student.Student.Id" />
+                                    <input type="hidden" name="StudentsRequiringUpdate[@i].PreviousDailyStatus" value="@student.PreviousDailyStatus" />
+                                    <input type="hidden" name="StudentsRequiringUpdate[@i].NewDailyStatus" value="@student.NewDailyStatus" />
+                                </td>
+                                <td>
+                                    @if (student.PreviousDailyStatus)
+                                    {
+                                        <span class="badge bg-success">حاضر</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">غائب</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (student.NewDailyStatus)
+                                    {
+                                        <span class="badge bg-success">حاضر</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">غائب</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="StudentsRequiringUpdate[@i].CurrentFieldStatus"
+                                               id="fieldStatus_@i"
+                                               value="true"
+                                               @(student.CurrentFieldStatus ? "checked" : "")
+                                               @(student.IsFromAttendanceToAbsence ? "" : "disabled")>
+                                        <label class="form-check-label" for="fieldStatus_@i">
+                                            @(student.CurrentFieldStatus ? "حاضر" : "غائب")
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (student.IsFromAttendanceToAbsence)
+                                    {
+                                        <span>@student.CurrentFieldReason</span>
+                                        <input type="hidden" name="StudentsRequiringUpdate[@i].CurrentFieldReasonId" value="@student.CurrentFieldReasonId" />
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> حفظ التغييرات
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> رجوع
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // تحديث التسمية عند تغيير حالة الحضور الميداني
+            $('input[type="checkbox"][name^="StudentsRequiringUpdate"]').change(function() {
+                var label = $(this).siblings('label');
+                if ($(this).is(':checked')) {
+                    label.text('حاضر');
+                } else {
+                    label.text('غائب');
+                }
+            });
+        });
+    </script>
+}

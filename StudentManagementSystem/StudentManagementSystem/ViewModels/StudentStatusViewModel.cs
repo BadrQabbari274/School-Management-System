@@ -1,13 +1,15 @@
-﻿using StudentManagementSystem.ViewModels;
-using StudentManagementSystem.Models;
+﻿using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.ViewModels
 {
     public class StudentStatusViewModel
     {
-        public Students Students { get; set; } 
-        public bool Status  { get; set; } =true;
-        public string? CustomReasonDetails;
-        public string? Reason_Id;
+        public Students Students { get; set; }
+        public bool Status { get; set; } = true;
+        public string? message { get; set; }
+        public string? AbsenceReason { get; set; }
+        public string? CustomReason { get; set; }
+        public int? Reason_Id { get; set; }
+        public bool IsEditable { get; set; } = true; // إضافة خاصية القابلية للتعديل
     }
 }

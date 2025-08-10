@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "≈œ«—… «·„” Œœ„Ì‰";
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -85,7 +85,7 @@
         .btn {
             padding: 10px 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: 20px; /* Smoother, more rounded edges */
             cursor: pointer;
             font-size: 15px;
             font-weight: 600;
@@ -158,6 +158,7 @@
             padding: 6px 12px;
             font-size: 13px;
             margin-left: 5px;
+            border-radius: 20px; /* Ensure small buttons are also smooth */
         }
 
         /* Alert Messages */
@@ -242,8 +243,8 @@
         }
 
         .status-active {
-            background-color: #d4edda;
-            color: #28a745;
+            background-color: #28a745;
+            color: #fff !important;
         }
 
         .status-inactive {
@@ -289,39 +290,45 @@
             gap: 15px;
         }
 
+        /* Rounded Button Classes */
+        .btn-rounded-right {
+            border-radius: 0 20px 20px 0 !important;
+        }
+
+        .btn-rounded-left {
+            border-radius: 20px 0 0 20px !important;
+        }
+
         /* Responsive Design */
         @@media (max-width: 768px) {
-            .container
+            .container {
+                padding: 10px;
+            }
 
-        {
-            padding: 10px;
-        }
+            .header-title {
+                font-size: 24px;
+            }
 
-        .header-title {
-            font-size: 24px;
-        }
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
 
-        .controls {
-            flex-direction: column;
-            align-items: stretch;
-        }
+            .table th,
+            .table td {
+                padding: 10px;
+                font-size: 12px;
+            }
 
-        .table th,
-        .table td {
-            padding: 10px;
-            font-size: 12px;
-        }
+            .btn-group {
+                flex-direction: column;
+                gap: 5px;
+            }
 
-        .btn-group {
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .btn {
-            padding: 8px 15px;
-            font-size: 13px;
-        }
-
+            .btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -335,12 +342,7 @@
     <div class="container">
         <div class="controls">
             <div class="filter-section">
-                <label for="statusFilter">›· —… Õ”» «·Õ«·…:</label>
-                <select id="statusFilter" class="filter-select">
-                    <option value="all">Ã„Ì⁄ «·„” Œœ„Ì‰</option>
-                    <option value="active" selected>«·„” Œœ„Ì‰ «·‰‘ÿÌ‰ ›ﬁÿ</option>
-                    <option value="inactive">«·„” Œœ„Ì‰ €Ì— «·‰‘ÿÌ‰ ›ﬁÿ</option>
-                </select>
+                <label for="statusFilter">«·„” Œœ„Ì‰ «·‰‘ÿÌ‰ ›ﬁÿ:</label>
             </div>
             <a href="@Url.Action("Register", "Account")" class="btn btn-add">
                 <i class="fas fa-plus-circle"></i> ≈÷«›… „” Œœ„ ÃœÌœ
@@ -361,7 +363,6 @@
                 @TempData["Error"]
             </div>
         }
-
         <div class="users-table">
             <table class="table">
                 <thead>
@@ -376,38 +377,36 @@
                     </tr>
                 </thead>
                 <tbody id="usersTableBody">
-                    @if (Model != null && Model.Any())
+                    @if (Model != null && Model.Any(u => u.IsActive))
                     {
-                        @foreach (var user in Model)
+                        @foreach (var user in Model.Where(u => u.IsActive))
                         {
-                            <tr data-status="@(user.IsActive ? "active" : "inactive")">
+                            <tr data-status="active">
                                 <td>@user.Name</td>
                                 <td>@user.Username</td>
                                 <td>@user.RoleName</td>
                                 <td>@user.Date.ToString("dd/MM/yyyy")</td>
                                 <td>
-                                    <span class="status-badge @(user.IsActive ? "status-active" : "status-inactive")">
-                                        @(user.IsActive ? "‰‘ÿ" : "€Ì— ‰‘ÿ")
+                                    <span class="status-badge status-active">
+                                        ‰‘ÿ
                                     </span>
                                 </td>
                                 <td>@user.CreatedBy</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="@Url.Action("UserProfile", "Account", new { id = user.Id })"
-                                           class="btn btn-info btn-sm" title="⁄—÷ «·„·› «·‘Œ’Ì">
+                                           class="btn btn-info btn-sm btn-rounded-right" title="⁄—÷ «·„·› «·‘Œ’Ì">
                                             <i class="fas fa-user"></i>
                                         </a>
-                                        <!--  „ ≈’·«Õ “— «· ⁄œÌ· ·ÌÊ’· ··‹ EditUser „⁄ «·‹ id «·’ÕÌÕ -->
                                         <a href="@Url.Action("EditUser", "Account", new { id = user.Id })"
                                            class="btn btn-warning btn-sm" title=" ⁄œÌ·">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <!-- “— Toggle Status »œ·« „‰ «·Õ–› -->
                                         <button type="button"
-                                                class="btn @(user.IsActive ? "btn-secondary" : "btn-success") btn-sm"
-                                                title="@(user.IsActive ? " ⁄ÿÌ· «·„” Œœ„" : " ›⁄Ì· «·„” Œœ„")"
-                                                onclick="showToggleConfirmation(@user.Id, '@user.Name', @user.IsActive.ToString().ToLower())">
-                                            <i class="fas fa-@(user.IsActive ? "user-slash" : "user-check")"></i>
+                                                class="btn btn-secondary btn-sm btn-rounded-left"
+                                                title=" ⁄ÿÌ· «·„” Œœ„"
+                                                onclick="showToggleConfirmation(@user.Id, '@user.Name', true)">
+                                            <i class="fas fa-user-slash"></i>
                                         </button>
                                     </div>
                                 </td>
@@ -417,7 +416,7 @@
                     else
                     {
                         <tr id="noDataRow">
-                            <td colspan="7" class="no-data">·« ÌÊÃœ „” Œœ„Ê‰ ·⁄—÷Â„</td>
+                            <td colspan="7" class="no-data">·« ÌÊÃœ „” Œœ„Ê‰ ‰‘ÿÊ‰ ·⁄—÷Â„</td>
                         </tr>
                     }
                 </tbody>

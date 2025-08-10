@@ -28,8 +28,52 @@ namespace StudentManagementSystem.Controllers
             _roleService = roleService;
         }
 
-        // إضافة هذا الـ action في AccountController
+        // إضافة هذه الـ Methods في AccountController
 
+        // إضافة هذه الـ Methods في AccountController
+
+        #region User Profile Details
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> UserProfile(int? id)
+        {
+            try
+            {
+                // لو مفيش id متمرر، استخدم id المستخدم الحالي
+                var userId = id ?? GetCurrentUserId();
+                var user = await _userService.GetUserByIdAsync(userId);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                var viewModel = new UserShowProfileViewModel
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Username = user.Username,
+                    Email = user.Email,
+                    MaskedPassword = new string('*', 8), // عرض 8 نجوم
+                    RoleName = user.Role?.Name ?? "غير محدد",
+                    IsActive = user.IsActive,
+                    Date = user.Date,
+                    JoinDate = user.Join_Date,
+                    LastLogin = user.LastLogin,
+                    CreatedByName = user.CreatedBy?.Name ?? "غير محدد"
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage("حدث خطأ أثناء تحميل الملف الشخصي");
+                return RedirectToAction("Index", "Dashboard");
+            }
+        }
+
+        #endregion
 
         #region Authentication
 
