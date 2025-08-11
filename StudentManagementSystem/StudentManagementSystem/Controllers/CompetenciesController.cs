@@ -108,7 +108,7 @@ namespace StudentManagementSystem.Controllers
                     var createdCompetency = await _competenciesService.CreateCompetencyAsync(model, currentUserId);
 
                     TempData["SuccessMessage"] = "تم إنشاء الجدارة بنجاح";
-                    return RedirectToAction(nameof(Details), new { id = createdCompetency.Id });
+                    return RedirectToAction(nameof(Index), new { id = createdCompetency.Id });
                 
 
     
@@ -175,7 +175,7 @@ namespace StudentManagementSystem.Controllers
                     if (updatedCompetency != null)
                     {
                         TempData["SuccessMessage"] = "تم تحديث الجدارة بنجاح";
-                        return RedirectToAction(nameof(Details), new { id = model.Id });
+                        return RedirectToAction(nameof(Index), new { id = model.Id });
                     }
                     else
                     {

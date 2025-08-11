@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystem.Models;
+using StudentManagementSystem.Service.Interface;
 using StudentManagementSystem.Services.Interfaces;
+
 
 namespace StudentManagementSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class EvidenceController : ControllerBase
+    [Authorize]
+    public class EvidenceController : BaseController
     {
         private readonly IEvidenceService _evidenceService;
 
@@ -15,198 +17,244 @@ namespace StudentManagementSystem.Controllers
             _evidenceService = evidenceService;
         }
 
-        // GET: api/Evidence
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Evidence>>> GetEvidences()
+        // GET: Evidence
+        public async Task<IActionResult> Index()
         {
             try
             {
                 var evidences = await _evidenceService.GetAllEvidencesAsync();
-                return Ok(evidences);
+                return View(evidences);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
+                return View(new List<Models.Evidence>());
             }
         }
 
-        // GET: api/Evidence/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Evidence>> GetEvidence(int id)
+
+        // GET: Evidence/Details/5
+        public async Task<IActionResult> Details(int id)
         {
             try
             {
                 var evidence = await _evidenceService.GetEvidenceByIdAsync(id);
-
                 if (evidence == null)
                 {
-                    return NotFound($"Evidence with ID {id} not found.");
+                    SetErrorMessage("الدليل غير موجود");
+                    return RedirectToAction(nameof(Index));
                 }
-
-                return Ok(evidence);
+                return View(evidence);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
+                return RedirectToAction(nameof(Index));
             }
         }
 
-        // GET: api/Evidence/outcome/5
-        [HttpGet("outcome/{outcomeId}")]
-        public async Task<ActionResult<IEnumerable<Evidence>>> GetEvidencesByOutcome(int outcomeId)
+        // GET: Evidence/Create
+        public IActionResult Create(int Outcome_id)
         {
-            try
-            {
-                var evidences = await _evidenceService.GetEvidencesByOutcomeIdAsync(outcomeId);
-                return Ok(evidences);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var evidence = new Evidence();
+            evidence.Outcome_Id = Outcome_id;
+            return View(evidence);
         }
 
-        // GET: api/Evidence/active
-        [HttpGet("active")]
-        public async Task<ActionResult<IEnumerable<Evidence>>> GetActiveEvidences()
-        {
-            try
-            {
-                var evidences = await _evidenceService.GetActiveEvidencesAsync();
-                return Ok(evidences);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        // GET: api/Evidence/practical
-        [HttpGet("practical")]
-        public async Task<ActionResult<IEnumerable<Evidence>>> GetPracticalEvidences()
-        {
-            try
-            {
-                var evidences = await _evidenceService.GetPracticalEvidencesAsync();
-                return Ok(evidences);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        // POST: api/Evidence
+        // POST: Evidence/Create
         [HttpPost]
-        public async Task<ActionResult<Evidence>> CreateEvidence(Evidence evidence)
+        [ValidateAntiForgeryToken] 
+        public async Task<IActionResult> Create(Evidence evidence)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+                // Set the created by user
+                evidence.CreatedBy_Id = GetCurrentUserId();
+                evidence.CreatedDate = DateTime.Now;
+                evidence.IsActive = true;
 
-                var createdEvidence = await _evidenceService.CreateEvidenceAsync(evidence);
-
-                return CreatedAtAction(
-                    nameof(GetEvidence),
-                    new { id = createdEvidence.Id },
-                    createdEvidence
-                );
+                await _evidenceService.CreateEvidenceAsync(evidence);
+                SetSuccessMessage("تم إضافة الدليل بنجاح");
+                return RedirectToAction("Details", "Learning_Outcome", new {id =evidence.Outcome_Id});
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                SetErrorMessage($"خطأ في إضافة الدليل: {ex.Message}");
+                return View(evidence);
             }
         }
 
-        // PUT: api/Evidence/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateEvidence(int id, Evidence evidence)
+        // GET: Evidence/Edit/5
+        public async Task<IActionResult> Edit(int id)
         {
             try
             {
-                if (!ModelState.IsValid)
+                var evidence = await _evidenceService.GetEvidenceByIdAsync(id);
+                if (evidence == null)
                 {
-                    return BadRequest(ModelState);
+                    SetErrorMessage("الدليل غير موجود");
+                    return RedirectToAction(nameof(Index));
                 }
-
-                if (id != evidence.Id)
-                {
-                    return BadRequest("ID mismatch.");
-                }
-
-                var updatedEvidence = await _evidenceService.UpdateEvidenceAsync(id, evidence);
-
-                if (updatedEvidence == null)
-                {
-                    return NotFound($"Evidence with ID {id} not found.");
-                }
-
-                return Ok(updatedEvidence);
+                return View(evidence);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
+                return RedirectToAction(nameof(Index));
             }
         }
 
-        // DELETE: api/Evidence/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEvidence(int id)
+        // POST: Evidence/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Evidence evidence)
+        {
+            if (id != evidence.Id)
+            {
+                SetErrorMessage("خطأ في البيانات المرسلة");
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                // Get the existing evidence to preserve some properties
+                var existingEvidence = await _evidenceService.GetEvidenceByIdAsync(id);
+                if (existingEvidence == null)
+                {
+                    SetErrorMessage("الدليل غير موجود");
+                    return RedirectToAction(nameof(Index));
+                }
+
+                // Update only the allowed properties
+                existingEvidence.Name = evidence.Name;
+                existingEvidence.Ispractical = evidence.Ispractical;
+                existingEvidence.IsActive = evidence.IsActive;
+                existingEvidence.Outcome_Id = evidence.Outcome_Id;
+                // Keep the original creation date and creator
+
+                await _evidenceService.UpdateEvidenceAsync(id, existingEvidence);
+                SetSuccessMessage("تم تحديث الدليل بنجاح");
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage($"خطأ في تحديث الدليل: {ex.Message}");
+                return View(evidence);
+            }
+        }
+
+        // POST: Evidence/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 var result = await _evidenceService.DeleteEvidenceAsync(id);
-
-                if (!result)
+                if (result)
                 {
-                    return NotFound($"Evidence with ID {id} not found.");
+                    SetSuccessMessage("تم حذف الدليل بنجاح");
                 }
-
-                return Ok($"Evidence with ID {id} has been deleted successfully.");
+                else
+                {
+                    SetErrorMessage("الدليل غير موجود");
+                }
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                SetErrorMessage($"خطأ في حذف الدليل: {ex.Message}");
             }
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // PATCH: api/Evidence/5/toggle-status
-        [HttpPatch("{id}/toggle-status")]
-        public async Task<IActionResult> ToggleEvidenceStatus(int id)
+        // GET: Evidence/GetActiveEvidences
+        [HttpGet]
+        public async Task<IActionResult> GetActiveEvidences()
         {
             try
             {
-                var result = await _evidenceService.ToggleEvidenceStatusAsync(id);
-
-                if (!result)
-                {
-                    return NotFound($"Evidence with ID {id} not found.");
-                }
-
-                return Ok($"Evidence status has been toggled successfully.");
+                var evidences = await _evidenceService.GetActiveEvidencesAsync();
+                return Json(evidences.Select(e => new {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Ispractical = e.Ispractical,
+                    OutcomeName = e.Learning_Outcome?.Name ?? "",
+                    CreatedDate = e.CreatedDate.ToString("dd/MM/yyyy")
+                }));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return Json(new { error = ex.Message });
             }
         }
 
-        // GET: api/Evidence/exists/5
-        [HttpGet("exists/{id}")]
-        public async Task<ActionResult<bool>> EvidenceExists(int id)
+        // GET: Evidence/GetEvidencesByOutcome/5
+        [HttpGet]
+        public async Task<IActionResult> GetEvidencesByOutcome(int outcomeId)
         {
             try
             {
-                var exists = await _evidenceService.EvidenceExistsAsync(id);
-                return Ok(exists);
+                var evidences = await _evidenceService.GetEvidencesByOutcomeIdAsync(outcomeId);
+                return Json(evidences.Select(e => new {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Ispractical = e.Ispractical,
+                    IsActive = e.IsActive
+                }));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return Json(new { error = ex.Message });
             }
+        }
+
+        // GET: Evidence/GetPracticalEvidences
+        [HttpGet]
+        public async Task<IActionResult> GetPracticalEvidences()
+        {
+            try
+            {
+                var evidences = await _evidenceService.GetPracticalEvidencesAsync();
+                return Json(evidences.Select(e => new {
+                    Id = e.Id,
+                    Name = e.Name,
+                    OutcomeName = e.Learning_Outcome?.Name ?? "",
+                    CreatedDate = e.CreatedDate.ToString("dd/MM/yyyy")
+                }));
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        // POST: Evidence/ToggleStatus/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleStatus(int id)
+        {
+            try
+            {
+                var evidence = await _evidenceService.GetEvidenceByIdAsync(id);
+                if (evidence == null)
+                {
+                    SetErrorMessage("الدليل غير موجود");
+                    return RedirectToAction(nameof(Index));
+                }
+
+                evidence.IsActive = !evidence.IsActive;
+                await _evidenceService.UpdateEvidenceAsync(id, evidence);
+
+                string status = evidence.IsActive ? "مفعل" : "معطل";
+                SetSuccessMessage($"تم تغيير حالة الدليل إلى {status}");
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage($"خطأ في تغيير حالة الدليل: {ex.Message}");
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

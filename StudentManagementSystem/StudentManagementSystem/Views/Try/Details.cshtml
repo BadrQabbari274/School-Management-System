@@ -1,0 +1,333 @@
+﻿@model StudentManagementSystem.ViewModels.TryDetailsViewModel
+
+@{
+    ViewData["Title"] = "تفاصيل العنصر";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .header-section {
+            background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
+            color: white;
+            ;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+        }
+
+        .details-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+            .detail-row:last-child {
+                border-bottom: none;
+            }
+
+        .detail-label {
+            font-weight: 600;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-value {
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .badge {
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .stats-container {
+            background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stats-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .btn-edit:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(253, 126, 20, 0.25);
+                background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
+                color: white;
+            }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .btn-delete:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+                color: white;
+            }
+
+        .btn-back {
+            background: #6c757d;
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .btn-back:hover {
+        
+                color: white;
+            }
+
+        .custom-modal .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .custom-modal .modal-header {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .alert {
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-section">
+        <div class="container">
+            <h1 class="header-title">تفاصيل العنصر</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <div class="details-container">
+            <div class="detail-row">
+                <span class="detail-label">
+                    <i class="fas fa-hashtag"></i> المعرف
+                </span>
+                <span class="detail-value">@Model.Try.Id</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <i class="fas fa-tag"></i> الاسم
+                </span>
+                <span class="detail-value">@Model.Try.Name</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <i class="fas fa-toggle-on"></i> الحالة
+                </span>
+                <span class="detail-value">
+                    @if (Model.Try.IsActive)
+                    {
+                        <span class="badge bg-success">نشط</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">غير نشط</span>
+                    }
+                </span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <i class="fas fa-user"></i> تم الإنشاء بواسطة
+                </span>
+                <span class="detail-value">@Model.Try.CreatedByName</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">
+                    <i class="fas fa-calendar"></i> تاريخ الإنشاء
+                </span>
+                <span class="detail-value">@Model.Try.CreatedDate.ToString("dd/MM/yyyy HH:mm")</span>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stats-title">
+                <i class="fas fa-chart-bar"></i> إحصائيات مرتبطة
+            </div>
+            <div class="stats-number">
+                @Model.StudentEvidencesCount أدلة طلاب مرتبطة
+            </div>
+        </div>
+
+        <div class="button-group">
+            <a asp-action="Edit" asp-route-id="@Model.Try.Id" class="btn btn-edit">
+                <i class="fas fa-edit"></i> تعديل
+            </a>
+            <button type="button" class="btn btn-delete" onclick="showDeleteConfirmation(@Model.Try.Id, '@Model.Try.Name')">
+                <i class="fas fa-trash"></i> حذف
+            </button>
+            <a asp-action="Index" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i> العودة للقائمة
+            </a>
+        </div>
+    </div>
+
+    <div class="modal fade custom-modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">تأكيد الحذف</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>هل أنت متأكد من حذف العنصر <strong id="tryNameToDelete"></strong>؟</p>
+                    <p class="text-danger">لا يمكن التراجع عن هذا الإجراء.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="deleteForm" asp-action="Delete" method="post" style="display:none;">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" id="tryIdToDelete" />
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let tryIdToDelete = 0;
+
+        function showDeleteConfirmation(id, name) {
+            tryIdToDelete = id;
+            document.getElementById('tryNameToDelete').innerText = name;
+            var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+            deleteModal.show();
+        }
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
+            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+            deleteModal.hide();
+
+            const form = document.getElementById('deleteForm');
+            document.getElementById('tryIdToDelete').value = tryIdToDelete;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form)
+                });
+
+                if (response.ok) {
+                    window.location.href = '@Url.Action("Index")';
+                } else {
+                    alert('حدث خطأ أثناء حذف العنصر. يرجى المحاولة مرة أخرى.');
+                    console.error('Delete failed with status:', response.status);
+                }
+            } catch (error) {
+                alert('حدث خطأ أثناء حذف العنصر. يرجى فحص اتصال الشبكة.');
+                console.error('Error during fetch:', error);
+            }
+        });
+    </script>
+</body>
+</html>
