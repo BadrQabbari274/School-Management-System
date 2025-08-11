@@ -330,7 +330,7 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <a asp-controller="Evidence" asp-action="Create" class="btn btn-orange">
+                    <a asp-controller="Evidence" asp-action="Create" asp-route-Outcome_id="@Model.Id" class="btn btn-orange">
                         <i class="fas fa-file-plus"></i> ≈÷«›… œ·Ì· ÃœÌœ
                     </a>
                     <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-orange">
