@@ -7,6 +7,7 @@ using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
 using StudentManagementSystem.ViewModels;
 using System.Security.Claims;
+using OfficeOpenXml;
 
 
 namespace StudentManagementSystem.Service.Implementation
@@ -1658,7 +1659,516 @@ a.AttendanceTypeId == fieldAttendanceTypeId &&
         {
             return await _context.Students.CountAsync(s => s.IsActive);
         }
+        // إضافة هذه الدوال إلى StudentService class
 
+        // تسجيل غياب ميداني للطلاب غير المتسجلين
+        public async Task<bool> MarkUnregisteredStudentsAsFieldAbsentAsync(int classId, int userId)
+        {
+            try
+            {
+                var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
+                if (activeWorkingYear == null) return false;
+
+                var dateOnly = DateTime.Now.Date;
+                var dailyAttendanceTypeId = GetDailyAttendanceTypeId();
+                var fieldAttendanceTypeId = GetFieldAttendanceTypeId();
+
+                // الحصول على سبب "التأخير عن موعد التدريب"
+                var lateReason = await _context.AbsenceReasons
+                    .FirstOrDefaultAsync(r => r.Name == "التأخير عن موعد التدريب" && !r.IsDeleted);
+
+                if (lateReason == null)
+                {
+                    // إنشاء السبب إذا لم يكن موجود
+                    lateReason = new AbsenceReasons
+                    {
+                        Name = "التأخير عن موعد التدريب",
+                        IsDeleted = false,
+                        CreatedBy_Id = userId,
+                        CreatedDate = DateTime.Now
+                    };
+                    _context.AbsenceReasons.Add(lateReason);
+                    await _context.SaveChangesAsync();
+                }
+
+                // الحصول على جميع الطلاب في الفصل
+                var studentsInClass = await _context.Student_Class_Section_Years
+                    .Include(scsy => scsy.Student)
+                    .Where(scsy => scsy.Class_Id == classId &&
+                                  scsy.Working_Year_Id == activeWorkingYear.Id &&
+                                  scsy.IsActive)
+                    .ToListAsync();
+
+                var unregisteredStudents = new List<Student_Class_Section_Year>();
+
+                foreach (var studentClassSection in studentsInClass)
+                {
+                    // فحص هل الطالب مسجل في الحضور أو الغياب اليومي
+                    var hasDailyRecord = await _context.StudentAttendances
+                        .AnyAsync(a => a.StudentClassSectionYear_Student_Id == studentClassSection.Student_Id &&
+                                      a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                      a.Class_Id == classId &&
+                                      a.StudentClassSectionYear_Section_id == studentClassSection.Section_id &&
+                                      a.Date.Date == dateOnly &&
+                                      a.AttendanceTypeId == dailyAttendanceTypeId &&
+                                      !a.IsDeleted) ||
+                        await _context.StudentAbsents
+                        .AnyAsync(a => a.StudentClassSectionYear_Student_Id == studentClassSection.Student_Id &&
+                                      a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                      a.Class_Id == classId &&
+                                      a.StudentClassSectionYear_Section_id == studentClassSection.Section_id &&
+                                      a.Date.Date == dateOnly &&
+                                      a.AttendanceTypeId == dailyAttendanceTypeId &&
+                                      !a.IsDeleted);
+                    var hasFeildRecord = await _context.StudentAttendances
+           .AnyAsync(a => a.StudentClassSectionYear_Student_Id == studentClassSection.Student_Id &&
+                         a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                         a.Class_Id == classId &&
+                         a.StudentClassSectionYear_Section_id == studentClassSection.Section_id &&
+                         a.Date.Date == dateOnly &&
+                         a.AttendanceTypeId == fieldAttendanceTypeId &&
+                         !a.IsDeleted) ||
+           await _context.StudentAbsents
+           .AnyAsync(a => a.StudentClassSectionYear_Student_Id == studentClassSection.Student_Id &&
+                         a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                         a.Class_Id == classId &&
+                         a.StudentClassSectionYear_Section_id == studentClassSection.Section_id &&
+                         a.Date.Date == dateOnly &&
+                         a.AttendanceTypeId == fieldAttendanceTypeId &&
+                         !a.IsDeleted);
+                    // إذا لم يكن مسجل في الحضور اليومي، أضفه للقائمة
+                    if (hasDailyRecord&& !hasFeildRecord)
+                    {
+                        unregisteredStudents.Add(studentClassSection);
+                    }
+                }
+
+                // تسجيل الطلاب غير المسجلين كغياب ميداني
+                foreach (var student in unregisteredStudents)
+                {
+                    var fieldAbsence = new StudentAbsents
+                    {
+                        Date = dateOnly,
+                        CreatedBy_Id = userId,
+                        AttendanceTypeId = fieldAttendanceTypeId,
+                        StudentClassSectionYear_Student_Id = student.Student_Id,
+                        Class_Id = classId,
+                        StudentClassSectionYear_Working_Year_Id = activeWorkingYear.Id,
+                        StudentClassSectionYear_Section_id = student.Section_id,
+                        AbsenceReasonId = lateReason.Id,
+ 
+                        IsDeleted = false
+                    };
+
+                    _context.StudentAbsents.Add(fieldAbsence);
+                }
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        // احصائيات الفصل
+        public async Task<ClassStatisticsViewModel> GetClassStatisticsAsync(int classId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
+                if (activeWorkingYear == null) return null;
+
+                var classInfo = await _context.Classes.FindAsync(classId);
+                if (classInfo == null) return null;
+
+                var dateRange = GetDateRange(startDate, endDate);
+                var totalDays = dateRange.Count;
+
+                // الحصول على جميع الطلاب في الفصل خلال الفترة
+                var studentsInClass = await _context.Student_Class_Section_Years
+                    .Include(s => s.Student)
+                    .Where(s => s.Class_Id == classId &&
+                               s.Working_Year_Id == activeWorkingYear.Id &&
+                               s.IsActive)
+                    .ToListAsync();
+
+                var totalStudents = studentsInClass.Count;
+                var totalPossibleAttendances = totalDays * totalStudents;
+
+                // احصائيات الحضور والغياب
+                var attendanceCount = await _context.StudentAttendances
+                    .CountAsync(a => a.Class_Id == classId &&
+                                    a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                    a.Date.Date >= startDate.Date &&
+                                    a.Date.Date <= endDate.Date &&
+                                    !a.IsDeleted);
+
+                var absenceCount = await _context.StudentAbsents
+                    .CountAsync(a => a.Class_Id == classId &&
+                                    a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                    a.Date.Date >= startDate.Date &&
+                                    a.Date.Date <= endDate.Date &&
+                                    !a.IsDeleted);
+
+                // احصائيات أسباب الغياب
+                var absenceReasons = await _context.StudentAbsents
+                    .Include(a => a.AbsenceReason)
+                    .Where(a => a.Class_Id == classId &&
+                               a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                               a.Date.Date >= startDate.Date &&
+                               a.Date.Date <= endDate.Date &&
+                               !a.IsDeleted &&
+                               a.AbsenceReasonId.HasValue)
+                    .GroupBy(a => a.AbsenceReason.Name)
+                    .Select(g => new AbsenceReasonStatistic
+                    {
+                        ReasonName = g.Key,
+                        Count = g.Count(),
+                        Percentage = totalPossibleAttendances > 0 ? (decimal)g.Count() / totalPossibleAttendances * 100 : 0
+                    })
+                    .OrderByDescending(r => r.Count)
+                    .ToListAsync();
+
+                // احصائيات يومية
+                var dailyStats = new List<DailyAttendanceStatistic>();
+                foreach (var date in dateRange)
+                {
+                    var dailyAttendance = await _context.StudentAttendances
+                        .CountAsync(a => a.Class_Id == classId &&
+                                        a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                        a.Date.Date == date &&
+                                        !a.IsDeleted);
+
+                    var dailyAbsence = await _context.StudentAbsents
+                        .CountAsync(a => a.Class_Id == classId &&
+                                        a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                        a.Date.Date == date &&
+                                        !a.IsDeleted);
+
+                    var dailyStat = new DailyAttendanceStatistic
+                    {
+                        Date = date,
+                        PresentCount = dailyAttendance,
+                        AbsentCount = dailyAbsence,
+                        AttendancePercentage = totalStudents > 0 ? (decimal)dailyAttendance / totalStudents * 100 : 0
+                    };
+
+                    dailyStats.Add(dailyStat);
+                }
+
+                var result = new ClassStatisticsViewModel
+                {
+                    Class = classInfo,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    TotalDays = totalDays,
+                    TotalStudents = totalStudents,
+                    TotalPossibleAttendances = totalPossibleAttendances,
+                    TotalActualAttendances = attendanceCount,
+                    TotalAbsences = absenceCount,
+                    AttendancePercentage = totalPossibleAttendances > 0 ? (decimal)attendanceCount / totalPossibleAttendances * 100 : 0,
+                    AbsencePercentage = totalPossibleAttendances > 0 ? (decimal)absenceCount / totalPossibleAttendances * 100 : 0,
+                    TopAbsenceReasons = absenceReasons,
+                    DailyStatistics = dailyStats
+                };
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        // احصائيات الطالب
+        public async Task<StudentStatisticsViewModel> GetStudentStatisticsAsync(int studentId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
+                if (activeWorkingYear == null) return null;
+
+                var student = await _context.Students.FindAsync(studentId);
+                if (student == null) return null;
+
+                // الحصول على الفصل الحالي للطالب
+                var studentClass = await _context.Student_Class_Section_Years
+                    .Include(s => s.Class)
+                    .Where(s => s.Student_Id == studentId &&
+                               s.Working_Year_Id == activeWorkingYear.Id &&
+                               s.IsActive)
+                    .FirstOrDefaultAsync();
+
+                var dateRange = GetDateRange(startDate, endDate);
+                var totalDays = dateRange.Count;
+
+                // احصائيات الحضور
+                var attendanceDays = await _context.StudentAttendances
+                    .CountAsync(a => a.StudentClassSectionYear_Student_Id == studentId &&
+                                    a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                    a.Date.Date >= startDate.Date &&
+                                    a.Date.Date <= endDate.Date &&
+                                    !a.IsDeleted);
+
+                // احصائيات الغياب
+                var absenceDays = await _context.StudentAbsents
+                    .CountAsync(a => a.StudentClassSectionYear_Student_Id == studentId &&
+                                    a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                                    a.Date.Date >= startDate.Date &&
+                                    a.Date.Date <= endDate.Date &&
+                                    !a.IsDeleted);
+
+                // أسباب الغياب
+                var absenceReasons = await _context.StudentAbsents
+                    .Include(a => a.AbsenceReason)
+                    .Where(a => a.StudentClassSectionYear_Student_Id == studentId &&
+                               a.StudentClassSectionYear_Working_Year_Id == activeWorkingYear.Id &&
+                               a.Date.Date >= startDate.Date &&
+                               a.Date.Date <= endDate.Date &&
+                               !a.IsDeleted &&
+                               a.AbsenceReasonId.HasValue)
+                    .GroupBy(a => a.AbsenceReason.Name)
+                    .Select(g => new AbsenceReasonStatistic
+                    {
+                        ReasonName = g.Key,
+                        Count = g.Count(),
+                        Percentage = totalDays > 0 ? (decimal)g.Count() / totalDays * 100 : 0
+                    })
+                    .OrderByDescending(r => r.Count)
+                    .ToListAsync();
+
+                var mostCommonReason = absenceReasons.FirstOrDefault();
+
+                var result = new StudentStatisticsViewModel
+                {
+                    Student = student,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    ClassName = studentClass?.Class?.Name ?? "غير محدد",
+                    TotalPossibleDays = totalDays,
+                    AttendanceDays = attendanceDays,
+                    AbsenceDays = absenceDays,
+                    AttendancePercentage = totalDays > 0 ? (decimal)attendanceDays / totalDays * 100 : 0,
+                    AbsencePercentage = totalDays > 0 ? (decimal)absenceDays / totalDays * 100 : 0,
+                    AbsenceReasons = absenceReasons,
+                    MostCommonAbsenceReason = mostCommonReason?.ReasonName ?? "لا يوجد",
+                    MostCommonAbsenceReasonCount = mostCommonReason?.Count ?? 0
+                };
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        // احصائيات جميع الطلاب في الفصل
+        public async Task<List<StudentStatisticsViewModel>> GetAllStudentsStatisticsInClassAsync(int classId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
+                if (activeWorkingYear == null) return new List<StudentStatisticsViewModel>();
+
+                var studentsInClass = await _context.Student_Class_Section_Years
+                    .Include(s => s.Student)
+                    .Include(s => s.Class)
+                    .Where(s => s.Class_Id == classId &&
+                               s.Working_Year_Id == activeWorkingYear.Id &&
+                               s.IsActive)
+                    .ToListAsync();
+
+                var result = new List<StudentStatisticsViewModel>();
+
+                foreach (var studentClass in studentsInClass)
+                {
+                    var studentStats = await GetStudentStatisticsAsync(studentClass.Student_Id, startDate, endDate);
+                    if (studentStats != null)
+                    {
+                        result.Add(studentStats);
+                    }
+                }
+
+                return result.OrderBy(s => s.Student.Name).ToList();
+            }
+            catch
+            {
+                return new List<StudentStatisticsViewModel>();
+            }
+        }
+
+        // دالة مساعدة لإنشاء نطاق التواريخ
+        private List<DateTime> GetDateRange(DateTime startDate, DateTime endDate)
+        {
+            var dates = new List<DateTime>();
+            for (var date = startDate.Date; date <= endDate.Date; date = date.AddDays(1))
+            {
+                // استثناء عطل نهاية الأسبوع إذا أردت
+                if (date.DayOfWeek != DayOfWeek.Friday && date.DayOfWeek != DayOfWeek.Saturday)
+                {
+                    dates.Add(date);
+                }
+            }
+            return dates;
+        }
+
+        // تصدير احصائيات الفصل إلى Excel
+        public async Task<byte[]> ExportClassStatisticsToExcelAsync(int classId, DateTime startDate, DateTime endDate)
+        {
+            var statistics = await GetClassStatisticsAsync(classId, startDate, endDate);
+            if (statistics == null) return null;
+
+            using var package = new OfficeOpenXml.ExcelPackage();
+            var worksheet = package.Workbook.Worksheets.Add("احصائيات الفصل");
+
+            // Headers
+            worksheet.Cells[1, 1].Value = "تقرير احصائيات الفصل";
+            worksheet.Cells[2, 1].Value = "اسم الفصل:";
+            worksheet.Cells[2, 2].Value = statistics.Class.Name;
+            worksheet.Cells[3, 1].Value = "من تاريخ:";
+            worksheet.Cells[3, 2].Value = startDate.ToString("yyyy-MM-dd");
+            worksheet.Cells[4, 1].Value = "إلى تاريخ:";
+            worksheet.Cells[4, 2].Value = endDate.ToString("yyyy-MM-dd");
+
+            // Statistics summary
+            worksheet.Cells[6, 1].Value = "إجمالي الأيام";
+            worksheet.Cells[6, 2].Value = statistics.TotalDays;
+            worksheet.Cells[7, 1].Value = "إجمالي الطلاب";
+            worksheet.Cells[7, 2].Value = statistics.TotalStudents;
+            worksheet.Cells[8, 1].Value = "إجمالي الحضور";
+            worksheet.Cells[8, 2].Value = statistics.TotalActualAttendances;
+            worksheet.Cells[9, 1].Value = "إجمالي الغياب";
+            worksheet.Cells[9, 2].Value = statistics.TotalAbsences;
+            worksheet.Cells[10, 1].Value = "نسبة الحضور %";
+            worksheet.Cells[10, 2].Value = statistics.AttendancePercentage;
+            worksheet.Cells[11, 1].Value = "نسبة الغياب %";
+            worksheet.Cells[11, 2].Value = statistics.AbsencePercentage;
+
+            // Top absence reasons
+            worksheet.Cells[13, 1].Value = "أكثر أسباب الغياب";
+            worksheet.Cells[14, 1].Value = "السبب";
+            worksheet.Cells[14, 2].Value = "العدد";
+            worksheet.Cells[14, 3].Value = "النسبة %";
+
+            int row = 15;
+            foreach (var reason in statistics.TopAbsenceReasons)
+            {
+                worksheet.Cells[row, 1].Value = reason.ReasonName;
+                worksheet.Cells[row, 2].Value = reason.Count;
+                worksheet.Cells[row, 3].Value = reason.Percentage;
+                row++;
+            }
+
+            return package.GetAsByteArray();
+        }
+
+        // تصدير احصائيات الطالب إلى Excel
+        public async Task<byte[]> ExportStudentStatisticsToExcelAsync(int studentId, DateTime startDate, DateTime endDate)
+        {
+            var statistics = await GetStudentStatisticsAsync(studentId, startDate, endDate);
+            if (statistics == null) return null;
+
+            using var package = new OfficeOpenXml.ExcelPackage();
+            var worksheet = package.Workbook.Worksheets.Add("احصائيات الطالب");
+
+            // Headers
+            worksheet.Cells[1, 1].Value = "تقرير احصائيات الطالب";
+            worksheet.Cells[2, 1].Value = "اسم الطالب:";
+            worksheet.Cells[2, 2].Value = statistics.Student.Name;
+            worksheet.Cells[3, 1].Value = "كود الطالب:";
+            worksheet.Cells[3, 2].Value = statistics.Student.Code;
+            worksheet.Cells[4, 1].Value = "الفصل:";
+            worksheet.Cells[4, 2].Value = statistics.ClassName;
+            worksheet.Cells[5, 1].Value = "من تاريخ:";
+            worksheet.Cells[5, 2].Value = startDate.ToString("yyyy-MM-dd");
+            worksheet.Cells[6, 1].Value = "إلى تاريخ:";
+            worksheet.Cells[6, 2].Value = endDate.ToString("yyyy-MM-dd");
+
+            // Statistics
+            worksheet.Cells[8, 1].Value = "إجمالي الأيام المحتملة";
+            worksheet.Cells[8, 2].Value = statistics.TotalPossibleDays;
+            worksheet.Cells[9, 1].Value = "أيام الحضور";
+            worksheet.Cells[9, 2].Value = statistics.AttendanceDays;
+            worksheet.Cells[10, 1].Value = "أيام الغياب";
+            worksheet.Cells[10, 2].Value = statistics.AbsenceDays;
+            worksheet.Cells[11, 1].Value = "نسبة الحضور %";
+            worksheet.Cells[11, 2].Value = statistics.AttendancePercentage;
+            worksheet.Cells[12, 1].Value = "نسبة الغياب %";
+            worksheet.Cells[12, 2].Value = statistics.AbsencePercentage;
+            worksheet.Cells[13, 1].Value = "أكثر أسباب الغياب";
+            worksheet.Cells[13, 2].Value = $"{statistics.MostCommonAbsenceReason} ({statistics.MostCommonAbsenceReasonCount} مرة)";
+
+            // Absence reasons details
+            worksheet.Cells[15, 1].Value = "تفاصيل أسباب الغياب";
+            worksheet.Cells[16, 1].Value = "السبب";
+            worksheet.Cells[16, 2].Value = "العدد";
+            worksheet.Cells[16, 3].Value = "النسبة %";
+
+            int row = 17;
+            foreach (var reason in statistics.AbsenceReasons)
+            {
+                worksheet.Cells[row, 1].Value = reason.ReasonName;
+                worksheet.Cells[row, 2].Value = reason.Count;
+                worksheet.Cells[row, 3].Value = reason.Percentage;
+                row++;
+            }
+
+            return package.GetAsByteArray();
+        }
+
+        // تصدير احصائيات جميع الطلاب في الفصل
+        public async Task<byte[]> ExportAllStudentsStatisticsToExcelAsync(int classId, DateTime startDate, DateTime endDate)
+        {
+            var studentsStatistics = await GetAllStudentsStatisticsInClassAsync(classId, startDate, endDate);
+            if (!studentsStatistics.Any()) return null;
+
+            using var package = new OfficeOpenXml.ExcelPackage();
+            var worksheet = package.Workbook.Worksheets.Add("احصائيات الطلاب");
+
+            // Headers
+            worksheet.Cells[1, 1].Value = "تقرير احصائيات جميع الطلاب";
+            worksheet.Cells[2, 1].Value = "الفصل:";
+            worksheet.Cells[2, 2].Value = studentsStatistics.First().ClassName;
+            worksheet.Cells[3, 1].Value = "من تاريخ:";
+            worksheet.Cells[3, 2].Value = startDate.ToString("yyyy-MM-dd");
+            worksheet.Cells[4, 1].Value = "إلى تاريخ:";
+            worksheet.Cells[4, 2].Value = endDate.ToString("yyyy-MM-dd");
+
+            // Table headers
+            worksheet.Cells[6, 1].Value = "اسم الطالب";
+            worksheet.Cells[6, 2].Value = "كود الطالب";
+            worksheet.Cells[6, 3].Value = "الفصل";
+            worksheet.Cells[6, 4].Value = "أيام الحضور";
+            worksheet.Cells[6, 5].Value = "أيام الغياب";
+            worksheet.Cells[6, 6].Value = "نسبة الحضور %";
+            worksheet.Cells[6, 7].Value = "نسبة الغياب %";
+            worksheet.Cells[6, 8].Value = "أكثر أسباب الغياب";
+            worksheet.Cells[6, 9].Value = "تكرار السبب";
+
+            // Data rows
+            int currentRow = 7;
+            foreach (var studentStat in studentsStatistics)
+            {
+                worksheet.Cells[currentRow, 1].Value = studentStat.Student.Name;
+                worksheet.Cells[currentRow, 2].Value = studentStat.Student.Code;
+                worksheet.Cells[currentRow, 3].Value = studentStat.ClassName;
+                worksheet.Cells[currentRow, 4].Value = studentStat.AttendanceDays;
+                worksheet.Cells[currentRow, 5].Value = studentStat.AbsenceDays;
+                worksheet.Cells[currentRow, 6].Value = studentStat.AttendancePercentage;
+                worksheet.Cells[currentRow, 7].Value = studentStat.AbsencePercentage;
+                worksheet.Cells[currentRow, 8].Value = studentStat.MostCommonAbsenceReason;
+                worksheet.Cells[currentRow, 9].Value = studentStat.MostCommonAbsenceReasonCount;
+                currentRow++;
+            }
+
+            // Auto-fit columns
+            worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+            return package.GetAsByteArray();
+        }
     }
     // DTOs للإرجاع
     //public class SectionStudentsViewModel

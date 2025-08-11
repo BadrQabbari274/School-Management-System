@@ -1,0 +1,324 @@
+﻿@model StudentManagementSystem.ViewModels.CompetenciesDetailsViewModel
+
+@{
+    ViewData["Title"] = "تفاصيل الجدارة";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<div class="container-fluid p-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-info text-white text-center py-4">
+                    <h3 class="mb-0 fw-bold">
+                        <i class="fas fa-medal me-2"></i>تفاصيل الجدارة - @Model.Competency.Name
+                    </h3>
+                </div>
+
+                <div class="card-body p-5">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-id-badge me-2"></i>المعرف
+                                </label>
+                                <div class="detail-value">@Model.Competency.Id</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-medal me-2"></i>اسم الجدارة
+                                </label>
+                                <div class="detail-value">@Model.Competency.Name</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-clock me-2"></i>المدة
+                                </label>
+                                <div class="detail-value">
+                                    <span class="badge bg-info fs-6">@Model.Competency.Duration</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-sitemap me-2"></i>القسم
+                                </label>
+                                <div class="detail-value">@Model.Competency.SectionName</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-target me-2"></i>الحد الأقصى للنتائج
+                                </label>
+                                <div class="detail-value">
+                                    <span class="badge bg-primary fs-6">@Model.Competency.Max_Outcome</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-toggle-on me-2"></i>الحالة
+                                </label>
+                                <div class="detail-value">
+                                    @if (Model.Competency.IsActive)
+                                    {
+                                        <span class="badge bg-success fs-6">
+                                            <i class="fas fa-check-circle me-1"></i>نشط
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger fs-6">
+                                            <i class="fas fa-times-circle me-1"></i>غير نشط
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-calendar-alt me-2"></i>تاريخ الإنشاء
+                                </label>
+                                <div class="detail-value">@Model.Competency.CreatedDate?.ToString("MMM dd, yyyy")</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-clock me-2"></i>وقت الإنشاء
+                                </label>
+                                <div class="detail-value">@Model.Competency.CreatedDate?.ToString("HH:mm tt")</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-user me-2"></i>أنشئت بواسطة
+                                </label>
+                                <div class="detail-value">
+                                    <span class="badge bg-primary fs-6">@Model.Competency.CreatedByName</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="detail-item">
+                                <label class="form-label fw-bold text-dark">
+                                    <i class="fas fa-calendar-day me-2"></i>منذ
+                                </label>
+                                <div class="detail-value">
+                                    @{
+                                        var daysDiff = (DateTime.Now - Model.Competency.CreatedDate)?.Days;
+                                        string timeAgo = daysDiff == 0 ? "اليوم" :
+                                        daysDiff == 1 ? "أمس" :
+                                        daysDiff < 30 ? $"{daysDiff} يوم" :
+                                        daysDiff < 365 ? $"{daysDiff / 30} شهر" :
+                                        $"{daysDiff / 365} سنة";
+                                    }
+                                    <span class="text-muted">@timeAgo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Learning Outcomes Section -->
+                    @if (Model.LearningOutcomes != null && Model.LearningOutcomes.Any())
+                    {
+                        <hr class="my-4" />
+                        <div class="mb-4">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-list-ul me-2"></i>نتائج التعلم المرتبطة
+                            </h5>
+                            <div class="row">
+                                @foreach (var outcome in Model.LearningOutcomes)
+                                {
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card border-start border-primary border-4">
+                                            <div class="card-body p-3">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h6 class="card-title mb-1">@outcome.Name</h6>
+                                                    @if (outcome.IsActive)
+                                                    {
+                                                        <span class="badge bg-success">نشط</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-secondary">غير نشط</span>
+                                                    }
+                                                </div>
+                                                <small class="text-muted">
+                                                    أنشئ بواسطة: @outcome.CreatedByName |
+                                                    @outcome.CreatedDate.ToString("dd/MM/yyyy")
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    <hr class="my-4" />
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a asp-action="Edit" asp-route-id="@Model.Competency.Id" class="btn btn-warning btn-lg w-100 mb-3">
+                                <i class="fas fa-edit me-2"></i>تعديل
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a asp-action="Index" class="btn btn-secondary btn-lg w-100 mb-3" style="height: 48px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    تأكيد الحذف
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <i class="fas fa-question-circle fa-3x text-warning mb-3"></i>
+                <h5>هل أنت متأكد من حذف الجدارة؟</h5>
+                <p class="text-muted">
+                    ستقوم بحذف الجدارة: <strong class="text-primary">@Model.Competency.Name</strong>
+                </p>
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    تحذير: هذا الإجراء لا يمكن التراجع عنه وسيحذف جميع نتائج التعلم المرتبطة!
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>
+                    إلغاء
+                </button>
+                <form asp-action="DeleteConfirmed" asp-route-id="@Model.Competency.Id" method="post" style="display: inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger" id="deleteBtn">
+                        <i class="fas fa-trash me-2"></i>
+                        نعم، احذف
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success/Error Messages -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<style>
+    .detail-item {
+        padding: 15px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+        .detail-item:hover {
+            background-color: #f8f9fa;
+        }
+
+    .detail-value {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #495057;
+        margin-top: 5px;
+    }
+
+    .badge {
+        font-size: 0.9rem !important;
+    }
+
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+    }
+
+    .btn {
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+    .border-4 {
+        border-width: 4px !important;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle delete button click
+        const deleteBtn = document.getElementById('deleteBtn');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', function() {
+                this.disabled = true;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>جاري الحذف...';
+            });
+        }
+
+        // Add animation to badges
+        const badges = document.querySelectorAll('.badge');
+        badges.forEach(badge => {
+            badge.style.transition =

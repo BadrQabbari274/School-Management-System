@@ -7,23 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Compatences\students.cs" />
+    <Compile Remove="Views\Competencies\students.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Compatences\NewFile.cshtml" />
+    <Content Remove="Views\Competencies\NewFile.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Views\Account\NewFile.txt" />
-    <None Remove="Views\Compatences\NewFile" />
-    <None Remove="Views\Compatences\NewFile.txt" />
-    <None Remove="Views\Compatences\NewFile1.txt" />
-    <None Remove="Views\Compatences\students" />
-    <None Remove="Views\Compatences\سفعي" />
+    <None Remove="Views\Competencies\NewFile" />
+    <None Remove="Views\Competencies\NewFile.txt" />
+    <None Remove="Views\Competencies\NewFile1.txt" />
+    <None Remove="Views\Competencies\students" />
+    <None Remove="Views\Competencies\سفعي" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
+    <PackageReference Include="DocumentFormat.OpenXml.Framework" Version="3.3.0" />
+    <PackageReference Include="EPPlus" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
@@ -32,6 +35,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="OfficeOpenXml.Core.ExcelPackage" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

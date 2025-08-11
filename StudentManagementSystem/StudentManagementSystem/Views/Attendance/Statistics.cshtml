@@ -1,0 +1,353 @@
+﻿@model StudentManagementSystem.ViewModels.StatisticsRequestViewModel
+@{
+    ViewData["Title"] = "احصائيات الحضور والغياب";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">احصائيات الحضور والغياب</h3>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Statistics", "Attendance", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="ReportType">نوع التقرير</label>
+                                    @Html.DropDownListFor(m => m.ReportType, new List<SelectListItem>
+                                    {
+                                        new SelectListItem { Text = "احصائيات الفصل", Value = "Class" },
+                                                                new SelectListItem { Text = "احصائيات طالب واحد", Value = "Student" },
+                                                                new SelectListItem { Text = "احصائيات جميع الطلاب", Value = "AllStudents" }
+                                                                }, new { @class = "form-control", id = "ReportType" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="SelectedGrade">الصف</label>
+                                @Html.DropDownList("SelectedGrade", ViewBag.Grades as SelectList, "اختر الصف", new { @class = "form-control", id = "SelectedGrade" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="ClassId">الفصل</label>
+                                @Html.DropDownListFor(m => m.ClassId, ViewBag.Classes as SelectList, "اختر الفصل", new { @class = "form-control", id = "ClassId" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3" id="studentDiv" style="display:none;">
+                            <div class="form-group">
+                                <label for="StudentId">الطالب</label>
+                                @Html.DropDownListFor(m => m.StudentId, ViewBag.Students as SelectList, "اختر الطالب", new { @class = "form-control", id = "StudentId" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="StartDate">من تاريخ</label>
+                                @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control", @type = "date" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="EndDate">إلى تاريخ</label>
+                                @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control", @type = "date" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <div>
+                                    <button type="submit" class="btn btn-primary">عرض الاحصائيات</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- عرض احصائيات الفصل -->
+    @if (ViewBag.ClassStatistics != null)
+    {
+        var classStats = ViewBag.ClassStatistics as StudentManagementSystem.ViewModels.ClassStatisticsViewModel;
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h4>احصائيات الفصل: @classStats.Class.Name</h4>
+                        <a href="@Url.Action("ExportClassStatistics", new { classId = classStats.Class.Id, startDate = classStats.StartDate.ToString("yyyy-MM-dd"), endDate = classStats.EndDate.ToString("yyyy-MM-dd") })"
+                           class="btn btn-success">
+                            <i class="fas fa-file-excel"></i> تصدير Excel
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-success"><i class="fas fa-calendar-check"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">إجمالي الأيام</span>
+                                        <span class="info-box-number">@classStats.TotalDays</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-info"><i class="fas fa-users"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">إجمالي الطلاب</span>
+                                        <span class="info-box-number">@classStats.TotalStudents</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-primary"><i class="fas fa-check"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">نسبة الحضور</span>
+                                        <span class="info-box-number">@classStats.AttendancePercentage.ToString("F2")%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-danger"><i class="fas fa-times"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">نسبة الغياب</span>
+                                        <span class="info-box-number">@classStats.AbsencePercentage.ToString("F2")%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (classStats.TopAbsenceReasons.Any())
+                        {
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <h5>أكثر أسباب الغياب</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>السبب</th>
+                                                    <th>العدد</th>
+                                                    <th>النسبة</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var reason in classStats.TopAbsenceReasons.Take(5))
+                                                {
+                                                    <tr>
+                                                        <td>@reason.ReasonName</td>
+                                                        <td>@reason.Count</td>
+                                                        <td>@reason.Percentage.ToString("F2")%</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- عرض احصائيات الطالب -->
+    @if (ViewBag.StudentStatistics != null)
+    {
+        var studentStats = ViewBag.StudentStatistics as StudentManagementSystem.ViewModels.StudentStatisticsViewModel;
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h4>احصائيات الطالب: @studentStats.Student.Name</h4>
+                        <a href="@Url.Action("ExportStudentStatistics", new { studentId = studentStats.Student.Id, startDate = studentStats.StartDate.ToString("yyyy-MM-dd"), endDate = studentStats.EndDate.ToString("yyyy-MM-dd") })"
+                           class="btn btn-success">
+                            <i class="fas fa-file-excel"></i> تصدير Excel
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>كود الطالب:</strong> @studentStats.Student.Code</p>
+                                <p><strong>الفصل:</strong> @studentStats.ClassName</p>
+                                <p><strong>إجمالي الأيام:</strong> @studentStats.TotalPossibleDays</p>
+                                <p><strong>أيام الحضور:</strong> @studentStats.AttendanceDays</p>
+                                <p><strong>أيام الغياب:</strong> @studentStats.AbsenceDays</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>نسبة الحضور:</strong> @studentStats.AttendancePercentage.ToString("F2")%</p>
+                                <p><strong>نسبة الغياب:</strong> @studentStats.AbsencePercentage.ToString("F2")%</p>
+                                <p><strong>أكثر أسباب الغياب:</strong> @studentStats.MostCommonAbsenceReason (@studentStats.MostCommonAbsenceReasonCount مرة)</p>
+                            </div>
+                        </div>
+
+                        @if (studentStats.AbsenceReasons.Any())
+                        {
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <h5>تفاصيل أسباب الغياب</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>السبب</th>
+                                                    <th>العدد</th>
+                                                    <th>النسبة</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var reason in studentStats.AbsenceReasons)
+                                                {
+                                                    <tr>
+                                                        <td>@reason.ReasonName</td>
+                                                        <td>@reason.Count</td>
+                                                        <td>@reason.Percentage.ToString("F2")%</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- عرض احصائيات جميع الطلاب -->
+    @if (ViewBag.AllStudentsStatistics != null)
+    {
+        var allStudentsStats = ViewBag.AllStudentsStatistics as List<StudentManagementSystem.ViewModels.StudentStatisticsViewModel>;
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h4>احصائيات جميع الطلاب</h4>
+                        <a href="@Url.Action("ExportAllStudentsStatistics", new { classId = Model.ClassId, startDate = Model.StartDate.ToString("yyyy-MM-dd"), endDate = Model.EndDate.ToString("yyyy-MM-dd") })"
+                           class="btn btn-success">
+                            <i class="fas fa-file-excel"></i> تصدير Excel
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>اسم الطالب</th>
+                                        <th>كود الطالب</th>
+                                        <th>الفصل</th>
+                                        <th>أيام الحضور</th>
+                                        <th>أيام الغياب</th>
+                                        <th>نسبة الحضور</th>
+                                        <th>نسبة الغياب</th>
+                                        <th>أكثر أسباب الغياب</th>
+                                        <th>تكرار السبب</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var student in allStudentsStats)
+                                    {
+                                        <tr>
+                                            <td>@student.Student.Name</td>
+                                            <td>@student.Student.Code</td>
+                                            <td>@student.ClassName</td>
+                                            <td>@student.AttendanceDays</td>
+                                            <td>@student.AbsenceDays</td>
+                                            <td>
+                                                <span class="badge @(student.AttendancePercentage >= 80 ? "badge-success" : student.AttendancePercentage >= 60 ? "badge-warning" : "badge-danger")">
+                                                    @student.AttendancePercentage.ToString("F1")%
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge @(student.AbsencePercentage <= 20 ? "badge-success" : student.AbsencePercentage <= 40 ? "badge-warning" : "badge-danger")">
+                                                    @student.AbsencePercentage.ToString("F1")%
+                                                </span>
+                                            </td>
+                                            <td>@student.MostCommonAbsenceReason</td>
+                                            <td>@student.MostCommonAbsenceReasonCount</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function() {
+        // عند تغيير نوع التقرير
+        $('#ReportType').change(function() {
+            var reportType = $(this).val();
+            if (reportType === 'Student') {
+                $('#studentDiv').show();
+            } else {
+                $('#studentDiv').hide();
+            }
+        });
+
+        // عند تغيير الصف
+        $('#SelectedGrade').change(function() {
+            var gradeId = $(this).val();
+            if (gradeId) {
+                $.get('@Url.Action("GetClassesByGrade", "Attendance")', { gradeId: gradeId }, function(data) {
+                    var classSelect = $('#ClassId');
+                    classSelect.empty();
+                    classSelect.append('<option value="">اختر الفصل</option>');
+                    $.each(data, function(index, item) {
+                        classSelect.append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                });
+            }
+        });
+
+        // عند تغيير الفصل
+        $('#ClassId').change(function() {
+            var classId = $(this).val();
+            if (classId && $('#ReportType').val() === 'Student') {
+                $.get('@Url.Action("GetStudentsByClass", "Attendance")', { classId: classId }, function(data) {
+                    var studentSelect = $('#StudentId');
+                    studentSelect.empty();
+                    studentSelect.append('<option value="">اختر الطالب</option>');
+                    $.each(data, function(index, item) {
+                        studentSelect.append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                });
+            }
+        });
+
+        // تحديد القيم الافتراضية للتواريخ
+        var today = new Date();
+        var lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+
+        if (!$('#StartDate').val()) {
+            $('#StartDate').val(lastMonth.toISOString().split('T')[0]);
+        }
+        if (!$('#EndDate').val()) {
+            $('#EndDate').val(today.toISOString().split('T')[0]);
+        }
+    });
+</script>
