@@ -15,6 +15,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
+    <style>
+        .details-btn {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            border-top-right-radius: 0.5rem !important;
+            border-bottom-right-radius: 0.5rem !important;
+        }
+
+        .delete-btn {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5rem !important;
+        }
+    </style>
 </head>
 <body>
     <div class="header-section">
@@ -75,14 +90,14 @@
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a asp-action="Details" asp-route-id="@item.Id"
-                                           class="btn btn-info btn-sm" title="عرض التفاصيل">
+                                           class="btn btn-info btn-sm details-btn" title="عرض التفاصيل">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a asp-action="Edit" asp-route-id="@item.Id"
                                            class="btn btn-warning btn-sm" title="تعديل">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" title="حذف"
+                                        <button type="button" class="btn btn-danger btn-sm delete-btn" title="حذف"
                                                 onclick="showDeleteConfirmation(@item.Id, '@item.Name_Of_Section')">
                                             <i class="fas fa-trash"></i>
                                         </button>
