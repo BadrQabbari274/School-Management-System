@@ -294,6 +294,8 @@ namespace StudentManagementSystem.Controllers
                     return RedirectToAction("ManageUsers");
                 }
 
+                var currentUserId = GetCurrentUserId(); // الحصول على ID المستخدم الحالي
+
                 var viewModel = new EditUserViewModel
                 {
                     Id = user.Id,
@@ -305,6 +307,10 @@ namespace StudentManagementSystem.Controllers
                 };
 
                 await PopulateRolesDropDown();
+
+                // تمرير معلومة هل المستخدم الحالي يحرر نفسه أم مستخدم آخر
+                ViewBag.IsEditingSelf = (currentUserId == id);
+
                 return View(viewModel);
             }
             catch (Exception ex)
