@@ -55,6 +55,7 @@ namespace StudentManagementSystem.Controllers
             // We no longer need to populate the CreatedBy_Id dropdown here
             return View();
         }
+
         // POST: Learning_Outcome/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
