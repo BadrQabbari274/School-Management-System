@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
 using System.Security.Claims;
+using System.Security.Policy;
 
 namespace StudentManagementSystem.Controllers
 {
@@ -49,31 +50,21 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Learning_Outcome/Create
-        public IActionResult Create()
+        public IActionResult Create(int Competency_Id)
         {
-            ViewData["Competency_Id"] = new SelectList(_context.Competencies, "Id", "Name");
-            // We no longer need to populate the CreatedBy_Id dropdown here
-            return View();
+            Learning_Outcome outcome = new Learning_Outcome();
+            outcome.Competency_Id = Competency_Id;
+            return View(outcome);
         }
 
         // POST: Learning_Outcome/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Competency_Id,IsActive")] Learning_Outcome learningOutcome)
+        public async Task<IActionResult> Create(Learning_Outcome learningOutcome)
         {
             try
             {
-                // ÅÒÇáÉ validation errors ÛíÑ ÇáãØáæÈÉ
-                ModelState.Remove("Id");
-                ModelState.Remove("CreatedDate");
-                ModelState.Remove("CreatedBy");
-                ModelState.Remove("Competency");
-                ModelState.Remove("Evidences");
-                // Remove the CreatedBy_Id from ModelState since we will set it manually
-                ModelState.Remove("CreatedBy_Id");
 
-                if (ModelState.IsValid)
-                {
                     // Get the logged-in user's ID
                     var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -87,28 +78,15 @@ namespace StudentManagementSystem.Controllers
                         _context.Outcomes.Add(learningOutcome);
                         await _context.SaveChangesAsync();
                         TempData["SuccessMessage"] = "Êã ÅäÔÇÁ ãÎÑÌ ÇáÊÚáã ÈäÌÇÍ";
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction("Details", "Competencies", new { id = learningOutcome.Competency_Id });
                     }
                     else
                     {
                         TempData["ErrorMessage"] = "ÍÏË ÎØÃ: áã íÊã ÇáÚËæÑ Úáì ãÚáæãÇÊ ÇáãÓÊÎÏã Ãæ ÃäåÇ ÛíÑ ÕÇáÍÉ.";
                         return RedirectToAction(nameof(Index));
                     }
-                }
-                else
-                {
-                    // ÚÑÖ ÃÎØÇÁ ÇáÜ validation ááÊÔÎíÕ
-                    foreach (var modelError in ModelState)
-                    {
-                        if (modelError.Value.Errors.Count > 0)
-                        {
-                            foreach (var error in modelError.Value.Errors)
-                            {
-                                System.Diagnostics.Debug.WriteLine($"Validation Error in {modelError.Key}: {error.ErrorMessage}");
-                            }
-                        }
-                    }
-                }
+                
+
             }
             catch (Exception ex)
             {
