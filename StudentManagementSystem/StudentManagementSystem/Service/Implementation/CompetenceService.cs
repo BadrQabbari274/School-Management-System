@@ -15,7 +15,50 @@ namespace StudentManagementSystem.Services
         {
             _context = context;
         }
+        public async Task<Working_Year> GetOrCreateActiveWorkingYearAsync()
+        {
+            // البحث عن سنة دراسية نشطة
+            var activeWorkingYear = await _context.Working_Years
+                .Where(wy => wy.IsActive)
+                .OrderByDescending(wy => wy.Start_date)
+                .FirstOrDefaultAsync();
 
+            // إذا لم توجد، إنشاء واحدة جديدة
+            if (activeWorkingYear == null)
+            {
+                var user = _context.Employees.Include(i => i.Role).FirstOrDefault(e => e.IsActive && e.Role.Name == "Admin");
+
+                var currentYear = DateTime.Now.Year;
+                activeWorkingYear = new Working_Year
+                {
+                    Name = $"العام الدراسي {currentYear}-{currentYear + 1}",
+                    Start_date = new DateTime(currentYear, 9, 1), // بداية سبتمبر
+                    End_date = new DateTime(currentYear + 1, 6, 30), // نهاية يونيو
+                    IsActive = true,
+                    CreatedBy_Id = user.Id, // استخدم ID المستخدم الحالي
+                    Date = DateTime.Now
+                };
+
+                _context.Working_Years.Add(activeWorkingYear);
+                await _context.SaveChangesAsync();
+            }
+
+            return activeWorkingYear;
+        }
+        public async Task<Competencies_Outcame_Evidence> GetCompetencies_Outcame_Evidence(int ClassId)
+        {
+            var workingyear = await GetOrCreateActiveWorkingYearAsync();
+           var student=await _context.Student_Class_Section_Years.FirstOrDefaultAsync(s => s.Class_Id == ClassId && s.Working_Year_Id == workingyear.Id&& s.IsActive);
+            var section = await _context.Sections.FirstOrDefaultAsync(a => a.Id == student.Section_id&& a.IsActive);
+            var Competencies = await _context.Competencies.Where(w => w.Section_Id == section.Id&&w.IsActive).ToListAsync();
+            var Outcome = await _context.Outcomes.Where(o => o.IsActive).ToListAsync();
+            var Evidences = await _context.Evidences.Where(o => o.IsActive).ToListAsync();
+            var Competencies_Outcame_Evidence = new Competencies_Outcame_Evidence() 
+            { Competencies = Competencies, 
+                LearningOutcomes = Outcome,
+                evidences = Evidences };
+            return Competencies_Outcame_Evidence;
+        }
         public async Task<CompetenciesIndexViewModel> GetAllCompetenciesAsync(int pageNumber = 1, int pageSize = 10,
             string searchTerm = null, int? sectionFilter = null, bool? isActiveFilter = null)
         {
