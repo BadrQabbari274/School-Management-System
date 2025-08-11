@@ -17,6 +17,7 @@ namespace StudentManagementSystem.Models
         public DateTime? LastLogin { get; set; }
         public string Email { get; set; }
         public DateTime? Join_Date { get; set; }
+        public int? LastEditBy_Id { get; set; }
 
         // Navigation properties
         [ForeignKey("RoleId")]
@@ -25,8 +26,12 @@ namespace StudentManagementSystem.Models
         [ForeignKey("CreatedBy_Id")]
         public virtual Employees? CreatedBy { get; set; }
 
+        [ForeignKey("LastEditBy_Id")]
+        public virtual Employees? LastEditBy { get; set; }
+
         // Self-referencing navigation
         public virtual ICollection<Employees> CreatedEmployees { get; set; }
+        public virtual ICollection<Employees> EditEmployees { get; set; }
 
         // Other navigation properties
         public virtual ICollection<Employee_Department> EmployeeDepartments { get; set; }

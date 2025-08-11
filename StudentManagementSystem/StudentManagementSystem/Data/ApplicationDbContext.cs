@@ -66,6 +66,7 @@ namespace StudentManagementSystem.Data
                 .HasForeignKey(e => e.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
+
             // Department and Employees (CreatedBy)
             modelBuilder.Entity<Department>()
                 .HasOne(d => d.CreatedBy)
@@ -248,7 +249,14 @@ namespace StudentManagementSystem.Data
                 .WithMany(e => e.CreatedStudentAbsents)
                 .HasForeignKey(sa => sa.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
+            // أضف هذا الكود في OnModelCreating method بعد configuration الـ CreatedBy
 
+            // Employees self-referencing (LastEditBy)
+            modelBuilder.Entity<Employees>()
+                .HasOne(e => e.LastEditBy)
+                .WithMany(e => e.EditEmployees)
+                .HasForeignKey(e => e.LastEditBy_Id)
+                .OnDelete(DeleteBehavior.NoAction);
             // StudentAttendances and AttendanceTypes
             modelBuilder.Entity<StudentAttendances>()
                 .HasOne(sa => sa.AttendanceType)

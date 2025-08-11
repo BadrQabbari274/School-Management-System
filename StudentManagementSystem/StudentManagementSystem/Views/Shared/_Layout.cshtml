@@ -526,9 +526,9 @@
                     </div>
 
                     <div class="nav-item">
-                        <a asp-controller="Competencies" asp-action="Index" class="nav-link-custom" data-page="Competencies">
+                        <a asp-controller="Competencies" asp-action="Index" class="nav-link-custom" data-page="competences">
                             <i class="fas fa-users"></i>
-                            <span class="nav-text">Competencies</span>
+                            <span class="nav-text">Competences</span>
                         </a>
                     </div>
 
@@ -581,6 +581,12 @@
                         </a>
                     </div>
                 </div>
+            <div class="nav-item">
+                <a asp-controller="Account" asp-action="manageusers" class="nav-link-custom" data-page="manageusers">
+                    <i class="fas fa-layer-group"></i>
+                    <span class="nav-text">Manage Users</span>
+                </a>
+            </div>
             }
 
             <div class="logout-section">
@@ -692,7 +698,7 @@
 
             // Map controllers to their data-page values
             const controllerMap = {
-                'Competencies': 'Competencies',
+                'competences': 'competences',
                 'attendance': 'attendance',
                 'student': 'student',
                 'grade': 'grade',

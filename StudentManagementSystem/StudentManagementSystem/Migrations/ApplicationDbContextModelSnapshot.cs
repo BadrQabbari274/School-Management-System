@@ -251,6 +251,9 @@ namespace StudentManagementSystem.Migrations
                     b.Property<DateTime?>("Join_Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("LastEditBy_Id")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("LastLogin")
                         .HasColumnType("datetime2");
 
@@ -272,6 +275,8 @@ namespace StudentManagementSystem.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedBy_Id");
+
+                    b.HasIndex("LastEditBy_Id");
 
                     b.HasIndex("RoleId");
 
@@ -896,6 +901,11 @@ namespace StudentManagementSystem.Migrations
                         .HasForeignKey("CreatedBy_Id")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.HasOne("StudentManagementSystem.Models.Employees", "LastEditBy")
+                        .WithMany("EditEmployees")
+                        .HasForeignKey("LastEditBy_Id")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("StudentManagementSystem.Models.EmployeeTypes", "Role")
                         .WithMany("Employees")
                         .HasForeignKey("RoleId")
@@ -903,6 +913,8 @@ namespace StudentManagementSystem.Migrations
                         .IsRequired();
 
                     b.Navigation("CreatedBy");
+
+                    b.Navigation("LastEditBy");
 
                     b.Navigation("Role");
                 });
@@ -1287,6 +1299,8 @@ namespace StudentManagementSystem.Migrations
                     b.Navigation("CreatedTries");
 
                     b.Navigation("CreatedWorkingYears");
+
+                    b.Navigation("EditEmployees");
 
                     b.Navigation("EmployeeDepartments");
                 });

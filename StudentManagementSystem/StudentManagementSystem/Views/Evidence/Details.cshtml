@@ -1,0 +1,373 @@
+﻿@model StudentManagementSystem.Models.Evidence
+
+@{
+    ViewData["Title"] = "تفاصيل الدليل";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="header-section">
+        <div class="container">
+            <h1 class="header-title">تفاصيل الدليل</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        @TempData["Success"]
+                    </div>
+                }
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle"></i>
+                        @TempData["Error"]
+                    </div>
+                }
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-clipboard-list"></i> @Model.Name
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="detail-group">
+                                    <label class="detail-label">
+                                        <i class="fas fa-signature"></i> اسم الدليل
+                                    </label>
+                                    <div class="detail-value">@Model.Name</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-group">
+                                    <label class="detail-label">
+                                        <i class="fas fa-bullseye"></i> نتاج التعلم
+                                    </label>
+                                    <div class="detail-value">
+                                        @if (Model.Learning_Outcome != null)
+                                        {
+                                            <span class="badge bg-info">@Model.Learning_Outcome.Name</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">غير محدد</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="detail-group">
+                                    <label class="detail-label">
+                                        <i class="fas fa-cogs"></i> نوع الدليل
+                                    </label>
+                                    <div class="detail-value">
+                                        @if (Model.Ispractical)
+                                        {
+                                            <span class="badge bg-primary">
+                                                <i class="fas fa-tools"></i> عملي
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-info">
+                                                <i class="fas fa-book"></i> نظري
+                                            </span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-group">
+                                    <label class="detail-label">
+                                        <i class="fas fa-toggle-on"></i> حالة التفعيل
+                                    </label>
+                                    <div class="detail-value">
+                                        @if (Model.IsActive)
+                                        {
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check"></i> نشط
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                <i class="fas fa-times"></i> غير نشط
+                                            </span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="detail-group">
+                                    <label class="detail-label">
+                                        <i class="fas fa-calendar"></i> تاريخ الإنشاء
+                                    </label>
+                                    <div class="detail-value">@Model.CreatedDate.ToString("dd/MM/yyyy HH:mm")</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-group">
+                                    <label class="detail-label">
+                                        <i class="fas fa-user"></i> أنشأه
+                                    </label>
+                                    <div class="detail-value">
+                                        @if (Model.CreatedBy != null)
+                                        {
+                                            @Model.CreatedBy.Name
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">غير محدد</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (Model.Student_Evidences != null && Model.Student_Evidences.Any())
+                        {
+                            <hr />
+                            <div class="detail-group">
+                                <label class="detail-label">
+                                    <i class="fas fa-users"></i> أدلة الطلاب المرتبطة
+                                </label>
+                                <div class="detail-value">
+                                    <span class="badge bg-warning">@Model.Student_Evidences.Count() دليل طالب</span>
+                                </div>
+                            </div>
+                        }
+
+                        <hr />
+
+                        <div class="form-actions">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                                <i class="fas fa-edit"></i> تعديل
+                            </a>
+                            <button type="button" class="btn @(Model.IsActive ? "btn-secondary" : "btn-success")"
+                                    onclick="toggleStatus(@Model.Id, '@Model.Name', @Model.IsActive.ToString().ToLower())">
+                                <i class="fas fa-@(Model.IsActive ? "toggle-off" : "toggle-on")"></i>
+                                @(Model.IsActive ? "إلغاء تفعيل" : "تفعيل")
+                            </button>
+                            <button type="button" class="btn btn-danger"
+                                    onclick="showDeleteConfirmation(@Model.Id, '@Model.Name')">
+                                <i class="fas fa-trash"></i> حذف
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> رجوع للقائمة
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade custom-modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">تأكيد الحذف</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>هل أنت متأكد من حذف الدليل <strong id="evidenceNameToDelete"></strong>؟</p>
+                    <p class="text-danger">لا يمكن التراجع عن هذا الإجراء.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toggle Status Confirmation Modal -->
+    <div class="modal fade custom-modal" id="toggleStatusModal" tabindex="-1" aria-labelledby="toggleStatusModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="toggleStatusModalLabel">تأكيد تغيير الحالة</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>هل أنت متأكد من <span id="statusAction"></span> الدليل <strong id="evidenceNameToToggle"></strong>؟</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-primary" id="confirmToggleBtn">تأكيد</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Forms -->
+    <form id="deleteForm" asp-action="Delete" method="post" style="display:none;">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" id="evidenceIdToDelete" />
+    </form>
+
+    <form id="toggleForm" asp-action="ToggleStatus" method="post" style="display:none;">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="id" id="evidenceIdToToggle" />
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let evidenceIdToDelete = 0;
+        let evidenceIdToToggle = 0;
+
+        function showDeleteConfirmation(id, name) {
+            evidenceIdToDelete = id;
+            document.getElementById('evidenceNameToDelete').innerText = name;
+            var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+            deleteModal.show();
+        }
+
+        function toggleStatus(id, name, isActive) {
+            evidenceIdToToggle = id;
+            document.getElementById('evidenceNameToToggle').innerText = name;
+            document.getElementById('statusAction').innerText = isActive ? 'إلغاء تفعيل' : 'تفعيل';
+            var toggleModal = new bootstrap.Modal(document.getElementById('toggleStatusModal'));
+            toggleModal.show();
+        }
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
+            var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+            deleteModal.hide();
+
+            const form = document.getElementById('deleteForm');
+            document.getElementById('evidenceIdToDelete').value = evidenceIdToDelete;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form)
+                });
+
+                if (response.ok) {
+                    window.location.href = '@Url.Action("Index")';
+                } else {
+                    alert('حدث خطأ أثناء حذف الدليل. يرجى المحاولة مرة أخرى.');
+                    console.error('Delete failed with status:', response.status);
+                }
+            } catch (error) {
+                alert('حدث خطأ أثناء حذف الدليل. يرجى فحص اتصال الشبكة.');
+                console.error('Error during fetch:', error);
+            }
+        });
+
+        document.getElementById('confirmToggleBtn').addEventListener('click', async function () {
+            var toggleModal = bootstrap.Modal.getInstance(document.getElementById('toggleStatusModal'));
+            toggleModal.hide();
+
+            const form = document.getElementById('toggleForm');
+            document.getElementById('evidenceIdToToggle').value = evidenceIdToToggle;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form)
+                });
+
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('حدث خطأ أثناء تغيير حالة الدليل. يرجى المحاولة مرة أخرى.');
+                    console.error('Toggle failed with status:', response.status);
+                }
+            } catch (error) {
+                alert('حدث خطأ أثناء تغيير حالة الدليل. يرجى فحص اتصال الشبكة.');
+                console.error('Error during fetch:', error);
+            }
+        });
+    </script>
+
+    <style>
+        .detail-group {
+            margin-bottom: 20px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+            .detail-label i {
+                margin-left: 8px;
+                color: #007bff;
+            }
+
+        .detail-value {
+            font-size: 16px;
+            color: #6c757d;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 10px;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .badge {
+            font-size: 14px;
+            padding: 8px 12px;
+        }
+
+        @@media (max-width: 768px) {
+            .form-actions
+
+        {
+            flex-direction: column;
+        }
+
+        .form-actions .btn {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        }
+    </style>
+</body>
+</html>
