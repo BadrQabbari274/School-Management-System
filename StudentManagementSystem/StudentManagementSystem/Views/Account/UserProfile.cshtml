@@ -175,43 +175,13 @@
                             </p>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">تاريخ الانضمام:</label>
-                            <p class="form-control-plaintext">
-                                @if (Model.JoinDate.HasValue)
-                                {
-                                    @Model.JoinDate.Value.ToString("dd/MM/yyyy")
-                                }
-                                else
-                                {
-                                    <span class="text-muted">غير محدد</span>
-                                }
-                            </p>
+                            <label class="form-label fw-bold">تاريخ الإنشاء:</label>
+                            <p class="form-control-plaintext">@Model.Date.ToString("dd/MM/yyyy HH:mm")</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- System Information -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">
-                        <i class="fas fa-info-circle me-2"></i>
-                        معلومات النظام
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">تاريخ الإنشاء:</label>
-                            <p class="form-control-plaintext">@Model.Date.ToString("dd/MM/yyyy HH:mm")</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">تم الإنشاء بواسطة:</label>
-                            <p class="form-control-plaintext">@Model.CreatedByName</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
