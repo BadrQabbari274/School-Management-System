@@ -21,7 +21,7 @@
         }
 
         .delete-btn {
-            border-top-right-radius: 0 !important;
+            border-top-right-radius: 0 !important;  
             border-bottom-right-radius: 0 !important;
             border-top-left-radius: 0.5rem !important;
             border-bottom-left-radius: 0.5rem !important;
@@ -69,7 +69,6 @@
                         <th>تاريخ البداية</th>
                         <th>تاريخ النهاية</th>
                         <th>تاريخ الإنشاء</th>
-                        <th>الحالة</th>
                         <th>العمليات</th>
                     </tr>
                 </thead>
@@ -83,16 +82,6 @@
                                 <td>@(item.Start_date.ToString("dd/MM/yyyy") ?? "غير محدد")</td>
                                 <td>@(item.End_date.ToString("dd/MM/yyyy") ?? "غير محدد")</td>
                                 <td>@item.Date.ToString("dd/MM/yyyy")</td>
-                                <td>
-                                    @if (item.IsActive)
-                                    {
-                                        <span class="badge bg-success">نشطة</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-secondary">غير نشطة</span>
-                                    }
-                                </td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="@Url.Action("Details", new { id = item.Id })"
@@ -115,7 +104,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="6" class="no-data">لا توجد سنة عمل متاحة</td>
+                            <td colspan="5" class="no-data">لا توجد سنة عمل متاحة</td>
                         </tr>
                     }
                 </tbody>
