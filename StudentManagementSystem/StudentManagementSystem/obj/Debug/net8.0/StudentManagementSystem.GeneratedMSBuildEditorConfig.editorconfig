@@ -184,6 +184,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/project/StudentManagementSystem/StudentManagementSystem/Views/Learning_Outcome/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5pbmdfT3V0Y29tZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/StudentManagementSystem/StudentManagementSystem/Views/Learning_Outcome/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5pbmdfT3V0Y29tZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/StudentManagementSystem/StudentManagementSystem/Views/Learning_Outcome/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5pbmdfT3V0Y29tZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/StudentManagementSystem/StudentManagementSystem/Views/Learning_Outcome/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5pbmdfT3V0Y29tZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/StudentManagementSystem/StudentManagementSystem/Views/Learning_Outcome/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5pbmdfT3V0Y29tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/project/StudentManagementSystem/StudentManagementSystem/Views/Section/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdGlvblxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -234,6 +254,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/project/StudentManagementSystem/StudentManagementSystem/Views/Student/Index2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleDIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/StudentManagementSystem/StudentManagementSystem/Views/Try/create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ5XGNyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/StudentManagementSystem/StudentManagementSystem/Views/Try/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ5XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/StudentManagementSystem/StudentManagementSystem/Views/Try/edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ5XGVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/project/StudentManagementSystem/StudentManagementSystem/Views/Try/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ5XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/project/StudentManagementSystem/StudentManagementSystem/Views/WorkingYear/Create.cshtml]
