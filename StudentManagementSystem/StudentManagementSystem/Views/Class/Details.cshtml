@@ -612,26 +612,6 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="info-box">
-                            <span class="info-box-icon @(Model.Class.IsActive ? "bg-success" : "bg-secondary")">
-                                <i class="fas fa-@(Model.Class.IsActive ? "check-circle" : "times-circle")"></i>
-                            </span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">الحالة</span>
-                                <span class="info-box-number">
-                                    @if (Model.Class.IsActive)
-                                    {
-                                        <span class="badge bg-success">نشط</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-danger">غير نشط</span>
-                                    }
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="info-box">
                             <span class="info-box-icon bg-danger">
                                 <i class="fas fa-users"></i>
                             </span>
