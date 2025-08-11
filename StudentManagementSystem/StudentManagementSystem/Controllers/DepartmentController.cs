@@ -58,18 +58,10 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Field/Create
-        public async Task<IActionResult> Create()
+        [HttpGet]
+        public IActionResult Create()
         {
-            try
-            {
-                await PopulateDropDownLists();
                 return View();
-            }
-            catch (Exception ex)
-            {
-                SetErrorMessage($"حدث خطأ أثناء تحضير البيانات: {ex.Message}");
-                return RedirectToAction(nameof(Index));
-            }
         }
 
         // POST: Field/Create
@@ -93,7 +85,6 @@ namespace StudentManagementSystem.Controllers
             catch (Exception ex)
             {
                 SetErrorMessage($"حدث خطأ أثناء إنشاء القسم: {ex.Message}");
-                await PopulateDropDownLists(field.GradeId);
                 return View(field);
             }
         }
@@ -109,8 +100,6 @@ namespace StudentManagementSystem.Controllers
                     SetErrorMessage("القسم المطلوب غير موجود");
                     return RedirectToAction(nameof(Index));
                 }
-
-                await PopulateDropDownLists(field.GradeId);
                 return View(field);
             }
             catch (Exception ex)
@@ -138,7 +127,6 @@ namespace StudentManagementSystem.Controllers
             catch (Exception ex)
             {
                 SetErrorMessage($"حدث خطأ أثناء تحديث القسم: {ex.Message}");
-                await PopulateDropDownLists(field.GradeId);
                 return View(field);
             }
         }
@@ -261,53 +249,25 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
-        // GET: Field/GetByGrade/5
-        public async Task<IActionResult> GetByGrade(int gradeId)
-        {
-            try
-            {
-                var fields = await _fieldService.GetDepartmentsByAcademicYearAsync(gradeId);
-                return View("Index", fields);
-            }
-            catch (Exception ex)
-            {
-                SetErrorMessage($"حدث خطأ أثناء جلب البيانات: {ex.Message}");
-                return RedirectToAction(nameof(Index));
-            }
-        }
+       
 
         
-        [HttpGet]
-        public async Task<JsonResult> GetFieldsByGrade(int gradeId)
-        {
-            try
-            {
-                var fields = await _fieldService.GetDepartmentsByAcademicYearAsync(gradeId);
-                var result = fields.Select(f => new {
-                    id = f.Id,
-                    name = f.Name
-                }).ToList();
-                return Json(result);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { error = ex.Message });
-            }
-        }
-
-     
-        private async Task PopulateDropDownLists(int? selectedGradeId = null)
-        {
-            try
-            {
-                var grades = await _gradeService.GetActiveAcademicYearsAsync();
-                ViewBag.GradeId = new SelectList(grades, "Id", "Name", selectedGradeId);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.GradeId = new SelectList(new List<Grades>(), "Id", "Name");
-                SetErrorMessage($"حدث خطأ أثناء جلب المراحل الدراسية: {ex.Message}");
-            }
-        }
+        //[HttpGet]
+        //public async Task<JsonResult> GetFieldsByGrade(int gradeId)
+        //{
+        //    try
+        //    {
+        //        var fields = await _fieldService.GetDepartmentsByAcademicYearAsync(gradeId);
+        //        var result = fields.Select(f => new {
+        //            id = f.Id,
+        //            name = f.Name
+        //        }).ToList();
+        //        return Json(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { error = ex.Message });
+        //    }
+        //}
     }
 }

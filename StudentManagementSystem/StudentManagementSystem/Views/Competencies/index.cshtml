@@ -14,6 +14,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        .details-btn {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            border-top-right-radius: 0.5rem !important;
+            border-bottom-right-radius: 0.5rem !important;
+        }
+
+        .delete-btn {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5rem !important;
+        }
+    </style>
 </head>
 <body>
     <div class="header-section">
@@ -54,14 +69,17 @@
                                         }
                                     </select>
                                 </div>
-                                <div class="col-md-3">
+                               
+                               
+                                @* <div class="col-md-3">
+                                    ///
                                     <label class="form-label">الحالة</label>
                                     <select name="isActiveFilter" class="form-select">
                                         <option value="">جميع الحالات</option>
                                         <option value="true" @@(Model.IsActiveFilter == true ? "selected" : "")>نشط</option>
                                         <option value="false" @@(Model.IsActiveFilter == false ? "selected" : "")>غير نشط</option>
                                     </select>
-                                </div>
+                                </div> *@
                                 <div class="col-md-2">
                                     <label class="form-label">&nbsp;</label>
                                     <div class="d-grid">
@@ -76,8 +94,10 @@
                 </div>
             </div>
         </div>
+        
 
-        <div class="controls">
+            
+            <div class="controls">
             <a asp-action="Create" class="btn btn-add">
                 <i class="fas fa-plus-circle"></i> إضافة جدارة جديدة
             </a>
@@ -108,7 +128,7 @@
                         <th>المدة</th>
                         <th>القسم</th>
                         <th>الحد الأقصى للنتائج</th>
-                        <th>الحالة</th>
+                        <!-- <th>الحالة</th> -->
                         <th>أنشئت بواسطة</th>
                         <th>تاريخ الإنشاء</th>
                         <th>العمليات</th>
@@ -132,33 +152,20 @@
                                 <td>
                                     <span class="badge bg-primary">@item.Max_Outcome</span>
                                 </td>
-                                <td>
-                                    @if (item.IsActive)
-                                    {
-                                        <span class="badge bg-success">
-                                            <i class="fas fa-check-circle me-1"></i>نشط
-                                        </span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-danger">
-                                            <i class="fas fa-times-circle me-1"></i>غير نشط
-                                        </span>
-                                    }
-                                </td>
+                                <!-- حالة column removed -->
                                 <td>@item.CreatedByName</td>
                                 <td>@item.CreatedDate?.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a asp-action="Details" asp-route-id="@item.Id"
-                                           class="btn btn-info btn-sm" title="عرض التفاصيل">
+                                           class="btn btn-info btn-sm details-btn" title="عرض التفاصيل">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a asp-action="Edit" asp-route-id="@item.Id"
                                            class="btn btn-warning btn-sm" title="تعديل">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" title="حذف"
+                                        <button type="button" class="btn btn-danger btn-sm delete-btn" title="حذف"
                                                 onclick="showDeleteConfirmation(@item.Id, '@item.Name')">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -171,7 +178,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="9" class="no-data">لا توجد جدارات متاحة</td>
+                            <td colspan="8" class="no-data">لا توجد جدارات متاحة</td>
                         </tr>
                     }
                 </tbody>

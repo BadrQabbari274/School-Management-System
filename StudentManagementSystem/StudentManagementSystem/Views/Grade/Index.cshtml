@@ -42,7 +42,6 @@
                     <tr>
                         <th>اسم السنة الدراسية</th>
                         <th>تاريخ الإنشاء</th>
-                        <th>الحالة</th>
                         <th>العمليات</th>
                     </tr>
                 </thead>
@@ -55,26 +54,16 @@
                                 <td>@item.Name</td>
                                 <td>@item.Date.ToString("dd/MM/yyyy")</td>
                                 <td>
-                                    @if (item.IsActive)
-                                    {
-                                        <span class="badge bg-success">نشطة</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-secondary">غير نشطة</span>
-                                    }
-                                </td>
-                                <td>
                                     <div class="btn-group" role="group">
                                         <a href="@Url.Action("Details", new { id = item.Id })"
-                                           class="btn btn-info btn-sm" title="عرض التفاصيل">
+                                           class="btn btn-info btn-sm details-btn" title="عرض التفاصيل">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="@Url.Action("Edit", new { id = item.Id })"
                                            class="btn btn-warning btn-sm" title="تعديل">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" title="حذف"
+                                        <button type="button" class="btn btn-danger btn-sm delete-btn" title="حذف"
                                                 onclick="showDeleteConfirmation(@item.Id, '@item.Name')">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -86,7 +75,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="4" class="no-data">لا توجد سنوات دراسية متاحة</td>
+                            <td colspan="3" class="no-data">لا توجد سنوات دراسية متاحة</td>
                         </tr>
                     }
                 </tbody>
@@ -158,5 +147,21 @@
             }
         });
     </script>
+
+    <style>
+        .details-btn {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            border-top-right-radius: 0.5rem !important;
+            border-bottom-right-radius: 0.5rem !important;
+        }
+
+        .delete-btn {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5rem !important;
+        }
+    </style>
 </body>
 </html>
