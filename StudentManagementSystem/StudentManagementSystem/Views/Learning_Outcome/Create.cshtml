@@ -148,7 +148,7 @@
     <div class="form-container">
         <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+            <input type="hidden" asp-for="Competency_Id" />
             <div class="form-group">
                 <label asp-for="Name" class="form-label">
                     <i class="fas fa-tag form-icon"></i>
@@ -158,7 +158,7 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+        @*     <div class="form-group">
                 <label asp-for="Competency_Id" class="form-label">
                     <i class="fas fa-certificate form-icon"></i>
                     «·ﬂ›«¡… «·„— »ÿ… <span class="required">*</span>
@@ -167,7 +167,7 @@
                     <option value="">-- «Œ — «·ﬂ›«¡… --</option>
                 </select>
                 <span asp-validation-for="Competency_Id" class="text-danger"></span>
-            </div>
+            </div> *@
 
             @*  „ ≈“«·… Õﬁ· CreatedBy_Id ·√‰Â Ì „  ÕœÌœÂ  ·ﬁ«∆Ì« ›Ì «·ﬂ‰ —Ê·— *@
 
