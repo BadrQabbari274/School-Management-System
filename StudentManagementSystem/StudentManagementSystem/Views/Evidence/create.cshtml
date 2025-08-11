@@ -2,164 +2,414 @@
 
 @{
     ViewData["Title"] = "إضافة دليل جديد";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - StudentManagementSystem</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-</head>
-<body>
-    <div class="header-section">
-        <div class="container">
-            <h1 class="header-title">إضافة دليل جديد</h1>
-        </div>
-    </div>
+<link href="~/css/field-styles.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-plus-circle"></i> بيانات الدليل الجديد
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        @if (TempData["Error"] != null)
-                        {
-                            <div class="alert alert-danger">
-                                <i class="fas fa-exclamation-circle"></i>
-                                @TempData["Error"]
+<div class="container-fluid p-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h3 class="mb-0 fw-bold">
+                        <i class="fas fa-plus-circle me-2"></i>إضافة دليل جديد
+                    </h3>
+                </div>
+                <div class="card-body p-5">
+                    <form asp-action="Create" method="post" id="createEvidenceForm">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <label asp-for="Name" class="form-label fw-bold text-primary">
+                                    <i class="fas fa-file-alt me-2"></i>اسم الدليل
+                                </label>
+                                <input asp-for="Name" class="form-control form-control-lg"
+                                       placeholder="أدخل اسم الدليل" id="nameInput" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                                <div id="nameError" class="text-danger mt-1" style="display:none;">
+                                    <i class="fas fa-exclamation-circle me-1"></i>
+                                    لا يمكن أن يبدأ اسم الدليل بأرقام.
+                                </div>
+                                <small id="nameCharCounter" class="form-text text-muted"></small>
                             </div>
-                        }
+                        </div>
 
-                        <form asp-action="Create" method="post">
-                            @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="Outcome_Id" class="form-label fw-bold text-primary">
+                                    <i class="fas fa-target me-2"></i>نتاج التعلم
+                                </label>
+                                <select asp-for="Outcome_Id" class="form-control form-control-lg" id="outcomeSelect" asp-items="ViewBag.LearningOutcomes">
+                                    <option value="">-- اختر نتاج التعلم --</option>
+                                </select>
+                                <span asp-validation-for="Outcome_Id" class="text-danger"></span>
+                            </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label asp-for="Name" class="form-label">اسم الدليل <span class="text-danger">*</span></label>
-                                        <input asp-for="Name" class="form-control" placeholder="أدخل اسم الدليل" />
-                                        <span asp-validation-for="Name" class="text-danger"></span>
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label fw-bold text-primary">
+                                    <i class="fas fa-cog me-2"></i>نوع الدليل
+                                </label>
+                                <div class="form-check-container-modern">
+                                    <div class="form-check-modern">
+                                        <input asp-for="Ispractical" type="radio" value="true" class="form-check-input-modern" id="practical" />
+                                        <label class="form-check-label-modern" for="practical">
+                                            <i class="fas fa-tools me-2"></i>عملي
+                                        </label>
+                                    </div>
+                                    <div class="form-check-modern">
+                                        <input asp-for="Ispractical" type="radio" value="false" class="form-check-input-modern" id="theoretical" checked />
+                                        <label class="form-check-label-modern" for="theoretical">
+                                            <i class="fas fa-book me-2"></i>نظري
+                                        </label>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row">
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <div class="form-check form-switch">
+                                    <input asp-for="IsActive" class="form-check-input" type="checkbox"
+                                           id="isActiveSwitch" checked />
+                                    <label class="form-check-label fw-bold text-primary" for="isActiveSwitch">
+                                        <i class="fas fa-toggle-on me-2"></i>نشط
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label asp-for="Outcome_Id" class="form-label">نتاج التعلم <span class="text-danger">*</span></label>
-                                        <select asp-for="Outcome_Id" class="form-select" id="outcomeSelect">
-                                            <option value="">-- اختر نتاج التعلم --</option>
-                                            سيتم تحميل نتائج التعلم من خلال JavaScript أو من الكنترولر
-                                        </select>
-                                        <span asp-validation-for="Outcome_Id" class="text-danger"></span>
-                                    </div>
-                                </div> 
-                                <input asp-for="Outcome_Id" type="hidden" value="Outcome_Id" class="form-check-input" id="Outcome_Id" />
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">نوع الدليل</label>
-                                        <div class="form-check-container">
-                                            <div class="form-check">
-                                                <input asp-for="Ispractical" type="radio" value="true" class="form-check-input" id="practical" />
-                                                <label class="form-check-label" for="practical">
-                                                    <i class="fas fa-tools"></i> عملي
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input asp-for="Ispractical" type="radio" value="false" class="form-check-input" id="theoretical" checked />
-                                                <label class="form-check-label" for="theoretical">
-                                                    <i class="fas fa-book"></i> نظري
-                                                </label>
-                                            </div>
+                        <div class="mb-4">
+                            <div class="card bg-light border-0">
+                                <div class="card-body p-3">
+                                    <h6 class="card-title text-primary mb-3">
+                                        <i class="fas fa-info-circle me-2"></i>معلومات إضافية
+                                    </h6>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-2">
+                                            <small class="text-muted">
+                                                <i class="fas fa-user me-1"></i>
+                                                ستنشأ بواسطة: <strong>@ViewBag.CurrentUserName</strong>
+                                            </small>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <small class="text-muted">
+                                                <i class="fas fa-calendar me-1"></i>
+                                                تاريخ الإنشاء: <strong>@DateTime.Now.ToString("dd/MM/yyyy")</strong>
+                                            </small>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <div class="form-check form-switch">
-                                            <input asp-for="IsActive" class="form-check-input" type="checkbox" checked />
-                                            <label asp-for="IsActive" class="form-check-label">
-                                                <i class="fas fa-toggle-on"></i> حالة التفعيل
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
-
-                            <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> حفظ الدليل
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3" id="submitBtn">
+                                    <i class="fas fa-save me-2"></i>حفظ الدليل
                                 </button>
-                                <a asp-action="Index" class="btn btn-secondary">
-                                    <i class="fas fa-arrow-left"></i> رجوع للقائمة
+                            </div>
+                            <div class="col-md-6">
+                                <a asp-action="Index" class="btn btn-outline-secondary btn-lg w-100">
+                                    <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
                                 </a>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+    .card {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
+        border: none;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #fd7e14;
+            box-shadow: 0 0 0 0.2rem rgba(253, 126, 20, 0.25);
+        }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
+        border: none;
+        border-radius: 10px;
+        padding: 12px 24px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(253, 126, 20, 0.4);
+        }
+
+    .btn-outline-secondary {
+        border-radius: 10px;
+        padding: 12px 24px;
+        transition: all 0.3s ease;
+        border: 2px solid #6c757d;
+    }
+
+        .btn-outline-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+
+    .form-check-input:checked {
+        background-color: #fd7e14;
+        border-color: #fd7e14;
+    }
+
+    .text-primary {
+        color: #fd7e14 !important;
+    }
+
+    .form-label {
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+    }
+
+    .bg-light {
+        background-color: #f8f9fa !important;
+        border-radius: 10px;
+    }
+
+    .is-invalid {
+        border-color: #dc3545 !important;
+    }
+
+    .form-check-container-modern {
+        display: flex;
+        gap: 15px;
+        margin-top: 8px;
+    }
+
+    .form-check-modern {
+        flex: 1;
+    }
+
+    .form-check-input-modern {
+        display: none;
+    }
+
+    .form-check-label-modern {
+        display: block;
+        padding: 15px 20px;
+        background-color: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        color: #6c757d;
+    }
+
+        .form-check-label-modern:hover {
+            background-color: #e9ecef;
+            border-color: #fd7e14;
+            color: #fd7e14;
+        }
+
+    .form-check-input-modern:checked + .form-check-label-modern {
+        background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
+        border-color: #fd7e14;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(253, 126, 20, 0.3);
+    }
+</style>
+
+<!-- Success/Error Messages -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
     <script>
-        $(document).ready(function() {
-            // Load Learning Outcomes - يجب تعديل هذا الجزء حسب API المتاح
-            loadLearningOutcomes();
+        $(document).ready(function () {
+            const nameInput = $('#nameInput');
+            const nameError = $('#nameError');
+            const submitBtn = $('#submitBtn');
+
+            // Function to validate that the name doesn't start with numbers
+            function validateName(value) {
+                const trimmedValue = value.trim();
+                return trimmedValue !== '' && !/^\d/.test(trimmedValue);
+            }
+
+            // Function to update the validation state
+            function updateNameValidation() {
+                const isValid = validateName(nameInput.val());
+                if (isValid) {
+                    nameError.hide();
+                    nameInput.removeClass('is-invalid');
+                } else {
+                    nameError.show();
+                    nameInput.addClass('is-invalid');
+                }
+            }
+
+            // Real-time validation
+            nameInput.on('input', function() {
+                updateNameValidation();
+
+                // Character counter for name
+                const maxLength = 200;
+                const currentLength = $(this).val().length;
+                const remaining = maxLength - currentLength;
+
+                $('#nameCharCounter').text('عدد الأحرف المتبقية: ' + remaining);
+
+                if (remaining < 20) {
+                    $('#nameCharCounter').removeClass('text-muted').addClass('text-warning');
+                } else {
+                    $('#nameCharCounter').removeClass('text-warning').addClass('text-muted');
+                }
+            });
+
+            // Paste validation
+            nameInput.on('paste', function(e) {
+                setTimeout(updateNameValidation, 0);
+            });
+
+            // Form submission validation
+            $('#createEvidenceForm').on('submit', function (e) {
+                let isFormValid = true;
+
+                // Validate name
+                if (!validateName(nameInput.val())) {
+                    isFormValid = false;
+                    nameInput.addClass('is-invalid');
+                    nameError.show();
+                }
+
+                // Validate required fields
+                const requiredFields = ['#nameInput', '#outcomeSelect'];
+                requiredFields.forEach(function(field) {
+                    const $field = $(field);
+                    if (!$field.val() || $field.val().trim() === '') {
+                        isFormValid = false;
+                        $field.addClass('is-invalid');
+                    } else {
+                        $field.removeClass('is-invalid');
+                    }
+                });
+
+                if (!isFormValid) {
+                    e.preventDefault();
+                    alert('يرجى التأكد من ملء جميع الحقول المطلوبة بشكل صحيح.');
+                    nameInput.focus();
+                    return false;
+                }
+
+                // Show loading state
+                submitBtn.prop('disabled', true);
+                submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>جاري الحفظ...');
+            });
+
+            // Remove validation classes on input change
+            $('input, select').on('change keyup', function () {
+                $(this).removeClass('is-invalid');
+            });
+
+            // Auto-focus on first input
+            nameInput.focus();
+
+            // Initialize character counter
+            nameInput.trigger('input');
+
+            // Load Learning Outcomes via AJAX (optional)
+            /*
+            function loadLearningOutcomes() {
+                $.ajax({
+                    url: '@Url.Action("GetLearningOutcomes", "Evidence")',
+                    type: 'GET',
+                    success: function(data) {
+                        var select = $('#outcomeSelect');
+                        select.empty();
+                        select.append('<option value="">-- اختر نتاج التعلم --</option>');
+
+                        $.each(data, function(index, item) {
+                            select.append('<option value="' + item.value + '">' + item.text + '</option>');
+                        });
+                    },
+                    error: function() {
+                        alert('حدث خطأ في تحميل نتائج التعلم');
+                    }
+                });
+            }
+            */
+
+            // AJAX name uniqueness check (optional)
+            let nameTimeout;
+            nameInput.on('input', function() {
+                const name = $(this).val();
+                if (name.length > 2) {
+                    clearTimeout(nameTimeout);
+                    nameTimeout = setTimeout(function() {
+                        $.post('@Url.Action("IsNameUnique")', { name: name }, function(data) {
+                            if (!data) {
+                                nameInput.addClass('is-invalid');
+                                // You can show a specific error message here
+                            }
+                        });
+                    }, 500);
+                }
+            });
         });
-
-            // للاختبار - إضافة بعض الخيارات الوهمية
-            // $('#outcomeSelect').append('<option value="1">نتاج التعلم الأول</option>');
-            // $('#outcomeSelect').append('<option value="2">نتاج التعلم الثاني</option>');
-        }
     </script>
-
-    <style>
-        .form-check-container {
-            display: flex;
-            gap: 20px;
-        }
-
-        .form-check {
-            flex: 1;
-        }
-
-        .form-check-label {
-            font-weight: 500;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-start;
-        }
-
-        .card {
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            border: none;
-            border-radius: 10px;
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 10px 10px 0 0;
-        }
-    </style>
-</body>
-</html>
+}

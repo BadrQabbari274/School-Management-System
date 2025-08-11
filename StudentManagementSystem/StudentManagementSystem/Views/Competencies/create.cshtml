@@ -1,7 +1,7 @@
-﻿@model StudentManagementSystem.ViewModels.CompetenciesViewModel
+﻿@model StudentManagementSystem.Models.Evidence
 
 @{
-    ViewData["Title"] = "إضافة جدارة جديدة";
+    ViewData["Title"] = "إضافة دليل جديد";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,57 +14,58 @@
             <div class="card border-0 shadow-lg">
                 <div class="card-header bg-primary text-white text-center py-4">
                     <h3 class="mb-0 fw-bold">
-                        <i class="fas fa-plus-circle me-2"></i>إضافة جدارة جديدة
+                        <i class="fas fa-plus-circle me-2"></i>إضافة دليل جديد
                     </h3>
                 </div>
                 <div class="card-body p-5">
-                    <form asp-action="Create" method="post" id="createCompetencyForm">
+                    <form asp-action="Create" method="post" id="createEvidenceForm">
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
                         <div class="row">
-                            <div class="col-md-6 mb-4">
+                            <div class="col-md-12 mb-4">
                                 <label asp-for="Name" class="form-label fw-bold text-primary">
-                                    <i class="fas fa-medal me-2"></i>اسم الجدارة
+                                    <i class="fas fa-file-alt me-2"></i>اسم الدليل
                                 </label>
                                 <input asp-for="Name" class="form-control form-control-lg"
-                                       placeholder="أدخل اسم الجدارة" id="nameInput" />
+                                       placeholder="أدخل اسم الدليل" id="nameInput" />
                                 <span asp-validation-for="Name" class="text-danger"></span>
                                 <div id="nameError" class="text-danger mt-1" style="display:none;">
                                     <i class="fas fa-exclamation-circle me-1"></i>
-                                    لا يمكن أن يبدأ اسم الجدارة بأرقام.
+                                    لا يمكن أن يبدأ اسم الدليل بأرقام.
                                 </div>
                                 <small id="nameCharCounter" class="form-text text-muted"></small>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <label asp-for="Duration" class="form-label fw-bold text-primary">
-                                    <i class="fas fa-clock me-2"></i>المدة
-                                </label>
-                                <input asp-for="Duration" class="form-control form-control-lg"
-                                       placeholder="مثال: 3 أشهر، 6 أسابيع" />
-                                <span asp-validation-for="Duration" class="text-danger"></span>
-                                <small id="durationCharCounter" class="form-text text-muted"></small>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-4">
-                                <label asp-for="Section_Id" class="form-label fw-bold text-primary">
-                                    <i class="fas fa-sitemap me-2"></i>القسم
+                                <label asp-for="Outcome_Id" class="form-label fw-bold text-primary">
+                                    <i class="fas fa-target me-2"></i>نتاج التعلم
                                 </label>
-                                <select asp-for="Section_Id" class="form-control form-control-lg" asp-items="Model.Sections">
-                                    <option value="">-- اختر القسم --</option>
+                                <select asp-for="Outcome_Id" class="form-control form-control-lg" id="outcomeSelect" asp-items="ViewBag.LearningOutcomes">
+                                    <option value="">-- اختر نتاج التعلم --</option>
                                 </select>
-                                <span asp-validation-for="Section_Id" class="text-danger"></span>
+                                <span asp-validation-for="Outcome_Id" class="text-danger"></span>
                             </div>
 
                             <div class="col-md-6 mb-4">
-                                <label asp-for="Max_Outcome" class="form-label fw-bold text-primary">
-                                    <i class="fas fa-target me-2"></i>الحد الأقصى للنتائج
+                                <label class="form-label fw-bold text-primary">
+                                    <i class="fas fa-cog me-2"></i>نوع الدليل
                                 </label>
-                                <input asp-for="Max_Outcome" type="number" min="1" class="form-control form-control-lg"
-                                       placeholder="أدخل رقم أكبر من صفر" />
-                                <span asp-validation-for="Max_Outcome" class="text-danger"></span>
+                                <div class="form-check-container-modern">
+                                    <div class="form-check-modern">
+                                        <input asp-for="Ispractical" type="radio" value="true" class="form-check-input-modern" id="practical" />
+                                        <label class="form-check-label-modern" for="practical">
+                                            <i class="fas fa-tools me-2"></i>عملي
+                                        </label>
+                                    </div>
+                                    <div class="form-check-modern">
+                                        <input asp-for="Ispractical" type="radio" value="false" class="form-check-input-modern" id="theoretical" checked />
+                                        <label class="form-check-label-modern" for="theoretical">
+                                            <i class="fas fa-book me-2"></i>نظري
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -107,7 +108,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary btn-lg w-100 mb-3" id="submitBtn">
-                                    <i class="fas fa-save me-2"></i>حفظ الجدار
+                                    <i class="fas fa-save me-2"></i>حفظ الدليل
                                 </button>
                             </div>
                             <div class="col-md-6">
@@ -193,6 +194,47 @@
     .is-invalid {
         border-color: #dc3545 !important;
     }
+
+    .form-check-container-modern {
+        display: flex;
+        gap: 15px;
+        margin-top: 8px;
+    }
+
+    .form-check-modern {
+        flex: 1;
+    }
+
+    .form-check-input-modern {
+        display: none;
+    }
+
+    .form-check-label-modern {
+        display: block;
+        padding: 15px 20px;
+        background-color: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        color: #6c757d;
+    }
+
+        .form-check-label-modern:hover {
+            background-color: #e9ecef;
+            border-color: #fd7e14;
+            color: #fd7e14;
+        }
+
+    .form-check-input-modern:checked + .form-check-label-modern {
+        background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
+        border-color: #fd7e14;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(253, 126, 20, 0.3);
+    }
 </style>
 
 <!-- Success/Error Messages -->
@@ -210,6 +252,24 @@
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <i class="fas fa-exclamation-circle me-2"></i>
         @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        @TempData["Success"]
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
@@ -261,28 +321,13 @@
                 }
             });
 
-            // Character counter for duration
-            $('#Duration').on('input', function() {
-                const maxLength = 100;
-                const currentLength = $(this).val().length;
-                const remaining = maxLength - currentLength;
-
-                $('#durationCharCounter').text('عدد الأحرف المتبقية: ' + remaining);
-
-                if (remaining < 10) {
-                    $('#durationCharCounter').removeClass('text-muted').addClass('text-warning');
-                } else {
-                    $('#durationCharCounter').removeClass('text-warning').addClass('text-muted');
-                }
-            });
-
             // Paste validation
             nameInput.on('paste', function(e) {
                 setTimeout(updateNameValidation, 0);
             });
 
             // Form submission validation
-            $('#createCompetencyForm').on('submit', function (e) {
+            $('#createEvidenceForm').on('submit', function (e) {
                 let isFormValid = true;
 
                 // Validate name
@@ -293,7 +338,7 @@
                 }
 
                 // Validate required fields
-                const requiredFields = ['#nameInput', '#Duration', '#Section_Id', '#Max_Outcome'];
+                const requiredFields = ['#nameInput', '#outcomeSelect'];
                 requiredFields.forEach(function(field) {
                     const $field = $(field);
                     if (!$field.val() || $field.val().trim() === '') {
@@ -303,13 +348,6 @@
                         $field.removeClass('is-invalid');
                     }
                 });
-
-                // Validate Max_Outcome is greater than 0
-                const maxOutcome = parseInt($('#Max_Outcome').val());
-                if (!maxOutcome || maxOutcome <= 0) {
-                    isFormValid = false;
-                    $('#Max_Outcome').addClass('is-invalid');
-                }
 
                 if (!isFormValid) {
                     e.preventDefault();
@@ -329,11 +367,32 @@
             });
 
             // Auto-focus on first input
-            $('#Section_Id').focus();
+            nameInput.focus();
 
-            // Initialize character counters
+            // Initialize character counter
             nameInput.trigger('input');
-            $('#Duration').trigger('input');
+
+            // Load Learning Outcomes via AJAX (optional)
+            /*
+            function loadLearningOutcomes() {
+                $.ajax({
+                    url: '@Url.Action("GetLearningOutcomes", "Evidence")',
+                    type: 'GET',
+                    success: function(data) {
+                        var select = $('#outcomeSelect');
+                        select.empty();
+                        select.append('<option value="">-- اختر نتاج التعلم --</option>');
+
+                        $.each(data, function(index, item) {
+                            select.append('<option value="' + item.value + '">' + item.text + '</option>');
+                        });
+                    },
+                    error: function() {
+                        alert('حدث خطأ في تحميل نتائج التعلم');
+                    }
+                });
+            }
+            */
 
             // AJAX name uniqueness check (optional)
             let nameTimeout;
