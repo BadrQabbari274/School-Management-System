@@ -28,9 +28,6 @@ namespace StudentManagementSystem.Controllers
             _roleService = roleService;
         }
 
-        // إضافة هذه الـ Methods في AccountController
-
-        // إضافة هذه الـ Methods في AccountController
 
         #region User Profile Details
 
@@ -81,10 +78,6 @@ namespace StudentManagementSystem.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
             return View();
         }
 
