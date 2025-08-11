@@ -28,9 +28,6 @@ namespace StudentManagementSystem.Controllers
             _roleService = roleService;
         }
 
-        // إضافة هذه الـ Methods في AccountController
-
-        // إضافة هذه الـ Methods في AccountController
 
         #region User Profile Details
 
@@ -81,10 +78,6 @@ namespace StudentManagementSystem.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
             return View();
         }
 
@@ -294,6 +287,8 @@ namespace StudentManagementSystem.Controllers
                     return RedirectToAction("ManageUsers");
                 }
 
+                var currentUserId = GetCurrentUserId(); // الحصول على ID المستخدم الحالي
+
                 var viewModel = new EditUserViewModel
                 {
                     Id = user.Id,
@@ -305,6 +300,10 @@ namespace StudentManagementSystem.Controllers
                 };
 
                 await PopulateRolesDropDown();
+
+                // تمرير معلومة هل المستخدم الحالي يحرر نفسه أم مستخدم آخر
+                ViewBag.IsEditingSelf = (currentUserId == id);
+
                 return View(viewModel);
             }
             catch (Exception ex)

@@ -60,7 +60,7 @@ namespace StudentManagementSystem.Controllers
 
         // POST: Evidence/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] 
         public async Task<IActionResult> Create(Evidence evidence)
         {
             try

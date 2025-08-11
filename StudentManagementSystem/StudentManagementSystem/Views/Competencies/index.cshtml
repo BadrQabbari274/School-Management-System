@@ -69,7 +69,10 @@
                                         }
                                     </select>
                                 </div>
+                               
+                               
                                 @* <div class="col-md-3">
+                                    ///
                                     <label class="form-label">الحالة</label>
                                     <select name="isActiveFilter" class="form-select">
                                         <option value="">جميع الحالات</option>
@@ -93,11 +96,7 @@
         </div>
         
 
-            <div class="controls">
-              <a asp-controller="Learning_Outcome" asp-action="Create" class="btn btn-add">
-             <i class="fas fa-plus-circle"></i> إضافة ناتج تعلم جديد
-              </a>
-              </div>
+            
             <div class="controls">
             <a asp-action="Create" class="btn btn-add">
                 <i class="fas fa-plus-circle"></i> إضافة جدارة جديدة
@@ -129,7 +128,7 @@
                         <th>المدة</th>
                         <th>القسم</th>
                         <th>الحد الأقصى للنتائج</th>
-                        <th>الحالة</th>
+                        <!-- <th>الحالة</th> -->
                         <th>أنشئت بواسطة</th>
                         <th>تاريخ الإنشاء</th>
                         <th>العمليات</th>
@@ -153,20 +152,7 @@
                                 <td>
                                     <span class="badge bg-primary">@item.Max_Outcome</span>
                                 </td>
-                                <td>
-                                    @if (item.IsActive)
-                                    {
-                                        <span class="badge bg-success">
-                                            <i class="fas fa-check-circle me-1"></i>نشط
-                                        </span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-danger">
-                                            <i class="fas fa-times-circle me-1"></i>غير نشط
-                                        </span>
-                                    }
-                                </td>
+                                <!-- حالة column removed -->
                                 <td>@item.CreatedByName</td>
                                 <td>@item.CreatedDate?.ToString("dd/MM/yyyy")</td>
                                 <td>
@@ -192,7 +178,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="9" class="no-data">لا توجد جدارات متاحة</td>
+                            <td colspan="8" class="no-data">لا توجد جدارات متاحة</td>
                         </tr>
                     }
                 </tbody>
