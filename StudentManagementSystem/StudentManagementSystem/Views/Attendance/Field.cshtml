@@ -435,6 +435,23 @@
             </div>
             <h3>نظام حضور وغياب الطلاب - الميداني</h3>
             <div class="class-info">@Model.Class.Name - @Model.Class.Grade?.Name</div>
+            <div>
+        @using (Html.BeginForm("MarkUnregisteredAsFieldAbsent", "Attendance", FormMethod.Post, new { @class = "d-inline" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("classId", Model.Class.Id)
+            <button type="submit" class="btn btn-warning btn-sm" 
+                    onclick="return confirm('هل أنت متأكد من تسجيل جميع الطلاب غير المتسجلين كغياب ميداني؟')">
+                <i class="fas fa-user-times"></i>
+                تسجيل غياب ميداني للطلاب غير المتسجلين
+            </button>
+        }
+        
+        <a href="@Url.Action("Statistics", "Attendance")" class="btn btn-info btn-sm">
+            <i class="fas fa-chart-bar"></i>
+            الاحصائيات
+        </a>
+    </div>
         </div>
 
         <div class="form-section">
@@ -681,7 +698,9 @@
         });
         showToast('تم تحديد جميع الطلاب القابلين للتعديل كحاضرين');
     }
-
+    function confirmFieldAbsence() {
+    return confirm('سيتم تسجيل جميع الطلاب غير المتسجلين في الحضور اليومي كغياب ميداني بسبب "التأخير عن موعد التدريب". هل تريد المتابعة؟');
+}
      function updateStatus(index, isPresent) {
         const statusElement = document.getElementById(`status-${index}`);
         const reasonSelect = document.getElementById(`reason-${index}`);

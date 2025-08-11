@@ -1,0 +1,223 @@
+@model StudentManagementSystem.Models.Learning_Outcome
+
+@{
+    ViewData["Title"] = " ⁄œÌ· ‰« Ã «· ⁄·„";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #fff5e6, #ffffff);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        direction: rtl;
+        min-height: 100vh;
+    }
+
+    /* Page Header to match the "Create" page */
+    .page-header {
+        background: linear-gradient(135deg, #00000, #ff6600);
+        color: #ff6600; /* This line is incorrect, it should be white or another color that contrasts with the background */
+        padding: 20px 0;
+        margin-bottom: 30px;
+        border-radius: 8px;
+    }
+
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(255, 140, 0, 0.1);
+        padding: 40px;
+        margin: 20px auto;
+        max-width: 800px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        color: #ff6600;
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-control {
+        border: 2px solid #ffe4cc;
+        border-radius: 8px;
+        padding: 12px 15px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+        .form-control:focus {
+            border-color: #ff8c00;
+            box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25);
+            outline: none;
+        }
+
+    .form-select {
+        border: 2px solid #ffe4cc;
+        border-radius: 8px;
+        padding: 12px 15px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        width: 100%;
+        background-color: white;
+    }
+
+        .form-select:focus {
+            border-color: #ff8c00;
+            box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25);
+            outline: none;
+        }
+
+    .btn-orange {
+        background: linear-gradient(135deg, #ff8c00, #ff6600);
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        margin: 5px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        .btn-orange:hover {
+            background: linear-gradient(135deg, #ff6600, #e55a00);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+            color: white;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .text-danger {
+        color: #dc3545 !important;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .form-icon {
+        color: #ff8c00;
+        margin-left: 8px;
+    }
+
+    .required {
+        color: #dc3545;
+    }
+
+    /* Removing the flexbox layout from the "Edit" page to match the "Create" page */
+    /* .form-row {
+                display: flex;
+                gap: 20px;
+                align-items: start;
+            }
+
+                .form-row .form-group {
+                    flex: 1;
+                } */
+
+    .readonly-field {
+        background-color: #f8f9fa;
+        color: #6c757d;
+        cursor: not-allowed;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="page-header text-center">
+        <div class="container">
+            <h1><i class="fas fa-edit"></i>  ⁄œÌ· ‰« Ã «· ⁄·„</h1>
+            <p> ⁄œÌ·  ›«’Ì· ‰« Ã «· ⁄·„ «·Õ«·Ì</p>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CreatedDate" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="form-label">
+                    <i class="fas fa-tag form-icon"></i>
+                    «”„ ‰« Ã «· ⁄·„ <span class="required">*</span>
+                </label>
+                <input asp-for="Name" class="form-control" placeholder="√œŒ· «”„ ‰« Ã «· ⁄·„..." />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Competency_Id" class="form-label">
+                    <i class="fas fa-certificate form-icon"></i>
+                    «·ﬂ›«¡… «·„— »ÿ… <span class="required">*</span>
+                </label>
+                <select asp-for="Competency_Id" class="form-select" asp-items="ViewBag.Competency_Id">
+                    <option value="">-- «Œ — «·ﬂ›«¡… --</option>
+                </select>
+                <span asp-validation-for="Competency_Id" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-calendar form-icon"></i>
+                     «—ÌŒ «·≈‰‘«¡
+                </label>
+                <input type="text" value="@Model.CreatedDate.ToString("yyyy/MM/dd HH:mm")" class="form-control readonly-field" readonly />
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                    <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                    <label asp-for="IsActive" class="form-check-label form-label">
+                        <i class="fas fa-toggle-on form-icon"></i>
+                        ‰‘ÿ
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-orange">
+                    <i class="fas fa-save"></i> Õ›Ÿ «· €ÌÌ—« 
+                </button>
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">
+                    <i class="fas fa-eye"></i> ⁄—÷ «· ›«’Ì·
+                </a>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> «·⁄Êœ… ··ﬁ«∆„…
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
