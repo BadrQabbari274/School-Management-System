@@ -4,7 +4,6 @@ using StudentManagementSystem.Models;
 using StudentManagementSystem.Service.Interface;
 using StudentManagementSystem.Services.Interfaces;
 
-
 namespace StudentManagementSystem.Controllers
 {
     [Authorize]
@@ -28,10 +27,9 @@ namespace StudentManagementSystem.Controllers
             catch (Exception ex)
             {
                 SetErrorMessage($"خطأ في تحميل البيانات: {ex.Message}");
-                return View(new List<Models.Evidence>());
+                return View(new List<Evidence>());
             }
         }
-
 
         // GET: Evidence/Details/5
         public async Task<IActionResult> Details(int id)
@@ -54,10 +52,9 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Evidence/Create
-        public IActionResult Create(int Outcome_id)
+        public IActionResult Create()
         {
             var evidence = new Evidence();
-            evidence.Outcome_Id = Outcome_id;
             return View(evidence);
         }
 
@@ -75,7 +72,7 @@ namespace StudentManagementSystem.Controllers
 
                 await _evidenceService.CreateEvidenceAsync(evidence);
                 SetSuccessMessage("تم إضافة الدليل بنجاح");
-                return RedirectToAction("Details", "Learning_Outcome", new {id =evidence.Outcome_Id});
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
