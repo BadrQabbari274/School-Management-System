@@ -8960,19 +8960,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-      "projectName": "StudentManagementSystem",
-      "projectPath": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-      "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
-      "outputPath": "D:\\7-16\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
-=======
       "projectUniqueName": "D:\\project\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
       "projectName": "StudentManagementSystem",
       "projectPath": "D:\\project\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
       "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
       "outputPath": "D:\\project\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
->>>>>>> 19b6f8157eda89892ae4c2c453a2f92005a1706b
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
