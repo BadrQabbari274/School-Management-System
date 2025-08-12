@@ -68,8 +68,7 @@ namespace StudentManagementSystem.Controllers
                         Value = t.Id.ToString(),
                         Text = t.Name
                     }).ToList(),
-                    LearningOutcomes = competenciesData.LearningOutcomes,
-                    Evidences = competenciesData.evidences
+                    LearningOutcomes = competenciesData.LearningOutcomes
                 };
 
                 return View(viewModel);
@@ -129,8 +128,7 @@ namespace StudentManagementSystem.Controllers
             {
                 // التحقق من صحة البيانات
                 if (!model.SelectedCompetencyId.HasValue ||
-                    !model.SelectedOutcomeId.HasValue ||
-                    !model.SelectedEvidenceId.HasValue ||
+                    !model.SelectedOutcomeId.HasValue  ||
                     !model.SelectedTryId.HasValue)
                 {
                     TempData["Error"] = "يرجى تحديد جميع البيانات المطلوبة";
