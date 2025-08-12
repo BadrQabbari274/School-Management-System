@@ -92,6 +92,62 @@
                             </a>
                         </div>
                     </div>
+                    @* إضافة هذا القسم أسفل قسم "الموظفون المعينون" *@
+<div class="sections-section mb-4">
+    <h4 class="section-title text-primary mb-3">
+        <i class="fas fa-sitemap me-2"></i>الشعب التابعة للقسم
+    </h4>
+    <hr class="section-divider" />
+    <a asp-controller="Section" asp-action="Create" asp-route-departmentId="@Model.Id" class="btn btn-success btn-sm mb-3">
+        <i class="fas fa-plus-circle me-1"></i> إضافة شعبة جديدة
+    </a>
+
+    @if (Model.Sections != null && Model.Sections.Any())
+    {
+        <div class="list-group">
+            @foreach (var sc in Model.Sections)
+            {
+                <div class="list-group-item d-flex justify-content-between align-items-center mb-2 shadow-sm rounded">
+                    <div>
+                                            <h6 class="mb-1 fw-bold">@sc.Name_Of_Section</h6>
+                        <small class="text-muted">
+                                                تاريخ الإنشاء: @sc.Date.ToString("yyyy-MM-dd")
+                        </small>
+                    </div>
+                    <div>
+                                            <a asp-controller="Section" asp-action="Details" asp-route-id="@sc.Id" class="btn btn-info btn-sm text-white me-2" title="تفاصيل">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                                            <a asp-controller="Section" asp-action="Edit" asp-route-id="@sc.Id" class="btn btn-warning btn-sm text-white" title="تعديل">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state text-center p-4">
+            <i class="fas fa-sitemap fa-3x text-muted mb-3"></i>
+            <p class="text-muted fs-5">لا توجد شعب تابعة لهذا القسم.</p>
+        </div>
+    }
+</div>
+
+@* تأكد من وجود الروابط التالية في نهاية الصفحة للعودة أو التعديل على القسم نفسه *@
+<div class="row mt-4">
+    <div class="col-md-6 mb-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning w-100">
+            <i class="fas fa-edit me-2"></i>تعديل القسم
+        </a>
+    </div>
+    <div class="col-md-6 mb-2">
+        <a asp-action="Index" class="btn btn-outline-secondary w-100">
+            <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
+        </a>
+    </div>
+</div>
                 </div>
             </div>
         </div>
