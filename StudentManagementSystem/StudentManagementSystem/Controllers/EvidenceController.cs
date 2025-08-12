@@ -52,9 +52,10 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Evidence/Create
-        public IActionResult Create()
+        public IActionResult Create(int Outcome_id)
         {
             var evidence = new Evidence();
+            evidence.Outcome_Id = Outcome_id;
             return View(evidence);
         }
 
