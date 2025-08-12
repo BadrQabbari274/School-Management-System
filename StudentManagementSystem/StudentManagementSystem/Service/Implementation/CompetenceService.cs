@@ -16,6 +16,91 @@ namespace StudentManagementSystem.Services
         {
             _context = context;
         }
+        // إضافة هذه الدوال في CompetenciesService
+
+        public async Task<EvaluationMatrixViewModel> GetEvaluationMatrixAsync(int classId, int competencyId, int tryId)
+        {
+            var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
+
+            // الحصول على معلومات الفصل
+            var classInfo = await _context.Classes.FirstOrDefaultAsync(c => c.Id == classId);
+            if (classInfo == null)
+                return null;
+
+            // الحصول على الطلاب في الفصل
+            var studentsInClass = await _context.Student_Class_Section_Years
+                .Include(scsy => scsy.Student)
+                .Where(scsy => scsy.Class_Id == classId &&
+                              scsy.Working_Year_Id == activeWorkingYear.Id &&
+                              scsy.IsActive &&
+                              scsy.Student.IsActive)
+                .OrderBy(scsy => scsy.Student.Natrual_Id.Length == 14 ?
+                         (scsy.Student.Natrual_Id.Substring(12, 1) == "1" || scsy.Student.Natrual_Id.Substring(12, 1) == "3" ? 0 : 1) : 0)
+                .ThenBy(scsy => scsy.Student.Name)
+                .ToListAsync();
+
+            // الحصول على الأدلة العملية للكفاية
+            var practicalEvidences = await GetPracticalEvidencesByCompetencyId(competencyId);
+
+            // إنشاء مصفوفة التقييم
+            var evaluationMatrix = new List<StudentEvaluationRowViewModel>();
+
+            foreach (var studentClass in studentsInClass)
+            {
+                var studentRow = new StudentEvaluationRowViewModel
+                {
+                    Student = studentClass.Student,
+                    EvidenceStatuses = new List<EvidenceStatusViewModel>()
+                };
+
+                foreach (var evidence in practicalEvidences)
+                {
+                    var isEvaluated = await IsStudentEvidenceExistsAsync(studentClass.Student_Id, evidence.Id, tryId);
+
+                    studentRow.EvidenceStatuses.Add(new EvidenceStatusViewModel
+                    {
+                        EvidenceId = evidence.Id,
+                        EvidenceName = evidence.Name,
+                        IsEvaluated = isEvaluated,
+                        StudentId = studentClass.Student_Id,
+                        TryId = tryId
+                    });
+                }
+
+                evaluationMatrix.Add(studentRow);
+            }
+
+            return new EvaluationMatrixViewModel
+            {
+                ClassId = classId,
+                CompetencyId = competencyId,
+                TryId = tryId,
+                ClassName = classInfo.Name,
+                PracticalEvidences = practicalEvidences,
+                StudentEvaluationRows = evaluationMatrix
+            };
+        }
+
+        public async Task<List<Evidence>> GetPracticalEvidencesByCompetencyId(int competencyId)
+        {
+            return await _context.Evidences
+                .Include(e => e.Learning_Outcome)
+                .Where(e => e.Learning_Outcome.Competency_Id == competencyId &&
+                           e.IsActive &&
+                           e.Ispractical)
+                .OrderBy(e => e.Number)
+                .ThenBy(e => e.Name)
+                .ToListAsync();
+        }
+
+        public async Task<bool> IsStudentEvidenceExistsAsync(int studentId, int evidenceId, int tryId)
+        {
+            return await _context.Student_Evidence
+                .AnyAsync(se => se.Student_Id == studentId &&
+                               se.Evidence_Id == evidenceId &&
+                               se.Try_Id == tryId &&
+                               se.IsActive);
+        }
         public async Task<Working_Year> GetOrCreateActiveWorkingYearAsync()
         {
             // البحث عن سنة دراسية نشطة
@@ -60,6 +145,32 @@ namespace StudentManagementSystem.Services
                 evidences = Evidences };
             return Competencies_Outcame_Evidence;
         }
+        public async Task<Competencies_Outcame_Evidence_V2> GetCompetencies_Outcame_Evidence_V2(int ClassId)
+        {
+            var workingyear = await GetOrCreateActiveWorkingYearAsync();
+            var student = await _context.Student_Class_Section_Years.FirstOrDefaultAsync(s => s.Class_Id == ClassId && s.Working_Year_Id == workingyear.Id && s.IsActive);
+            var section = await _context.Sections.FirstOrDefaultAsync(a => a.Id == student.Section_id && a.IsActive);
+            var Competencies = await _context.Competencies.Where(w => w.Section_Id == section.Id && w.IsActive).ToListAsync();
+
+            var Competencies_Outcame_Evidence = new Competencies_Outcame_Evidence_V2()
+            {
+                Competencies = Competencies,
+   
+            };
+            return Competencies_Outcame_Evidence;
+        }
+        public async Task<Competencies_Outcame_Evidence_V2> GetCompetencies(int ClassId)
+        {
+            var workingyear = await GetOrCreateActiveWorkingYearAsync();
+            var student = await _context.Student_Class_Section_Years.FirstOrDefaultAsync(s => s.Class_Id == ClassId && s.Working_Year_Id == workingyear.Id && s.IsActive);
+            var section = await _context.Sections.FirstOrDefaultAsync(a => a.Id == student.Section_id && a.IsActive);
+            var Competencies = await _context.Competencies.Where(w => w.Section_Id == section.Id && w.IsActive).ToListAsync();
+            var Competencies_Outcame_Evidence = new Competencies_Outcame_Evidence_V2()
+            {
+                Competencies = Competencies,
+            };
+            return Competencies_Outcame_Evidence;
+        }
         // إضافة هذه الطرق في CompetenciesService
         public async Task<List<Try>> GetAllTriesAsync()
         {
@@ -101,23 +212,24 @@ namespace StudentManagementSystem.Services
 
             foreach (var studentClassSection in studentsInClass)
             {
-                var Student = await _context.Student_Evidence.FirstOrDefaultAsync(e => e.Student_Id == studentClassSection.Student_Id && e.Evidence_Id == model.SelectedEvidenceId.Value && e.Try_Id == model.SelectedTryId.Value);
+                //var Student = await _context.Student_Evidence.FirstOrDefaultAsync(e => e.Student_Id == studentClassSection.Student_Id && e.Evidence_Id == model.SelectedEvidenceId.Value && e.Try_Id == model.SelectedTryId.Value);
                 var student = await _context.Students.FirstOrDefaultAsync(s => s.Id == studentClassSection.Student_Id && s.IsActive);
-                if (student != null)
-                {
-                    if (Student != null)
-                    {
+                //if (student != null)
+                //{
+                //    if (Student != null)
+                //    {
                         studentStatusList.Add(new StudentEvidenceViewModel { Student = student, status = true });
-                    }
-                    else
-                    {
-                        studentStatusList.Add(new StudentEvidenceViewModel { Student = student, status = false });
-                    }
-                }
+                    //}
+                    //else
+                    //{
+                    //    studentStatusList.Add(new StudentEvidenceViewModel { Student = student, status = false });
+                //    //}
+                //}
 
             }
             return studentStatusList;
         }
+
         public async Task<List<Evidence>> GetEvidencesByOutcomeId(int outcomeId)
         {
             return await _context.Evidences

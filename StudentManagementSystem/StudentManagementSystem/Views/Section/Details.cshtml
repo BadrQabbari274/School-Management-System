@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <div class="container-fluid p-4">
     <div class="row justify-content-center">
@@ -129,7 +128,6 @@
                             </div>
                         }
 
-                        <!-- إضافة معلومة المدة منذ الإنشاء -->
                         <div class="col-md-6">
                             <div class="detail-item">
                                 <label class="form-label fw-bold text-dark">
@@ -159,13 +157,13 @@
                             </a>
                         </div>
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-danger btn-lg w-100 mb-3" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <button type="button" class="btn btn-danger btn-lg w-100 mb-3" onclick="showDeleteConfirmation(@Model.Id, '@Model.Name_Of_Section')">
                                 <i class="fas fa-trash me-2"></i>حذف
                             </button>
                         </div>
                         <div class="col-md-4">
-                            <a asp-action="Index" class="btn btn-secondary btn-lg w-100 mb-3" style="height: 48px; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-arrow-left me-2"></i>العودة للقائمة
+                            <a asp-controller="Department" asp-action="Details" asp-route-id="@Model.Department_Id" class="btn btn-secondary btn-lg w-100 mb-3" style="height: 48px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-arrow-left me-2"></i>العودة للقسم
                             </a>
                         </div>
                     </div>
@@ -175,45 +173,30 @@
     </div>
 </div>
 
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade custom-modal" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="deleteModalLabel">
-                    <i class="fas fa-exclamation-triangle me-2"></i>
-                    تأكيد الحذف
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">تأكيد الحذف</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-center">
-                <i class="fas fa-question-circle fa-3x text-warning mb-3"></i>
-                <h5>هل أنت متأكد من حذف الشعبة؟</h5>
-                <p class="text-muted">
-                    ستقوم بحذف الشعبة: <strong class="text-primary">@Model.Name_Of_Section</strong>
-                </p>
-                <div class="alert alert-warning" role="alert">
-                    <i class="fas fa-info-circle me-2"></i>
-                    تحذير: هذا الإجراء لا يمكن التراجع عنه!
-                </div>
+            <div class="modal-body">
+                <p>هل أنت متأكد من حذف الشعبة <strong id="sectionNameToDelete"></strong>؟</p>
+                <p class="text-danger">لا يمكن التراجع عن هذا الإجراء.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="fas fa-times me-2"></i>
-                    إلغاء
-                </button>
-                <form asp-action="Delete" asp-route-id="@Model.Id" method="post" style="display: inline;">
-                    @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-danger" id="deleteBtn">
-                        <i class="fas fa-trash me-2"></i>
-                        نعم، احذف
-                    </button>
-                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">حذف</button>
             </div>
         </div>
     </div>
 </div>
-<!-- Success/Error Messages -->
+
+<form id="deleteForm" asp-action="Delete" method="post" style="display:none;">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" id="sectionIdToDelete" />
+</form>
+
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -234,13 +217,56 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
+    let sectionIdToDelete = 0;
+
+    function showDeleteConfirmation(id, name) {
+        sectionIdToDelete = id;
+        document.getElementById('sectionNameToDelete').innerText = name;
+        var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+        deleteModal.show();
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-        // Handle delete button click
-        const deleteBtn = document.getElementById('deleteBtn');
-        if (deleteBtn) {
-            deleteBtn.addEventListener('click', function() {
-                this.disabled = true;
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        const deleteForm = document.getElementById('deleteForm');
+
+        if (confirmDeleteBtn) {
+            confirmDeleteBtn.addEventListener('click', async function () {
+                var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+                deleteModal.hide();
+
+                // عرض مؤشر التحميل
                 this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>جاري الحذف...';
+                this.disabled = true;
+
+                document.getElementById('sectionIdToDelete').value = sectionIdToDelete;
+
+                try {
+                    const response = await fetch(deleteForm.action, {
+                        method: deleteForm.method,
+                        body: new FormData(deleteForm),
+                        headers: {
+                            'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                        }
+                    });
+
+
+                        if (response.ok) {
+                            window.location.href = "@Url.Action("Details", "Department", new { id = Model.Department_Id })";
+                        }
+                    else {
+                        // Re-enable the button and show an error
+                        this.innerHTML = '<i class="fas fa-trash me-2"></i>حذف';
+                        this.disabled = false;
+                        alert('حدث خطأ أثناء حذف الشعبة. يرجى المحاولة مرة أخرى.');
+                        console.error('Delete failed with status:', response.status);
+                    }
+                } catch (error) {
+                    this.innerHTML = '<i class="fas fa-trash me-2"></i>حذف';
+                    this.disabled = false;
+                    alert('حدث خطأ أثناء حذف الشعبة. يرجى فحص اتصال الشبكة.');
+                    console.error('Error during fetch:', error);
+                }
             });
         }
 

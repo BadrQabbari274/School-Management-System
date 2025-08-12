@@ -50,9 +50,56 @@
         /* Control Buttons (Add New) */
         .controls {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 25px; /* More space */
+            gap: 20px; /* Add gap between elements */
         }
+
+        /* Search Section Styling */
+        .search-section {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between search input and button */
+        }
+
+        .input-group {
+            max-width: 400px;
+            margin-bottom: 0 !important;
+        }
+
+        /* Search Input Styling */
+        .form-control {
+            border-radius: 12px !important; /* Smooth edges for search input */
+            border: 1px solid #ced4da;
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+
+            .form-control:focus {
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+                border-color: #007bff;
+            }
+
+        /* Search Button Styling */
+        .btn-search {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            border: none;
+            border-radius: 12px !important; /* Smooth edges */
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 123, 255, 0.2);
+        }
+
+            .btn-search:hover {
+                background: linear-gradient(135deg, #0056b3, #004085);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+                color: white;
+            }
 
         /* General Button Styles */
         .btn {
@@ -264,6 +311,20 @@
             font-size: 24px;
         }
 
+        .controls {
+            flex-direction: column;
+            gap: 15px;
+            align-items: stretch;
+        }
+
+        .search-section {
+            justify-content: center;
+        }
+
+        .input-group {
+            max-width: 100%;
+        }
+
         .table th,
         .table td {
             padding: 10px;
@@ -293,9 +354,31 @@
     <div class="container">
 
         <div class="controls">
-            <a href="@Url.Action("Register", "Account")" class="btn btn-add">
-                <i class="fas fa-plus-circle"></i> ≈÷«›… „” Œœ„ ÃœÌœ
-            </a>
+            <!-- Left: Active Users Label -->
+            <div style="font-weight: bold; color: #28a745;">
+                <i class="fas fa-users"></i> «·„” Œœ„Ì‰ «·‰‘ÿÌ‰ ›ﬁÿ
+            </div>
+
+            <!-- Center: Search Section -->
+            <div class="search-section">
+                <div class="input-group" dir="rtl">
+                    <input type="text"
+                           id="userSearchInput"
+                           class="form-control"
+                           placeholder="«»ÕÀ ⁄‰ «·„” Œœ„Ì‰..."
+                           aria-label="«»ÕÀ ⁄‰ «·„” Œœ„Ì‰" />
+                </div>
+                <button type="button" id="userSearchBtn" class="btn btn-search">
+                    <i class="fas fa-search"></i> «·»ÕÀ
+                </button>
+            </div>
+
+            <!-- Right: Add User Button -->
+            <div>
+                <a href="@Url.Action("Register", "Account")" class="btn btn-add">
+                    <i class="fas fa-plus-circle"></i> ≈÷«›… „” Œœ„ ÃœÌœ
+                </a>
+            </div>
         </div>
 
         @if (TempData["Success"] != null)
@@ -327,12 +410,12 @@
                         <th>«·⁄„·Ì« </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="usersTableBody">
                     @if (Model != null && Model.Any(u => u.IsActive))
                     {
                         @foreach (var user in Model.Where(u => u.IsActive))
                         {
-                            <tr>
+                            <tr data-username="@user.Username.ToLower()" data-name="@user.Name.ToLower()" data-role="@user.RoleName.ToLower()">
                                 <td>@user.Name</td>
                                 <td>@user.Username</td>
                                 <td>@user.RoleName</td>
@@ -365,7 +448,7 @@
                     }
                     else
                     {
-                        <tr>
+                        <tr id="noDataRow">
                             <td colspan="8" class="no-data">·« ÌÊÃœ „” Œœ„Ê‰ ‰‘ÿÊ‰ ·⁄—÷Â„</td>
                         </tr>
                     }
@@ -401,6 +484,109 @@
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Search functionality with enhanced username checking
+        function performSearch() {
+            const query = document.getElementById('userSearchInput').value.trim().toLowerCase();
+            const rows = document.querySelectorAll('#usersTableBody tr[data-username]');
+            let visibleCount = 0;
+            let hasExactUsernameMatch = false;
+
+            // If query is empty, show all rows
+            if (query === '') {
+                rows.forEach(row => {
+                    row.style.display = '';
+                    visibleCount++;
+                });
+
+                const noDataRow = document.getElementById('noDataRow');
+                if (noDataRow) {
+                    if (visibleCount === 0) {
+                        noDataRow.style.display = '';
+                        noDataRow.querySelector('td').textContent = '·« ÌÊÃœ „” Œœ„Ê‰ ‰‘ÿÊ‰ ·⁄—÷Â„';
+                    } else {
+                        noDataRow.style.display = 'none';
+                    }
+                }
+                return;
+            }
+
+            // Check for exact username match first
+            rows.forEach(row => {
+                const username = row.getAttribute('data-username') || '';
+                if (username === query) {
+                    hasExactUsernameMatch = true;
+                }
+            });
+
+            // Filter rows based on search query
+            rows.forEach(row => {
+                const username = row.getAttribute('data-username') || '';
+                const name = row.getAttribute('data-name') || '';
+                const role = row.getAttribute('data-role') || '';
+
+                // Search in username, name, and role
+                const matches = username.includes(query) ||
+                               name.includes(query) ||
+                               role.includes(query);
+
+                if (matches) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Handle "no data" message
+            const noDataRow = document.getElementById('noDataRow');
+            if (noDataRow) {
+                if (visibleCount === 0) {
+                    noDataRow.style.display = '';
+
+                    // Check if the search query looks like a username search (no spaces, specific format)
+                    // and if there's no exact username match, show the specific message
+                    if (!hasExactUsernameMatch && !query.includes(' ')) {
+                        // Check if any username partially matches - if not, it's likely a username search
+                        let hasPartialUsernameMatch = false;
+                        rows.forEach(row => {
+                            const username = row.getAttribute('data-username') || '';
+                            if (username.includes(query)) {
+                                hasPartialUsernameMatch = true;
+                            }
+                        });
+
+                        if (!hasPartialUsernameMatch) {
+                            noDataRow.querySelector('td').textContent = '·« ÌÊÃœ „” Œœ„ »Â–« «·«”„';
+                        } else {
+                            noDataRow.querySelector('td').textContent = '·« ÌÊÃœ „” Œœ„Ê‰ Ìÿ«»ﬁÊ‰ «·»ÕÀ «·Õ«·Ì';
+                        }
+                    } else {
+                        noDataRow.querySelector('td').textContent = '·« ÌÊÃœ „” Œœ„Ê‰ Ìÿ«»ﬁÊ‰ «·»ÕÀ «·Õ«·Ì';
+                    }
+                } else {
+                    noDataRow.style.display = 'none';
+                }
+            }
+        }
+
+        // Search button click event
+        document.getElementById('userSearchBtn').addEventListener('click', performSearch);
+
+        // Search on Enter key press
+        document.getElementById('userSearchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Optional: Real-time search as user types (uncomment if you want this feature)
+        /*
+        document.getElementById('userSearchInput').addEventListener('input', performSearch);
+        */
+    </script>
+
     <script>
         // Global variable to store the ID of the user to toggle
         let userIdToToggle = 0;
