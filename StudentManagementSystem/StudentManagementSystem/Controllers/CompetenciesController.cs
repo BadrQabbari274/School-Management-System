@@ -69,6 +69,7 @@ namespace StudentManagementSystem.Controllers
                         Text = t.Name
                     }).ToList(),
                     LearningOutcomes = competenciesData.LearningOutcomes
+                    ,Evidences =competenciesData.evidences
                 };
 
                 return View(viewModel);
@@ -79,7 +80,89 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> SelectCompetencies_V2(int classId)
+        {
+            try
+            {
+                var competenciesData = await _competenciesService.GetCompetencies_Outcame_Evidence_V2(classId);
+                var tries = await _competenciesService.GetAllTriesAsync();
 
+                var viewModel = new CompetenciesSelectionViewModel_V2
+                {
+                    ClassId = classId,
+                    Competencies = competenciesData.Competencies.Select(c => new SelectListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.Name
+                    }).ToList(),
+                    Tries = tries.Select(t => new SelectListItem
+                    {
+                        Value = t.Id.ToString(),
+                        Text = t.Name
+                    }).ToList(),
+                    
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage("حدث خطأ في تحميل البيانات");
+                return RedirectToAction("Index");
+            }
+        }
+       
+        public async Task<IActionResult> Evaluate_V2(CompetenciesSelectionViewModel_V2 model)
+        {
+            try
+            {
+                // طباعة للتتبع (احذفها لاحقاً)
+                Console.WriteLine($"ClassId: {model.ClassId}");
+                Console.WriteLine($"SelectedCompetencyId: {model.SelectedCompetencyId}");
+                Console.WriteLine($"SelectedTryId: {model.SelectedTryId}");
+
+                // التحقق من صحة البيانات
+                if (!ModelState.IsValid)
+                {
+                    TempData["Error"] = "البيانات غير صحيحة";
+                    return RedirectToAction("SelectCompetencies_V2", new { classId = model.ClassId });
+                }
+
+                if (!model.SelectedCompetencyId.HasValue || !model.SelectedTryId.HasValue)
+                {
+                    TempData["Error"] = "يرجى تحديد الجدارة والمحاولة";
+                    return RedirectToAction("SelectCompetencies_V2", new { classId = model.ClassId });
+                }
+
+                // الحصول على مصفوفة التقييم
+                var evaluationMatrix = await _competenciesService.GetEvaluationMatrixAsync(
+                    model.ClassId,
+                    model.SelectedCompetencyId.Value,
+                    model.SelectedTryId.Value);
+
+                if (evaluationMatrix == null || !evaluationMatrix.StudentEvaluationRows.Any())
+                {
+                    TempData["Error"] = "لا توجد بيانات طلاب للفصل المحدد";
+                    return RedirectToAction("SelectCompetencies_V2", new { classId = model.ClassId });
+                }
+
+                // تمرير البيانات للعرض
+                ViewBag.ClassId = model.ClassId;
+                ViewBag.CompetencyId = model.SelectedCompetencyId.Value;
+                ViewBag.TryId = model.SelectedTryId.Value;
+
+                return View(evaluationMatrix);
+            }
+            catch (Exception ex)
+            {
+                // تسجيل الخطأ
+                Console.WriteLine($"Error in Evaluate_V2: {ex.Message}");
+
+                TempData["Error"] = "حدث خطأ أثناء تحميل بيانات الطلاب";
+                return RedirectToAction("SelectCompetencies_V2", new { classId = model.ClassId });
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> GetLearningOutcomes(int competencyId)
         {
@@ -154,7 +237,7 @@ namespace StudentManagementSystem.Controllers
                 ViewBag.ClassId = model.ClassId;
                 ViewBag.CompetencyId = model.SelectedCompetencyId.Value;
                 ViewBag.OutcomeId = model.SelectedOutcomeId.Value;
-                ViewBag.EvidenceId = model.SelectedEvidenceId.Value;
+               
                 ViewBag.TryId = model.SelectedTryId.Value;
 
                 return View(sortedStudents);
@@ -165,7 +248,7 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction("Index");
             }
         }
-
+       
         private int GetGenderFromNationalId(string nationalId)
         {
             if (string.IsNullOrEmpty(nationalId) || nationalId.Length < 14)
