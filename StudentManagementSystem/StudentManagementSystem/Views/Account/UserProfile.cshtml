@@ -81,7 +81,7 @@
 
                     <!-- Quick Actions -->
                     <div class="quick-actions">
-                        <a href="mailto:@Model.Email" class="btn btn-outline-blue btn-sm">
+                        <a href="mailto:@Model.Email" class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-envelope me-1"></i>
                             إرسال إيميل
                         </a>
@@ -175,13 +175,43 @@
                             </p>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">تاريخ الإنشاء:</label>
-                            <p class="form-control-plaintext">@Model.Date.ToString("dd/MM/yyyy HH:mm")</p>
+                            <label class="form-label fw-bold">تاريخ الانضمام:</label>
+                            <p class="form-control-plaintext">
+                                @if (Model.JoinDate.HasValue)
+                                {
+                                    @Model.JoinDate.Value.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    <span class="text-muted">غير محدد</span>
+                                }
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- System Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        معلومات النظام
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">تاريخ الإنشاء:</label>
+                            <p class="form-control-plaintext">@Model.Date.ToString("dd/MM/yyyy HH:mm")</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">تم الإنشاء بواسطة:</label>
+                            <p class="form-control-plaintext">@Model.CreatedByName</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -294,26 +324,5 @@
 
     .user-status {
         font-size: 1.1em;
-    }
-
-    .btn-outline-blue {
-        background: #fff;
-        color: #007bff;
-        border: 2px solid #007bff;
-        border-radius: 8px;
-        font-weight: 600;
-        padding: 8px 20px;
-        transition: all 0.3s ease;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
-    }
-
-    .btn-outline-blue:hover,
-    .btn-outline-blue:focus {
-        background: #007bff;
-        color: #fff;
-        border-color: #007bff;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.15);
-        text-decoration: none;
     }
 </style>

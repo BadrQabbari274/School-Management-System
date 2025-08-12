@@ -493,40 +493,7 @@
                         </div>
                     </div>
 
-                    @* إظهار قسم كلمة المرور فقط إذا كان المستخدم يحرر ملفه الشخصي *@
-                    @if (ViewBag.IsEditingSelf != null && (bool)ViewBag.IsEditingSelf)
-                    {
-                        <!-- قسم تغيير كلمة المرور -->
-                        <div class="password-section">
-                            <h3>
-                                <i class="fas fa-key"></i>
-                                تغيير كلمة المرور (اختياري)
-                            </h3>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="NewPassword">كلمة المرور الجديدة</label>
-                                    @Html.PasswordFor(m => m.NewPassword, new {
-                                    @class = "form-control",
-                                                                placeholder = "أدخل كلمة المرور الجديدة",
-                                                                autocomplete = "new-password"
-                                                                })
-                                @Html.ValidationMessageFor(m => m.NewPassword, "", new { @class = "field-validation-error" })
-                            </div>
-
-                            <div class="form-group">
-                                <label for="ConfirmNewPassword">تأكيد كلمة المرور الجديدة</label>
-                                @Html.PasswordFor(m => m.ConfirmNewPassword, new {
-                                                                @class = "form-control",
-                                                                placeholder = "أعد إدخال كلمة المرور الجديدة",
-                                                                autocomplete = "new-password"
-                                                                })
-                                @Html.ValidationMessageFor(m => m.ConfirmNewPassword, "", new { @class = "field-validation-error" })
-                            </div>
-                        </div>
-                    </div>
-                                        }
-
+      
                     <!-- الأزرار -->
                     <div class="btn-container">
                         <button type="submit" class="btn btn-primary" id="saveBtn">
@@ -591,21 +558,8 @@
 
             // معالجة إرسال النموذج
             form.addEventListener('submit', function(e) {
-                if (ViewBag.IsEditingSelf != null && (bool)ViewBag.IsEditingSelf)
-                    {
                 // التحقق من تطابق كلمات المرور (فقط إذا كانت موجودة)
-                const newPassword = document.getElementById('NewPassword');
-                const confirmPassword = document.getElementById('ConfirmNewPassword');
 
-                if (newPassword && confirmPassword) {
-                    if (newPassword.value && newPassword.value !== confirmPassword.value) {
-                        e.preventDefault();
-                        alert('كلمة المرور الجديدة وتأكيد كلمة المرور غير متطابقين');
-                        confirmPassword.focus();
-                        return;
-                    }
-                }
-                }
                 // تأثير التحميل
                 saveBtn.classList.add('btn-loading');
                 saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
@@ -634,15 +588,7 @@
                 });
             });
 
-            // تحسين تجربة الـ checkbox
-            const checkbox = document.getElementById('IsActive');
-            const checkboxLabel = document.querySelector('label[for="IsActive"]');
-
-            if (checkbox && checkboxLabel) {
-                checkboxLabel.addEventListener('click', function() {
-                    checkbox.checked = !checkbox.checked;
-                });
-            }
+        
         });
 
         // إظهار تأكيد عند محاولة الخروج مع وجود تغييرات غير محفوظة

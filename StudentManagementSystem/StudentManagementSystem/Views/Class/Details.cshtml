@@ -612,6 +612,26 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="info-box">
+                            <span class="info-box-icon @(Model.Class.IsActive ? "bg-success" : "bg-secondary")">
+                                <i class="fas fa-@(Model.Class.IsActive ? "check-circle" : "times-circle")"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">الحالة</span>
+                                <span class="info-box-number">
+                                    @if (Model.Class.IsActive)
+                                    {
+                                        <span class="badge bg-success">نشط</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">غير نشط</span>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-box">
                             <span class="info-box-icon bg-danger">
                                 <i class="fas fa-users"></i>
                             </span>
@@ -659,7 +679,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>الرقم</th>
+                                            <th>الرقم التعريفي</th>
                                             <th>الاسم</th>
                                             <th>الجنس</th>
                                             <th>المرحلة الدراسية</th>
@@ -669,9 +689,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{
-                                            int counter = 1;
-                                        }
                                         @foreach (var studentClass in Model.StudentsInClass)
                                         {
                                             var student = studentClass.Student;
@@ -680,7 +697,7 @@
                                             var gender = Model.GetGenderFromNationalId(student.Natrual_Id);
 
                                             <tr>
-                                                <td>@counter</td>
+                                                <td>@student.Id</td>
                                                 <td>@student.Name</td>
                                                 <td>
                                                     <span class="gender-badge @(gender == 0 ? "male-badge" : "female-badge")">
@@ -719,9 +736,8 @@
                                                             <i class="fas fa-edit"></i> تعديل
                                                         </a>
                                                     </div>
-                                                </td>   
+                                                </td>
                                             </tr>
-                                            counter++;
                                         }
                                     </tbody>
                                 </table>

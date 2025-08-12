@@ -83,6 +83,18 @@
                         }
                     </div>
 
+                    <!-- Student Status -->
+                    <div class="student-status mb-3">
+                        @if (Model.IsActive)
+                        {
+                            <span class="badge bg-success fs-6">نشط</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger fs-6">غير نشط</span>
+                        }
+                    </div>
+
                     <!-- Quick Actions -->
                     <div class="quick-actions">
                         <a href="mailto:@Model.Email" class="btn btn-outline-primary btn-sm">
@@ -191,7 +203,17 @@
             </div>
 
             <!-- Academic Information -->
-
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-graduation-cap me-2"></i>
+                        المعلومات الأكاديمية
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">الفصل:</label>
                         @*     <p class="form-control-plaintext">
                                 @if (Model.Class != null)
                                 {
@@ -203,6 +225,19 @@
                                 }
                             </p>
                         </div> *@
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">الحالة:</label>
+                            <p class="form-control-plaintext">
+                                @if (Model.IsActive)
+                                {
+                                    <span class="badge bg-success">نشط</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">غير نشط</span>
+                                }
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -247,6 +282,10 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">تاريخ الإضافة:</label>
+                            <p class="form-control-plaintext">@Model.Date.ToString("dd/MM/yyyy HH:mm")</p>
+                        </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">تم الإنشاء بواسطة:</label>
                             <p class="form-control-plaintext">@(Model.CreatedBy?.Name ?? "غير محدد")</p>

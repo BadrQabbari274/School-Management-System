@@ -62,6 +62,13 @@ namespace StudentManagementSystem.Service.Implementation
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Department>> GetDepartmentsByAcademicYearAsync(int academicYearId)
+        {
+            return await _context.Departments
+                .Where(d => d.GradeId == academicYearId && d.IsActive)
+                .ToListAsync();
+        }
+
         public async Task<bool> AssignUserToDepartmentAsync(int userId, int departmentId)
         {
             var existingAssignment = await _context.Employee_Departments

@@ -22,13 +22,6 @@ namespace StudentManagementSystem.ViewModels
         [Display(Name = "نشط")]
         public bool IsActive { get; set; } = true;
 
-        [DataType(DataType.Password)]
-        [Display(Name = "كلمة المرور الجديدة (اختياري)")]
-        public string? NewPassword { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "تأكيد كلمة المرور الجديدة")]
-        [Compare("NewPassword", ErrorMessage = "كلمة المرور الجديدة وتأكيد كلمة المرور غير متطابقين")]
-        public string? ConfirmNewPassword { get; set; }
     }
 }

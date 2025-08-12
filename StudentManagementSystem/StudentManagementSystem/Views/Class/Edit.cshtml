@@ -2,274 +2,273 @@
 
 @{
 	ViewData["Title"] = "تعديل الفصل";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = null; // We are providing a full HTML structure, so no need for a layout here.
 }
 <head>
 	<link href="~/css/styles.css" rel="stylesheet" />
 </head>
-<div class="container-fluid p-4">
-	<div class="row justify-content-center">
-		<div class="col-md-8 col-lg-6">
-			<div class="card border-0 shadow-lg">
-				<div class="card-header bg-primary-orange text-white position-relative">
-					<h1 class="header-title">
-						<i class="fas fa-edit"></i>تعديل الفصل
-					</h1>
-				</div>
 
-				<div class="card-body">
-					@if (TempData["SuccessMessage"] != null)
-					{
-						<div class="alert alert-success alert-dismissible fade show" role="alert">
-							<i class="fas fa-check-circle me-2"></i>
-							@TempData["SuccessMessage"]
-							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-						</div>
-					}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"]</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+	<style>
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #f8f9fa;
+			direction: rtl;
+			text-align: right;
+		}
 
-					@if (TempData["ErrorMessage"] != null)
-					{
-						<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							<i class="fas fa-exclamation-circle me-2"></i>
-							@TempData["ErrorMessage"]
-							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-						</div>
-					}
+		.card {
+			border-radius: 20px;
+			overflow: hidden;
+			box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+		}
 
-					<form asp-action="Edit" method="post" id="editClassForm">
-						<div asp-validation-summary="ModelOnly" class="text-danger mb-4 text-center custom-validation-summary"></div>
+		.bg-primary-orange {
+			background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%) !important;
+			border: none;
+		}
 
-						<input type="hidden" asp-for="Id" />
-						<input type="hidden" asp-for="Date" />
-						<input type="hidden" asp-for="CreatedBy" />
+		.card-header {
+			border: none;
+			padding: 20px 0;
+			text-align: center;
+		}
 
-						<div class="mb-4">
-							<label asp-for="GradeId" class="form-label fw-bold text-primary-orange">
-								<i class="fas fa-building me-2"></i>السنة الدراسية <span class="required">*</span>
-							</label>
-							<select asp-for="GradeId" class="form-control form-control-lg" asp-items="ViewBag.GradeId">
-								<option value="">-- اختر السنة الدراسية --</option>
-							</select>
-							<span asp-validation-for="GradeId" class="text-danger"></span>
-						</div>
+		.header-title {
+			font-size: 28px;
+			font-weight: bold;
+			margin: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 
-						<div class="mb-4">
-							<label asp-for="Name" class="form-label fw-bold text-primary-orange">
-								<i class="fas fa-chalkboard me-2"></i>اسم الفصل <span class="required">*</span>
-							</label>
-							<input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل رقم الفصل" required />
-							<span asp-validation-for="Name" class="text-danger"></span>
-							<div id="classNameError" class="text-danger mt-1" style="display:none;">
-								<i class="fas fa-exclamation-circle me-1"></i>
-								الرجاء إدخال اسم فصل صحيح (مثل J1 أو S2).
+			.header-title i {
+				margin-left: 10px;
+			}
+
+		.back-button {
+			position: absolute;
+			right: 20px;
+			top: 50%;
+			transform: translateY(-50%);
+			background: rgba(255,255,255,0.2);
+			border: none;
+			color: white;
+			padding: 10px 15px;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+		}
+
+			.back-button:hover {
+				background: rgba(255,255,255,0.3);
+				color: white;
+			}
+
+		.card-body {
+			padding: 40px;
+		}
+
+		.form-label {
+			font-weight: 600;
+			margin-bottom: 8px;
+			display: block;
+			font-size: 1.1rem;
+		}
+
+		.text-primary-orange {
+			color: #FF8C00 !important;
+		}
+
+		.form-control, .form-select {
+			border-radius: 10px;
+			border: 2px solid #e9ecef;
+			padding: 12px 15px;
+			transition: all 0.3s ease;
+			font-size: 16px;
+			text-align: right;
+		}
+
+			.form-control::placeholder {
+				text-align: right;
+			}
+
+			.form-control:focus, .form-select:focus {
+				border-color: #FF8C00;
+				box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25);
+			}
+
+			.form-control:read-only {
+				background-color: #f8f9fa;
+				border-color: #dee2e6;
+				color: #6c757d;
+			}
+
+		.btn-primary-orange {
+			background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%);
+			border: none;
+			border-radius: 10px;
+			padding: 12px 24px;
+			transition: all 0.3s ease;
+			color: white;
+		}
+
+			.btn-primary-orange:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
+				background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
+				color: white;
+			}
+
+		.btn-outline-secondary-orange {
+			border-radius: 10px;
+			padding: 12px 24px;
+			transition: all 0.3s ease;
+			border-color: #FF8C00;
+			color: #FF8C00;
+		}
+
+			.btn-outline-secondary-orange:hover {
+				transform: translateY(-2px);
+				background-color: #FF8C00;
+				color: white;
+				box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2);
+			}
+
+		.text-danger {
+			font-size: 14px;
+			margin-top: 5px;
+			color: #dc3545 !important;
+		}
+
+		.required {
+			color: #dc3545;
+		}
+
+		.alert {
+			border-radius: 8px;
+			margin-bottom: 20px;
+		}
+
+		.info-section {
+			background-color: #fff3e0;
+			padding: 15px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+			border: 1px solid #ffcc80;
+		}
+
+		.info-label {
+			font-weight: 600;
+			color: #e65100;
+			margin-bottom: 5px;
+		}
+
+		.info-value {
+			color: #FF8C00;
+			font-weight: 500;
+		}
+
+		.is-invalid {
+			border-color: #dc3545 !important;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid p-4">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="card border-0 shadow-lg">
+					<div class="card-header bg-primary-orange text-white position-relative">
+						<h1 class="header-title">
+							<i class="fas fa-edit"></i>تعديل الفصل
+						</h1>
+					</div>
+
+					<div class="card-body">
+						@if (TempData["SuccessMessage"] != null)
+						{
+							<div class="alert alert-success alert-dismissible fade show" role="alert">
+								<i class="fas fa-check-circle me-2"></i>
+								@TempData["SuccessMessage"]
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 							</div>
-							<small id="charCounter" class="form-text text-muted"></small>
-						</div>
+						}
 
-						<div class="mb-4">
-							<label asp-for="MaxStudents" class="form-label fw-bold text-primary-orange">
-								<i class="fas fa-user-friends me-2"></i>السعة القصوى للطلاب <span class="required">*</span>
-							</label>
-							<input asp-for="MaxStudents" type="number" class="form-control form-control-lg" placeholder="ادخل السعة القصوى" required />
-							<span asp-validation-for="MaxStudents" class="text-danger"></span>
-						</div>
+						@if (TempData["ErrorMessage"] != null)
+						{
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<i class="fas fa-exclamation-circle me-2"></i>
+								@TempData["ErrorMessage"]
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						}
 
-						<div class="info-section">
-							<div class="info-label">تاريخ الإنشاء</div>
-							<div class="info-value">
-								<i class="fas fa-calendar me-2"></i>
-								@Model.Date.ToString("dd/MM/yyyy - hh:mm tt")
-							</div>
-						</div>
+						<form asp-action="Edit" method="post" id="editClassForm">
+							<div asp-validation-summary="ModelOnly" class="text-danger mb-4 text-center custom-validation-summary"></div>
 
-						<div class="row">
-							<div class="col-md-6">
-								<button type="submit" class="btn btn-primary-orange btn-lg w-100 mb-3" id="submitBtn">
-									<i class="fas fa-save me-2"></i>تحديث الفصل
-								</button>
+							<input type="hidden" asp-for="Id" />
+							<input type="hidden" asp-for="Date" />
+							<input type="hidden" asp-for="CreatedBy" />
+
+							<div class="mb-4">
+								<label asp-for="Name" class="form-label fw-bold text-primary-orange">
+									<i class="fas fa-chalkboard me-2"></i>اسم الفصل <span class="required">*</span>
+								</label>
+								<input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم الفصل" required />
+								<span asp-validation-for="Name" class="text-danger"></span>
+								<div id="classNameError" class="text-danger mt-1" style="display:none;">
+									<i class="fas fa-exclamation-circle me-1"></i>
+									لا يمكن أن يبدأ اسم الفصل بأرقام.
+								</div>
+								<small id="charCounter" class="form-text text-muted"></small>
 							</div>
-							<div class="col-md-6">
-								<a asp-action="Index" class="btn btn-outline-secondary-orange btn-lg w-100">
-									<i class="fas fa-arrow-right me-2"></i>العودة إلى القائمة
-								</a>
+
+							<div class="mb-4">
+								<label asp-for="MaxStudents" class="form-label fw-bold text-primary-orange">
+									<i class="fas fa-user-friends me-2"></i>السعة القصوى للطلاب <span class="required">*</span>
+								</label>
+								<input asp-for="MaxStudents" type="number" class="form-control form-control-lg" placeholder="ادخل السعة القصوى" required />
+								<span asp-validation-for="MaxStudents" class="text-danger"></span>
 							</div>
-						</div>
-					</form>
+
+							<div class="info-section">
+								<div class="info-label">تاريخ الإنشاء</div>
+								<div class="info-value">
+									<i class="fas fa-calendar me-2"></i>
+									@Model.Date.ToString("dd/MM/yyyy - hh:mm tt")
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<button type="submit" class="btn btn-primary-orange btn-lg w-100 mb-3" id="submitBtn">
+										<i class="fas fa-save me-2"></i>تحديث الفصل
+									</button>
+								</div>
+								<div class="col-md-6">
+									<a asp-action="Index" class="btn btn-outline-secondary-orange btn-lg w-100">
+										<i class="fas fa-arrow-right me-2"></i>العودة إلى القائمة
+									</a>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<style>
-	body {
-		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		background-color: #f8f9fa;
-		direction: rtl;
-		text-align: right;
-	}
-
-	.card {
-		border-radius: 20px;
-		overflow: hidden;
-		box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-	}
-
-	.bg-primary-orange {
-		background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%) !important;
-		border: none;
-	}
-
-	.card-header {
-		border: none;
-		padding: 20px 0;
-		text-align: center;
-	}
-
-	.header-title {
-		font-size: 28px;
-		font-weight: bold;
-		margin: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-		.header-title i {
-			margin-left: 10px;
-		}
-
-	.back-button {
-		position: absolute;
-		right: 20px;
-		top: 50%;
-		transform: translateY(-50%);
-		background: rgba(255,255,255,0.2);
-		border: none;
-		color: white;
-		padding: 10px 15px;
-		border-radius: 8px;
-		transition: all 0.3s ease;
-		text-decoration: none;
-		display: flex;
-		align-items: center;
-	}
-
-		.back-button:hover {
-			background: rgba(255,255,255,0.3);
-			color: white;
-		}
-
-	.card-body {
-		padding: 40px;
-	}
-
-	.form-label {
-		font-weight: 600;
-		margin-bottom: 8px;
-		display: block;
-		font-size: 1.1rem;
-	}
-
-	.text-primary-orange {
-		color: #FF8C00 !important;
-	}
-
-	.form-control, .form-select {
-		border-radius: 10px;
-		border: 2px solid #e9ecef;
-		padding: 12px 15px;
-		transition: all 0.3s ease;
-		font-size: 16px;
-		text-align: right;
-	}
-
-		.form-control::placeholder {
-			text-align: right;
-		}
-
-		.form-control:focus, .form-select:focus {
-			border-color: #FF8C00;
-			box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25);
-		}
-
-		.form-control:read-only {
-			background-color: #f8f9fa;
-			border-color: #dee2e6;
-			color: #6c757d;
-		}
-
-	.btn-primary-orange {
-		background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%);
-		border: none;
-		border-radius: 10px;
-		padding: 12px 24px;
-		transition: all 0.3s ease;
-		color: white;
-	}
-
-		.btn-primary-orange:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
-			background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
-			color: white;
-		}
-
-	.btn-outline-secondary-orange {
-		border-radius: 10px;
-		padding: 12px 24px;
-		transition: all 0.3s ease;
-		border-color: #FF8C00;
-		color: #FF8C00;
-	}
-
-		.btn-outline-secondary-orange:hover {
-			transform: translateY(-2px);
-			background-color: #FF8C00;
-			color: white;
-			box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2);
-		}
-
-	.text-danger {
-		font-size: 14px;
-		margin-top: 5px;
-		color: #dc3545 !important;
-	}
-
-	.required {
-		color: #dc3545;
-	}
-
-	.alert {
-		border-radius: 8px;
-		margin-bottom: 20px;
-	}
-
-	.info-section {
-		background-color: #fff3e0;
-		padding: 15px;
-		border-radius: 8px;
-		margin-bottom: 20px;
-		border: 1px solid #ffcc80;
-	}
-
-	.info-label {
-		font-weight: 600;
-		color: #e65100;
-		margin-bottom: 5px;
-	}
-
-	.info-value {
-		color: #FF8C00;
-		font-weight: 500;
-	}
-
-	.is-invalid {
-		border-color: #dc3545 !important;
-	}
-</style>
-
-@section Scripts {
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
@@ -277,39 +276,18 @@
 			const nameInput = $('#Name');
 			const nameError = $('#classNameError');
 			const maxStudentsInput = $('#MaxStudents');
-			const gradeInput = $('#GradeId');
 			const submitBtn = $('#submitBtn');
 
-			// Store the initial character based on the pre-selected grade when the page loads
-			let currentInitialChar = '';
-			function setInitialChar() {
-				const selectedGradeText = gradeInput.find('option:selected').text();
-				if (selectedGradeText && selectedGradeText.trim() !== '-- اختر السنة الدراسية --') {
-					currentInitialChar = selectedGradeText.trim().charAt(0).toUpperCase();
-				} else {
-					currentInitialChar = '';
-				}
-			}
-			setInitialChar();
-
-			// Function to validate that the name starts with the correct character and is followed by numbers
-			function validateClassName(value) {
+			// Function to validate that the name doesn't start with numbers
+			function validateName(value) {
 				const trimmedValue = value.trim();
-				// If no grade is selected, any valid non-numeric-starting name is fine.
-				if (!currentInitialChar) {
-					return trimmedValue !== '' && !/^\d/.test(trimmedValue);
-				}
-				// Otherwise, validate against the specific pattern
-				if (!trimmedValue.startsWith(currentInitialChar)) {
-					return false;
-				}
-				const numbersPart = trimmedValue.substring(1);
-				return numbersPart !== '' && /^\d+$/.test(numbersPart);
+				// Check if the value is empty or starts with digits
+				return trimmedValue !== '' && !/^\d/.test(trimmedValue);
 			}
 
-			// Update validation state and error message
+			// Function to update the validation state of the input field and error message
 			function updateValidationState() {
-				const isValid = validateClassName(nameInput.val());
+				const isValid = validateName(nameInput.val());
 				if (isValid) {
 					nameError.hide();
 					nameInput.removeClass('is-invalid');
@@ -319,68 +297,40 @@
 				}
 			}
 
-			// Handle change in the Grade selection
-			gradeInput.on('change', function () {
-				setInitialChar(); // Update the initial character based on the new selection
-				const selectedValue = $(this).val();
-
-				if (currentInitialChar) {
-					nameInput.val(currentInitialChar);
-					nameInput.prop('placeholder', 'أدخل رقم الفصل (مثال: ' + currentInitialChar + '1)');
-					nameInput.removeClass('is-invalid');
-					nameError.hide();
-					nameInput.focus();
-				} else {
-					nameInput.val('');
-					nameInput.prop('placeholder', 'أدخل اسم الفصل');
-					updateValidationState();
-				}
-			});
-
-			// Event listener for input on the name field
+			// Event listener for input: validates in real-time
 			nameInput.on('input', function() {
-				let currentValue = $(this).val();
+				updateValidationState();
 
-				if (currentInitialChar) {
-					// Enforce the specific pattern if a grade is selected
-					if (!currentValue.startsWith(currentInitialChar)) {
-						currentValue = currentInitialChar;
-					}
-					const numbersOnly = currentValue.substring(1).replace(/[^0-9]/g, '');
-					$(this).val(currentInitialChar + numbersOnly);
-				}
-
-				// Character counter logic
+				// عداد الأحرف المتبقية
 				const maxLength = 100;
 				const currentLength = $(this).val().length;
 				const remaining = maxLength - currentLength;
 
 				$('#charCounter').text('عدد الأحرف المتبقية: ' + remaining);
+
 				if (remaining < 10) {
 					$('#charCounter').removeClass('text-muted').addClass('text-warning');
 				} else {
 					$('#charCounter').removeClass('text-warning').addClass('text-muted');
 				}
+			});
 
-				updateValidationState();
+			// Event listener for paste: validates after the paste action
+			nameInput.on('paste', function(e) {
+				// Wait for the paste event to complete before validating
+				setTimeout(updateValidationState, 0);
 			});
 
 			// Form submission with enhanced validation
 			$('#editClassForm').on('submit', function (e) {
 				const className = nameInput.val();
 				const maxStudents = maxStudentsInput.val();
-				const gradeId = gradeInput.val();
 
+				// Final validation checks
 				let isFormValid = true;
 
-				if (!gradeId) {
-					isFormValid = false;
-					gradeInput.addClass('is-invalid');
-				} else {
-					gradeInput.removeClass('is-invalid');
-				}
-
-				if (!validateClassName(className)) {
+				// Validate class name
+				if (!validateName(className)) {
 					isFormValid = false;
 					nameInput.addClass('is-invalid');
 					nameError.show();
@@ -389,6 +339,7 @@
 					nameError.hide();
 				}
 
+				// Validate max students
 				if (!maxStudents || isNaN(maxStudents) || parseInt(maxStudents) <= 0) {
 					isFormValid = false;
 					maxStudentsInput.addClass('is-invalid');
@@ -398,11 +349,8 @@
 
 				if (!isFormValid) {
 					e.preventDefault();
-					if (!gradeId) {
-						alert('يرجى اختيار السنة الدراسية.');
-						gradeInput.focus();
-					} else if (!validateClassName(className)) {
-						alert('الرجاء إدخال اسم فصل صحيح. يجب أن يبدأ بحرف السنة الدراسية متبوعاً بأرقام.');
+					if (!validateName(className)) {
+						alert('الرجاء إدخال اسم فصل صحيح. لا يمكن أن يبدأ اسم الفصل بأرقام.');
 						nameInput.focus();
 					} else if (!maxStudents || isNaN(maxStudents) || parseInt(maxStudents) <= 0) {
 						alert('السعة القصوى مطلوبة ويجب أن تكون رقمًا موجبًا.');
@@ -411,20 +359,29 @@
 					return false;
 				}
 
+				// Confirmation dialog for submission
 				if (!confirm('هل أنت متأكد من تحديث بيانات الفصل؟')) {
 					e.preventDefault();
 					return false;
 				}
 
+				// Show loading state
 				submitBtn.prop('disabled', true);
 				submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>جاري التحديث...');
 			});
 
-			nameInput.on('keydown', function() { $(this).removeClass('is-invalid'); });
-			maxStudentsInput.on('input', function() { $(this).removeClass('is-invalid'); });
-			gradeInput.on('change', function() { $(this).removeClass('is-invalid'); });
+			// Remove validation classes on input change
+			nameInput.on('keydown', function() {
+				$(this).removeClass('is-invalid');
+			});
 
+			maxStudentsInput.on('input', function() {
+				$(this).removeClass('is-invalid');
+			});
+
+			// Auto-focus on name input
 			nameInput.focus();
 		});
 	</script>
-}
+</body>
+</html>

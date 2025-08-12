@@ -7,7 +7,7 @@ namespace StudentManagementSystem.Models
     {
         [Key]
         public int Id { get; set; }
-        //public string Title { get; set; }
+        public string Title { get; set; }
         public bool IsActive { get; set; }
         public int Evidence_Id { get; set; }
         public string Image_Path { get; set; }

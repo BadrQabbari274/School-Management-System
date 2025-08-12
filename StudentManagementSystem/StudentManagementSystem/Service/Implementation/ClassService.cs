@@ -30,9 +30,12 @@ namespace StudentManagementSystem.Service.Implementation
          public async Task<ClassDetailsViewModel> GetClassDetailsAsync(int classId)
         {
             var classEntity = await GetClassByIdAsync(classId);
+            if (classEntity == null)
+            {
+                return null;
+            }
 
             var currentWorkingYear = await GetCurrentWorkingYearAsync();
-
             var studentsInClass = await GetStudentsByClassAndWorkingYearAsync(classId, currentWorkingYear.Id);
 
             // Get grades for the students in the class
@@ -273,7 +276,6 @@ namespace StudentManagementSystem.Service.Implementation
                            s.Working_Year_Id == workingYearId &&
                            s.IsActive &&
                            s.Student.IsActive)
-                .OrderBy(s=> s.Student.Name)
                 .ToListAsync();
         }
 
