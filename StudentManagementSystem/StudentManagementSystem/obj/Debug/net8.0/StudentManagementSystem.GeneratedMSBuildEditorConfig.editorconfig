@@ -116,8 +116,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXGVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/sd/Desktop/midany/StudentManagementSystem/StudentManagementSystem/Views/Competencies/Evaluate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXEV2YWx1YXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/sd/Desktop/midany/StudentManagementSystem/StudentManagementSystem/Views/Competencies/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXGluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/Desktop/midany/StudentManagementSystem/StudentManagementSystem/Views/Competencies/SelectClass.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXFNlbGVjdENsYXNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/Desktop/midany/StudentManagementSystem/StudentManagementSystem/Views/Competencies/SelectCompetencies.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXFNlbGVjdENvbXBldGVuY2llcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/Desktop/midany/StudentManagementSystem/StudentManagementSystem/Views/Dashboard/Index.cshtml]
