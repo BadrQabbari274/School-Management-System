@@ -66,28 +66,6 @@
                         <div class="col-md-6">
                             <div class="detail-item">
                                 <label class="form-label fw-bold text-dark">
-                                    <i class="fas fa-toggle-on me-2"></i>الحالة
-                                </label>
-                                <div class="detail-value">
-                                    @if (Model.IsActive)
-                                    {
-                                        <span class="badge bg-success fs-6">
-                                            <i class="fas fa-check-circle me-1"></i>نشطة
-                                        </span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-danger fs-6">
-                                            <i class="fas fa-times-circle me-1"></i>غير نشطة
-                                        </span>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="detail-item">
-                                <label class="form-label fw-bold text-dark">
                                     <i class="fas fa-calendar-alt me-2"></i>تاريخ الإنشاء
                                 </label>
                                 <div class="detail-value">@Model.Date.ToString("MMM dd, yyyy")</div>
