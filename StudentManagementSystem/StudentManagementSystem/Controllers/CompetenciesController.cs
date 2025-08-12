@@ -154,7 +154,7 @@ namespace StudentManagementSystem.Controllers
                 ViewBag.ClassId = model.ClassId;
                 ViewBag.CompetencyId = model.SelectedCompetencyId.Value;
                 ViewBag.OutcomeId = model.SelectedOutcomeId.Value;
-                ViewBag.EvidenceId = model.SelectedEvidenceId.Value;
+                //ViewBag.EvidenceId = model.SelectedEvidenceId.Value;
                 ViewBag.TryId = model.SelectedTryId.Value;
 
                 return View(sortedStudents);
