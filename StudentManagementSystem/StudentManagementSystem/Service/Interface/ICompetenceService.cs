@@ -6,6 +6,12 @@ namespace StudentManagementSystem.Services.Interfaces
     public interface ICompetenciesService
     {
         Task<Competencies_Outcame_Evidence> GetCompetencies_Outcame_Evidence(int ClassId);
+        // إضافة هذه الدالة في ICompetenciesService Interface
+
+        Task<EvaluationMatrixViewModel> GetEvaluationMatrixAsync(int classId, int competencyId, int tryId);
+        Task<List<Evidence>> GetPracticalEvidencesByCompetencyId(int competencyId);
+        Task<bool> IsStudentEvidenceExistsAsync(int studentId, int evidenceId, int tryId);
+        Task<Competencies_Outcame_Evidence_V2> GetCompetencies_Outcame_Evidence_V2(int ClassId);
         Task<List<Evidence>> GetEvidencesByOutcomeId(int outcomeId);
         Task<List<Try>> GetAllTriesAsync();
         Task<List<StudentEvidenceViewModel>> GetStudentToEvidences(CompetenciesSelectionViewModel model);

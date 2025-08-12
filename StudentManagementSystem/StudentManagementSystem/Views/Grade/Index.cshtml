@@ -12,7 +12,387 @@
     <title>@ViewData["Title"] - StudentManagementSystem</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> @* Or ~/css/grades.css *@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Section */
+        .header-section {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* Container for content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Control Buttons and Search Section */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+
+        /* Search Section Styling */
+        .search-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .input-group {
+            flex: 1;
+            margin-bottom: 0 !important;
+        }
+
+        /* Search Input Styling */
+        .form-control {
+            border-radius: 12px !important;
+            border: 2px solid #e9ecef;
+            padding: 10px 15px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+            .form-control:focus {
+                box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+                border-color: #28a745;
+            }
+
+        /* Search Button Styling */
+        .btn-search {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+            border-radius: 12px !important;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(40, 167, 69, 0.2);
+            white-space: nowrap;
+        }
+
+            .btn-search:hover {
+                background: linear-gradient(135deg, #218838, #1e7e34);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+                color: white;
+            }
+
+        /* Clear Search Button */
+        .btn-clear {
+            background: #6c757d;
+            border: none;
+            border-radius: 12px !important;
+            color: white;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+            .btn-clear:hover {
+                background: #5a6268;
+                transform: translateY(-2px);
+                color: white;
+            }
+
+        /* General Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+            .btn i {
+                margin-left: 8px;
+            }
+
+        /* Add Button */
+        .btn-add {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            white-space: nowrap;
+        }
+
+            .btn-add:hover {
+                background: linear-gradient(135deg, #218838, #1e7e34);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+            }
+
+        /* Other button styles */
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+        }
+
+            .btn-info:hover {
+                background: linear-gradient(135deg, #117a8b, #0e6e7e);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
+            }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #333;
+        }
+
+            .btn-warning:hover {
+                background: linear-gradient(135deg, #e0a800, #c69500);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+            }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+        }
+
+            .btn-danger:hover {
+                background: linear-gradient(135deg, #c82333, #bd2130);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
+            }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 13px;
+            margin-left: 5px;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Search Info Alert */
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* Table Styles */
+        .courses-table {
+            width: 100%;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+            .table th,
+            .table td {
+                padding: 18px;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+
+            .table th {
+                background-color: #f0f2f5;
+                font-weight: bold;
+                color: #555;
+                border-bottom: 2px solid #dee2e6;
+                font-size: 15px;
+            }
+
+            .table tbody tr:hover {
+                background-color: #e9ecef;
+            }
+
+            /* Search highlighting */
+            .table tbody tr.search-match {
+                background-color: #d4edda !important;
+                border-left: 4px solid #28a745;
+            }
+
+        .search-highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-style: italic;
+            font-size: 18px;
+        }
+
+        /* Custom Modal Styles */
+        .custom-modal .modal-content {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .custom-modal .modal-header {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+            border-bottom: none;
+        }
+
+        .custom-modal .modal-title {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .custom-modal .btn-close {
+            filter: invert(1) brightness(2);
+        }
+
+        .custom-modal .modal-body {
+            padding: 30px;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
+
+        .custom-modal .modal-footer {
+            border-top: none;
+            padding: 20px;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Button specific styles for better RTL support */
+        .details-btn {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            border-top-right-radius: 0.5rem !important;
+            border-bottom-right-radius: 0.5rem !important;
+        }
+
+        .delete-btn {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5rem !important;
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 768px) {
+            .container
+
+        {
+            padding: 10px;
+        }
+
+        .header-title {
+            font-size: 24px;
+        }
+
+        .controls {
+            flex-direction: column;
+            gap: 15px;
+            align-items: stretch;
+        }
+
+        .search-section {
+            order: 1;
+            justify-content: center;
+            max-width: 100%;
+        }
+
+        .btn-add {
+            order: 2;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .input-group {
+            max-width: 100%;
+        }
+
+        .table th,
+        .table td {
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .btn-group {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            font-size: 13px;
+        }
+
+        }
+    </style>
 </head>
 <body>
     <div class="header-section">
@@ -23,11 +403,30 @@
 
     <div class="container">
         <div class="controls">
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="input-group" dir="rtl">
+                    <input type="text"
+                           id="gradeSearchInput"
+                           class="form-control"
+                           placeholder="ابحث عن السنوات الدراسية بالاسم..."
+                           aria-label="ابحث عن السنوات الدراسية" />
+                </div>
+                <button type="button" id="gradeSearchBtn" class="btn btn-search">
+                    <i class="fas fa-search"></i> البحث
+                </button>
+                <button type="button" id="clearSearchBtn" class="btn btn-clear">
+                    <i class="fas fa-times"></i> مسح
+                </button>
+            </div>
+
+            <!-- Add Button -->
             <a href="@Url.Action("Create")" class="btn btn-add">
                 <i class="fas fa-plus-circle"></i> إضافة سنة دراسية جديدة
             </a>
         </div>
 
+        <!-- Search Results Info -->
         @if (TempData["Success"] != null)
         {
             <div class="alert alert-success">
@@ -35,6 +434,11 @@
                 @TempData["Success"]
             </div>
         }
+
+        <div id="searchInfo" class="alert alert-info" style="display: none;">
+            <i class="fas fa-info-circle"></i>
+            <span id="searchInfoText"></span>
+        </div>
 
         <div class="courses-table">
             <table class="table">
@@ -45,14 +449,16 @@
                         <th>العمليات</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="gradesTableBody">
                     @if (Model != null && Model.Any())
                     {
                         foreach (var item in Model.OrderBy(g => g.Name))
                         {
-                            <tr>
-                                <td>@item.Name</td>
-                                <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                            <tr class="grade-row"
+                                data-name="@item.Name.ToLower()"
+                                data-date="@item.Date.ToString("dd/MM/yyyy")">
+                                <td class="grade-name">@item.Name</td>
+                                <td class="grade-date">@item.Date.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="@Url.Action("Details", new { id = item.Id })"
@@ -74,7 +480,7 @@
                     }
                     else
                     {
-                        <tr>
+                        <tr id="noDataRow">
                             <td colspan="3" class="no-data">لا توجد سنوات دراسية متاحة</td>
                         </tr>
                     }
@@ -146,22 +552,158 @@
                 console.error('Error during fetch:', error);
             }
         });
+
+        // Search functionality for grades
+        function performGradeSearch() {
+            const query = document.getElementById('gradeSearchInput').value.trim().toLowerCase();
+            const rows = document.querySelectorAll('.grade-row');
+            const searchInfo = document.getElementById('searchInfo');
+            const searchInfoText = document.getElementById('searchInfoText');
+            const noDataRow = document.getElementById('noDataRow');
+
+            let visibleCount = 0;
+            let hasExactMatch = false;
+
+            // Remove previous highlights
+            document.querySelectorAll('.search-highlight').forEach(el => {
+                el.outerHTML = el.innerHTML;
+            });
+
+            // Remove search match styling
+            document.querySelectorAll('.grade-row.search-match').forEach(row => {
+                row.classList.remove('search-match');
+            });
+
+            if (query === '') {
+                // Show all rows
+                rows.forEach(row => {
+                    row.style.display = '';
+                    visibleCount++;
+                });
+
+                if (noDataRow) {
+                    if (visibleCount === 0) {
+                        noDataRow.style.display = '';
+                        noDataRow.querySelector('td').textContent = 'لا توجد سنوات دراسية متاحة';
+                    } else {
+                        noDataRow.style.display = 'none';
+                    }
+                }
+
+                searchInfo.style.display = 'none';
+                return;
+            }
+
+            // Check for exact match
+            rows.forEach(row => {
+                const name = row.getAttribute('data-name') || '';
+                if (name === query) {
+                    hasExactMatch = true;
+                }
+            });
+
+            // Filter and highlight rows
+            rows.forEach(row => {
+                const name = row.getAttribute('data-name') || '';
+                const date = row.getAttribute('data-date') || '';
+
+                const matches = name.includes(query) || date.includes(query);
+
+                if (matches) {
+                    row.style.display = '';
+                    row.classList.add('search-match');
+                    visibleCount++;
+
+                    // Highlight matching text
+                    highlightGradeText(row, query);
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Handle no data row and search info
+            if (noDataRow) {
+                if (visibleCount === 0) {
+                    noDataRow.style.display = '';
+
+                    // Smart message based on search type
+                    if (!hasExactMatch && !query.includes(' ') && !query.includes('/')) {
+                        // Check if any name partially matches
+                        let hasPartialMatch = false;
+                        rows.forEach(row => {
+                            const name = row.getAttribute('data-name') || '';
+                            if (name.includes(query)) {
+                                hasPartialMatch = true;
+                            }
+                        });
+
+                        if (!hasPartialMatch) {
+                            noDataRow.querySelector('td').textContent = 'لا توجد سنة دراسية بهذا الاسم';
+                        } else {
+                            noDataRow.querySelector('td').textContent = 'لا توجد سنوات دراسية تطابق البحث';
+                        }
+                    } else {
+                        noDataRow.querySelector('td').textContent = 'لا توجد سنوات دراسية تطابق البحث';
+                    }
+                } else {
+                    noDataRow.style.display = 'none';
+                }
+            }
+
+            // Update search info
+            if (visibleCount === 0) {
+                searchInfo.style.display = 'none';
+            } else {
+                searchInfo.style.display = 'block';
+                searchInfoText.textContent = `تم العثور على ${visibleCount} سنة دراسية تطابق البحث "${query}"`;
+            }
+        }
+
+        // Highlight matching text in search results
+        function highlightGradeText(row, query) {
+            const nameCell = row.querySelector('.grade-name');
+            const dateCell = row.querySelector('.grade-date');
+
+            // Highlight name
+            const name = row.getAttribute('data-name') || '';
+            if (nameCell && name.includes(query)) {
+                const originalText = nameCell.textContent;
+                const regex = new RegExp(`(${query})`, 'gi');
+                const highlightedText = originalText.replace(regex, '<span class="search-highlight">$1</span>');
+                nameCell.innerHTML = highlightedText;
+            }
+
+            // Highlight date
+            const date = row.getAttribute('data-date') || '';
+            if (dateCell && date.includes(query)) {
+                const originalText = dateCell.textContent;
+                const regex = new RegExp(`(${query})`, 'gi');
+                const highlightedText = originalText.replace(regex, '<span class="search-highlight">$1</span>');
+                dateCell.innerHTML = highlightedText;
+            }
+        }
+
+        // Clear search
+        function clearGradeSearch() {
+            document.getElementById('gradeSearchInput').value = '';
+            performGradeSearch();
+        }
+
+        // Event listeners
+        document.getElementById('gradeSearchBtn').addEventListener('click', performGradeSearch);
+        document.getElementById('clearSearchBtn').addEventListener('click', clearGradeSearch);
+
+        // Search on Enter key press
+        document.getElementById('gradeSearchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performGradeSearch();
+            }
+        });
+
+        // Optional: Real-time search as user types (uncomment if you want this feature)
+        /*
+        document.getElementById('gradeSearchInput').addEventListener('input', performGradeSearch);
+        */
     </script>
-
-    <style>
-        .details-btn {
-            border-top-left-radius: 0 !important;
-            border-bottom-left-radius: 0 !important;
-            border-top-right-radius: 0.5rem !important;
-            border-bottom-right-radius: 0.5rem !important;
-        }
-
-        .delete-btn {
-            border-top-right-radius: 0 !important;
-            border-bottom-right-radius: 0 !important;
-            border-top-left-radius: 0.5rem !important;
-            border-bottom-left-radius: 0.5rem !important;
-        }
-    </style>
 </body>
 </html>
