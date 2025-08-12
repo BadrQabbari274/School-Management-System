@@ -1,667 +1,667 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StudentManagementSystem.bundle.scp.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StudentManagementSystem.bundle.scp.css",
       "PackagePath": "staticwebassets\\StudentManagementSystem.7cetiexh1r.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\Images\\FathallaLogo.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\Images\\FathallaLogo.png",
       "PackagePath": "staticwebassets\\Images\\FathallaLogo.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\Registration.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\Registration.css",
       "PackagePath": "staticwebassets\\css\\Registration.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\attendance.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\attendance.css",
       "PackagePath": "staticwebassets\\css\\attendance.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\rtl-dashboard.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\rtl-dashboard.css",
       "PackagePath": "staticwebassets\\css\\rtl-dashboard.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\site.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\site2.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\site2.css",
       "PackagePath": "staticwebassets\\css\\site2.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\site3.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\site3.css",
       "PackagePath": "staticwebassets\\css\\site3.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\student.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\student.css",
       "PackagePath": "staticwebassets\\css\\student.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\styles.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\css\\styles.css",
       "PackagePath": "staticwebassets\\css\\styles.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\js\\site.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\13\\13_Mohamed_Reda_certificate.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\13\\13_Mohamed_Reda_certificate.jpg",
       "PackagePath": "staticwebassets\\upload\\13\\13_Mohamed_Reda_certificate.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\13\\13_Mohamed_Reda_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\13\\13_Mohamed_Reda_profile.png",
       "PackagePath": "staticwebassets\\upload\\13\\13_Mohamed_Reda_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\14\\14_Mohamed_Reda_certificate.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\14\\14_Mohamed_Reda_certificate.jpg",
       "PackagePath": "staticwebassets\\upload\\14\\14_Mohamed_Reda_certificate.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\14\\14_Mohamed_Reda_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\14\\14_Mohamed_Reda_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\14\\14_Mohamed_Reda_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\15\\15_Mohamed_Reda_certificate.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\15\\15_Mohamed_Reda_certificate.jpg",
       "PackagePath": "staticwebassets\\upload\\15\\15_Mohamed_Reda_certificate.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\15\\15_Mohamed_Reda_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\15\\15_Mohamed_Reda_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\15\\15_Mohamed_Reda_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\16\\16_Mohamed_Reda_certificate.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\16\\16_Mohamed_Reda_certificate.jpg",
       "PackagePath": "staticwebassets\\upload\\16\\16_Mohamed_Reda_certificate.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\16\\16_Mohamed_Reda_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\16\\16_Mohamed_Reda_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\16\\16_Mohamed_Reda_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\17\\17_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\17\\17_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\17\\17_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\17\\17_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\17\\17_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\17\\17_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\18\\18_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\18\\18_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\18\\18_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\18\\18_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\18\\18_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\18\\18_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\19\\19_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\19\\19_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\19\\19_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\19\\19_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\19\\19_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\19\\19_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\20\\20_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\20\\20_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\20\\20_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\20\\20_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\20\\20_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\20\\20_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\22\\22_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\22\\22_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\22\\22_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\22\\22_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\22\\22_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\22\\22_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\23\\23_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\23\\23_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\23\\23_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\23\\23_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\23\\23_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\23\\23_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\24\\24_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\24\\24_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\24\\24_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\24\\24_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\24\\24_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\24\\24_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\25\\25_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\25\\25_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\25\\25_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\25\\25_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\25\\25_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\25\\25_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\26\\26_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\26\\26_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\26\\26_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\26\\26_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\26\\26_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\26\\26_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\27\\27_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\27\\27_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\27\\27_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\27\\27_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\27\\27_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\27\\27_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\28\\28_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\28\\28_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\28\\28_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\28\\28_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\28\\28_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\28\\28_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\29\\29_Kirollos_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\29\\29_Kirollos_certificate.png",
       "PackagePath": "staticwebassets\\upload\\29\\29_Kirollos_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\29\\29_Kirollos_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\29\\29_Kirollos_profile.png",
       "PackagePath": "staticwebassets\\upload\\29\\29_Kirollos_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\30\\30_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\30\\30_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\30\\30_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\30\\30_mohamed_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\30\\30_mohamed_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\30\\30_mohamed_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\31\\31_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\31\\31_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\31\\31_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\31\\31_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\31\\31_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\31\\31_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\32\\32_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\32\\32_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\32\\32_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\32\\32_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\32\\32_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\32\\32_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\33\\33_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\33\\33_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\33\\33_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\33\\33_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\33\\33_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\33\\33_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\34\\34_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\34\\34_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\34\\34_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\34\\34_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\34\\34_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\34\\34_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\35\\35_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\35\\35_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\35\\35_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\35\\35_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\35\\35_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\35\\35_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\36\\36_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\36\\36_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\36\\36_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\36\\36_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\36\\36_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\36\\36_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\37\\37_ss_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\37\\37_ss_certificate.png",
       "PackagePath": "staticwebassets\\upload\\37\\37_ss_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\37\\37_ss_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\37\\37_ss_profile.png",
       "PackagePath": "staticwebassets\\upload\\37\\37_ss_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\38\\38_ss_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\38\\38_ss_certificate.png",
       "PackagePath": "staticwebassets\\upload\\38\\38_ss_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\38\\38_ss_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\38\\38_ss_profile.png",
       "PackagePath": "staticwebassets\\upload\\38\\38_ss_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\39\\39_ss_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\39\\39_ss_certificate.png",
       "PackagePath": "staticwebassets\\upload\\39\\39_ss_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\39\\39_ss_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\39\\39_ss_profile.png",
       "PackagePath": "staticwebassets\\upload\\39\\39_ss_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\3\\3_Mohamed_Reda_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\3\\3_Mohamed_Reda_certificate.png",
       "PackagePath": "staticwebassets\\upload\\3\\3_Mohamed_Reda_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\3\\3_Mohamed_Reda_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\3\\3_Mohamed_Reda_profile.png",
       "PackagePath": "staticwebassets\\upload\\3\\3_Mohamed_Reda_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\40\\40_sss_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\40\\40_sss_certificate.png",
       "PackagePath": "staticwebassets\\upload\\40\\40_sss_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\40\\40_sss_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\40\\40_sss_profile.png",
       "PackagePath": "staticwebassets\\upload\\40\\40_sss_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\41\\41_ssss_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\41\\41_ssss_certificate.png",
       "PackagePath": "staticwebassets\\upload\\41\\41_ssss_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\41\\41_ssss_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\41\\41_ssss_profile.png",
       "PackagePath": "staticwebassets\\upload\\41\\41_ssss_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\42\\42_Ahmed_Mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\42\\42_Ahmed_Mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\42\\42_Ahmed_Mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\42\\42_Ahmed_Mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\42\\42_Ahmed_Mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\42\\42_Ahmed_Mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\43\\43_Ahmed_Ahmed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\43\\43_Ahmed_Ahmed_profile.png",
       "PackagePath": "staticwebassets\\upload\\43\\43_Ahmed_Ahmed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\44\\44_Ahmed_Ahmed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\44\\44_Ahmed_Ahmed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\44\\44_Ahmed_Ahmed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\44\\44_Ahmed_Ahmed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\44\\44_Ahmed_Ahmed_profile.png",
       "PackagePath": "staticwebassets\\upload\\44\\44_Ahmed_Ahmed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\45\\45_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\45\\45_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\45\\45_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\45\\45_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\45\\45_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\45\\45_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\48\\48_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\48\\48_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\48\\48_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\48\\48_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\48\\48_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\48\\48_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\4\\4_Mohamed_Reda_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\4\\4_Mohamed_Reda_certificate.png",
       "PackagePath": "staticwebassets\\upload\\4\\4_Mohamed_Reda_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\4\\4_Mohamed_Reda_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\4\\4_Mohamed_Reda_profile.png",
       "PackagePath": "staticwebassets\\upload\\4\\4_Mohamed_Reda_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\50\\50_Kirollos_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\50\\50_Kirollos_certificate.png",
       "PackagePath": "staticwebassets\\upload\\50\\50_Kirollos_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\50\\50_Kirollos_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\50\\50_Kirollos_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\50\\50_Kirollos_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\51\\51_assd_certificate.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\51\\51_assd_certificate.jpg",
       "PackagePath": "staticwebassets\\upload\\51\\51_assd_certificate.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\51\\51_assd_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\51\\51_assd_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\51\\51_assd_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\52\\52_mohamed_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\52\\52_mohamed_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\52\\52_mohamed_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\52\\52_mohamed_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\52\\52_mohamed_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\52\\52_mohamed_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\53\\53_mohamed_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\53\\53_mohamed_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\53\\53_mohamed_mohamed_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\53\\53_mohamed_mohamed_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\53\\53_mohamed_mohamed_profile.png",
       "PackagePath": "staticwebassets\\upload\\53\\53_mohamed_mohamed_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\54\\54_alaa_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\54\\54_alaa_certificate.png",
       "PackagePath": "staticwebassets\\upload\\54\\54_alaa_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\54\\54_alaa_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\54\\54_alaa_profile.png",
       "PackagePath": "staticwebassets\\upload\\54\\54_alaa_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\56\\56_000000_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\56\\56_000000_certificate.png",
       "PackagePath": "staticwebassets\\upload\\56\\56_000000_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\56\\56_000000_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\56\\56_000000_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\56\\56_000000_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\57\\57_Hassan_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\57\\57_Hassan_certificate.png",
       "PackagePath": "staticwebassets\\upload\\57\\57_Hassan_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\57\\57_Hassan_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\57\\57_Hassan_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\57\\57_Hassan_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\58\\58_Hassan_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\58\\58_Hassan_certificate.png",
       "PackagePath": "staticwebassets\\upload\\58\\58_Hassan_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\58\\58_Hassan_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\58\\58_Hassan_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\58\\58_Hassan_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\59\\59_الحافوزليق_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\59\\59_الحافوزليق_certificate.png",
       "PackagePath": "staticwebassets\\upload\\59\\59_الحافوزليق_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\59\\59_الحافوزليق_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\59\\59_الحافوزليق_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\59\\59_الحافوزليق_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\5\\5_Ahmed_Hossam_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\5\\5_Ahmed_Hossam_certificate.png",
       "PackagePath": "staticwebassets\\upload\\5\\5_Ahmed_Hossam_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\5\\5_Ahmed_Hossam_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\5\\5_Ahmed_Hossam_profile.png",
       "PackagePath": "staticwebassets\\upload\\5\\5_Ahmed_Hossam_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\60\\60_krkr_certificate.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\60\\60_krkr_certificate.jpg",
       "PackagePath": "staticwebassets\\upload\\60\\60_krkr_certificate.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\60\\60_krkr_profile.jpg",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\60\\60_krkr_profile.jpg",
       "PackagePath": "staticwebassets\\upload\\60\\60_krkr_profile.jpg"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\63\\63_m_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\63\\63_m_certificate.png",
       "PackagePath": "staticwebassets\\upload\\63\\63_m_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\63\\63_m_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\63\\63_m_profile.png",
       "PackagePath": "staticwebassets\\upload\\63\\63_m_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\64\\64_lkg_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\64\\64_lkg_certificate.png",
       "PackagePath": "staticwebassets\\upload\\64\\64_lkg_certificate.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\64\\64_lkg_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\64\\64_lkg_profile.png",
       "PackagePath": "staticwebassets\\upload\\64\\64_lkg_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\8\\8_mohamed2_profile.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\8\\8_mohamed2_profile.png",
       "PackagePath": "staticwebassets\\upload\\8\\8_mohamed2_profile.png"
     },
     {
-      "Id": "C:\\Users\\Mohamed Reda\\Downloads\\Work\\Git\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\8\\8_mohamed_certificate.png",
+      "Id": "C:\\Users\\sd\\Source\\Repos\\Midany11\\StudentManagementSystem\\StudentManagementSystem\\wwwroot\\upload\\8\\8_mohamed_certificate.png",
       "PackagePath": "staticwebassets\\upload\\8\\8_mohamed_certificate.png"
     },
     {
