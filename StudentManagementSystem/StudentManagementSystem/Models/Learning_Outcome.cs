@@ -12,6 +12,7 @@ namespace StudentManagementSystem.Models
         public int Competency_Id { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy_Id { get; set; }
+        public int Number { get; set; }
         public DateTime CreatedDate { get; set; }
 
         // Navigation properties
