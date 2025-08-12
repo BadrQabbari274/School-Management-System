@@ -1,0 +1,321 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = StudentManagementSystem
+build_property.RootNamespace = StudentManagementSystem
+build_property.ProjectDir = C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Pages/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Account/EditUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFZGl0VXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Account/ForgetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3JnZXRQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Account/manageusers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxtYW5hZ2V1c2Vycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Account/UserProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxVc2VyUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Attendance/ConfirmFieldChanges.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxDb25maXJtRmllbGRDaGFuZ2VzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Field.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxGaWVsZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Normal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxOb3JtYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Attendance/Statistics.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxTdGF0aXN0aWNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Attendance/StatisticsResult.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVxTdGF0aXN0aWNzUmVzdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/ClassAssignment/AssignStudents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NBc3NpZ25tZW50XEFzc2lnblN0dWRlbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/ClassRegistration/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NSZWdpc3RyYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/ClassRegistration/ManageStudents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NSZWdpc3RyYXRpb25cTWFuYWdlU3R1ZGVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/ClassRegistration/SelectClass.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NSZWdpc3RyYXRpb25cU2VsZWN0Q2xhc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Class/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Class/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Class/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Class/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Competencies/create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXGNyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Competencies/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Competencies/edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXGVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Competencies/Evaluate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXEV2YWx1YXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Competencies/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXGluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Competencies/SelectClass.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXFNlbGVjdENsYXNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Competencies/SelectCompetencies.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0ZW5jaWVzXFNlbGVjdENvbXBldGVuY2llcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Department/AssignEmployee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxBc3NpZ25FbXBsb3llZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Department/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Department/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Department/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Department/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Department/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Error/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Evidence/create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZpZGVuY2VcY3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Evidence/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZpZGVuY2VcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Evidence/edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZpZGVuY2VcZWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Grade/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Grade/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Grade/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Grade/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Grade/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Learning_Outcome/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5pbmdfT3V0Y29tZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Learning_Outcome/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5pbmdfT3V0Y29tZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Learning_Outcome/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5pbmdfT3V0Y29tZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Learning_Outcome/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhcm5pbmdfT3V0Y29tZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Section/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdGlvblxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Section/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdGlvblxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Section/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdGlvblxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Section/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VjdGlvblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/AssignClass.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxBc3NpZ25DbGFzcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/AssignClassToStudent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxBc3NpZ25DbGFzc1RvU3R1ZGVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Student/Index2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleDIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Try/create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ5XGNyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Try/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ5XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Try/edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ5XGVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Try/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJ5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/WorkingYear/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya2luZ1llYXJcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/WorkingYear/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya2luZ1llYXJcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/WorkingYear/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya2luZ1llYXJcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/WorkingYear/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya2luZ1llYXJcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/WorkingYear/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya2luZ1llYXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Reda/Downloads/Work/Git/StudentManagementSystem/StudentManagementSystem/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-kqem6kkl2p

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using DocumentFormat.OpenXml.VariantTypes;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
@@ -52,12 +53,77 @@ namespace StudentManagementSystem.Services
             var section = await _context.Sections.FirstOrDefaultAsync(a => a.Id == student.Section_id&& a.IsActive);
             var Competencies = await _context.Competencies.Where(w => w.Section_Id == section.Id&&w.IsActive).ToListAsync();
             var Outcome = await _context.Outcomes.Where(o => o.IsActive).ToListAsync();
-            var Evidences = await _context.Evidences.Where(o => o.IsActive).ToListAsync();
+            var Evidences = await _context.Evidences.Where(o => o.IsActive&&o.Ispractical).ToListAsync();
             var Competencies_Outcame_Evidence = new Competencies_Outcame_Evidence() 
             { Competencies = Competencies, 
                 LearningOutcomes = Outcome,
                 evidences = Evidences };
             return Competencies_Outcame_Evidence;
+        }
+        // إضافة هذه الطرق في CompetenciesService
+        public async Task<List<Try>> GetAllTriesAsync()
+        {
+            var query =await _context.Try
+    .Include(t => t.CreatedBy)
+    .ToListAsync();
+            return query;
+        }
+        public async Task<List<Learning_Outcome>> GetLearningOutcomesByCompetencyId(int competencyId)
+        {
+            return await _context.Outcomes
+                .Where(o => o.Competency_Id == competencyId && o.IsActive)
+                .OrderBy(o => o.Name)
+                .ToListAsync();
+        }
+        public async Task<List<StudentEvidenceViewModel>> GetStudentToEvidences(CompetenciesSelectionViewModel model)
+        {
+            var activeWorkingYear = await _context.Working_Years
+    .Where(wy => wy.IsActive)
+    .OrderByDescending(wy => wy.Start_date)
+    .FirstOrDefaultAsync();
+
+            if (activeWorkingYear == null)
+                return null;
+
+            // الحصول على معلومات الفصل
+            Classes Class = await _context.Classes.FirstOrDefaultAsync(e => e.Id == model.ClassId);
+
+            if (Class == null)
+                return null;
+
+            var studentsInClass = await _context.Student_Class_Section_Years
+                .Include(scsy => scsy.Student)
+                .Where(scsy => scsy.Class_Id == model.ClassId &&
+                              scsy.Working_Year_Id == activeWorkingYear.Id &&
+                              scsy.IsActive)
+                .ToListAsync();
+            var studentStatusList = new List<StudentEvidenceViewModel>();
+
+            foreach (var studentClassSection in studentsInClass)
+            {
+                var Student = await _context.Student_Evidence.FirstOrDefaultAsync(e => e.Student_Id == studentClassSection.Student_Id && e.Evidence_Id == model.SelectedEvidenceId.Value && e.Try_Id == model.SelectedTryId.Value);
+                var student = await _context.Students.FirstOrDefaultAsync(s => s.Id == studentClassSection.Student_Id && s.IsActive);
+                if (student != null)
+                {
+                    if (Student != null)
+                    {
+                        studentStatusList.Add(new StudentEvidenceViewModel { Student = student, status = true });
+                    }
+                    else
+                    {
+                        studentStatusList.Add(new StudentEvidenceViewModel { Student = student, status = false });
+                    }
+                }
+
+            }
+            return studentStatusList;
+        }
+        public async Task<List<Evidence>> GetEvidencesByOutcomeId(int outcomeId)
+        {
+            return await _context.Evidences
+                .Where(e => e.Outcome_Id == outcomeId && e.IsActive&&e.Ispractical)
+                .OrderBy(e => e.Name)
+                .ToListAsync();
         }
         public async Task<CompetenciesIndexViewModel> GetAllCompetenciesAsync(int pageNumber = 1, int pageSize = 10,
             string searchTerm = null, int? sectionFilter = null, bool? isActiveFilter = null)
