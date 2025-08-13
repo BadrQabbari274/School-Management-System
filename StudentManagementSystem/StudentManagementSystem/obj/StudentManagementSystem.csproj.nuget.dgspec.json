@@ -1,37 +1,23 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "D:\\Repo2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {}
+    "D:\\MIDANY_CLONES\\Midany\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {}
   },
   "projects": {
-    "D:\\Repo2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {
+    "D:\\MIDANY_CLONES\\Midany\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repo2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+        "projectUniqueName": "D:\\MIDANY_CLONES\\Midany\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
         "projectName": "StudentManagementSystem",
-        "projectPath": "D:\\Repo2\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-        "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
-        "outputPath": "D:\\Repo2\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
-=======
-    "D:\\Work\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {}
-  },
-  "projects": {
-    "D:\\Work\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\Work\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-        "projectName": "StudentManagementSystem",
-        "projectPath": "D:\\Work\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
-        "packagesPath": "C:\\Users\\sd\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
->>>>>>> 760ae80705c0be3e020e914d2881ca25a45d91d9
+        "projectPath": "D:\\MIDANY_CLONES\\Midany\\StudentManagementSystem\\StudentManagementSystem\\StudentManagementSystem.csproj",
+        "packagesPath": "C:\\Users\\kirol\\.nuget\\packages\\",
+        "outputPath": "D:\\MIDANY_CLONES\\Midany\\StudentManagementSystem\\StudentManagementSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\sd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kirol\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -58,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -122,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
