@@ -165,7 +165,75 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> SelectCompetencies_V2(int classId)
+        {
+            try
+            {
+                var competenciesData = await _competenciesService.GetCompetencies_Outcame_Evidence_V2(classId);
+                var tries = await _competenciesService.GetAllTriesAsync();
 
+                var viewModel = new CompetenciesSelectionViewModel_V2
+                {
+                    ClassId = classId,
+                    Competencies = competenciesData.Competencies.Select(c => new SelectListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.Name
+                    }).ToList(),
+                    Tries = tries.Select(t => new SelectListItem
+                    {
+                        Value = t.Id.ToString(),
+                        Text = t.Name
+                    }).ToList(),
+
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                SetErrorMessage("حدث خطأ في تحميل البيانات");
+                return RedirectToAction("Index");
+            }
+        }
+        public async Task<IActionResult> Evaluate_V2(CompetenciesSelectionViewModel_V2 model)
+        {
+            try
+            {
+                // التحقق من صحة البيانات
+                if (!model.SelectedCompetencyId.HasValue ||
+                    !model.SelectedTryId.HasValue)
+                {
+                    TempData["Error"] = "يرجى تحديد جميع البيانات المطلوبة";
+                    return RedirectToAction("Index");
+                }
+
+                // الحصول على مصفوفة التقييم
+                var evaluationMatrix = await _competenciesService.GetEvaluationMatrixAsync(
+                    model.ClassId,
+                    model.SelectedCompetencyId.Value,
+                    model.SelectedTryId.Value);
+
+                if (evaluationMatrix == null || !evaluationMatrix.StudentEvaluationRows.Any())
+                {
+                    TempData["Error"] = "لا توجد بيانات طلاب للفصل المحدد";
+                    return RedirectToAction("Index");
+                }
+
+                // تمرير البيانات للعرض
+                ViewBag.ClassId = model.ClassId;
+                ViewBag.CompetencyId = model.SelectedCompetencyId.Value;
+                ViewBag.TryId = model.SelectedTryId.Value;
+
+                return View(evaluationMatrix);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "حدث خطأ أثناء تحميل بيانات الطلاب";
+                return RedirectToAction("Index");
+            }
+        }
         private int GetGenderFromNationalId(string nationalId)
         {
             if (string.IsNullOrEmpty(nationalId) || nationalId.Length < 14)
