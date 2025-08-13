@@ -135,6 +135,50 @@
             transform: translateY(-2px);
         }
 
+    /* Custom styles for View button («·⁄—÷) */
+    .btn-view-custom {
+        background-color: white;
+        color: #007bff;
+        border: 1px solid #dee2e6;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-block;
+        margin: 0 2px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-view-custom:hover {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+            text-decoration: none;
+        }
+
+    /* Custom styles for Edit button («· ⁄œÌ·) */
+    .btn-edit-custom {
+        background-color: white;
+        color: #ffc107;
+        border: 1px solid #dee2e6;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-block;
+        margin: 0 2px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-edit-custom:hover {
+            background-color: #ffc107;
+            color: black;
+            border-color: #ffc107;
+            text-decoration: none;
+        }
+
     .badge-active {
         background: linear-gradient(135deg, #28a745, #20c997);
         color: white;
@@ -236,116 +280,86 @@
                             <div class="info-value">@Html.DisplayFor(model => model.CreatedDate)</div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="col-md-6">
-                        <div class="info-card">
-                            <span class="info-label">
-                                <i class="fas fa-toggle-on icon-large"></i>
-                                Õ«·… «·‰‘«ÿ
-                            </span>
-                            <div class="info-value">
-                                @if (Model.IsActive)
-                                {
-                                    <span class="badge-active">
-                                        <i class="fas fa-check"></i> ‰‘ÿ
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="badge-inactive">
-                                        <i class="fas fa-times"></i> €Ì— ‰‘ÿ
-                                    </span>
-                                }
-                            </div>
-                        </div>
-                    </div>
+            <div class="evidences-section">
+                <div class="evidences-header">
+                    <h4 class="evidences-title">
+                        <i class="fas fa-file-alt icon-large"></i>
+                        «·√œ·… «·„— »ÿ…
+                        @if (Model.Evidences != null && Model.Evidences.Any())
+                        {
+                            <span>(@Model.Evidences.Count())</span>
+                        }
+                    </h4>
+                    <a asp-controller="Evidence" asp-action="Create" asp-route-Outcome_Id="@Model.Id" class="btn btn-success">
+                        <i class="fas fa-plus"></i> ≈÷«›… œ·Ì· ÃœÌœ
+                    </a>
                 </div>
 
-                <div class="evidences-section">
-                    <div class="evidences-header">
-                        <h4 class="evidences-title">
-                            <i class="fas fa-file-alt icon-large"></i>
-                            «·√œ·… «·„— »ÿ…
-                            @if (Model.Evidences != null && Model.Evidences.Any())
-                            {
-                                <span>(@Model.Evidences.Count())</span>
-                            }
-                        </h4>
-                        <a asp-controller="Evidence" asp-action="Create" asp-route-Outcome_Id="@Model.Id" class="btn btn-success">
-                            <i class="fas fa-plus"></i> ≈÷«›… œ·Ì· ÃœÌœ
-                        </a>
-                    </div>
-
-                    @if (Model.Evidences != null && Model.Evidences.Any())
+                @if (Model.Evidences != null && Model.Evidences.Any())
+                {
+                    @foreach (var evidence in Model.Evidences)
                     {
-                        @foreach (var evidence in Model.Evidences)
-                        {
-                            <div class="evidence-card">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <strong>@evidence.Name</strong>
-                                        <div class="mt-1">
-                                            @if (evidence.Ispractical)
-                                            {
-                                                <span class="badge bg-primary">
-                                                    <i class="fas fa-tools"></i> ⁄„·Ì
-                                                </span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge bg-info">
-                                                    <i class="fas fa-book"></i> ‰Ÿ—Ì
-                                                </span>
-                                            }
-                                            @if (evidence.IsActive)
-                                            {
-                                                <span class="badge bg-success ms-2">‰‘ÿ</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge bg-danger ms-2">€Ì— ‰‘ÿ</span>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <a asp-controller="Evidence" asp-action="Details" asp-route-id="@evidence.Id" class="btn btn-sm btn-outline-primary me-1">
-                                            <i class="fas fa-eye"></i> ⁄—÷
-                                        </a>
-                                        <a asp-controller="Evidence" asp-action="Edit" asp-route-id="@evidence.Id" class="btn btn-sm btn-outline-warning">
-                                            <i class="fas fa-edit"></i>  ⁄œÌ·
-                                        </a>
+                        <div class="evidence-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>@evidence.Name</strong>
+                                    <div class="mt-1">
+                                        @if (evidence.Ispractical)
+                                        {
+                                            <span class="badge bg-primary">
+                                                <i class="fas fa-tools"></i> ⁄„·Ì
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-info">
+                                                <i class="fas fa-book"></i> ‰Ÿ—Ì
+                                            </span>
+                                        }
                                     </div>
                                 </div>
+                                <div>
+                                    <a asp-controller="Evidence" asp-action="Details" asp-route-id="@evidence.Id" class="btn-view-custom">
+                                        <i class="fas fa-eye"></i> ⁄—÷
+                                    </a>
+                                    <a asp-controller="Evidence" asp-action="Edit" asp-route-id="@evidence.Id" class="btn-edit-custom">
+                                        <i class="fas fa-edit"></i>  ⁄œÌ·
+                                    </a>
+                                </div>
                             </div>
-                        }
-                    }
-                    else
-                    {
-                        <div class="text-center p-5">
-                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                            <p class="text-muted mb-3">·«  ÊÃœ √œ·… „— »ÿ… »Â–« ‰« Ã «· ⁄·„</p>
-                            <p class="text-muted">Ì„ﬂ‰ﬂ ≈÷«›… œ·Ì· ÃœÌœ »«” Œœ«„ «·“— √⁄·«Â</p>
                         </div>
                     }
-                </div>
+                }
+                else
+                {
+                    <div class="text-center p-5">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <p class="text-muted mb-3">·«  ÊÃœ √œ·… „— »ÿ… »Â–« ‰« Ã «· ⁄·„</p>
+                        <p class="text-muted">Ì„ﬂ‰ﬂ ≈÷«›… œ·Ì· ÃœÌœ »«” Œœ«„ «·“— √⁄·«Â</p>
+                    </div>
+                }
+            </div>
 
-                <div class="text-center mt-4">
-                    <a asp-controller="Evidence" asp-action="Create" asp-route-Outcome_id="@Model.Id" class="btn btn-orange">
-                        <i class="fas fa-file-plus"></i> ≈÷«›… œ·Ì· ÃœÌœ
-                    </a>
-                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-orange">
-                        <i class="fas fa-edit"></i>  ⁄œÌ·
-                    </a>
-                    <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Õ–›
-                    </a>
-                    <button onclick="history.back()" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> «·⁄Êœ… ··ﬁ«∆„…
-                    </button>
-                </div>
+            <div class="text-center mt-4">
+                <a asp-controller="Evidence" asp-action="Create" asp-route-Outcome_id="@Model.Id" class="btn btn-orange">
+                    <i class="fas fa-file-plus"></i> ≈÷«›… œ·Ì· ÃœÌœ
+                </a>
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-orange">
+                    <i class="fas fa-edit"></i>  ⁄œÌ·
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Õ–›
+                </a>
+                <button onclick="history.back()" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> «·⁄Êœ… ··ﬁ«∆„…
+                </button>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />

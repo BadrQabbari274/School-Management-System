@@ -7,8 +7,12 @@ namespace StudentManagementSystem.Services.Interfaces
     {
         Task<Competencies_Outcame_Evidence> GetCompetencies_Outcame_Evidence(int ClassId);
         // إضافة هذه الدالة في ICompetenciesService Interface
-
-        Task<EvaluationMatrixViewModel> GetEvaluationMatrixAsync(int classId, int competencyId, int tryId);
+        Task<string> SaveEvaluationImage(IFormFile imageFile, int studentId, int taskId);
+        Task<Student_Tasks> GetStudentTaskEvaluation(int studentId, int taskId, int tryId);
+        
+            Task<StudentsTasksEvaluationViewModel> GetStudentsTasksEvaluationData(int classId, int tryId);
+        Task<bool> SaveStudentTaskEvaluation(EvaluateStudentTaskViewModel model, string imagePath, int UserId);
+        bool IsValidImageFile(IFormFile file);
         Task<List<Evidence>> GetPracticalEvidencesByCompetencyId(int competencyId);
         Task<bool> IsStudentEvidenceExistsAsync(int studentId, int evidenceId, int tryId);
         Task<Competencies_Outcame_Evidence_V2> GetCompetencies_Outcame_Evidence_V2(int ClassId);
