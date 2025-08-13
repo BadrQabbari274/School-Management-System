@@ -28,6 +28,93 @@
             border-top-left-radius: 0.5rem !important;
             border-bottom-left-radius: 0.5rem !important;
         }
+
+        /* إضافة أنماط البحث المباشر */
+        .live-search-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        .live-search-input {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            transition: border-color 0.3s ease;
+            min-width: 300px;
+        }
+        
+        .live-search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            z-index: 2;
+        }
+        
+        .live-search-loading {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+        
+        .live-search-spinner {
+            width: 1rem;
+            height: 1rem;
+            border-width: 0.1em;
+        }
+        
+        .live-search-input:focus {
+            border-color: #fd7e14;
+            box-shadow: 0 0 0 0.2rem rgba(253, 126, 20, 0.25);
+            outline: none;
+        }
+        
+        /* تمييز النص المطابق */
+        .search-highlight {
+            background-color: #fff3cd;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #856404;
+        }
+        
+        /* تأثير الظهور */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @@keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* تحسين مظهر الجدول */
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+            transition: background-color 0.3s ease;
+        }
+        .live-search-container {
+    position: relative;
+    max-width: 400px; /* Adjust this value as needed */
+    margin: auto; /* Center the container */
+}
+
+.live-search-input {
+    padding-left: 40px; /* Ensure space for the icon */
+    height: 40px; /* You can reduce the height as well */
+}
+
+        /* رسالة عدم وجود نتائج */
+        .no-results {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
     </style>
 </head>
 <body>
@@ -38,71 +125,30 @@
     </div>
 
     <div class="container">
+       
         <!-- Filters Section -->
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5><i class="fas fa-filter me-2"></i>تصفية النتائج</h5>
-                    </div>
-                    <div class="card-body">
-                        <form method="get" asp-action="Index" id="filterForm">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label class="form-label">البحث بالاسم</label>
-                                    <input type="text" name="searchTerm" value="@Model.SearchTerm" 
-                                           class="form-control" placeholder="ابحث عن جدارة...">
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="form-label">القسم</label>
-                                    <select name="sectionFilter" class="form-select">
-                                        <option value="">جميع الأقسام</option>
-                                        @if (ViewBag.Sections != null)
-                                        {
-                                            @foreach (var Section in ViewBag.Sections)
-                                            {
-                                                <option value="@Section.Value" 
-                                                        @@(Model.SectionFilter.ToString() == Section.Value ? "selected" : "")>
-                                                    @Section.Text
-                                                </option>
-                                            }
-                                        }
-                                    </select>
-                                </div>
-                               
-                               
-                                @* <div class="col-md-3">
-                                    ///
-                                    <label class="form-label">الحالة</label>
-                                    <select name="isActiveFilter" class="form-select">
-                                        <option value="">جميع الحالات</option>
-                                        <option value="true" @@(Model.IsActiveFilter == true ? "selected" : "")>نشط</option>
-                                        <option value="false" @@(Model.IsActiveFilter == false ? "selected" : "")>غير نشط</option>
-                                    </select>
-                                </div> *@
-                                <div class="col-md-2">
-                                    <label class="form-label">&nbsp;</label>
-                                    <div class="d-grid">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fas fa-search"></i> بحث
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+<div class="card-body">
+    <div class="controls d-flex justify-content-between align-items-center">
+        <div class="search-filters">
+            <form method="get" asp-action="Index" id="filterForm">
+                <div class="live-search-container">
+                    <i class="fas fa-search live-search-icon"></i>
+                    <input type="text" id="liveSearchInput" value="@Model.SearchTerm"
+                           placeholder="ابحث في أسماء الجدارات..." class="form-control live-search-input" />
+                    <div class="live-search-loading">
+                        <div class="spinner-border live-search-spinner text-primary" role="status">
+                            <span class="visually-hidden">جاري البحث...</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-
-            
-            <div class="controls">
-            <a asp-action="Create" class="btn btn-add">
-                <i class="fas fa-plus-circle"></i> إضافة جدارة جديدة
-            </a>
+            </form>
         </div>
 
+        <a asp-action="Create" class="btn btn-add">
+            <i class="fas fa-plus-circle"></i> إضافة جدارة جديدة
+        </a>
+    </div>
+</div>
         @if (TempData["SuccessMessage"] != null)
         {
             <div class="alert alert-success">
@@ -128,22 +174,21 @@
                         <th>المدة</th>
                         <th>القسم</th>
                         <th>الحد الأقصى للنتائج</th>
-                        <!-- <th>الحالة</th> -->
                         <th>أنشئت بواسطة</th>
                         <th>تاريخ الإنشاء</th>
                         <th>العمليات</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="competenciesTableBody">
                     @if (Model.Competencies != null && Model.Competencies.Any())
                     {
                         int counter = ((Model.PageNumber - 1) * Model.PageSize) + 1;
                         foreach (var item in Model.Competencies)
                         {
-                            <tr id="row-@item.Id">
+                            <tr id="row-@item.Id" data-competency-name="@item.Name.ToLower()" class="competency-row">
                                 <td>@counter</td>
                                 <td>
-                                    <strong>@item.Name</strong>
+                                    <strong class="competency-name-cell">@item.Name</strong>
                                 </td>
                                 <td>
                                     <span class="badge bg-info">@item.Duration</span>
@@ -152,7 +197,6 @@
                                 <td>
                                     <span class="badge bg-primary">@item.Max_Outcome</span>
                                 </td>
-                                <!-- حالة column removed -->
                                 <td>@item.CreatedByName</td>
                                 <td>@item.CreatedDate?.ToString("dd/MM/yyyy")</td>
                                 <td>
@@ -177,18 +221,24 @@
                     }
                     else
                     {
-                        <tr>
+                        <tr id="noDataRow">
                             <td colspan="8" class="no-data">لا توجد جدارات متاحة</td>
                         </tr>
                     }
                 </tbody>
             </table>
+            
+            <!-- صف لعرض رسالة عدم وجود نتائج -->
+            <div id="noResultsMessage" class="no-results" style="display: none;">
+                <i class="fas fa-search me-2"></i>
+                لا توجد نتائج للبحث المحدد
+            </div>
         </div>
 
         <!-- Pagination -->
         @if (Model.TotalCount > Model.PageSize)
         {
-            <div class="d-flex justify-content-center mt-4">
+            <div class="d-flex justify-content-center mt-4" id="paginationSection">
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
                         @for (int i = 1; i <= Math.Ceiling((double)Model.TotalCount / Model.PageSize); i++)
@@ -241,6 +291,135 @@
 
     <script>
         let competencyIdToDelete = 0;
+        let searchTimeout;
+
+        // عناصر البحث المباشر
+        const liveSearchInput = document.getElementById('liveSearchInput');
+        const tableBody = document.getElementById('competenciesTableBody');
+        const loadingSpinner = document.querySelector('.live-search-loading');
+        const paginationSection = document.getElementById('paginationSection');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        const noDataRow = document.getElementById('noDataRow');
+
+        // حفظ الصفوف الأصلية (استبعاد صف عدم وجود بيانات)
+        const originalRows = Array.from(tableBody.querySelectorAll('.competency-row'));
+
+        // دالة لتمييز النص المطابق
+        function highlightText(text, searchTerm) {
+            if (!searchTerm) return text;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        // دالة تصفية الجدول
+        function filterCompetencies(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
+            let visibleCount = 0;
+
+            originalRows.forEach((row, index) => {
+                const competencyName = row.getAttribute('data-competency-name') || '';
+                const isVisible = !term || competencyName.includes(term);
+                
+                if (isVisible) {
+                    row.style.display = '';
+                    visibleCount++;
+                    
+                    // تمييز النص المطابق في اسم الجدارة
+                    if (term) {
+                        const nameCell = row.querySelector('.competency-name-cell');
+                        if (nameCell) {
+                            const originalName = nameCell.textContent;
+                            nameCell.innerHTML = highlightText(originalName, term);
+                        }
+                    } else {
+                        // إزالة التمييز
+                        const nameCell = row.querySelector('.competency-name-cell');
+                        if (nameCell) {
+                            nameCell.innerHTML = nameCell.textContent;
+                        }
+                    }
+                    
+                    // تأثير الظهور
+                    row.classList.add('fade-in');
+                    
+                    // إعادة ترقيم الصفوف المرئية
+                    const numberCell = row.cells[0];
+                    numberCell.textContent = visibleCount;
+                } else {
+                    row.style.display = 'none';
+                    row.classList.remove('fade-in');
+                }
+            });
+
+            // إدارة رسالة عدم وجود نتائج
+            if (visibleCount === 0 && originalRows.length > 0) {
+                if (noDataRow) noDataRow.style.display = 'none';
+                noResultsMessage.style.display = 'block';
+            } else {
+                noResultsMessage.style.display = 'none';
+                if (noDataRow && originalRows.length === 0) {
+                    noDataRow.style.display = '';
+                }
+            }
+
+            // إخفاء/إظهار التقسيم (Pagination)
+            if (paginationSection) {
+                paginationSection.style.display = term ? 'none' : 'flex';
+            }
+        }
+
+        // دالة تنفيذ البحث مع التأثيرات البصرية
+        function performLiveSearch() {
+            const searchTerm = liveSearchInput.value;
+            
+            // إظهار مؤشر التحميل
+            loadingSpinner.style.display = 'block';
+            
+            // تأخير صغير للتأثير البصري
+            setTimeout(() => {
+                filterCompetencies(searchTerm);
+                loadingSpinner.style.display = 'none';
+            }, 150);
+            
+            // تحديث URL بدون إعادة تحميل الصفحة
+            const url = new URL(window.location);
+            if (searchTerm) {
+                url.searchParams.set('searchTerm', searchTerm);
+            } else {
+                url.searchParams.delete('searchTerm');
+            }
+            window.history.replaceState({}, '', url);
+        }
+
+        // دالة debounce لتحسين الأداء
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // إضافة مستمعي الأحداث للبحث المباشر
+        liveSearchInput.addEventListener('input', debounce(performLiveSearch, 200));
+
+        // البحث عند الضغط على Enter
+        liveSearchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                clearTimeout(searchTimeout);
+                performLiveSearch();
+            }
+        });
+
+        // تطبيق البحث الأولي إذا كان هناك مصطلح بحث
+        if (liveSearchInput.value) {
+            filterCompetencies(liveSearchInput.value);
+        }
 
         $(document).ready(function () {
             // Initialize DataTable
@@ -300,7 +479,16 @@
                         // Remove the row from the table immediately
                         const rowToDelete = document.getElementById(`row-${competencyIdToDelete}`);
                         if (rowToDelete) {
+                            // إزالة الصف من المصفوفة الأصلية
+                            const rowIndex = originalRows.indexOf(rowToDelete);
+                            if (rowIndex > -1) {
+                                originalRows.splice(rowIndex, 1);
+                            }
+                            
                             rowToDelete.remove();
+                            
+                            // إعادة تطبيق البحث لإعادة ترقيم الصفوف
+                            filterCompetencies(liveSearchInput.value);
                             
                             // Show success message
                             const alertDiv = document.createElement('div');
