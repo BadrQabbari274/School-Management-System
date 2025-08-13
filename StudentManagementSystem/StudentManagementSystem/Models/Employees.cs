@@ -42,7 +42,7 @@ namespace StudentManagementSystem.Models
 
         public virtual ICollection<Department> CreatedDepartments { get; set; }
         public virtual ICollection<Grades> CreatedGrades { get; set; }
-        public virtual ICollection<Student_Evidence> CreatedStudentEvidences { get; set; }
+        public virtual ICollection<Student_Tasks> CreatedStudentTasks { get; set; }
 
         public virtual ICollection<Try> CreatedTries { get; set; }
         public virtual ICollection<Evidence> CreatedEvidences { get; set; }

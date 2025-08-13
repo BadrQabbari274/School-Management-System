@@ -95,9 +95,9 @@ namespace StudentManagementSystem.Services
 
         public async Task<bool> IsStudentEvidenceExistsAsync(int studentId, int evidenceId, int tryId)
         {
-            return await _context.Student_Evidence
+            return await _context.Student_Tasks
                 .AnyAsync(se => se.Student_Id == studentId &&
-                               se.Evidence_Id == evidenceId &&
+                               se.Task_Id == evidenceId &&
                                se.Try_Id == tryId &&
                                se.IsActive);
         }

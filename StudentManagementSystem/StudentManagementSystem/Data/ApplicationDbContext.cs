@@ -28,7 +28,7 @@ namespace StudentManagementSystem.Data
         public DbSet<StudentAbsents> StudentAbsents { get; set; }
         public DbSet<StudentAttendances> StudentAttendances { get; set; }
         public DbSet<StudentGrades> StudentGrades { get; set; }
-        public DbSet<Student_Evidence> Student_Evidence { get; set; }
+        public DbSet<Student_Tasks> Student_Tasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -180,37 +180,37 @@ namespace StudentManagementSystem.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             // Student_Evidence and Employees (CreatedBy)
-            modelBuilder.Entity<Student_Evidence>()
+            modelBuilder.Entity<Student_Tasks>()
                 .HasOne(se => se.CreatedBy)
-                .WithMany(e => e.CreatedStudentEvidences)
+                .WithMany(e => e.CreatedStudentTasks)
                 .HasForeignKey(se => se.CreatedBy_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
             // Student_Evidence and Evidence
-            modelBuilder.Entity<Student_Evidence>()
-                .HasOne(se => se.Evidence)
-                .WithMany(e => e.Student_Evidences)
-                .HasForeignKey(se => se.Evidence_Id)
+            modelBuilder.Entity<Student_Tasks>()
+                .HasOne(se => se.Tasks)
+                .WithMany(e => e.Student_Tasks)
+                .HasForeignKey(se => se.Task_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
             // Student_Evidence and Try
-            modelBuilder.Entity<Student_Evidence>()
+            modelBuilder.Entity<Student_Tasks>()
                 .HasOne(se => se.Try)
-                .WithMany(t => t.Student_Evidences)
+                .WithMany(t => t.Student_Tasks)
                 .HasForeignKey(se => se.Try_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
             // Student_Evidence and Classes
-            modelBuilder.Entity<Student_Evidence>()
+            modelBuilder.Entity<Student_Tasks>()
                 .HasOne(se => se.Class)
-                .WithMany(c => c.StudentEvidences)
+                .WithMany(c => c.Student_Tasks)
                 .HasForeignKey(se => se.Class_Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
             // Student_Evidence and Student_Class_Section_Year
-            modelBuilder.Entity<Student_Evidence>()
+            modelBuilder.Entity<Student_Tasks>()
                 .HasOne(se => se.StudentClassSectionYear)
-                .WithMany(scsy => scsy.StudentEvidences)
+                .WithMany(scsy => scsy.Student_Tasks)
                 .HasForeignKey(se => new { se.Student_Id, se.Working_Year_Id, se.Section_id })
                 .OnDelete(DeleteBehavior.NoAction);
 
