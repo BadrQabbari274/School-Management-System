@@ -14,7 +14,7 @@ namespace StudentManagementSystem.Models
         public int Try_Id { get; set; }
         public int CreatedBy_Id { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int Class_Id { get; set; }
+        public int? Class_Id { get; set; }
         // Composite key reference fields for Student_Class_Section_Year   
         public int Student_Id { get; set; }
         public int Working_Year_Id { get; set; }
