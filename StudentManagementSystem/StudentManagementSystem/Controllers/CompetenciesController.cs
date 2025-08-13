@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StudentManagementSystem.Service.Interface;
@@ -68,8 +68,7 @@ namespace StudentManagementSystem.Controllers
                         Value = t.Id.ToString(),
                         Text = t.Name
                     }).ToList(),
-                    LearningOutcomes = competenciesData.LearningOutcomes,
-                    Evidences = competenciesData.evidences
+                    LearningOutcomes = competenciesData.LearningOutcomes
                 };
 
                 return View(viewModel);
@@ -129,8 +128,7 @@ namespace StudentManagementSystem.Controllers
             {
                 // التحقق من صحة البيانات
                 if (!model.SelectedCompetencyId.HasValue ||
-                    !model.SelectedOutcomeId.HasValue ||
-                    !model.SelectedEvidenceId.HasValue ||
+                    !model.SelectedOutcomeId.HasValue  ||
                     !model.SelectedTryId.HasValue)
                 {
                     TempData["Error"] = "يرجى تحديد جميع البيانات المطلوبة";
@@ -156,7 +154,7 @@ namespace StudentManagementSystem.Controllers
                 ViewBag.ClassId = model.ClassId;
                 ViewBag.CompetencyId = model.SelectedCompetencyId.Value;
                 ViewBag.OutcomeId = model.SelectedOutcomeId.Value;
-                ViewBag.EvidenceId = model.SelectedEvidenceId.Value;
+                //ViewBag.EvidenceId = model.SelectedEvidenceId.Value;
                 ViewBag.TryId = model.SelectedTryId.Value;
 
                 return View(sortedStudents);

@@ -61,11 +61,25 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Section/Create
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(int? departmentId)
         {
             try
             {
-                await LoadDepartmentsDropdown1();
+                if (departmentId.HasValue)
+                {
+                    var department = await _departmentService.GetDepartmentByIdAsync(departmentId.Value);
+                    if (department == null)
+                    {
+                        SetErrorMessage("القسم المطلوب غير موجود.");
+                        return RedirectToAction("Index", "Department");
+                    }
+
+                    ViewBag.DepartmentName = department.Name; 
+                    var model = new Section { Department_Id = departmentId.Value };
+                    return View(model);
+                }
+
+                await LoadDepartmentsDropdown();
                 return View();
             }
             catch (Exception ex)
@@ -101,14 +115,14 @@ namespace StudentManagementSystem.Controllers
                     if (createdSection != null)
                     {
                         SetSuccessMessage("تم إضافة الشعبة بنجاح");
-                        return RedirectToAction(nameof(Index));
-                    }
+                    return RedirectToAction("Details", "Department", new { id = section.Department_Id });
+                }
                     else
                     {
                         SetErrorMessage("فشل في إضافة الشعبة");
                     }
-            
-                return RedirectToAction("index","section");
+
+                return RedirectToAction("Details", "Department", new { id = section.Department_Id });
             }
             catch (Exception ex)
             {
@@ -121,19 +135,19 @@ namespace StudentManagementSystem.Controllers
         // GET: Section/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+                var section = await _sectionService.GetSectionByIdAsync(id.Value);
             if (id == null)
             {
                 SetErrorMessage("لم يتم تحديد الشعبة المطلوبة");
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Department", new { id = section.Department_Id });
             }
 
             try
             {
-                var section = await _sectionService.GetSectionByIdAsync(id.Value);
                 if (section == null)
                 {
                     SetErrorMessage("الشعبة المطلوبة غير موجودة");
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Details", "Department", new { id = section.Department_Id });
                 }
 
                 await LoadDepartmentsDropdown1(section.Department_Id);
@@ -176,15 +190,15 @@ namespace StudentManagementSystem.Controllers
                     if (updatedSection != null)
                     {
                         SetSuccessMessage("تم تحديث الشعبة بنجاح");
-                        return RedirectToAction(nameof(Index));
-                    }
+                    return RedirectToAction("Details", "Department", new { id = section.Department_Id });
+                }
                     else
                     {
                         SetErrorMessage("فشل في تحديث الشعبة");
                     }
-                
 
-                return RedirectToAction("index","section");
+
+                return RedirectToAction("Details", "Department", new { id = section.Department_Id });
             }
             catch (Exception ex)
             {

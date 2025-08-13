@@ -19,6 +19,7 @@
         margin-bottom: 30px;
         border-radius: 8px;
     }
+
     .form-container {
         background: white;
         border-radius: 15px;
@@ -158,35 +159,21 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
-        @*     <div class="form-group">
-                <label asp-for="Competency_Id" class="form-label">
-                    <i class="fas fa-certificate form-icon"></i>
-                    «·ﬂ›«¡… «·„— »ÿ… <span class="required">*</span>
-                </label>
-                <select asp-for="Competency_Id" class="form-select" asp-items="ViewBag.Competency_Id">
-                    <option value="">-- «Œ — «·ﬂ›«¡… --</option>
-                </select>
-                <span asp-validation-for="Competency_Id" class="text-danger"></span>
-            </div> *@
-
-            @*  „ ≈“«·… Õﬁ· CreatedBy_Id ·√‰Â Ì „  ÕœÌœÂ  ·ﬁ«∆Ì« ›Ì «·ﬂ‰ —Ê·— *@
-
             <div class="form-group">
-                <div class="form-check">
-                    <input asp-for="IsActive" class="form-check-input" type="checkbox" checked />
-                    <label asp-for="IsActive" class="form-check-label form-label">
-                        <i class="fas fa-toggle-on form-icon"></i>
-                        ‰‘ÿ
-                    </label>
-                </div>
+                <label for="NumberInput" class="form-label">
+                    <i class="fas fa-hashtag form-icon"></i>
+                    «œŒ· —ﬁ„ ‰« Ã «· ⁄·„ <span class="required">*</span>
+                </label>
+                <input asp-for="Number" id="NumberInput" name="NumberInput" type="number" class="form-control" placeholder="√œŒ· —ﬁ„« Â‰«..." required />
+                <span id="NumberInput-error" class="text-danger" data-valmsg-for="NumberInput"></span>
             </div>
 
             <div class="form-group text-center">
                 <button type="submit" class="btn btn-orange">
                     <i class="fas fa-save"></i> Õ›Ÿ ‰« Ã «· ⁄·„
                 </button>
-                <a asp-controller="Competencies" asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> «·⁄Êœ… ··ﬁ«∆„…
+                <a href="#" onclick="history.back();" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> «·⁄Êœ… ··Œ·›
                 </a>
             </div>
         </form>
@@ -194,6 +181,28 @@
 </div>
 
 @section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const numberInput = document.getElementById('NumberInput');
+            const errorSpan = document.getElementById('NumberInput-error');
+
+            numberInput.addEventListener('input', function () {
+                if (isNaN(this.value) || this.value === '') {
+                    errorSpan.textContent = '⁄–—«° «·≈œŒ«· ÌÃ» √‰ ÌﬂÊ‰ √—ﬁ«„« ›ﬁÿ.';
+                } else {
+                    errorSpan.textContent = '';
+                }
+            });
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function (event) {
+                if (isNaN(numberInput.value) || numberInput.value === '') {
+                    event.preventDefault(); // „‰⁄ ≈—”«· «·‰„Ê–Ã
+                    errorSpan.textContent = '⁄–—«° «·≈œŒ«· ÌÃ» √‰ ÌﬂÊ‰ √—ﬁ«„« ›ﬁÿ.';
+                }
+            });
+        });
+    </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
