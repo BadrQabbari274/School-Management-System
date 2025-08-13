@@ -26,8 +26,8 @@
 
         /* Header Section */
         .header-section {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
+            background: #fff; /* White background */
+            color: #ff6b35;   /* Orange font for all text inside */
             text-align: center;
             padding: 25px 0;
             margin-bottom: 30px;
@@ -40,6 +40,7 @@
             font-weight: bold;
             margin: 0;
             letter-spacing: 1px;
+            color: #ff6b35; /* Orange font for the title */
         }
 
         /* Container for content */
@@ -60,71 +61,93 @@
 
         /* Search Section Styling */
         .search-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex: 1;
-            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            display: block;
+            max-width: 100%;
         }
 
-        .input-group {
-            flex: 1;
-            margin-bottom: 0 !important;
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        /* Search Input Styling */
-        .form-control {
-            border-radius: 12px !important;
-            border: 2px solid #e9ecef;
-            padding: 10px 15px;
-            font-size: 14px;
+        .search-input {
+            width: 100%;
+            padding: 12px 50px 12px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 25px;
+            font-size: 16px;
             transition: all 0.3s ease;
+            background-color: #f8f9fa;
         }
 
-            .form-control:focus {
-                box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-                border-color: #28a745;
-            }
+        .search-input:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
 
-        /* Search Button Styling */
-        .btn-search {
-            background: linear-gradient(135deg, #28a745, #20c997);
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-size: 18px;
+        }
+
+        .clear-search {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
             border: none;
-            border-radius: 12px !important;
-            color: white;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 8px rgba(40, 167, 69, 0.2);
-            white-space: nowrap;
+            color: #6c757d;
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+            padding: 0;
+            width: 24px;
+            height: 24px;
         }
 
-            .btn-search:hover {
-                background: linear-gradient(135deg, #218838, #1e7e34);
-                transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
-                color: white;
-            }
-
-        /* Clear Search Button */
-        .btn-clear {
-            background: #6c757d;
-            border: none;
-            border-radius: 12px !important;
-            color: white;
-            padding: 10px 15px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            white-space: nowrap;
+        .clear-search:hover {
+            color: #dc3545;
         }
 
-            .btn-clear:hover {
-                background: #5a6268;
-                transform: translateY(-2px);
-                color: white;
-            }
+        .search-results-info {
+            text-align: center;
+            margin-top: 15px;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        /* Highlight search results */
+        .highlight {
+            background-color: #fff3cd;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        /* Hide rows that don't match search */
+        .hidden-row {
+            display: none !important;
+        }
+
+        /* Clearfix for floated elements */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
 
         /* General Button Styles */
         .btn {
@@ -288,6 +311,14 @@
             font-size: 18px;
         }
 
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #dc3545;
+            font-style: italic;
+            font-size: 18px;
+        }
+
         /* Custom Modal Styles */
         .custom-modal .modal-content {
             border-radius: 15px;
@@ -403,21 +434,16 @@
 
     <div class="container">
         <div class="controls">
-            <!-- Search Section -->
+            <!-- Search Section (copied from Class.Index.cshtml) -->
             <div class="search-section">
-                <div class="input-group" dir="rtl">
-                    <input type="text"
-                           id="gradeSearchInput"
-                           class="form-control"
-                           placeholder="ابحث عن السنوات الدراسية بالاسم..."
-                           aria-label="ابحث عن السنوات الدراسية" />
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن السنة الدراسية">
+                    <i class="fas fa-search search-icon"></i>
+                    <button type="button" class="clear-search" id="clearSearch">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <button type="button" id="gradeSearchBtn" class="btn btn-search">
-                    <i class="fas fa-search"></i> البحث
-                </button>
-                <button type="button" id="clearSearchBtn" class="btn btn-clear">
-                    <i class="fas fa-times"></i> مسح
-                </button>
+                <div class="search-results-info" id="searchResults"></div>
             </div>
 
             <!-- Add Button -->
@@ -486,6 +512,9 @@
                     }
                 </tbody>
             </table>
+            <div id="noSearchResults" class="no-results" style="display: none;">
+                لا توجد نتائج تطابق البحث الخاص بك
+            </div>
         </div>
     </div>
 
@@ -515,8 +544,160 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        let gradeIdToDelete = 0; // Global variable to store the ID of the grade to be deleted
+        let gradeIdToDelete = 0;
+        let allRows = [];
+        let totalGrades = 0;
 
+        // Initialize search functionality (identical to Class.Index)
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const clearButton = document.getElementById('clearSearch');
+            const searchResults = document.getElementById('searchResults');
+            const noSearchResults = document.getElementById('noSearchResults');
+
+            // Get all grade rows
+            allRows = Array.from(document.querySelectorAll('.grade-row'));
+            totalGrades = allRows.length;
+
+            // Update search results info on page load
+            updateSearchResultsInfo('');
+
+            // Search input event listener
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.trim();
+                performSearch(searchTerm);
+
+                // Show/hide clear button
+                if (searchTerm) {
+                    clearButton.style.display = 'block';
+                } else {
+                    clearButton.style.display = 'none';
+                }
+            });
+
+            // Clear search button
+            clearButton.addEventListener('click', function() {
+                searchInput.value = '';
+                performSearch('');
+                this.style.display = 'none';
+                searchInput.focus();
+            });
+
+            // Clear search on Escape key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    this.value = '';
+                    performSearch('');
+                    clearButton.style.display = 'none';
+                }
+            });
+        });
+
+        function performSearch(searchTerm) {
+            const noSearchResults = document.getElementById('noSearchResults');
+
+            if (!searchTerm) {
+                // Show all rows
+                allRows.forEach(row => {
+                    row.classList.remove('hidden-row');
+                    removeHighlights(row);
+                });
+                noSearchResults.style.display = 'none';
+                updateSearchResultsInfo('');
+                return;
+            }
+
+            const searchTermLower = searchTerm.toLowerCase();
+            let visibleCount = 0;
+
+            allRows.forEach(row => {
+                const name = row.dataset.name || '';
+                const date = row.dataset.date || '';
+
+                const isMatch = name.includes(searchTermLower) ||
+                                date.includes(searchTermLower);
+
+                if (isMatch) {
+                    row.classList.remove('hidden-row');
+                    highlightSearchTerm(row, searchTerm);
+                    visibleCount++;
+                } else {
+                    row.classList.add('hidden-row');
+                    removeHighlights(row);
+                }
+            });
+
+            // Show/hide no results message
+            if (visibleCount === 0) {
+                noSearchResults.style.display = 'block';
+            } else {
+                noSearchResults.style.display = 'none';
+            }
+
+            updateSearchResultsInfo(searchTerm, visibleCount);
+        }
+
+        function highlightSearchTerm(row, searchTerm) {
+            const searchableElements = [
+                row.querySelector('.grade-name'),
+                row.querySelector('.grade-date')
+            ].filter(Boolean);
+
+            searchableElements.forEach(element => {
+                const originalText = element.dataset.originalText || element.textContent;
+                if (!element.dataset.originalText) {
+                    element.dataset.originalText = originalText;
+                }
+
+                const regex = new RegExp(`(${escapeRegex(searchTerm)})`, 'gi');
+                const highlightedText = originalText.replace(regex, '<span class="highlight">$1</span>');
+                element.innerHTML = highlightedText;
+            });
+        }
+
+        function removeHighlights(row) {
+            const searchableElements = [
+                row.querySelector('.grade-name'),
+                row.querySelector('.grade-date')
+            ].filter(Boolean);
+
+            searchableElements.forEach(element => {
+                if (element.dataset.originalText) {
+                    element.textContent = element.dataset.originalText;
+                }
+            });
+        }
+
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function updateSearchResultsInfo(searchTerm, visibleCount = null) {
+            const searchResults = document.getElementById('searchResults');
+
+            if (!searchTerm) {
+                if (totalGrades > 0) {
+                    searchResults.innerHTML = `إجمالي ${totalGrades} سنة دراسية`;
+                } else {
+                    searchResults.innerHTML = '';
+                }
+            } else {
+                const count = visibleCount !== null ? visibleCount : totalGrades;
+                if (count === 0) {
+                    searchResults.innerHTML = 'لم يتم العثور على نتائج';
+                } else if (count === 1) {
+                    searchResults.innerHTML = 'تم العثور على سنة دراسية واحدة';
+                } else if (count === 2) {
+                    searchResults.innerHTML = 'تم العثور على سنتين دراسيتين';
+                } else if (count <= 10) {
+                    searchResults.innerHTML = `تم العثور على ${count} سنوات دراسية`;
+                } else {
+                    searchResults.innerHTML = `تم العثور على ${count} سنة دراسية`;
+                }
+            }
+        }
+
+        // --- Keep your delete logic as is below ---
         function showDeleteConfirmation(id, name) {
             gradeIdToDelete = id;
             document.getElementById('gradeNameToDelete').innerText = name;
@@ -525,11 +706,9 @@
         }
 
         document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
-            // Hide the modal
             var deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
             deleteModal.hide();
 
-            // Perform the deletion using the hidden form and AJAX
             const form = document.getElementById('deleteForm');
             document.getElementById('gradeIdToDelete').value = gradeIdToDelete;
 
@@ -540,10 +719,8 @@
                 });
 
                 if (response.ok) {
-                    // Reload the page to reflect the deletion
                     location.reload();
                 } else {
-                    // Handle non-OK responses, e.g., show an error message
                     alert('حدث خطأ أثناء حذف السنة الدراسية. يرجى المحاولة مرة أخرى.');
                     console.error('Delete failed with status:', response.status);
                 }
@@ -552,158 +729,6 @@
                 console.error('Error during fetch:', error);
             }
         });
-
-        // Search functionality for grades
-        function performGradeSearch() {
-            const query = document.getElementById('gradeSearchInput').value.trim().toLowerCase();
-            const rows = document.querySelectorAll('.grade-row');
-            const searchInfo = document.getElementById('searchInfo');
-            const searchInfoText = document.getElementById('searchInfoText');
-            const noDataRow = document.getElementById('noDataRow');
-
-            let visibleCount = 0;
-            let hasExactMatch = false;
-
-            // Remove previous highlights
-            document.querySelectorAll('.search-highlight').forEach(el => {
-                el.outerHTML = el.innerHTML;
-            });
-
-            // Remove search match styling
-            document.querySelectorAll('.grade-row.search-match').forEach(row => {
-                row.classList.remove('search-match');
-            });
-
-            if (query === '') {
-                // Show all rows
-                rows.forEach(row => {
-                    row.style.display = '';
-                    visibleCount++;
-                });
-
-                if (noDataRow) {
-                    if (visibleCount === 0) {
-                        noDataRow.style.display = '';
-                        noDataRow.querySelector('td').textContent = 'لا توجد سنوات دراسية متاحة';
-                    } else {
-                        noDataRow.style.display = 'none';
-                    }
-                }
-
-                searchInfo.style.display = 'none';
-                return;
-            }
-
-            // Check for exact match
-            rows.forEach(row => {
-                const name = row.getAttribute('data-name') || '';
-                if (name === query) {
-                    hasExactMatch = true;
-                }
-            });
-
-            // Filter and highlight rows
-            rows.forEach(row => {
-                const name = row.getAttribute('data-name') || '';
-                const date = row.getAttribute('data-date') || '';
-
-                const matches = name.includes(query) || date.includes(query);
-
-                if (matches) {
-                    row.style.display = '';
-                    row.classList.add('search-match');
-                    visibleCount++;
-
-                    // Highlight matching text
-                    highlightGradeText(row, query);
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-
-            // Handle no data row and search info
-            if (noDataRow) {
-                if (visibleCount === 0) {
-                    noDataRow.style.display = '';
-
-                    // Smart message based on search type
-                    if (!hasExactMatch && !query.includes(' ') && !query.includes('/')) {
-                        // Check if any name partially matches
-                        let hasPartialMatch = false;
-                        rows.forEach(row => {
-                            const name = row.getAttribute('data-name') || '';
-                            if (name.includes(query)) {
-                                hasPartialMatch = true;
-                            }
-                        });
-
-                        if (!hasPartialMatch) {
-                            noDataRow.querySelector('td').textContent = 'لا توجد سنة دراسية بهذا الاسم';
-                        } else {
-                            noDataRow.querySelector('td').textContent = 'لا توجد سنوات دراسية تطابق البحث';
-                        }
-                    } else {
-                        noDataRow.querySelector('td').textContent = 'لا توجد سنوات دراسية تطابق البحث';
-                    }
-                } else {
-                    noDataRow.style.display = 'none';
-                }
-            }
-
-            // Update search info
-            if (visibleCount === 0) {
-                searchInfo.style.display = 'none';
-            } else {
-                searchInfo.style.display = 'block';
-                searchInfoText.textContent = `تم العثور على ${visibleCount} سنة دراسية تطابق البحث "${query}"`;
-            }
-        }
-
-        // Highlight matching text in search results
-        function highlightGradeText(row, query) {
-            const nameCell = row.querySelector('.grade-name');
-            const dateCell = row.querySelector('.grade-date');
-
-            // Highlight name
-            const name = row.getAttribute('data-name') || '';
-            if (nameCell && name.includes(query)) {
-                const originalText = nameCell.textContent;
-                const regex = new RegExp(`(${query})`, 'gi');
-                const highlightedText = originalText.replace(regex, '<span class="search-highlight">$1</span>');
-                nameCell.innerHTML = highlightedText;
-            }
-
-            // Highlight date
-            const date = row.getAttribute('data-date') || '';
-            if (dateCell && date.includes(query)) {
-                const originalText = dateCell.textContent;
-                const regex = new RegExp(`(${query})`, 'gi');
-                const highlightedText = originalText.replace(regex, '<span class="search-highlight">$1</span>');
-                dateCell.innerHTML = highlightedText;
-            }
-        }
-
-        // Clear search
-        function clearGradeSearch() {
-            document.getElementById('gradeSearchInput').value = '';
-            performGradeSearch();
-        }
-
-        // Event listeners
-        document.getElementById('gradeSearchBtn').addEventListener('click', performGradeSearch);
-        document.getElementById('clearSearchBtn').addEventListener('click', clearGradeSearch);
-
-        // Search on Enter key press
-        document.getElementById('gradeSearchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performGradeSearch();
-            }
-        });
-
-        // Optional: Real-time search as user types (uncomment if you want this feature)
-        /*
-        document.getElementById('gradeSearchInput').addEventListener('input', performGradeSearch);
-        */
     </script>
 </body>
 </html>
