@@ -56,6 +56,99 @@
             gap: 20px; /* Add gap between elements */
         }
 
+        /* --- Begin: Search Bar Styles from Class.Index.cshtml --- */
+        .search-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            display: block;
+            max-width: 100%;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 50px 12px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-size: 18px;
+        }
+
+        .clear-search {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6c757d;
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+        }
+
+        .clear-search:hover {
+            color: #dc3545;
+        }
+
+        .search-results-info {
+            text-align: center;
+            margin-top: 15px;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #dc3545;
+            font-style: italic;
+            font-size: 18px;
+        }
+
+        /* Highlight search results */
+        .highlight {
+            background-color: #fff3cd;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        /* Hide rows that don't match search */
+        .hidden-row {
+            display: none !important;
+        }
+        /* --- End: Search Bar Styles from Class.Index.cshtml --- */
+
+
         /* Search Section Styling */
         .search-section {
             display: flex;
@@ -105,7 +198,12 @@
         .btn {
             padding: 10px 20px; /* More padding */
             border: none;
-            border-radius: 8px; /* More rounded */
+            color: #6c757d;
+            font-size: 18px;
+            color: #6c757d;
+            font-size: 18px;
+            color: #6c757d;
+            font-size: 18px;
             cursor: pointer;
             font-size: 15px; /* Slightly larger font */
             font-weight: 600; /* Bolder text */
@@ -299,6 +397,21 @@
             gap: 15px;
         }
 
+        /* Custom Styles for Profile and Delete Buttons */
+        .profile-btn {
+            border-top-right-radius: 0.5rem !important;
+            border-bottom-right-radius: 0.5rem !important;
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+
+        .delete-btn {
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5rem !important;
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+
         /* Responsive Design */
         @@media (max-width: 768px) {
             .container
@@ -359,18 +472,16 @@
                 <i class="fas fa-users"></i> «·„” Œœ„Ì‰ «·‰‘ÿÌ‰ ›ﬁÿ
             </div>
 
-            <!-- Center: Search Section -->
+            <!-- Center: Search Section (Class.Index style) -->
             <div class="search-section">
-                <div class="input-group" dir="rtl">
-                    <input type="text"
-                           id="userSearchInput"
-                           class="form-control"
-                           placeholder="«»ÕÀ ⁄‰ «·„” Œœ„Ì‰..."
-                           aria-label="«»ÕÀ ⁄‰ «·„” Œœ„Ì‰" />
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="«»ÕÀ ⁄‰ «·„” Œœ„Ì‰">
+                    <i class="fas fa-search search-icon"></i>
+                    <button type="button" class="clear-search" id="clearSearch">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <button type="button" id="userSearchBtn" class="btn btn-search">
-                    <i class="fas fa-search"></i> «·»ÕÀ
-                </button>
+                <div class="search-results-info" id="searchResults"></div>
             </div>
 
             <!-- Right: Add User Button -->
@@ -404,7 +515,7 @@
                         <th>«”„ «·„” Œœ„</th>
                         <th>«·œÊ—</th>
                         <th> «—ÌŒ «·≈‰‘«¡</th>
-                        <th>«·Õ«·…</th>
+                        <!-- <th>«·Õ«·…</th> -->
                         <th> „ «·≈‰‘«¡ »Ê«”ÿ…</th>
                         <th>¬Œ—  ⁄œÌ·</th>
                         <th>«·⁄„·Ì« </th>
@@ -420,24 +531,26 @@
                                 <td>@user.Username</td>
                                 <td>@user.RoleName</td>
                                 <td>@user.Date.ToString("dd/MM/yyyy")</td>
+                                <!--
                                 <td>
                                     <span class="status-badge status-active">
                                         ‰‘ÿ
                                     </span>
                                 </td>
+                                -->
                                 <td>@user.CreatedBy</td>
                                 <td>@user.LastEditBy</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="@Url.Action("UserProfile", "Account", new { id = user.Id })"
-                                           class="btn btn-info btn-sm" title="⁄—÷ «·„·› «·‘Œ’Ì">
+                                           class="btn btn-info btn-sm profile-btn" title="⁄—÷ «·„·› «·‘Œ’Ì">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="@Url.Action("EditUser", "Account", new { id = user.Id })"
                                            class="btn btn-warning btn-sm" title=" ⁄œÌ·">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" title=" ⁄ÿÌ· «·„” Œœ„"
+                                        <button type="button" class="btn btn-danger btn-sm delete-btn" title=" ⁄ÿÌ· «·„” Œœ„"
                                                 onclick="showToggleConfirmation(@user.Id, '@user.Name', true)">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -449,7 +562,7 @@
                     else
                     {
                         <tr id="noDataRow">
-                            <td colspan="8" class="no-data">·« ÌÊÃœ „” Œœ„Ê‰ ‰‘ÿÊ‰ ·⁄—÷Â„</td>
+                            <td colspan="7" class="no-data">·« ÌÊÃœ „” Œœ„Ê‰ ‰‘ÿÊ‰ ·⁄—÷Â„</td>
                         </tr>
                     }
                 </tbody>
@@ -482,6 +595,10 @@
         @Html.AntiForgeryToken()
         <input type="hidden" name="id" id="userIdToToggle" />
     </form>
+
+    <div id="noSearchResults" class="no-results" style="display: none;">
+                ·«  ÊÃœ ‰ «∆Ã  ÿ«»ﬁ «·»ÕÀ «·Œ«’ »ﬂ
+            </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
@@ -629,6 +746,156 @@
                 console.error(error);
             }
         });
+    </script>
+
+    <script>
+        let allRows = [];
+        let totalUsers = 0;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const clearButton = document.getElementById('clearSearch');
+            const searchResults = document.getElementById('searchResults');
+            const tableBody = document.getElementById('usersTableBody');
+            const noSearchResults = document.getElementById('noSearchResults');
+
+            // Get all user rows
+            allRows = Array.from(document.querySelectorAll('#usersTableBody tr[data-username]'));
+            totalUsers = allRows.length;
+
+            // Update search results info on page load
+            updateSearchResultsInfo('');
+
+            // Search input event listener
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.trim();
+                performSearch(searchTerm);
+
+                // Show/hide clear button
+                if (searchTerm) {
+                    clearButton.style.display = 'block';
+                } else {
+                    clearButton.style.display = 'none';
+                }
+            });
+
+            // Clear search button
+            clearButton.addEventListener('click', function() {
+                searchInput.value = '';
+                performSearch('');
+                this.style.display = 'none';
+                searchInput.focus();
+            });
+
+            // Clear search on Escape key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    this.value = '';
+                    performSearch('');
+                    clearButton.style.display = 'none';
+                }
+            });
+        });
+
+        function performSearch(searchTerm) {
+            const searchResults = document.getElementById('searchResults');
+            const noSearchResults = document.getElementById('noSearchResults');
+
+            if (!searchTerm) {
+                // Show all rows
+                allRows.forEach(row => {
+                    row.classList.remove('hidden-row');
+                    removeHighlights(row);
+                });
+                noSearchResults.style.display = 'none';
+                updateSearchResultsInfo('');
+                return;
+            }
+
+            const searchTermLower = searchTerm.toLowerCase();
+            let visibleCount = 0;
+
+            allRows.forEach(row => {
+                const username = row.dataset.username || '';
+                const name = row.dataset.name || '';
+                const role = row.dataset.role || '';
+
+                const isMatch = username.includes(searchTermLower) ||
+                                name.includes(searchTermLower) ||
+                                role.includes(searchTermLower);
+
+                if (isMatch) {
+                    row.classList.remove('hidden-row');
+                    highlightSearchTerm(row, searchTerm);
+                    visibleCount++;
+                } else {
+                    row.classList.add('hidden-row');
+                    removeHighlights(row);
+                }
+            });
+
+            // Show/hide no results message
+            if (visibleCount === 0) {
+                noSearchResults.style.display = 'block';
+            } else {
+                noSearchResults.style.display = 'none';
+            }
+
+            updateSearchResultsInfo(searchTerm, visibleCount);
+        }
+
+        function highlightSearchTerm(row, searchTerm) {
+            // Highlight in the first three columns (name, username, role)
+            const cells = [row.cells[0], row.cells[1], row.cells[2]];
+            cells.forEach(cell => {
+                if (!cell) return;
+                const originalText = cell.dataset.originalText || cell.textContent;
+                if (!cell.dataset.originalText) {
+                    cell.dataset.originalText = originalText;
+                }
+                const regex = new RegExp(`(${escapeRegex(searchTerm)})`, 'gi');
+                const highlightedText = originalText.replace(regex, '<span class="highlight">$1</span>');
+                cell.innerHTML = highlightedText;
+            });
+        }
+
+        function removeHighlights(row) {
+            const cells = [row.cells[0], row.cells[1], row.cells[2]];
+            cells.forEach(cell => {
+                if (cell && cell.dataset.originalText) {
+                    cell.textContent = cell.dataset.originalText;
+                }
+            });
+        }
+
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function updateSearchResultsInfo(searchTerm, visibleCount = null) {
+            const searchResults = document.getElementById('searchResults');
+
+            if (!searchTerm) {
+                if (totalUsers > 0) {
+                    searchResults.innerHTML = `≈Ã„«·Ì ${totalUsers} „” Œœ„`;
+                } else {
+                    searchResults.innerHTML = '';
+                }
+            } else {
+                const count = visibleCount !== null ? visibleCount : totalUsers;
+                if (count === 0) {
+                    searchResults.innerHTML = '·„ Ì „ «·⁄ÀÊ— ⁄·Ï ‰ «∆Ã';
+                } else if (count === 1) {
+                    searchResults.innerHTML = ' „ «·⁄ÀÊ— ⁄·Ï „” Œœ„ Ê«Õœ';
+                } else if (count === 2) {
+                    searchResults.innerHTML = ' „ «·⁄ÀÊ— ⁄·Ï „” Œœ„Ì‰';
+                } else if (count <= 10) {
+                    searchResults.innerHTML = ` „ «·⁄ÀÊ— ⁄·Ï ${count} „” Œœ„Ì‰`;
+                } else {
+                    searchResults.innerHTML = ` „ «·⁄ÀÊ— ⁄·Ï ${count} „” Œœ„`;
+                }
+            }
+        }
     </script>
 </body>
 </html>

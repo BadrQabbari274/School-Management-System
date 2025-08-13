@@ -68,23 +68,24 @@
                                 <td>@field.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                    <a href="@Url.Action("Details", new { id = field.Id })"
-                       class="btn btn-info btn-sm details-btn" title="عرض التفاصيل">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                    <a href="@Url.Action("Edit", new { id = field.Id })"
-                       class="btn btn-warning btn-sm" title="تعديل">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <button type="button" class="btn btn-danger btn-sm" title="حذف"
-                            onclick="showDeleteConfirmation(@field.Id, '@field.Name')">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    <a href="@Url.Action("AssignEmployee", new { id = field.Id })"
-                       class="btn btn-secondary btn-sm assign-btn" title="تعيين موظف">
-                        <i class="fas fa-user-plus"></i>
-                    </a>
-                </div>
+                                        <a href="@Url.Action("Details", new { id = field.Id })"
+                                           class="btn btn-info btn-sm details-btn" title="عرض التفاصيل">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", new { id = field.Id })"
+                                           class="btn btn-warning btn-sm" title="تعديل">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-sm delete-btn" title="حذف"
+                                                onclick="showDeleteConfirmation(@field.Id, '@field.Name')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        @* Removed AssignEmployee button *@
+                                        @* <a href="@Url.Action("AssignEmployee", new { id = field.Id })"
+                                           class="btn btn-secondary btn-sm assign-btn" title="تعيين موظف">
+                                            <i class="fas fa-user-plus"></i>
+                                        </a> *@
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -364,20 +365,20 @@
             gap: 15px;
         }
 
-        /* Custom Styles for Detail and Assign Buttons */
-.details-btn {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    border-top-right-radius: 0.5rem !important;
-    border-bottom-right-radius: 0.5rem !important;
-}
+        /* Custom Styles for Detail and Delete Buttons */
+        .details-btn {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            border-top-right-radius: 0.5rem !important;
+            border-bottom-right-radius: 0.5rem !important;
+        }
 
-.assign-btn {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    border-top-left-radius: 0.5rem !important;
-    border-bottom-left-radius: 0.5rem !important;
-}
+        .delete-btn {
+            border-top-left-radius: 0.5rem !important;
+            border-bottom-left-radius: 0.5rem !important;
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
 
         /* Responsive Design */
         @@media (max-width: 768px) {
