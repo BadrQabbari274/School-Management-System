@@ -1,0 +1,156 @@
+﻿@model StudentManagementSystem.Models.EmployeeTypes
+
+@{
+    ViewData["Title"] = "تعديل نوع الموظف";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site2.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-warning text-dark">
+                        <h4 class="mb-0">
+                            <i class="fas fa-edit me-2"></i>
+                            تعديل نوع الموظف
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        @if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                @TempData["ErrorMessage"]
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        }
+
+                        <form asp-action="Edit" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="CreatedBy_Id" />
+                            <input type="hidden" asp-for="CreatedDate" />
+                            <input type="hidden" asp-for="IsDeleted" />
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold text-muted">
+                                            <i class="fas fa-hashtag me-1"></i>
+                                            رقم النوع
+                                        </label>
+                                        <input type="text" class="form-control-plaintext fw-bold"
+                                               value="@Model.Id" readonly />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-4">
+                                        <label asp-for="Name" class="form-label fw-bold">
+                                            <i class="fas fa-tag me-1"></i>
+                                            اسم نوع الموظف
+                                        </label>
+                                        <input asp-for="Name" class="form-control form-control-lg"
+                                               placeholder="أدخل اسم نوع الموظف" required />
+                                        <span asp-validation-for="Name" class="text-danger small"></span>
+                                        <div class="form-text">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            قم بتعديل اسم نوع الموظف حسب الحاجة
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold text-muted">
+                                            <i class="fas fa-calendar me-1"></i>
+                                            تاريخ الإنشاء
+                                        </label>
+                                        <input type="text" class="form-control-plaintext"
+                                               value="@Model.CreatedDate.ToString("yyyy-MM-dd HH:mm")" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold text-muted">
+                                            <i class="fas fa-users me-1"></i>
+                                            عدد الموظفين المرتبطين
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light">
+                                                <i class="fas fa-user-friends text-primary"></i>
+                                            </span>
+                                            <input type="text" class="form-control-plaintext fw-bold text-primary"
+                                                   value="@(Model.Employees?.Count() ?? 0) موظف" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                                        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                                            <i class="fas fa-arrow-right me-1"></i>
+                                            العودة للقائمة
+                                        </a>
+                                        <div class="d-grid gap-2 d-md-flex">
+                                            <a asp-action="Details" asp-route-id="@Model.Id"
+                                               class="btn btn-outline-info btn-lg">
+                                                <i class="fas fa-eye me-1"></i>
+                                                عرض التفاصيل
+                                            </a>
+                                            <button type="submit" class="btn btn-warning btn-lg">
+                                                <i class="fas fa-save me-1"></i>
+                                                حفظ التغييرات
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- تحذير في حالة وجود موظفين مرتبطين -->
+                @if (Model.Employees?.Any() == true)
+                {
+                    <div class="alert alert-warning mt-3" role="alert">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-exclamation-triangle me-3 fa-2x"></i>
+                            <div>
+                                <h6 class="alert-heading mb-1">تنبيه مهم</h6>
+                                <p class="mb-0">
+                                    هناك <strong>@Model.Employees.Count()</strong> موظف مرتبط بهذا النوع.
+                                    أي تغيير في الاسم سيؤثر على جميع الموظفين المرتبطين.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

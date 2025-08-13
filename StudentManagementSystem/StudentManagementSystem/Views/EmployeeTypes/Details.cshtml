@@ -1,0 +1,262 @@
+﻿@model StudentManagementSystem.Models.EmployeeTypes
+
+@{
+    ViewData["Title"] = "تفاصيل نوع الموظف";
+}
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+<div class="container-fluid">
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="fas fa-info-circle"></i>
+            تفاصيل نوع الموظف
+        </h1>
+        <div class="page-actions">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                العودة للقائمة
+            </a>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i>
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle"></i>
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user-tag"></i>
+                        معلومات نوع الموظف
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="details-container">
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-hashtag"></i>
+                                معرف النوع
+                            </div>
+                            <div class="detail-value">@Html.DisplayFor(model => model.Id)</div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-tag"></i>
+                                اسم نوع الموظف
+                            </div>
+                            <div class="detail-value highlight">@Html.DisplayFor(model => model.Name)</div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-user"></i>
+                                معرف المُنشئ
+                            </div>
+                            <div class="detail-value">@Html.DisplayFor(model => model.CreatedBy_Id)</div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-calendar"></i>
+                                تاريخ الإنشاء
+                            </div>
+                            <div class="detail-value">@Model.CreatedDate.ToString("dd/MM/yyyy HH:mm")</div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">
+                                <i class="fas fa-info"></i>
+                                الحالة
+                            </div>
+                            <div class="detail-value">
+                                @if (!Model.IsDeleted)
+                                {
+                                    <span class="badge bg-success">نشط</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">محذوف</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                            <i class="fas fa-edit"></i>
+                            تعديل
+                        </a>
+
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="fas fa-trash"></i>
+                            حذف
+                        </button>
+
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-list"></i>
+                            القائمة الرئيسية
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    تأكيد الحذف
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <i class="fas fa-exclamation-triangle text-danger" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h5>هل أنت متأكد من حذف هذا النوع؟</h5>
+                    <p class="text-muted mb-0">
+                        سيتم حذف نوع الموظف: <strong>@Model.Name</strong>
+                    </p>
+                    <p class="text-danger mt-2">
+                        <small>هذا الإجراء لا يمكن التراجع عنه!</small>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                    إلغاء
+                </button>
+                <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                        تأكيد الحذف
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .details-container {
+        padding: 1.5rem 0;
+    }
+
+    .detail-row {
+        display: flex;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+    .detail-label {
+        font-weight: 600;
+        color: #495057;
+        min-width: 150px;
+        display: flex;
+        align-items: center;
+    }
+
+        .detail-label i {
+            margin-right: 0.5rem;
+            width: 18px;
+            text-align: center;
+            color: #6c757d;
+        }
+
+    .detail-value {
+        color: #212529;
+        font-size: 1.1rem;
+    }
+
+        .detail-value.highlight {
+            font-weight: 600;
+            color: #0d6efd;
+            font-size: 1.25rem;
+        }
+
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        padding-top: 2rem;
+        border-top: 1px solid #dee2e6;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        color: white;
+    }
+
+    .badge {
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .modal-content {
+        border: none;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #dee2e6;
+        gap: 0.5rem;
+    }
+
+    @@media (max-width: 768px) {
+        .detail-row
+
+    {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .detail-label {
+        min-width: auto;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+        .action-buttons .btn {
+            width: 100%;
+        }
+
+    }
+</style>
