@@ -212,19 +212,19 @@ namespace StudentManagementSystem.Services
 
             foreach (var studentClassSection in studentsInClass)
             {
-                var Student = await _context.Student_Evidence.FirstOrDefaultAsync(e => e.Student_Id == studentClassSection.Student_Id && e.Evidence_Id == model.SelectedEvidenceId.Value && e.Try_Id == model.SelectedTryId.Value);
+                //var Student = await _context.Student_Evidence.FirstOrDefaultAsync(e => e.Student_Id == studentClassSection.Student_Id && e.Evidence_Id == model.SelectedEvidenceId.Value && e.Try_Id == model.SelectedTryId.Value);
                 var student = await _context.Students.FirstOrDefaultAsync(s => s.Id == studentClassSection.Student_Id && s.IsActive);
-                if (student != null)
-                {
-                    if (Student != null)
-                    {
+                //if (student != null)
+                //{
+                //    if (Student != null)
+                //    {
                         studentStatusList.Add(new StudentEvidenceViewModel { Student = student, status = true });
-                    }
-                    else
-                    {
-                        studentStatusList.Add(new StudentEvidenceViewModel { Student = student, status = false });
-                    }
-                }
+                    //}
+                    //else
+                    //{
+                    //    studentStatusList.Add(new StudentEvidenceViewModel { Student = student, status = false });
+                //    //}
+                //}
 
             }
             return studentStatusList;
