@@ -560,34 +560,40 @@
 
         /* Responsive */
         @@media (max-width: 768px) {
-            .header-title {
-                font-size: 2rem;
+            .header-title
+
+        {
+            font-size: 2rem;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+            .form-actions .btn {
+                width: 100%;
             }
 
-            .form-actions {
-                flex-direction: column;
-            }
+        .card-body {
+            padding: 25px 20px;
+        }
 
-                .form-actions .btn {
-                    width: 100%;
-                }
-
-            .card-body {
-                padding: 25px 20px;
-            }
         }
 
         /* Animation */
         @@keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+            from
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         }
 
         .detail-group {
