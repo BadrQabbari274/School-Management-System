@@ -1,4 +1,4 @@
-﻿@model StudentManagementSystem.ViewModels.CompetenciesSelectionViewModel
+﻿@model StudentManagementSystem.ViewModels.CompetenciesSelectionViewModel_V2
 @{
     ViewData["Title"] = "اختيار الجدارات والنواتج والأدلة";
 }
@@ -265,7 +265,7 @@
     </div>
 
     <div class="form-section">
-        <form id="competenciesForm" asp-action="Evaluate" method="post">
+        <form id="competenciesForm" asp-action="Evaluate_V2" method="get">
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="ClassId" />
 
@@ -279,7 +279,7 @@
                     <span class="loading-spinner" id="competencySpinner"></span>
                     <select asp-for="SelectedCompetencyId" id="competencySelect" class="custom-select">
                         <option value="">-- اختر الجدارة --</option>
-                        @foreach (var competency in Model.CompetenciesList)
+                        @foreach (var competency in Model.Competencies)
                         {
                             <option value="@competency.Value">@competency.Text</option>
                         }
@@ -287,7 +287,7 @@
                 </div>
             </div>
 
-            <!-- اختيار نواتج التعلم -->
+          @*   <!-- اختيار نواتج التعلم -->
             <div class="form-group">
                 <label class="form-label">
                     <i class="fas fa-target"></i>
@@ -299,9 +299,9 @@
                         <option value="">-- اختر ناتج التعلم --</option>
                     </select>
                 </div>
-            </div>
-@* 
-            <!-- اختيار الأدلة -->
+            </div> *@
+
+@*             <!-- اختيار الأدلة -->
             <div class="form-group">
                 <label class="form-label">
                     <i class="fas fa-file-alt"></i>
@@ -309,9 +309,9 @@
                 </label>
                 <div style="position: relative;">
                     <span class="loading-spinner" id="evidenceSpinner"></span>
-                    @* <select asp-for="SelectedEvidenceId" id="evidenceSelect" class="custom-select" disabled>
+                    <select asp-for="SelectedEvidenceId" id="evidenceSelect" class="custom-select" disabled>
                         <option value="">-- اختر الدليل --</option>
-                    </select> *@
+                    </select>
                 </div>
             </div>
  *@
@@ -323,7 +323,7 @@
                 </label>
                 <select asp-for="SelectedTryId" id="trySelect" class="custom-select">
                     <option value="">-- اختر المحاولة --</option>
-                    @foreach (var tryItem in Model.TrysList)
+                    @foreach (var tryItem in Model.Tries)
                     {
                         <option value="@tryItem.Value">@tryItem.Text</option>
                     }
@@ -347,17 +347,6 @@
             <div id="competencyInfo" class="info-card" style="display: none;">
                 <h5><i class="fas fa-medal"></i> الجدارة المحددة</h5>
                 <p id="competencyName"></p>
-            </div>
-
-            <div id="outcomeInfo" class="info-card" style="display: none;">
-                <h5><i class="fas fa-target"></i> ناتج التعلم المحدد</h5>
-                <p id="outcomeName"></p>
-            </div>
-
-            <div id="evidenceInfo" class="info-card" style="display: none;">
-                <h5><i class="fas fa-file-alt"></i> الدليل المحدد</h5>
-                <p id="evidenceName"></p>
-                <span id="evidenceType" class="evidence-badge"></span>
             </div>
 
             <div id="tryInfo" class="info-card" style="display: none;">
@@ -402,124 +391,19 @@
             const competencyId = $(this).val();
             const competencyName = $(this).find('option:selected').text();
 
-            // إعادة تعيين النواتج والأدلة
-            outcomeSelect.html('<option value="">-- اختر ناتج التعلم --</option>').prop('disabled', true);
-            evidenceSelect.html('<option value="">-- اختر الدليل --</option>').prop('disabled', true);
-            updateSubmitButton();
-
-            // إخفاء معلومات النواتج والأدلة
-            $('#outcomeInfo, #evidenceInfo').hide();
-
             if (competencyId) {
                 // عرض معلومات الجدارة
                 $('#competencyName').text(competencyName);
                 $('#competencyInfo').show();
                 selectionInfo.addClass('show');
-
-                // تحميل النواتج
-                $('#outcomeSpinner').show();
-                $.post('@Url.Action("GetLearningOutcomes")', {
-                    competencyId: competencyId,
-                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
-                })
-                .done(function(response) {
-                    if (response.success && response.data.length > 0) {
-                        $.each(response.data, function(index, outcome) {
-                            outcomeSelect.append($('<option>', {
-                                value: outcome.id,
-                                text: outcome.name
-                            }));
-                        });
-                        outcomeSelect.prop('disabled', false);
-                    } else {
-                        outcomeSelect.append('<option value="">لا توجد نواتج متاحة</option>');
-                    }
-                })
-                .fail(function() {
-                    outcomeSelect.append('<option value="">خطأ في تحميل النواتج</option>');
-                })
-                .always(function() {
-                    $('#outcomeSpinner').hide();
-                });
             } else {
                 $('#competencyInfo').hide();
-                if (!$('#outcomeInfo').is(':visible') && !$('#evidenceInfo').is(':visible') && !$('#tryInfo').is(':visible')) {
+                if (!$('#tryInfo').is(':visible')) {
                     selectionInfo.removeClass('show');
                 }
             }
-        });
 
-        // عند اختيار ناتج التعلم
-        outcomeSelect.change(function() {
-            const outcomeId = $(this).val();
-            const outcomeName = $(this).find('option:selected').text();
-
-            // إعادة تعيين الأدلة
-            evidenceSelect.html('<option value="">-- اختر الدليل --</option>').prop('disabled', true);
             updateSubmitButton();
-
-            // إخفاء معلومات الأدلة
-            $('#evidenceInfo').hide();
-
-            if (outcomeId) {
-                // عرض معلومات ناتج التعلم
-                $('#outcomeName').text(outcomeName);
-                $('#outcomeInfo').show();
-
-                // تحميل الأدلة
-                $('#evidenceSpinner').show();
-                $.post('@Url.Action("GetEvidences")', {
-                    outcomeId: outcomeId,
-                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
-                })
-                .done(function(response) {
-                    if (response.success && response.data.length > 0) {
-                        $.each(response.data, function(index, evidence) {
-                            evidenceSelect.append($('<option>', {
-                                value: evidence.id,
-                                text: evidence.name,
-                                'data-practical': evidence.isPractical
-                            }));
-                        });
-                        evidenceSelect.prop('disabled', false);
-                    } else {
-                        evidenceSelect.append('<option value="">لا توجد أدلة متاحة</option>');
-                    }
-                })
-                .fail(function() {
-                    evidenceSelect.append('<option value="">خطأ في تحميل الأدلة</option>');
-                })
-                .always(function() {
-                    $('#evidenceSpinner').hide();
-                });
-            } else {
-                $('#outcomeInfo').hide();
-            }
-        });
-
-        // عند اختيار الدليل
-        evidenceSelect.change(function() {
-            const evidenceId = $(this).val();
-            const evidenceName = $(this).find('option:selected').text();
-            const isPractical = $(this).find('option:selected').data('practical');
-
-            if (evidenceId) {
-                // عرض معلومات الدليل
-                $('#evidenceName').text(evidenceName);
-
-                const typeSpan = $('#evidenceType');
-                if (isPractical) {
-                    typeSpan.text('عملي').attr('class', 'evidence-badge evidence-practical');
-                } else {
-                    typeSpan.text('نظري').attr('class', 'evidence-badge evidence-theoretical');
-                }
-
-                $('#evidenceInfo').show();
-                updateSubmitButton();
-            } else {
-                $('#evidenceInfo').hide();
-                updateSubmitButton();
-            }
         });
 
         // عند اختيار المحاولة
@@ -532,21 +416,23 @@
                 $('#tryName').text(tryName);
                 $('#tryInfo').show();
                 selectionInfo.addClass('show');
-                updateSubmitButton();
             } else {
                 $('#tryInfo').hide();
-                updateSubmitButton();
+                if (!$('#competencyInfo').is(':visible')) {
+                    selectionInfo.removeClass('show');
+                }
             }
+
+            updateSubmitButton();
         });
 
-        // تحديث حالة زر الإرسال
+        // تحديث حالة زر الإرسال - المشكلة كانت هنا!
         function updateSubmitButton() {
             const competencyId = competencySelect.val();
-            const outcomeId = outcomeSelect.val();
-            const evidenceId = evidenceSelect.val();
             const tryId = trySelect.val();
 
-            if (competencyId && outcomeId && evidenceId && tryId) {
+            // بما أن الـ outcome والـ evidence مُعطلين في الكود، نتحقق فقط من الجدارة والمحاولة
+            if (competencyId && tryId) {
                 confirmButton.prop('disabled', false);
             } else {
                 confirmButton.prop('disabled', true);
@@ -556,13 +442,11 @@
         // التحقق من صحة البيانات قبل الإرسال
         $('#competenciesForm').submit(function(e) {
             const competencyId = competencySelect.val();
-            const outcomeId = outcomeSelect.val();
-            const evidenceId = evidenceSelect.val();
             const tryId = trySelect.val();
 
-            if (!competencyId || !outcomeId || !evidenceId || !tryId) {
+            if (!competencyId || !tryId) {
                 e.preventDefault();
-                alert('يرجى اختيار جميع البيانات المطلوبة');
+                alert('يرجى اختيار الجدارة والمحاولة');
                 return false;
             }
 
@@ -574,6 +458,11 @@
 
             // عرض رسالة تحميل
             confirmButton.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> جاري التحميل...');
+
+            return true; // السماح بإرسال الفورم
         });
+
+        // تحقق أولي عند تحميل الصفحة
+        updateSubmitButton();
     });
 </script>
