@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentManagementSystem.Models
 {
-    public class Student_Evidence
+    public class Student_Tasks
     {
         [Key]
         public int Id { get; set; }
         //public string Title { get; set; }
         public bool IsActive { get; set; }
-        public int Evidence_Id { get; set; }
+        public int Task_Id { get; set; }
         public string Image_Path { get; set; }
         public int Try_Id { get; set; }
         public int CreatedBy_Id { get; set; }
@@ -23,8 +23,8 @@ namespace StudentManagementSystem.Models
         [ForeignKey("CreatedBy_Id")]
         public virtual Employees CreatedBy { get; set; }
 
-        [ForeignKey("Evidence_Id")]
-        public virtual Evidence Evidence { get; set; }
+        [ForeignKey("Task_Id")]
+        public virtual Tasks Tasks { get; set; }
 
         [ForeignKey("Try_Id")]
         public virtual Try Try { get; set; }
