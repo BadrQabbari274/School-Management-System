@@ -58,25 +58,20 @@
                                     <input asp-for="Name" class="form-control form-control-modern" placeholder="أدخل اسم الدليل" />
                                     <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
-                            </div><div class="row">
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-6">
-                                    <div class="detail-group mb-4">
-                                        <label class="form-label">
-                                            <i class="fas fa-cogs me-2"></i> 
-                                            ناتج التعلم
+                                    <div class="mb-4">
+                                        <label asp-for="Outcome_Id" class="form-label">
+                                            <i class="fas fa-bullseye me-2"></i>
+                                            نتاج التعلم <span class="text-danger">*</span>
                                         </label>
-                                        <div class="detail-value">
-                                            @if (Model.Learning_Outcome != null)
-                                            {
-                                                <div class="learning-outcome-badge">
-                                                    <span>@Model.Learning_Outcome.Name</span>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-muted">غير محدد</span>
-                                            }
-                                        </div>
+                                        <select asp-for="Outcome_Id" class="form-select form-control-modern" id="outcomeSelect">
+                                            <option value="">-- اختر نتاج التعلم --</option>
+                                            @* سيتم تحميل نتائج التعلم من خلال JavaScript *@
+                                        </select>
+                                        <span asp-validation-for="Outcome_Id" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -494,15 +489,6 @@
         .alert-danger {
             background: linear-gradient(135deg, #f8d7da, #f5c6cb);
             color: #721c24;
-        }
-
-        .learning-outcome-badge {
-            background-color: #ff8c00; /* A shade of orange */
-            color: white;
-            border-radius: 50px; /* Highly rounded corners */
-            padding: 8px 16px;
-            font-weight: bold;
-            display: inline-block; /* To allow padding and width */
         }
 
         /* HR */

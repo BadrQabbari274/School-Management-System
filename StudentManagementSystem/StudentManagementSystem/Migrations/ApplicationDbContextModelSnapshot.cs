@@ -161,9 +161,6 @@ namespace StudentManagementSystem.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("GradeId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -652,10 +649,6 @@ namespace StudentManagementSystem.Migrations
 
                     b.Property<int>("Student_Id")
                         .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Try_Id")
                         .HasColumnType("int");

@@ -1,6 +1,5 @@
 ﻿@* Views/Field/Details.cshtml *@
 @model StudentManagementSystem.Models.Department
-
 @{
     ViewData["Title"] = "تفاصيل القسم";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,7 +14,6 @@
                         <i class="fas fa-info-circle me-2"></i>تفاصيل القسم
                     </h3>
                 </div>
-
                 <div class="card-body p-5">
                     <div class="row">
                         <div class="col-md-6">
@@ -27,22 +25,6 @@
                                 <dl class="row">
                                     <dt class="col-sm-4 text-primary fw-bold">اسم القسم:</dt>
                                     <dd class="col-sm-8 fs-5">@Model.Name</dd>
-
-                                    <dt class="col-sm-4 text-primary fw-bold">الحالة:</dt>
-                                    <dd class="col-sm-8">
-                                        @if (Model.IsActive)
-                                        {
-                                            <span class="badge bg-success fs-6 px-3 py-2">
-                                                <i class="fas fa-check-circle me-1"></i>نشط
-                                            </span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-secondary fs-6 px-3 py-2">
-                                                <i class="fas fa-times-circle me-1"></i>غير نشط
-                                            </span>
-                                        }
-                                    </dd>
 
                                     <dt class="col-sm-4 text-primary fw-bold">تاريخ الإنشاء:</dt>
                                     <dd class="col-sm-8 fs-5">@Model.CreatedDate.ToString("yyyy-MM-dd HH:mm")</dd>

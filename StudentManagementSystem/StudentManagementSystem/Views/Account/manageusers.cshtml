@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "≈œ«—… «·„” Œœ„Ì‰";
-    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -23,23 +22,22 @@
             padding: 0;
         }
 
-        /* «·ÂÌœ— - «·Ã“¡ «·⁄·ÊÌ */
+        /* Header Section */
         .header-section {
-            background: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            border-radius: 0 0 20px 20px;
+            background: linear-gradient(135deg, #fff, #fff); /* Warm gradient */
+            color: #ff6b35;
+            text-align: center;
             padding: 25px 0;
             margin-bottom: 30px;
-            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            border-radius: 0 0 20px 20px; /* Rounded bottom corners */
         }
 
-        /* ⁄‰Ê«‰ «·ÂÌœ— */
         .header-title {
-            font-size: 32px;
+            font-size: 32px; /* Larger title */
             font-weight: bold;
             margin: 0;
             letter-spacing: 1px;
-            color: #fd7e14;
         }
 
         /* Container for content */
@@ -49,83 +47,58 @@
             padding: 20px;
         }
 
-        /* Control Buttons and Filter */
+        /* Control Buttons (Add New) */
         .controls {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
+            justify-content: flex-end;
+            margin-bottom: 25px; /* More space */
         }
-
-        .filter-section {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .filter-select {
-            padding: 8px 15px;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 14px;
-            background: white;
-            color: #495057;
-            min-width: 150px;
-        }
-
-            .filter-select:focus {
-                outline: none;
-                border-color: #fd7e14;
-                box-shadow: 0 0 0 3px rgba(253, 126, 20, 0.1);
-            }
 
         /* General Button Styles */
         .btn {
-            padding: 10px 20px;
+            padding: 10px 20px; /* More padding */
             border: none;
-            border-radius: 20px; /* Smoother, more rounded edges */
+            border-radius: 8px; /* More rounded */
             cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 15px; /* Slightly larger font */
+            font-weight: 600; /* Bolder text */
             text-decoration: none;
-            display: inline-flex;
+            display: inline-flex; /* Align icon and text */
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-            color: white;
+            transition: all 0.3s ease; /* Smooth transitions */
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            color: white; /* Default text color for gradient buttons */
         }
 
             .btn i {
-                margin-left: 8px;
+                margin-left: 8px; /* Space between icon and text */
             }
 
         /* Specific Button Styles with Gradients and Hover Effects */
         .btn-add {
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(135deg, #28a745, #20c997); /* Green gradient */
         }
 
             .btn-add:hover {
-                background: linear-gradient(135deg, #218838, #1e7e34);
-                transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+                background: linear-gradient(135deg, #218838, #1e7e34); /* Darker green on hover */
+                transform: translateY(-2px); /* Lift effect */
+                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3); /* Stronger shadow on hover */
             }
 
         .btn-info {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+            background: linear-gradient(135deg, #17a2b8, #138496); /* Blue gradient */
         }
 
             .btn-info:hover {
-                background: linear-gradient(135deg, #0056b3, #003d80);
+                background: linear-gradient(135deg, #117a8b, #0e6e7e);
                 transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+                box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
             }
 
         .btn-warning {
-            background: linear-gradient(135deg, #ffc107, #e0a800);
-            color: #333;
+            background: linear-gradient(135deg, #ffc107, #e0a800); /* Yellow gradient */
+            color: #333; /* Darker text for contrast */
         }
 
             .btn-warning:hover {
@@ -134,33 +107,20 @@
                 box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
             }
 
-        .btn-success {
-            background: linear-gradient(135deg, #28a745, #20c997);
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333); /* Red gradient */
         }
 
-            .btn-success:hover {
-                background: linear-gradient(135deg, #20c997, #17a2b8);
+            .btn-danger:hover {
+                background: linear-gradient(135deg, #c82333, #bd2130);
                 transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+                box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
             }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #dc3545, #c82333); /* ·Ê‰ Œ·›Ì… «·“— */
-            color: white; /* ·Ê‰ «·‰’ */
-        }
-
-        .btn-secondary:hover {
-                background: linear-gradient(135deg, #c82333, #bd2130); /* ·Ê‰ «·Œ·›Ì… ⁄‰œ «· „—Ì— */
-                transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3); /*  √ÀÌ— «·Ÿ· ⁄‰œ «· „—Ì— */
-            }
-
 
         .btn-sm {
-            padding: 6px 12px;
+            padding: 6px 12px; /* Adjusted for small buttons */
             font-size: 13px;
             margin-left: 5px;
-            border-radius: 20px; /* Ensure small buttons are also smooth */
         }
 
         /* Alert Messages */
@@ -187,12 +147,12 @@
         }
 
         /* Table Styles */
-        .users-table {
+        .courses-table {
             width: 100%;
             background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            border-radius: 12px; /* More rounded table */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Stronger table shadow */
+            overflow: hidden; /* Ensures rounded corners apply to content */
         }
 
         .table {
@@ -203,13 +163,13 @@
 
             .table th,
             .table td {
-                padding: 18px;
+                padding: 18px; /* More padding in cells */
                 text-align: center;
                 border-bottom: 1px solid #eee;
             }
 
             .table th {
-                background-color: #f0f2f5;
+                background-color: #f0f2f5; /* Lighter header background */
                 font-weight: bold;
                 color: #555;
                 border-bottom: 2px solid #dee2e6;
@@ -217,19 +177,19 @@
             }
 
             .table tbody tr:hover {
-                background-color: #e9ecef;
+                background-color: #e9ecef; /* Lighter hover effect */
             }
 
         .btn-group {
             display: flex;
-            gap: 8px;
+            gap: 8px; /* More space between action buttons */
             justify-content: center;
         }
 
         .no-data {
             text-align: center;
             padding: 40px;
-            color: #888;
+            color: #888; /* Softer color */
             font-style: italic;
             font-size: 18px;
         }
@@ -254,7 +214,7 @@
             color: #dc3545;
         }
 
-        /* Custom Modal Styles */
+        /* Custom Modal Styles (for Delete Confirmation) */
         .custom-modal .modal-content {
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -262,7 +222,7 @@
         }
 
         .custom-modal .modal-header {
-            background: linear-gradient(135deg, #fd7e14, #e8590c);
+            background: linear-gradient(135deg, #dc3545, #c82333);
             color: white;
             border-radius: 15px 15px 0 0;
             padding: 20px;
@@ -275,7 +235,7 @@
         }
 
         .custom-modal .btn-close {
-            filter: invert(1) brightness(2);
+            filter: invert(1) brightness(2); /* Make close button white */
         }
 
         .custom-modal .modal-body {
@@ -292,45 +252,34 @@
             gap: 15px;
         }
 
-        /* Rounded Button Classes */
-        .btn-rounded-right {
-            border-radius: 0 20px 20px 0 !important;
-        }
-
-        .btn-rounded-left {
-            border-radius: 20px 0 0 20px !important;
-        }
-
         /* Responsive Design */
         @@media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
+            .container
 
-            .header-title {
-                font-size: 24px;
-            }
+        {
+            padding: 10px;
+        }
 
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
+        .header-title {
+            font-size: 24px;
+        }
 
-            .table th,
-            .table td {
-                padding: 10px;
-                font-size: 12px;
-            }
+        .table th,
+        .table td {
+            padding: 10px;
+            font-size: 12px;
+        }
 
-            .btn-group {
-                flex-direction: column;
-                gap: 5px;
-            }
+        .btn-group {
+            flex-direction: column;
+            gap: 5px;
+        }
 
-            .btn {
-                padding: 8px 15px;
-                font-size: 13px;
-            }
+        .btn {
+            padding: 8px 15px;
+            font-size: 13px;
+        }
+
         }
     </style>
 </head>
@@ -342,10 +291,8 @@
     </div>
 
     <div class="container">
+
         <div class="controls">
-            <div class="filter-section">
-                <label for="statusFilter">«·„” Œœ„Ì‰ «·‰‘ÿÌ‰ ›ﬁÿ:</label>
-            </div>
             <a href="@Url.Action("Register", "Account")" class="btn btn-add">
                 <i class="fas fa-plus-circle"></i> ≈÷«›… „” Œœ„ ÃœÌœ
             </a>
@@ -365,7 +312,8 @@
                 @TempData["Error"]
             </div>
         }
-        <div class="users-table">
+
+        <div class="courses-table">
             <table class="table">
                 <thead>
                     <tr>
@@ -375,16 +323,16 @@
                         <th> «—ÌŒ «·≈‰‘«¡</th>
                         <th>«·Õ«·…</th>
                         <th> „ «·≈‰‘«¡ »Ê«”ÿ…</th>
-                        <th>«Œ—  ⁄œÌ·</th>
+                        <th>¬Œ—  ⁄œÌ·</th>
                         <th>«·⁄„·Ì« </th>
                     </tr>
                 </thead>
-                <tbody id="usersTableBody">
+                <tbody>
                     @if (Model != null && Model.Any(u => u.IsActive))
                     {
                         @foreach (var user in Model.Where(u => u.IsActive))
                         {
-                            <tr data-status="active">
+                            <tr>
                                 <td>@user.Name</td>
                                 <td>@user.Username</td>
                                 <td>@user.RoleName</td>
@@ -399,18 +347,16 @@
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="@Url.Action("UserProfile", "Account", new { id = user.Id })"
-                                           class="btn btn-info btn-sm btn-rounded-right" title="⁄—÷ «·„·› «·‘Œ’Ì">
-                                            <i class="fas fa-user"></i>
+                                           class="btn btn-info btn-sm" title="⁄—÷ «·„·› «·‘Œ’Ì">
+                                            <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="@Url.Action("EditUser", "Account", new { id = user.Id })"
                                            class="btn btn-warning btn-sm" title=" ⁄œÌ·">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button"
-                                                class="btn btn-secondary btn-sm btn-rounded-left"
-                                                title="Õ–› «·„” Œœ„"
+                                        <button type="button" class="btn btn-danger btn-sm" title=" ⁄ÿÌ· «·„” Œœ„"
                                                 onclick="showToggleConfirmation(@user.Id, '@user.Name', true)">
-                                            <i class="fas fa-user-slash"></i>
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </div>
                                 </td>
@@ -419,8 +365,8 @@
                     }
                     else
                     {
-                        <tr id="noDataRow">
-                            <td colspan="7" class="no-data">·« ÌÊÃœ „” Œœ„Ê‰ ‰‘ÿÊ‰ ·⁄—÷Â„</td>
+                        <tr>
+                            <td colspan="8" class="no-data">·« ÌÊÃœ „” Œœ„Ê‰ ‰‘ÿÊ‰ ·⁄—÷Â„</td>
                         </tr>
                     }
                 </tbody>
@@ -438,11 +384,11 @@
                 </div>
                 <div class="modal-body">
                     <p id="toggleMessage"></p>
-                    <p class="text-warning">”Ì „  €ÌÌ— Õ«·… «·„” Œœ„ ›Ê—«.</p>
+                    <p class="text-danger">·« Ì„ﬂ‰ «· —«Ã⁄ ⁄‰ Â–« «·≈Ã—«¡.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">≈·€«¡</button>
-                    <button type="button" class="btn btn-warning" id="confirmToggleBtn"> √ﬂÌœ</button>
+                    <button type="button" class="btn btn-danger" id="confirmToggleBtn"> √ﬂÌœ</button>
                 </div>
             </div>
         </div>
@@ -458,40 +404,6 @@
     <script>
         // Global variable to store the ID of the user to toggle
         let userIdToToggle = 0;
-
-        // Filter functionality
-        document.getElementById('statusFilter').addEventListener('change', function() {
-            const filterValue = this.value;
-            const rows = document.querySelectorAll('#usersTableBody tr[data-status]');
-            const noDataRow = document.getElementById('noDataRow');
-            let visibleCount = 0;
-
-            rows.forEach(row => {
-                const status = row.getAttribute('data-status');
-
-                if (filterValue === 'all' || filterValue === status) {
-                    row.style.display = '';
-                    visibleCount++;
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-
-            // Show/hide no data message
-            if (noDataRow) {
-                if (visibleCount === 0 && rows.length > 0) {
-                    noDataRow.style.display = '';
-                    noDataRow.querySelector('td').textContent = '·« ÌÊÃœ „” Œœ„Ê‰ Ìÿ«»ﬁÊ‰ «·›· — «·„Õœœ';
-                } else {
-                    noDataRow.style.display = 'none';
-                }
-            }
-        });
-
-        // Initialize filter to show active users only
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('statusFilter').dispatchEvent(new Event('change'));
-        });
 
         function showToggleConfirmation(id, name, isActive) {
             userIdToToggle = id;

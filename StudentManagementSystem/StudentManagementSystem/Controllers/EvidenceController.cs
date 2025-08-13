@@ -52,15 +52,16 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Evidence/Create
-        public IActionResult Create()
+        public IActionResult Create(int Outcome_id)
         {
             var evidence = new Evidence();
+            evidence.Outcome_Id = Outcome_id;
             return View(evidence);
         }
 
         // POST: Evidence/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] 
         public async Task<IActionResult> Create(Evidence evidence)
         {
             try

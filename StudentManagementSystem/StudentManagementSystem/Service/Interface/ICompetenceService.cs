@@ -5,6 +5,11 @@ namespace StudentManagementSystem.Services.Interfaces
 {
     public interface ICompetenciesService
     {
+        Task<Competencies_Outcame_Evidence> GetCompetencies_Outcame_Evidence(int ClassId);
+        Task<List<Evidence>> GetEvidencesByOutcomeId(int outcomeId);
+        Task<List<Try>> GetAllTriesAsync();
+        Task<List<StudentEvidenceViewModel>> GetStudentToEvidences(CompetenciesSelectionViewModel model);
+        Task<List<Learning_Outcome>> GetLearningOutcomesByCompetencyId(int competencyId);
         Task<CompetenciesIndexViewModel> GetAllCompetenciesAsync(int pageNumber = 1, int pageSize = 10,
             string searchTerm = null, int? sectionFilter = null, bool? isActiveFilter = null);
 

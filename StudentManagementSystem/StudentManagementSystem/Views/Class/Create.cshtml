@@ -41,14 +41,24 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-4 text-center custom-validation-summary"></div>
 
                         <div class="mb-4">
+                            <label asp-for="GradeId" class="form-label fw-bold text-primary-orange">
+                                <i class="fas fa-building me-2"></i>السنة الدراسية <span class="required">*</span>
+                            </label>
+                            <select asp-for="GradeId" class="form-control form-control-lg" asp-items="ViewBag.GradeId">
+                                <option value="">-- اختر السنة الدراسية أولاً --</option>
+                            </select>
+                            <span asp-validation-for="GradeId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
                             <label asp-for="Name" class="form-label fw-bold text-primary-orange">
                                 <i class="fas fa-chalkboard me-2"></i>اسم الفصل <span class="required">*</span>
                             </label>
-                            <input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم الفصل" required />
+                            <input asp-for="Name" class="form-control form-control-lg" placeholder="أدخل اسم الفصل" required disabled />
                             <span asp-validation-for="Name" class="text-danger"></span>
                             <div id="classNameError" class="text-danger mt-1" style="display:none;">
                                 <i class="fas fa-exclamation-circle me-1"></i>
-                                لا يمكن أن يبدأ اسم الفصل بأرقام.
+                                الرجاء إدخال اسم فصل صحيح (مثال: J1 أو S2).
                             </div>
                             <small id="charCounter" class="form-text text-muted"></small>
                         </div>
@@ -59,16 +69,6 @@
                             </label>
                             <input asp-for="MaxStudents" type="number" class="form-control form-control-lg" placeholder="ادخل السعة القصوى" required />
                             <span asp-validation-for="MaxStudents" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-4">
-                            <label asp-for="GradeId" class="form-label fw-bold text-primary">
-                                <i class="fas fa-building me-2"></i>السنه الدراسيه
-                            </label>
-                            <select asp-for="GradeId" class="form-control form-control-lg" asp-items="ViewBag.GradeId">
-                                <option value="">-- اختر السنه الدراسيه --</option>
-                            </select>
-                            <span asp-validation-for="GradeId" class="text-danger"></span>
                         </div>
 
                         <div class="row">
@@ -94,8 +94,8 @@
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #f8f9fa;
-        direction: rtl; /* Ensure RTL direction for the whole page */
-        text-align: right; /* Align text to the right by default */
+        direction: rtl;
+        text-align: right;
     }
 
     .card {
@@ -103,9 +103,8 @@
         overflow: hidden;
     }
 
-    /* Custom orange gradient for header and primary buttons */
     .bg-primary-orange {
-        background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%); /* Adjusted to a more vibrant orange */
+        background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%);
         border: none;
     }
 
@@ -118,16 +117,16 @@
         border: 2px solid #e9ecef;
         padding: 12px 15px;
         transition: all 0.3s ease;
-        text-align: right; /* Ensure text input is aligned right within the field */
+        text-align: right;
     }
 
         .form-control::placeholder {
-            text-align: right; /* Align placeholder text to the right */
+            text-align: right;
         }
 
         .form-control:focus, .form-select:focus {
-            border-color: #FF8C00; /* Orange focus color */
-            box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25); /* Orange shadow on focus */
+            border-color: #FF8C00;
+            box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25);
         }
 
     .btn-primary-orange {
@@ -141,26 +140,26 @@
         .btn-primary-orange:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
-            background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%); /* Slight change on hover */
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
         }
 
     .btn-outline-secondary-orange {
         border-radius: 10px;
         padding: 12px 24px;
         transition: all 0.3s ease;
-        border-color: #FF8C00; /* Orange border for outline button */
-        color: #FF8C00; /* Orange text for outline button */
+        border-color: #FF8C00;
+        color: #FF8C00;
     }
 
         .btn-outline-secondary-orange:hover {
             transform: translateY(-2px);
-            background-color: #FF8C00; /* Orange background on hover */
-            color: white; /* White text on hover */
+            background-color: #FF8C00;
+            color: white;
             box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2);
         }
 
     .text-primary-orange {
-        color: #FF8C00 !important; /* Orange text for labels */
+        color: #FF8C00 !important;
     }
 
     .form-label {
@@ -169,18 +168,17 @@
     }
 
     .required {
-        color: #dc3545; /* Red color for required asterisk */
+        color: #dc3545;
     }
 
     .alert {
         border-radius: 8px;
     }
 
-    /* Custom styling for validation summary to match design */
     .custom-validation-summary {
-        background-color: #fff3cd; /* Light yellow background */
-        border: 1px solid #ffeeba; /* Yellow border */
-        color: #856404; /* Dark yellow text */
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        color: #856404;
         padding: 15px;
         border-radius: 8px;
     }
@@ -202,77 +200,97 @@
             const gradeInput = $('#GradeId');
             const submitBtn = $('#submitBtn');
 
-            // Function to validate that the name doesn't start with numbers
-            function validateName(value) {
-                const trimmedValue = value.trim();
-                // Check if the value is empty or starts with digits
-                return trimmedValue !== '' && !/^\d/.test(trimmedValue);
+            let currentInitialChar = '';
+
+            function setInitialChar() {
+                const selectedText = gradeInput.find('option:selected').text();
+                currentInitialChar = selectedText.trim().charAt(0).toUpperCase();
             }
 
-            // Function to update the validation state of the input field and error message
+            function validateClassName(value) {
+                if (!currentInitialChar) {
+                    return false;
+                }
+                const trimmedValue = value.trim();
+
+                if (!trimmedValue.startsWith(currentInitialChar)) {
+                    return false;
+                }
+                const numbersPart = trimmedValue.substring(1);
+                // Allow empty numbers part for initial state (e.g., just 'J')
+                return numbersPart === '' || /^\d+$/.test(numbersPart);
+            }
+
             function updateValidationState() {
-                const isValid = validateName(nameInput.val());
-                if (isValid) {
-                    nameError.hide();
+                const nameValue = nameInput.val().trim();
+                const gradeId = gradeInput.val();
+
+                if (!gradeId || nameValue.length === 0) {
+                    // Don't show error if no grade is selected or input is empty
                     nameInput.removeClass('is-invalid');
-                } else {
-                    nameError.show();
+                    nameError.hide();
+                    return;
+                }
+
+                // Show error if the value is not valid according to our rules
+                if (!validateClassName(nameValue)) {
                     nameInput.addClass('is-invalid');
+                    nameError.show();
+                } else {
+                    nameInput.removeClass('is-invalid');
+                    nameError.hide();
                 }
             }
 
-            // Event listener for input: validates in real-time
-            nameInput.on('input', function() {
-                updateValidationState();
+            gradeInput.on('change', function () {
+                setInitialChar();
+                const selectedValue = $(this).val();
 
-                // عداد الأحرف المتبقية
+                if (selectedValue) {
+                    nameInput.prop('disabled', false);
+                    nameInput.val(currentInitialChar);
+                    nameInput.prop('placeholder', 'أدخل رقم الفصل (مثال: ' + currentInitialChar + '1)');
+                    nameInput.removeClass('is-invalid');
+                    nameError.hide();
+                    nameInput.focus();
+                } else {
+                    nameInput.prop('disabled', true);
+                    nameInput.val('');
+                    nameInput.prop('placeholder', 'أدخل اسم الفصل');
+                    nameInput.removeClass('is-invalid');
+                    nameError.hide();
+                }
+            });
+
+            nameInput.on('input', function () {
+                let currentValue = $(this).val();
+
+                if (!currentValue.startsWith(currentInitialChar)) {
+                    currentValue = currentInitialChar;
+                }
+
+                const numbersOnly = currentValue.substring(1).replace(/[^0-9]/g, '');
+                $(this).val(currentInitialChar + numbersOnly);
+
                 const maxLength = 100;
                 const currentLength = $(this).val().length;
                 const remaining = maxLength - currentLength;
-
                 $('#charCounter').text('عدد الأحرف المتبقية: ' + remaining);
-
                 if (remaining < 10) {
                     $('#charCounter').removeClass('text-muted').addClass('text-warning');
                 } else {
                     $('#charCounter').removeClass('text-warning').addClass('text-muted');
                 }
+
+                updateValidationState();
             });
 
-            // Event listener for paste: validates after the paste action
-            nameInput.on('paste', function(e) {
-                // Wait for the paste event to complete before validating
-                setTimeout(updateValidationState, 0);
-            });
-
-            // Form submission with enhanced validation
             $('#createClassForm').on('submit', function (e) {
                 const className = nameInput.val();
                 const maxStudents = maxStudentsInput.val();
                 const gradeId = gradeInput.val();
-
-                // Final validation checks
                 let isFormValid = true;
 
-                // Validate class name
-                if (!validateName(className)) {
-                    isFormValid = false;
-                    nameInput.addClass('is-invalid');
-                    nameError.show();
-                } else {
-                    nameInput.removeClass('is-invalid');
-                    nameError.hide();
-                }
-
-                // Validate max students
-                if (!maxStudents || isNaN(maxStudents) || parseInt(maxStudents) <= 0) {
-                    isFormValid = false;
-                    maxStudentsInput.addClass('is-invalid');
-                } else {
-                    maxStudentsInput.removeClass('is-invalid');
-                }
-
-                // Validate grade selection
                 if (!gradeId) {
                     isFormValid = false;
                     gradeInput.addClass('is-invalid');
@@ -280,47 +298,57 @@
                     gradeInput.removeClass('is-invalid');
                 }
 
+                if (!className || !validateClassName(className) || className.length <= 1) {
+                    isFormValid = false;
+                    nameInput.addClass('is-invalid');
+                    nameError.show();
+                } else {
+                    nameInput.removeClass('is-invalid');
+                    nameError.hide();
+                }
+
+                if (!maxStudents || isNaN(maxStudents) || parseInt(maxStudents) <= 0) {
+                    isFormValid = false;
+                    maxStudentsInput.addClass('is-invalid');
+                } else {
+                    maxStudentsInput.removeClass('is-invalid');
+                }
+
                 if (!isFormValid) {
                     e.preventDefault();
-                    if (!validateName(className)) {
-                        alert('الرجاء إدخال اسم فصل صحيح. لا يمكن أن يبدأ اسم الفصل بأرقام.');
+                    if (!gradeId) {
+                        alert('يرجى اختيار السنة الدراسية أولاً.');
+                        gradeInput.focus();
+                    } else if (!className || className.length <= 1 || !validateClassName(className)) {
+                        alert('الرجاء إدخال اسم فصل صحيح. يجب أن يبدأ بحرف السنة الدراسية متبوعاً بأرقام.');
                         nameInput.focus();
                     } else if (!maxStudents || isNaN(maxStudents) || parseInt(maxStudents) <= 0) {
                         alert('السعة القصوى مطلوبة ويجب أن تكون رقمًا موجبًا.');
                         maxStudentsInput.focus();
-                    } else if (!gradeId) {
-                        alert('يرجى اختيار السنة الدراسية.');
-                        gradeInput.focus();
                     }
                     return false;
                 }
 
-                // Confirmation dialog for submission
                 if (!confirm('هل أنت متأكد من إنشاء هذا الفصل؟')) {
                     e.preventDefault();
                     return false;
                 }
 
-                // Show loading state
                 submitBtn.prop('disabled', true);
                 submitBtn.html('<i class="fas fa-spinner fa-spin me-2"></i>جاري الإنشاء...');
             });
 
-            // Remove validation classes on input change
-            nameInput.on('keydown', function() {
+            nameInput.on('keydown', function () {
+                $(this).removeClass('is-invalid');
+            });
+            maxStudentsInput.on('input', function () {
+                $(this).removeClass('is-invalid');
+            });
+            gradeInput.on('change', function () {
                 $(this).removeClass('is-invalid');
             });
 
-            maxStudentsInput.on('input', function() {
-                $(this).removeClass('is-invalid');
-            });
-
-            gradeInput.on('change', function() {
-                $(this).removeClass('is-invalid');
-            });
-
-            // Auto-focus on name input
-            nameInput.focus();
+            gradeInput.focus();
         });
     </script>
 }
