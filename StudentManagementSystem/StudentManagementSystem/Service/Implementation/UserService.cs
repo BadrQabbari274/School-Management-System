@@ -80,10 +80,109 @@ namespace StudentManagementSystem.Service.Implementation
 
         public async Task<Employees> GetUserByNameAsync(string name)
         {
-            return await _context.Employees.Include(e =>e.LastEditBy)
+            return await _context.Employees.Include(e => e.LastEditBy)
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.Username == name);
         }
-    }
 
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<EmployeeTypes>> GetAllEmployeeTypesAsync()
+        {
+            return await _context.EmployeeTypes
+                .Where(et => !et.IsDeleted)
+                .OrderBy(et => et.Name)
+                .ToListAsync();
+        }
+
+        public async Task<EmployeeTypes> GetEmployeeTypeByIdAsync(int id)
+        {
+            return await _context.EmployeeTypes
+                .Include(et => et.Employees)
+                .FirstOrDefaultAsync(et => et.Id == id && !et.IsDeleted);
+        }
+
+        public async Task<EmployeeTypes> CreateEmployeeTypeAsync(EmployeeTypes employeeType)
+        {
+            var existingEmployeeType = await _context.EmployeeTypes
+                .FirstOrDefaultAsync(et => et.Name == employeeType.Name && !et.IsDeleted);
+
+            if (existingEmployeeType != null)
+            {
+                throw new InvalidOperationException("لا يمكن إنشاء نوع موظف بنفس الاسم لأنه موجود بالفعل.");
+            }
+
+            employeeType.CreatedDate = DateTime.Now;
+            employeeType.IsDeleted = false;
+
+            _context.EmployeeTypes.Add(employeeType);
+            await _context.SaveChangesAsync();
+
+            return employeeType;
+        }
+
+        public async Task<EmployeeTypes> UpdateEmployeeTypeAsync(EmployeeTypes employeeType)
+        {
+            var existingEmployeeType = await _context.EmployeeTypes
+                .FirstOrDefaultAsync(et => et.Id == employeeType.Id && !et.IsDeleted);
+
+            if (existingEmployeeType != null)
+            {
+                var duplicateName = await _context.EmployeeTypes
+                    .AnyAsync(et => et.Name == employeeType.Name && et.Id != employeeType.Id && !et.IsDeleted);
+
+                if (duplicateName)
+                {
+                    throw new InvalidOperationException("لا يمكن تحديث نوع الموظف، يوجد نوع آخر بنفس الاسم بالفعل.");
+                }
+
+                existingEmployeeType.Name = employeeType.Name;
+
+
+                await _context.SaveChangesAsync();
+                return existingEmployeeType;
+            }
+
+            return null;
+        }
+
+        public async Task<bool> DeleteEmployeeTypeAsync(int id)
+        {
+            var employeeType = await _context.EmployeeTypes
+                .FirstOrDefaultAsync(et => et.Id == id && !et.IsDeleted);
+
+            if (employeeType != null)
+            {
+                var hasEmployees = await _context.Employees
+                    .AnyAsync(e => e.RoleId == id && e.IsActive);
+
+                if (hasEmployees)
+                {
+                    return false; 
+                }
+
+                employeeType.IsDeleted = true;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<IEnumerable<EmployeeTypes>> GetActiveEmployeeTypesAsync()
+        {
+            return await _context.EmployeeTypes
+                .Include(et => et.Employees)
+                .Where(et => !et.IsDeleted)
+                .OrderBy(et => et.Name)
+                .ToListAsync();
+        }
+
+        public async Task<bool> EmployeeTypeExistsAsync(int id)
+        {
+            return await _context.EmployeeTypes
+                .AnyAsync(et => et.Id == id && !et.IsDeleted);
+        }
+    }
 }
