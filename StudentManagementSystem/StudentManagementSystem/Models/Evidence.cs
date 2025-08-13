@@ -14,14 +14,20 @@ namespace StudentManagementSystem.Models
         public int CreatedBy_Id { get; set; }
         public int Number { get; set; }
         public DateTime CreatedDate { get; set; }
+        public int? Task_Id { get; set; }
 
         // Navigation properties
         [ForeignKey("CreatedBy_Id")]
         public virtual Employees CreatedBy { get; set; }
+        // Navigation properties
+        [ForeignKey("Task_Id")]
+        public virtual Tasks? Tasks { get; set; }
 
         [ForeignKey("Outcome_Id")]
         public virtual Learning_Outcome Learning_Outcome { get; set; }
 
-        public virtual ICollection<Student_Evidence> Student_Evidences { get; set; }
+        public virtual ICollection<Student_Tasks> Student_Evidences { get; set; }
     }
+
 }
+

@@ -14,29 +14,6 @@
         </ol>
     </nav>
 
-    <!-- User Status Card -->
-    <div class="user-status-card mb-4">
-        <div class="card border-info">
-            <div class="card-body text-center">
-                <h6 class="card-title">
-                    <i class="fas fa-user-circle me-2"></i>
-                    الملف الشخصي للمستخدم
-                </h6>
-                <div class="user-status-info">
-                    @if (Model.IsActive)
-                    {
-                        <span class="badge bg-success me-2">نشط</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-danger me-2">غير نشط</span>
-                    }
-                    <span class="badge bg-primary me-2">الدور: @Model.RoleName</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="page-title">
@@ -65,18 +42,6 @@
                         <div class="user-avatar-placeholder">
                             <i class="fas fa-user-circle fa-5x text-primary"></i>
                         </div>
-                    </div>
-
-                    <!-- User Status -->
-                    <div class="user-status mb-3">
-                        @if (Model.IsActive)
-                        {
-                            <span class="badge bg-success fs-6">نشط</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-danger fs-6">غير نشط</span>
-                        }
                     </div>
 
                     <!-- Quick Actions -->
@@ -132,19 +97,6 @@
                             <label class="form-label fw-bold">الدور:</label>
                             <p class="form-control-plaintext">
                                 <span class="badge bg-info fs-6">@Model.RoleName</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">الحالة:</label>
-                            <p class="form-control-plaintext">
-                                @if (Model.IsActive)
-                                {
-                                    <span class="badge bg-success">نشط</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-danger">غير نشط</span>
-                                }
                             </p>
                         </div>
                     </div>
@@ -296,11 +248,16 @@
         font-size: 1.1em;
     }
 
+    .btn,
+    .btn-group .btn,
+    .btn-outline-blue {
+        border-radius: 0.75rem !important;
+    }
+
     .btn-outline-blue {
         background: #fff;
         color: #007bff;
         border: 2px solid #007bff;
-        border-radius: 8px;
         font-weight: 600;
         padding: 8px 20px;
         transition: all 0.3s ease;
