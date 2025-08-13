@@ -88,7 +88,7 @@ namespace StudentManagementSystem.Services
             if (tryItem == null)
                 return null;
 
-            var studentEvidencesCount = await _context.Student_Evidence
+            var studentEvidencesCount = await _context.Student_Tasks
                 .Where(se => se.Try_Id == id)
                 .CountAsync();
 
@@ -141,7 +141,7 @@ namespace StudentManagementSystem.Services
                 return false;
 
             // Check if there are any student evidences associated
-            var hasStudentEvidences = await _context.Student_Evidence
+            var hasStudentEvidences = await _context.Student_Tasks
                 .AnyAsync(se => se.Try_Id == id);
 
             if (hasStudentEvidences)
@@ -198,7 +198,7 @@ namespace StudentManagementSystem.Services
 
         public async Task<int> GetStudentEvidencesCountAsync(int tryId)
         {
-            return await _context.Student_Evidence
+            return await _context.Student_Tasks
                 .Where(se => se.Try_Id == tryId)
                 .CountAsync();
         }
