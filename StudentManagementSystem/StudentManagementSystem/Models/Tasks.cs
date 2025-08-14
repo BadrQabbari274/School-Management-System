@@ -10,6 +10,7 @@ namespace StudentManagementSystem.Models
         public string? Name { get; set; }
         public int CreatedBy_Id { get; set; }
         public int Competencies_Id { get; set; }
+
         public DateTime CreatedDate { get; set; }
         [ForeignKey("CreatedBy_Id")]
         public virtual Employees CreatedBy { get; set; }
