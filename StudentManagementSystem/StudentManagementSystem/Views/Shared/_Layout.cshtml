@@ -699,6 +699,13 @@
                     </div>
 
                     <div class="nav-item">
+                        <a asp-controller="AbsenceReasons" asp-action="Index" class="nav-link-custom" data-page="absencereasons">
+                            <i class="fas fa-calendar-check"></i>
+                            <span class="nav-text">Absence Reasons</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-item">
                         <a asp-controller="Student" asp-action="Index" class="nav-link-custom" data-page="student">
                             <i class="fas fa-user-graduate"></i>
                             <span class="nav-text">Students</span>
@@ -871,7 +878,8 @@
                 'class': 'class',
                 'department': 'department',
                 'section': 'section',
-                'account': 'manageusers'
+                'account': 'manageusers',
+                'absencereasons': 'absencereasons'
             };
 
             const controller = segments[0].toLowerCase();

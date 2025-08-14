@@ -1,0 +1,573 @@
+﻿@model StudentManagementSystem.Models.AbsenceReasons
+
+@{
+    ViewData["Title"] = "تفاصيل سبب الغياب";
+    Layout = "_Layout";
+}
+
+<style>
+    /* General Body Styles */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        direction: rtl;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Header Section */
+    .header-section {
+        background: #fff;
+        color: #ff6b35;
+        text-align: center;
+        padding: 25px 0;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        border-radius: 0 0 20px 20px;
+    }
+
+    .header-title {
+        font-size: 32px;
+        font-weight: bold;
+        margin: 0;
+        letter-spacing: 1px;
+        color: #ff6b35;
+    }
+
+    /* Container */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Details Card */
+    .details-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        margin-bottom: 30px;
+    }
+
+    .details-title {
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: center;
+        border-bottom: 3px solid #17a2b8;
+        padding-bottom: 15px;
+    }
+
+    /* Details Content */
+    .details-content {
+        display: grid;
+        gap: 25px;
+    }
+
+    .detail-item {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 5px solid #17a2b8;
+        transition: all 0.3s ease;
+    }
+
+        .detail-item:hover {
+            background: #e9ecef;
+            transform: translateX(-5px);
+        }
+
+    .detail-label {
+        font-weight: bold;
+        color: #333;
+        font-size: 16px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+        .detail-label i {
+            margin-left: 10px;
+            color: #17a2b8;
+            width: 20px;
+            text-align: center;
+        }
+
+    .detail-value {
+        font-size: 18px;
+        color: #555;
+        padding: 10px 0;
+        min-height: 30px;
+        word-break: break-word;
+    }
+
+        .detail-value.primary {
+            font-size: 22px;
+            font-weight: 600;
+            color: #17a2b8;
+        }
+
+        .detail-value.date {
+            color: #6c757d;
+            font-family: 'Courier New', monospace;
+        }
+
+    /* Button Styles */
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        margin: 5px;
+    }
+
+        .btn i {
+            margin-left: 8px;
+        }
+
+    .btn-info {
+        background: linear-gradient(135deg, #17a2b8, #138496);
+        color: white;
+    }
+
+        .btn-info:hover {
+            background: linear-gradient(135deg, #117a8b, #0e6e7e);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #ffc107, #e0a800);
+        color: #333;
+    }
+
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #e0a800, #c69500);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+            color: #333;
+            text-decoration: none;
+        }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c82333, #bd2130);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+    /* Button Container */
+    .button-container {
+        text-align: center;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    /* Back Button */
+    .back-btn {
+        background: linear-gradient(135deg, #17a2b8, #138496);
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, #117a8b, #0e6e7e);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .back-btn i {
+            margin-left: 8px;
+        }
+
+    /* ID Badge */
+    .id-badge {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 18px;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 20px;
+        box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+    }
+
+        .id-badge i {
+            margin-left: 8px;
+        }
+
+    /* Stats Section */
+    .stats-section {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        border: 1px solid #dee2e6;
+    }
+
+    .stats-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+        .stats-title i {
+            margin-left: 10px;
+            color: #17a2b8;
+        }
+
+    .stats-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+
+    .stats-label {
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    .stats-value {
+        color: #333;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    /* Custom Modal Styles */
+    .custom-modal .modal-content {
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border: none;
+    }
+
+    .custom-modal .modal-header {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+        border-radius: 15px 15px 0 0;
+        padding: 20px;
+        border-bottom: none;
+    }
+
+    .custom-modal .modal-title {
+        font-weight: bold;
+        font-size: 24px;
+    }
+
+    .custom-modal .btn-close {
+        filter: invert(1) brightness(2);
+    }
+
+    .custom-modal .modal-body {
+        padding: 30px;
+        font-size: 18px;
+        color: #333;
+        text-align: center;
+    }
+
+    .custom-modal .modal-footer {
+        border-top: none;
+        padding: 20px;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .container
+
+    {
+        padding: 15px;
+    }
+
+    .details-card {
+        padding: 25px 20px;
+    }
+
+    .header-title {
+        font-size: 24px;
+    }
+
+    .details-title {
+        font-size: 20px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .detail-item {
+        padding: 15px;
+    }
+
+    .detail-value {
+        font-size: 16px;
+    }
+
+        .detail-value.primary {
+            font-size: 18px;
+        }
+
+    }
+</style>
+
+<!-- Header Section -->
+<div class="header-section">
+    <h1 class="header-title">تفاصيل سبب الغياب</h1>
+</div>
+
+<div class="container">
+    <!-- Back Button -->
+    <a href="@Url.Action("Index")" class="back-btn">
+        <i class="fas fa-arrow-right"></i>
+        العودة إلى قائمة أسباب الغياب
+    </a>
+
+    <!-- ID Badge -->
+    <div class="id-badge">
+        <i class="fas fa-hashtag"></i>
+        رقم التعريف: @Model.Id
+    </div>
+
+    <!-- Details Card -->
+    <div class="details-card">
+        <h2 class="details-title">تفاصيل سبب الغياب</h2>
+
+        <div class="details-content">
+            <div class="detail-item">
+                <div class="detail-label">
+                    <i class="fas fa-tag"></i>
+                    اسم سبب الغياب
+                </div>
+                <div class="detail-value primary">@Model.Name</div>
+            </div>
+
+            <div class="detail-item">
+                <div class="detail-label">
+                    <i class="fas fa-calendar-alt"></i>
+                    تاريخ الإنشاء
+                </div>
+                <div class="detail-value date">@Model.CreatedDate.ToString("dddd, dd MMMM yyyy - hh:mm tt", new System.Globalization.CultureInfo("ar-SA"))</div>
+            </div>
+
+            <div class="detail-item">
+                <div class="detail-label">
+                    <i class="fas fa-user"></i>
+                    أُنشئ بواسطة
+                </div>
+                <div class="detail-value">
+                    @if (Model.CreatedBy != null)
+                    {
+                        @Model.CreatedBy.Name
+                    }
+                    else
+                    {
+                        <span style="color: #6c757d; font-style: italic;">غير محدد</span>
+                    }
+                </div>
+            </div>
+
+            <div class="detail-item">
+                <div class="detail-label">
+                    <i class="fas fa-info-circle"></i>
+                    الحالة
+                </div>
+                <div class="detail-value">
+                    @if (!Model.IsDeleted)
+                    {
+                        <span style="color: #28a745; font-weight: bold;">
+                            <i class="fas fa-check-circle"></i> نشط
+                        </span>
+                    }
+                    else
+                    {
+                        <span style="color: #dc3545; font-weight: bold;">
+                            <i class="fas fa-times-circle"></i> محذوف
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="stats-section">
+            <div class="stats-title">
+                <i class="fas fa-chart-bar"></i>
+                إحصائيات الاستخدام
+            </div>
+
+            <div class="stats-item">
+                <span class="stats-label">عدد مرات الاستخدام:</span>
+                <span class="stats-value">
+                    @if (Model.StudentAbsents != null)
+                    {
+                        @Model.StudentAbsents.Count()
+                    }
+                    else
+                    {
+                        <span>0</span>
+                    }
+                </span>
+            </div>
+
+            @* <div class="stats-item">
+                <span class="stats-label">آخر استخدام:</span>
+                <span class="stats-value">
+                    @if (Model.StudentAbsents != null && Model.StudentAbsents.Any())
+                    {
+                        var lastUsage = Model.StudentAbsents.OrderByDescending(sa => sa.CreatedDate).FirstOrDefault();
+                        if (lastUsage != null)
+                        {
+                            @lastUsage.CreatedDate.ToString("dd/MM/yyyy")
+                        }
+                        else
+                        {
+                            <span style="color: #6c757d; font-style: italic;">لم يُستخدم بعد</span>
+                        }
+                    }
+                    else
+                    {
+                        <span style="color: #6c757d; font-style: italic;">لم يُستخدم بعد</span>
+                    }
+                </span>
+            </div> *@
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-container">
+            <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning">
+                <i class="fas fa-edit"></i>
+                تعديل
+            </a>
+
+            <button type="button" class="btn btn-danger" onclick="confirmDelete(@Model.Id, '@Model.Name')">
+                <i class="fas fa-trash"></i>
+                حذف
+            </button>
+
+            <a href="@Url.Action("Index")" class="btn btn-info">
+                <i class="fas fa-list"></i>
+                عرض جميع أسباب الغياب
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade custom-modal" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">تأكيد الحذف</h5>
+            </div>
+            <div class="modal-body">
+                هل أنت متأكد من حذف سبب الغياب "<span id="itemName"></span>"؟
+                <br><br>
+                <strong>تحذير:</strong> هذا الإجراء لا يمكن التراجع عنه.
+                @if (Model.StudentAbsents != null && Model.StudentAbsents.Any())
+                {
+                    <br>
+                
+                    <br>
+                    <div style="color: #dc3545; font-weight: bold;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        تنبيه: هذا السبب مُستخدم في @Model.StudentAbsents.Count() سجل غياب
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                <form id="deleteForm" method="post" style="display: inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">حذف</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Delete confirmation
+    function confirmDelete(id, name) {
+        document.getElementById('itemName').textContent = name;
+        document.getElementById('deleteForm').action = '@Url.Action("Delete")/' + id;
+
+        var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteModal.show();
+    }
+
+    // Auto-refresh stats every 30 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add animation to stats on load
+        const statsItems = document.querySelectorAll('.stats-item');
+        statsItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(20px)';
+                item.style.transition = 'all 0.3s ease';
+
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, 50);
+            }, index * 100);
+        });
+
+        // Add tooltips to action buttons
+        const editBtn = document.querySelector('a[href*="Edit"]');
+        const deleteBtn = document.querySelector('button[onclick*="confirmDelete"]');
+
+        if (editBtn) {
+            editBtn.title = 'تعديل بيانات سبب الغياب';
+        }
+
+        if (deleteBtn) {
+            deleteBtn.title = 'حذف سبب الغياب نهائياً';
+        }
+    });
+</script>

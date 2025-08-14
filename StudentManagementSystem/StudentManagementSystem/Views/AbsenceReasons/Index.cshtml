@@ -1,0 +1,637 @@
+﻿@model IEnumerable<StudentManagementSystem.Models.AbsenceReasons>
+
+@{
+    ViewData["Title"] = "أسباب الغياب";
+    Layout = "_Layout";
+}
+
+<style>
+    /* General Body Styles */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        direction: rtl;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Header Section */
+    .header-section {
+        background: #fff; /* White background */
+        color: #ff6b35; /* Orange font for all text inside */
+        text-align: center;
+        padding: 25px 0;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        border-radius: 0 0 20px 20px;
+    }
+
+    .header-title {
+        font-size: 32px;
+        font-weight: bold;
+        margin: 0;
+        letter-spacing: 1px;
+        color: #ff6b35; /* Orange font for the title */
+    }
+
+    /* Container for content */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Control Buttons and Search Section */
+    .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        gap: 20px;
+    }
+
+    /* Search Section Styling */
+    .search-section {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 25px;
+        display: block;
+        max-width: 100%;
+    }
+
+    .search-container {
+        position: relative;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 12px 50px 12px 15px;
+        border: 2px solid #e0e6ed;
+        border-radius: 25px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+    }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+    .search-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        font-size: 18px;
+    }
+
+    .clear-search {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #6c757d;
+        font-size: 18px;
+        cursor: pointer;
+        display: none;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+    }
+
+        .clear-search:hover {
+            color: #dc3545;
+        }
+
+    .search-results-info {
+        text-align: center;
+        margin-top: 15px;
+        color: #6c757d;
+        font-style: italic;
+    }
+
+    /* Highlight search results */
+    .highlight {
+        background-color: #fff3cd;
+        font-weight: bold;
+        padding: 2px 4px;
+        border-radius: 3px;
+    }
+
+    /* Hide rows that don't match search */
+    .hidden-row {
+        display: none !important;
+    }
+
+    /* General Button Styles */
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        color: white;
+    }
+
+        .btn i {
+            margin-left: 8px;
+        }
+
+    /* Add Button */
+    .btn-add {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        white-space: nowrap;
+    }
+
+        .btn-add:hover {
+            background: linear-gradient(135deg, #218838, #1e7e34);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+        }
+
+    /* Other button styles */
+    .btn-info {
+        background: linear-gradient(135deg, #17a2b8, #138496);
+    }
+
+        .btn-info:hover {
+            background: linear-gradient(135deg, #117a8b, #0e6e7e);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
+        }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #ffc107, #e0a800);
+        color: #333;
+    }
+
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #e0a800, #c69500);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+        }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c82333, #bd2130);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
+        }
+
+    .btn-sm {
+        padding: 6px 12px;
+        font-size: 13px;
+        margin-left: 5px;
+    }
+
+    /* Alert Messages */
+    .alert {
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 8px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .alert-info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+    }
+
+    /* Table Styles */
+    .courses-table {
+        width: 100%;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+    }
+
+        .table th,
+        .table td {
+            padding: 18px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            background-color: #f0f2f5;
+            font-weight: bold;
+            color: #555;
+            border-bottom: 2px solid #dee2e6;
+            font-size: 15px;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .table tbody tr.search-match {
+            background-color: #d4edda !important;
+            border-left: 4px solid #28a745;
+        }
+
+    .search-highlight {
+        background-color: #fff3cd;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-weight: bold;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .no-data {
+        text-align: center;
+        padding: 40px;
+        color: #888;
+        font-style: italic;
+        font-size: 18px;
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 40px;
+        color: #dc3545;
+        font-style: italic;
+        font-size: 18px;
+    }
+
+    /* Custom Modal Styles */
+    .custom-modal .modal-content {
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border: none;
+    }
+
+    .custom-modal .modal-header {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+        border-radius: 15px 15px 0 0;
+        padding: 20px;
+        border-bottom: none;
+    }
+
+    .custom-modal .modal-title {
+        font-weight: bold;
+        font-size: 24px;
+    }
+
+    .custom-modal .btn-close {
+        filter: invert(1) brightness(2);
+    }
+
+    .custom-modal .modal-body {
+        padding: 30px;
+        font-size: 18px;
+        color: #333;
+        text-align: center;
+    }
+
+    .custom-modal .modal-footer {
+        border-top: none;
+        padding: 20px;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .container
+
+    {
+        padding: 10px;
+    }
+
+    .header-title {
+        font-size: 24px;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .search-section {
+        order: 1;
+        justify-content: center;
+        max-width: 100%;
+    }
+
+    .btn-add {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
+    }
+</style>
+
+<!-- Header Section -->
+<div class="header-section">
+    <h1 class="header-title">أسباب الغياب</h1>
+</div>
+
+<div class="container">
+    <!-- Alert Messages -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            <i class="fas fa-check-circle"></i>
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <!-- Controls Section -->
+    <div class="controls">
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن سبب الغياب">
+                <i class="fas fa-search search-icon"></i>
+                <button type="button" id="clearSearch" class="clear-search">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="searchResults" class="search-results-info" style="display: none;"></div>
+        </div>
+
+        <!-- Add Button -->
+        <a href="@Url.Action("Create")" class="btn btn-add">
+            <i class="fas fa-plus"></i>
+            إضافة سبب غياب جديد
+        </a>
+    </div>
+
+    <!-- Table Section -->
+    <div class="courses-table">
+        <table class="table" id="absenceReasonsTable">
+            <thead>
+                <tr>
+                    <th>اسم سبب الغياب</th>
+                    <th>تاريخ الإنشاء</th>
+                    <th>العمليات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                        تفاصيل
+                                    </a>
+                                    <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                        تعديل
+                                    </a>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(@item.Id, '@item.Name')">
+                                        <i class="fas fa-trash"></i>
+                                        حذف
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr id="noDataRow">
+                        <td colspan="3" class="no-data">
+                            <i class="fas fa-info-circle" style="margin-left: 10px;"></i>
+                            لا توجد أسباب غياب مسجلة
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div id="noResultsMessage" class="no-results" style="display: none;">
+            <i class="fas fa-search" style="margin-left: 10px;"></i>
+            لا توجد نتائج تطابق البحث
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade custom-modal" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">تأكيد الحذف</h5>
+            </div>
+            <div class="modal-body">
+                هل أنت متأكد من حذف سبب الغياب "<span id="itemName"></span>"؟
+                <br><br>
+                <strong>تحذير:</strong> هذا الإجراء لا يمكن التراجع عنه.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                <form id="deleteForm" method="post" style="display: inline;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">حذف</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Search functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearSearch');
+        const table = document.getElementById('absenceReasonsTable');
+        const tbody = table.querySelector('tbody');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        const searchResults = document.getElementById('searchResults');
+        const noDataRow = document.getElementById('noDataRow');
+
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const rows = tbody.querySelectorAll('tr');
+            let visibleCount = 0;
+            let totalCount = rows.length;
+
+            // If there's a "no data" row, don't count it
+            if (noDataRow) {
+                totalCount--;
+            }
+
+            if (searchTerm === '') {
+                // Show all rows
+                rows.forEach(row => {
+                    if (row.id !== 'noDataRow') {
+                        row.style.display = '';
+                        row.classList.remove('search-match');
+                        // Remove highlights
+                        const cells = row.querySelectorAll('td');
+                        cells.forEach(cell => {
+                            if (cell.querySelector('.search-highlight')) {
+                                cell.innerHTML = cell.textContent;
+                            }
+                        });
+                        visibleCount++;
+                    }
+                });
+                clearButton.style.display = 'none';
+                searchResults.style.display = 'none';
+                noResultsMessage.style.display = 'none';
+            } else {
+                // Search and highlight
+                rows.forEach(row => {
+                    if (row.id === 'noDataRow') {
+                        row.style.display = 'none';
+                        return;
+                    }
+
+                    const cells = row.querySelectorAll('td');
+                    let found = false;
+
+                    cells.forEach(cell => {
+                        const originalText = cell.textContent.toLowerCase();
+                        if (originalText.includes(searchTerm)) {
+                            found = true;
+                            // Highlight matching text
+                            const regex = new RegExp(`(${searchTerm})`, 'gi');
+                            const highlightedText = cell.textContent.replace(regex, '<span class="search-highlight">$1</span>');
+                            if (!cell.querySelector('.btn-group')) { // Don't highlight buttons
+                                cell.innerHTML = highlightedText;
+                            }
+                        }
+                    });
+
+                    if (found) {
+                        row.style.display = '';
+                        row.classList.add('search-match');
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                        row.classList.remove('search-match');
+                    }
+                });
+
+                clearButton.style.display = 'block';
+                searchResults.style.display = 'block';
+
+                if (visibleCount === 0) {
+                    noResultsMessage.style.display = 'block';
+                    searchResults.textContent = 'لا توجد نتائج';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                    searchResults.textContent = `تم العثور على ${visibleCount} من أصل ${totalCount} عنصر`;
+                }
+            }
+        }
+
+        searchInput.addEventListener('input', performSearch);
+
+        clearButton.addEventListener('click', function () {
+            searchInput.value = '';
+            performSearch();
+            searchInput.focus();
+        });
+
+        // Show/hide clear button based on input
+        searchInput.addEventListener('input', function () {
+            clearButton.style.display = this.value ? 'block' : 'none';
+        });
+    });
+
+    // Delete confirmation
+    function confirmDelete(id, name) {
+        document.getElementById('itemName').textContent = name;
+        document.getElementById('deleteForm').action = '@Url.Action("Delete")/' + id;
+
+        var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteModal.show();
+    }
+
+    // Auto-hide alerts
+    document.addEventListener('DOMContentLoaded', function() {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                setTimeout(() => {
+                    alert.remove();
+                }, 300);
+            }, 5000);
+        });
+    });
+</script>
