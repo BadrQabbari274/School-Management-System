@@ -333,7 +333,7 @@
                     <tr>
                         <th>الاسم</th>
                         <th>تاريخ الإنشاء</th>
-                        <th>الحالة</th>
+                        @* <th>الحالة</th> *@
                         <th>تم الإنشاء بواسطة</th>
                         <th>العمليات</th>
                     </tr>
@@ -346,7 +346,7 @@
                             <tr data-name="@item.Name.ToLower()" data-creator="@item.CreatedByName.ToLower()">
                                 <td class="item-name">@item.Name</td>
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
-                                <td>
+                                @* <td>
                                     @if (item.IsActive)
                                     {
                                         <span class="badge bg-success">نشط</span>
@@ -355,7 +355,7 @@
                                     {
                                         <span class="badge bg-secondary">غير نشط</span>
                                     }
-                                </td>
+                                </td> *@
                                 <td class="creator-name">@item.CreatedByName</td>
                                 <td>
                                     <div class="btn-group" role="group">

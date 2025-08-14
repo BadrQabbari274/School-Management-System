@@ -443,6 +443,44 @@ namespace StudentManagementSystem.Controllers
             return Json(classes.Select(c => new { value = c.Id, text = c.Name }));
         }
 
+        // AJAX method for getting active grades
+        [HttpGet]
+        [Authorize]
+        public async Task<JsonResult> GetActiveGrades()
+        {
+            try
+            {
+                var grades = await _gradeService.GetActiveAcademicYearsAsync();
+                return Json(grades.Select(g => new { 
+                    value = g.Id, 
+                    text = g.Name 
+                }));
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        // AJAX method for getting classes by grade
+        [HttpGet]
+        [Authorize]
+        public async Task<JsonResult> GetClassesByGrade(int gradeId)
+        {
+            try
+            {
+                var classes = await _studentService.GetClassesByGradeAsync(gradeId);
+                return Json(classes.Select(c => new { 
+                    value = c.Id, 
+                    text = c.Name 
+                }));
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
         // Helper method to populate dropdown lists
         private async Task PopulateDropDownLists()
         {
