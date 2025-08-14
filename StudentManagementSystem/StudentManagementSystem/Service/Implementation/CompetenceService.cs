@@ -235,9 +235,10 @@ namespace StudentManagementSystem.Services
                 // الحصول على طلاب الفصل
                 var students = await _context.Student_Class_Section_Years
                     .Include(s => s.Student)
-                    .Where(s => s.Class_Id == classId && s.Working_Year_Id == workingyear.Id && s.IsActive)
-                    .Select(s => new { s.Student.Id, s.Student.Name, s.Student.Code })
-                    .OrderBy(s => s.Name)
+                    .Where(s => s.Class_Id == classId && s.Working_Year_Id == workingyear.Id && s.IsActive && s.Student.IsActive)
+                    .Select(s => new { s.Student.Id, s.Student.Name, s.Student.Code,  s.IsActive })
+                    .OrderBy(s => s.Code) 
+                    //.ThenBy(s => s.Name) 
                     .ToListAsync();
 
                 // الحصول على التقييمات الموجودة مسبقاً
@@ -253,30 +254,32 @@ namespace StudentManagementSystem.Services
 
                 foreach (var student in students)
                 {
-                    var studentRow = new StudentTasksRowViewModel
-                    {
-                        StudentId = student.Id,
-                        StudentName = student.Name,
-                        StudentCode = student.Code ?? "غير محدد",
-                        TasksStatus = new List<StudentTaskStatusViewModel>()
-                    };
-
-                    foreach (var task in tasks)
-                    {
-                        var evaluation = existingEvaluations.FirstOrDefault(e => e.Student_Id == student.Id && e.Task_Id == task.TaskId);
-
-                        studentRow.TasksStatus.Add(new StudentTaskStatusViewModel
+              
+                        var studentRow = new StudentTasksRowViewModel
                         {
-                            TaskId = task.TaskId,
                             StudentId = student.Id,
-                            IsEvaluated = evaluation != null,
-                            Status = evaluation != null ? "تم التقييم" : "تقييم الآن",
-                            EvaluationDate = evaluation?.CreatedDate
-                        });
-                    }
+                            StudentName = student.Name,
+                            StudentCode = student.Code ?? "غير محدد",
+                            TasksStatus = new List<StudentTaskStatusViewModel>()
+                        };
 
-                    studentsRows.Add(studentRow);
-                }
+                        foreach (var task in tasks)
+                        {
+                            var evaluation = existingEvaluations.FirstOrDefault(e => e.Student_Id == student.Id && e.Task_Id == task.TaskId);
+
+                            studentRow.TasksStatus.Add(new StudentTaskStatusViewModel
+                            {
+                                TaskId = task.TaskId,
+                                StudentId = student.Id,
+                                IsEvaluated = evaluation != null,
+                                Status = evaluation != null ? "تم التقييم" : "تقييم الآن",
+                                EvaluationDate = evaluation?.CreatedDate
+                            });
+                        }
+
+                        studentsRows.Add(studentRow);
+                    }
+                
 
                 return new StudentsTasksEvaluationViewModel
                 {

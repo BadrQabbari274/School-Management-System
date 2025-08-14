@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
 using StudentManagementSystem.Models;
+using StudentManagementSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,18 @@ public class AttendanceService : IAttendanceService
         _context = context;
     }
 
+    public async Task<List<ClassDto>> GetClassesByGradeAsync(int? gradeId)
+    {
+        return await _context.Classes
+            .Where(c => c.GradeId == gradeId && c.IsActive)
+            .OrderBy(c => c.Name)
+            .Select(c => new ClassDto
+            {
+                Id = c.Id,
+                Name = c.Name
+            })
+            .ToListAsync();
+    }
     #region Regular Attendance (الغياب العادي)
 
     public async Task<bool> AddRegularAbsenceAsync(AddRegularAbsenceViewModel dto)
@@ -278,7 +291,316 @@ public class AttendanceService : IAttendanceService
     //}
 
     #endregion
+    public async Task<ClassAttendanceReportDto> GetClassAttendanceReportAsync(int classId, DateTime startDate, DateTime endDate, int? attendanceTypeId = null)
+    {
+        var studentsInClass = await _context.Student_Class_Section_Years
+            .Where(sc => sc.Class_Id == classId && sc.IsActive)
+            .Include(sc => sc.Student)
+            .Include(sc => sc.Class)
+            .Select(sc => new
+            {
+                StudentId = sc.Student_Id,
+                StudentName = sc.Student.Name,
+                StudentCode = sc.Student.Code,
+                ClassName = sc.Class.Name,
+                Student_Class_Section_Year = sc
+            })
+            .ToListAsync();
 
+        var students = new List<StudentAttendanceDto>();
+
+        foreach (var studentInClass in studentsInClass)
+        {
+            // جلب الحضور
+            var attendancesQuery = _context.StudentAttendances
+                .Where(a => a.StudentClassSectionYear_Student_Id == studentInClass.StudentId &&
+                           a.Class_Id == classId &&
+                           a.Date >= startDate && a.Date <= endDate &&
+                           !a.IsDeleted);
+
+            // تطبيق فلتر نوع الحضور/الغياب إذا تم تحديده
+            if (attendanceTypeId.HasValue)
+            {
+                attendancesQuery = attendancesQuery.Where(a => a.AttendanceTypeId == attendanceTypeId.Value);
+            }
+
+            var attendances = await attendancesQuery
+                .Include(a => a.AttendanceType)
+                .ToListAsync();
+
+            // جلب الغياب
+            var absencesQuery = _context.StudentAbsents
+                .Where(a => a.StudentClassSectionYear_Student_Id == studentInClass.StudentId &&
+                           a.Class_Id == classId &&
+                           a.Date >= startDate && a.Date <= endDate &&
+                           !a.IsDeleted);
+
+            // تطبيق فلتر نوع الحضور/الغياب إذا تم تحديده
+            if (attendanceTypeId.HasValue)
+            {
+                absencesQuery = absencesQuery.Where(a => a.AttendanceTypeId == attendanceTypeId.Value);
+            }
+
+            var absences = await absencesQuery
+                .Include(a => a.AbsenceReason)
+                .Include(a => a.AttendanceType)
+                .ToListAsync();
+
+            // حساب أيام الحضور والغياب
+            var presentDays = attendances.Count();
+            var absentDays = absences.Count();
+            var totalDays = presentDays + absentDays;
+            var attendancePercentage = totalDays > 0 ? (double)presentDays / totalDays * 100 : 0;
+
+            // جمع أسباب الغياب
+            var absenceReasons = absences
+                .Select(a => a.AbsenceReason?.Name ?? a.CustomReasonDetails ?? "أخرى")
+                .Where(r => !string.IsNullOrEmpty(r))
+                .Distinct()
+                .ToList();
+
+            // جمع أنواع الغياب
+            var absenceTypes = absences
+                .Select(a => a.AttendanceType?.Name)
+                .Where(t => !string.IsNullOrEmpty(t))
+                .Distinct()
+                .ToList();
+
+            students.Add(new StudentAttendanceDto
+            {
+                StudentId = studentInClass.StudentId,
+                StudentName = studentInClass.StudentName,
+                StudentCode = studentInClass.StudentCode ?? "غير محدد",
+                ClassName = studentInClass.ClassName,
+                PresentDays = presentDays,
+                AbsentDays = absentDays,
+                AttendancePercentage = attendancePercentage,
+                AbsenceReasons = absenceReasons,
+                AbsenceTypes = absenceTypes
+            });
+        }
+
+        // حساب الإحصائيات العامة
+        var totalStudents = students.Count;
+        var totalPresentDays = students.Sum(s => s.PresentDays);
+        var totalAbsentDays = students.Sum(s => s.AbsentDays);
+        var averageAttendance = totalStudents > 0 ? students.Average(s => s.AttendancePercentage) : 0;
+
+        return new ClassAttendanceReportDto
+        {
+            ClassId = classId,
+            StartDate = startDate,
+            EndDate = endDate,
+            Students = students,
+            TotalStudents = totalStudents,
+            TotalPresentDays = totalPresentDays,
+            TotalAbsentDays = totalAbsentDays,
+            AverageAttendancePercentage = averageAttendance
+        };
+    }
+
+    public async Task<TodayAttendanceDto> GetTodayClassAttendanceAsync(int classId)
+    {
+        var today = DateTime.Today;
+
+        var studentsInClass = await _context.Student_Class_Section_Years
+            .Where(sc => sc.Class_Id == classId && sc.IsActive)
+            .Include(sc => sc.Student)
+            .Select(sc => new
+            {
+                StudentId = sc.Student_Id,
+                StudentName = sc.Student.Name,
+                StudentCode = sc.Student.Code
+            })
+            .ToListAsync();
+
+        // جلب الحضور لليوم
+        var todayAttendances = await _context.StudentAttendances
+            .Where(a => a.Class_Id == classId &&
+                       a.Date.Date == today &&
+                       !a.IsDeleted)
+            .Include(a => a.AttendanceType)
+            .ToListAsync();
+
+        // جلب الغياب لليوم
+        var todayAbsences = await _context.StudentAbsents
+            .Where(a => a.Class_Id == classId &&
+                       a.Date.Date == today &&
+                       !a.IsDeleted)
+            .Include(a => a.AbsenceReason)
+            .Include(a => a.AttendanceType)
+            .ToListAsync();
+
+        var presentStudents = new List<TodayStudentAttendanceDto>();
+        var absentStudents = new List<TodayStudentAttendanceDto>();
+
+        foreach (var student in studentsInClass)
+        {
+            var attendance = todayAttendances.FirstOrDefault(a => a.StudentClassSectionYear_Student_Id == student.StudentId);
+            var absence = todayAbsences.FirstOrDefault(a => a.StudentClassSectionYear_Student_Id == student.StudentId);
+
+            if (attendance != null)
+            {
+                presentStudents.Add(new TodayStudentAttendanceDto
+                {
+                    StudentId = student.StudentId,
+                    StudentName = student.StudentName,
+                    StudentCode = student.StudentCode ?? "غير محدد",
+                    Status = "حاضر",
+                    Reason = "",
+                    AttendanceType = attendance.AttendanceType?.Name ?? ""
+                });
+            }
+            else if (absence != null)
+            {
+                absentStudents.Add(new TodayStudentAttendanceDto
+                {
+                    StudentId = student.StudentId,
+                    StudentName = student.StudentName,
+                    StudentCode = student.StudentCode ?? "غير محدد",
+                    Status = "غائب",
+                    Reason = absence.AbsenceReason?.Name ?? absence.CustomReasonDetails ?? "أخرى",
+                    AttendanceType = absence.AttendanceType?.Name ?? ""
+                });
+            }
+        }
+
+        return new TodayAttendanceDto
+        {
+            Date = today,
+            ClassId = classId,
+            TotalStudents = studentsInClass.Count,
+            PresentCount = presentStudents.Count,
+            AbsentCount = absentStudents.Count,
+            PresentStudents = presentStudents,
+            AbsentStudents = absentStudents
+        };
+    }
+
+    public async Task<StudentAttendanceDetailsDto> GetStudentAttendanceDetailsAsync(int studentId, int classId, DateTime startDate, DateTime endDate, int? attendanceTypeId = null)
+    {
+        var student = await _context.Students
+            .FirstOrDefaultAsync(s => s.Id == studentId);
+
+        if (student == null)
+            throw new Exception("الطالب غير موجود");
+
+        // جلب الحضور
+        var attendancesQuery = _context.StudentAttendances
+            .Where(a => a.StudentClassSectionYear_Student_Id == studentId &&
+                       a.Class_Id == classId &&
+                       a.Date >= startDate && a.Date <= endDate &&
+                       !a.IsDeleted);
+
+        if (attendanceTypeId.HasValue)
+        {
+            attendancesQuery = attendancesQuery.Where(a => a.AttendanceTypeId == attendanceTypeId.Value);
+        }
+
+        var attendances = await attendancesQuery
+            .Include(a => a.AttendanceType)
+            .OrderByDescending(a => a.Date)
+            .ToListAsync();
+
+        // جلب الغياب
+        var absencesQuery = _context.StudentAbsents
+            .Where(a => a.StudentClassSectionYear_Student_Id == studentId &&
+                       a.Class_Id == classId &&
+                       a.Date >= startDate && a.Date <= endDate &&
+                       !a.IsDeleted);
+
+        if (attendanceTypeId.HasValue)
+        {
+            absencesQuery = absencesQuery.Where(a => a.AttendanceTypeId == attendanceTypeId.Value);
+        }
+
+        var absences = await absencesQuery
+            .Include(a => a.AbsenceReason)
+            .Include(a => a.AttendanceType)
+            .OrderByDescending(a => a.Date)
+            .ToListAsync();
+
+        var presentDays = attendances.Count();
+        var absentDays = absences.Count();
+        var totalDays = presentDays + absentDays;
+        var attendancePercentage = totalDays > 0 ? (double)presentDays / totalDays * 100 : 0;
+
+        // تجميع البيانات حسب التاريخ
+        var attendanceHistory = new List<StudentAttendanceHistoryDto>();
+
+        foreach (var attendance in attendances)
+        {
+            attendanceHistory.Add(new StudentAttendanceHistoryDto
+            {
+                Date = attendance.Date,
+                Status = "حاضر",
+                Reason = "",
+                AttendanceType = attendance.AttendanceType?.Name ?? ""
+            });
+        }
+
+        foreach (var absence in absences)
+        {
+            attendanceHistory.Add(new StudentAttendanceHistoryDto
+            {
+                Date = absence.Date,
+                Status = "غائب",
+                Reason = absence.AbsenceReason?.Name ?? absence.CustomReasonDetails ?? "أخرى",
+                AttendanceType = absence.AttendanceType?.Name ?? ""
+            });
+        }
+
+        attendanceHistory = attendanceHistory.OrderByDescending(h => h.Date).ToList();
+
+        // إحصائيات الغياب حسب السبب
+        var absenceReasonStats = absences
+            .GroupBy(a => a.AbsenceReason?.Name ?? a.CustomReasonDetails ?? "أخرى")
+            .Select(g => new AbsenceReasonStatDto
+            {
+                ReasonName = g.Key,
+                Count = g.Count()
+            })
+            .OrderByDescending(r => r.Count)
+            .ToList();
+
+        // إحصائيات أنواع الغياب
+        var absenceTypeStats = absences
+            .GroupBy(a => a.AttendanceType?.Name ?? "غير محدد")
+            .Select(g => new AbsenceTypeStatDto
+            {
+                TypeName = g.Key,
+                Count = g.Count()
+            })
+            .OrderByDescending(r => r.Count)
+            .ToList();
+
+        return new StudentAttendanceDetailsDto
+        {
+            StudentId = studentId,
+            StudentName = student.Name,
+            StudentCode = student.Code ?? "غير محدد",
+            StartDate = startDate,
+            EndDate = endDate,
+            PresentDays = presentDays,
+            AbsentDays = absentDays,
+            AttendancePercentage = attendancePercentage,
+            AttendanceHistory = attendanceHistory,
+            AbsenceReasonStats = absenceReasonStats,
+            AbsenceTypeStats = absenceTypeStats
+        };
+    }
+    public async Task<List<AttendanceTypeDto>> GetAllAttendanceTypesAsync()
+    {
+        return await _context.AttendanceTypes
+            .Select(at => new AttendanceTypeDto
+            {
+                Id = at.Id,
+                Name = at.Name,
+                Description = at.Description
+            })
+            .OrderBy(at => at.Name)
+            .ToListAsync();
+    }
     #region Request Exit
 
     public async Task<bool> RequestExitAsync(RequestExitViewModel dto)
