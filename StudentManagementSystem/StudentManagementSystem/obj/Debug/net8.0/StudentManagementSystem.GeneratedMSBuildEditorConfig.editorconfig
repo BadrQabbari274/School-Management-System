@@ -156,6 +156,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Dashboard/TodayAbsentStudents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXFRvZGF5QWJzZW50U3R1ZGVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Department/AssignEmployee.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudFxBc3NpZ25FbXBsb3llZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -306,6 +310,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Student/Index2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleDIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Task/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Task/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Task/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sd/Source/Repos/Midany/StudentManagementSystem/StudentManagementSystem/Views/Try/create.cshtml]
