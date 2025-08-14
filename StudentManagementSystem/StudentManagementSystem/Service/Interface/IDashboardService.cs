@@ -14,5 +14,10 @@ namespace StudentManagementSystem.Services.Interfaces
         Task<int> GetInactiveStudentsCountAsync();
         Task<int> GetTotalStudentsCountAsync();
         Task<int> GetStudentsAddedThisMonthAsync();
+        Task<int> GetTodayAbsentStudentsCountAsync();
+        Task<int> GetTodayPresentStudentsCountAsync();
+        Task<List<AbsentStudentsViewModel>> GetTodayAbsentStudentsDetailsAsync();
+        Task<List<object>> GetActiveGradesAsync();
+        Task<List<object>> GetClassesByGradeAsync(int gradeId);
     }
 }

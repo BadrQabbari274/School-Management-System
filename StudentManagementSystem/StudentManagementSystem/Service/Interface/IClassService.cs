@@ -22,5 +22,6 @@ namespace StudentManagementSystem.Service.Interface
         Task<StudentGrades> GetStudentGradeAsync(int studentId, int workingYearId);
         Task<int> GetNextSequenceNumberForClassAsync(int targetClassId, int workingYearId);
         Task<ClassDetailsViewModel> GetClassDetailsAsync(int classId);
+        //Task<IEnumerable<object>> GetActiveClassesByGradeAsync(int gradeId);
     }
 }

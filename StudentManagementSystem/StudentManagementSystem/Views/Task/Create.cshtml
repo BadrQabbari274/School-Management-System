@@ -1,0 +1,150 @@
+﻿@model StudentManagementSystem.Models.Tasks
+
+@{
+    ViewData["Title"] = "إنشاء مهمة جديدة";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">@ViewData["Title"]</h4>
+                <div class="mt-2">
+                    <small class="text-muted"><strong>مخرجات التعلم:</strong> @ViewBag.LearningOutcomeName</small><br>
+                    <small class="text-muted"><strong>الكفاءة:</strong> @ViewBag.CompetencyName (تلقائياً)</small>
+                </div>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <input type="hidden" name="learningOutcomeId" value="@ViewBag.LearningOutcomeId" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>معلومات تلقائية:</strong>
+                        <ul class="mb-0 mt-2">
+                            <li><strong>منشئ المهمة:</strong> سيتم تحديده تلقائياً حسب حسابك</li>
+                            <li><strong>الكفاءة:</strong> @ViewBag.CompetencyName</li>
+                            <li><strong>تاريخ الإنشاء:</strong> اليوم</li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="selectedEvidences" class="form-label">الأدلة <span class="text-danger">*</span></label>
+                        <div class="evidence-selection border rounded p-3">
+                            @if (ViewBag.Evidences != null && ((List<StudentManagementSystem.Models.Evidence>)ViewBag.Evidences).Any())
+                            {
+                                @foreach (var evidence in (List<StudentManagementSystem.Models.Evidence>)ViewBag.Evidences)
+                                {
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input evidence-checkbox"
+                                               type="checkbox"
+                                               name="selectedEvidenceIds"
+                                               value="@evidence.Id"
+                                               id="evidence_@evidence.Id">
+                                        <label class="form-check-label" for="evidence_@evidence.Id">
+                                            @evidence.Name
+                                        </label>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-muted">لا توجد أدلة متاحة</p>
+                            }
+                        </div>
+                        <span class="text-danger" data-valmsg-for="SelectedEvidences"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">معاينة اسم المهمة</label>
+                        <div class="alert alert-secondary">
+                            <code id="taskNamePreview">@ViewBag.LearningOutcomeId - [اختر الأدلة لرؤية الاسم]</code>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group text-end">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-plus"></i> إنشاء المهمة
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> العودة للقائمة
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">ملخص المهمة</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <td><strong>مخرجات التعلم:</strong></td>
+                        <td>@ViewBag.LearningOutcomeName</td>
+                    </tr>
+                    <tr>
+                        <td><strong>الكفاءة:</strong></td>
+                        <td>@ViewBag.CompetencyName</td>
+                    </tr>
+                    <tr>
+                        <td><strong>عدد الأدلة المتاحة:</strong></td>
+                        <td>@((ViewBag.Evidences as List<StudentManagementSystem.Models.Evidence>)?.Count ?? 0)</td>
+                    </tr>
+                </table>
+
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>تنبيه:</strong>
+                    يمكنك اختيار أكثر من دليل واحد. سيتم إنشاء اسم المهمة بناءً على الأدلة المختارة.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            // Update task name preview when checkboxes change
+            $('.evidence-checkbox').on('change', function() {
+                updateTaskNamePreview();
+            });
+
+            function updateTaskNamePreview() {
+                var selectedIds = [];
+                $('.evidence-checkbox:checked').each(function() {
+                    selectedIds.push($(this).val());
+                });
+
+                if (selectedIds.length > 0) {
+                    selectedIds.sort(function(a, b) { return a - b; }); // Sort numerically
+                    var taskName = '@ViewBag.LearningOutcomeId - ' + selectedIds.join(',');
+                    $('#taskNamePreview').text(taskName);
+                } else {
+                    $('#taskNamePreview').text('@ViewBag.LearningOutcomeId - [اختر الأدلة لرؤية الاسم]');
+                }
+            }
+
+            // Form validation
+            $('form').on('submit', function(e) {
+                var selectedCount = $('.evidence-checkbox:checked').length;
+                if (selectedCount === 0) {
+                    e.preventDefault();
+                    alert('يرجى اختيار دليل واحد على الأقل');
+                    return false;
+                }
+            });
+        });
+    </script>
+}

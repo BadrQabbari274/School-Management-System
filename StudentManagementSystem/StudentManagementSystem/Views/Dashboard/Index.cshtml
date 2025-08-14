@@ -121,6 +121,8 @@
     .stat-card.inactive .stat-icon { background: linear-gradient(135deg, #ffb347, #ff7043); }
     .stat-card.monthly .stat-icon { background: linear-gradient(135deg, #42a5f5, #478ed1); }
     .stat-card.total .stat-icon { background: linear-gradient(135deg, #66bb6a, #43a047); }
+    .stat-card.absent .stat-icon { background: linear-gradient(135deg, #ff6b6b, #ee5a52); }
+    .stat-card.present .stat-icon { background: linear-gradient(135deg, #51cf66, #40c057); }
 
     .stat-number {
         font-size: 2.4rem;
@@ -232,6 +234,17 @@
         box-shadow: 0 8px 25px rgba(102, 187, 106, 0.2);
     }
 
+    /* New styles for absent stat card hover effect */
+    .stat-card.absent {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .stat-card.absent:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.2);
+    }
+
     /* Responsive Design */
     @@media (max-width: 1200px) {
         .container-fluid { padding: 1rem; }
@@ -300,7 +313,25 @@
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="stat-number">@Model.TotalStudentsCount</div>
-                <div class="stat-label">الطلاب النشطون</div> <!-- Changed from "إجمالي الطلاب" to "الطلاب النشطون" -->
+                <div class="stat-label">الطلاب المقيدين</div> <!-- Changed from "إجمالي الطلاب" to "الطلاب النشطون" -->
+            </div>
+
+            <!-- New card for today's absent students -->
+            <div class="stat-card absent" style="cursor: pointer;" onclick="window.location.href='@Url.Action("TodayAbsentStudents", "Dashboard")'">
+                <div class="stat-icon">
+                    <i class="fas fa-user-times"></i>
+                </div>
+                <div class="stat-number">@Model.TodayAbsentStudentsCount</div>
+                <div class="stat-label">الطلاب الغائبون اليوم</div>
+            </div>
+
+            <!-- New card for today's present students -->
+            <div class="stat-card present">
+                <div class="stat-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-number">@Model.TodayPresentStudentsCount</div>
+                <div class="stat-label">الطلاب الحاضرون اليوم</div>
             </div>
         </div>
 
