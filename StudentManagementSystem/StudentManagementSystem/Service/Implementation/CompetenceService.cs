@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.VariantTypes;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.VariantTypes;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
@@ -16,70 +17,70 @@ namespace StudentManagementSystem.Services
         {
             _context = context;
         }
-        // إضافة هذه الدوال في CompetenciesService
+        //// إضافة هذه الدوال في CompetenciesService
 
-        public async Task<EvaluationMatrixViewModel> GetEvaluationMatrixAsync(int classId, int competencyId, int tryId)
-        {
-            var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
+        //public async Task<EvaluationMatrixViewModel> GetEvaluationMatrixAsync(int classId, int competencyId, int tryId)
+        //{
+        //    var activeWorkingYear = await GetOrCreateActiveWorkingYearAsync();
 
-            // الحصول على معلومات الفصل
-            var classInfo = await _context.Classes.FirstOrDefaultAsync(c => c.Id == classId);
-            if (classInfo == null)
-                return null;
+        //    // الحصول على معلومات الفصل
+        //    var classInfo = await _context.Classes.FirstOrDefaultAsync(c => c.Id == classId);
+        //    if (classInfo == null)
+        //        return null;
 
-            // الحصول على الطلاب في الفصل
-            var studentsInClass = await _context.Student_Class_Section_Years
-                .Include(scsy => scsy.Student)
-                .Where(scsy => scsy.Class_Id == classId &&
-                              scsy.Working_Year_Id == activeWorkingYear.Id &&
-                              scsy.IsActive &&
-                              scsy.Student.IsActive)
-                .OrderBy(scsy => scsy.Student.Natrual_Id.Length == 14 ?
-                         (scsy.Student.Natrual_Id.Substring(12, 1) == "1" || scsy.Student.Natrual_Id.Substring(12, 1) == "3" ? 0 : 1) : 0)
-                .ThenBy(scsy => scsy.Student.Name)
-                .ToListAsync();
+        //    // الحصول على الطلاب في الفصل
+        //    var studentsInClass = await _context.Student_Class_Section_Years
+        //        .Include(scsy => scsy.Student)
+        //        .Where(scsy => scsy.Class_Id == classId &&
+        //                      scsy.Working_Year_Id == activeWorkingYear.Id &&
+        //                      scsy.IsActive &&
+        //                      scsy.Student.IsActive)
+        //        .OrderBy(scsy => scsy.Student.Natrual_Id.Length == 14 ?
+        //                 (scsy.Student.Natrual_Id.Substring(12, 1) == "1" || scsy.Student.Natrual_Id.Substring(12, 1) == "3" ? 0 : 1) : 0)
+        //        .ThenBy(scsy => scsy.Student.Name)
+        //        .ToListAsync();
 
-            // الحصول على الأدلة العملية للكفاية
-            var practicalEvidences = await GetPracticalEvidencesByCompetencyId(competencyId);
+        //    // الحصول على الأدلة العملية للكفاية
+        //    var practicalEvidences = await GetPracticalEvidencesByCompetencyId(competencyId);
 
-            // إنشاء مصفوفة التقييم
-            var evaluationMatrix = new List<StudentEvaluationRowViewModel>();
+        //    // إنشاء مصفوفة التقييم
+        //    var evaluationMatrix = new List<StudentEvaluationRowViewModel>();
 
-            foreach (var studentClass in studentsInClass)
-            {
-                var studentRow = new StudentEvaluationRowViewModel
-                {
-                    Student = studentClass.Student,
-                    EvidenceStatuses = new List<EvidenceStatusViewModel>()
-                };
+        //    foreach (var studentClass in studentsInClass)
+        //    {
+        //        var studentRow = new StudentEvaluationRowViewModel
+        //        {
+        //            Student = studentClass.Student,
+        //            EvidenceStatuses = new List<EvidenceStatusViewModel>()
+        //        };
 
-                foreach (var evidence in practicalEvidences)
-                {
-                    var isEvaluated = await IsStudentEvidenceExistsAsync(studentClass.Student_Id, evidence.Id, tryId);
+        //        foreach (var evidence in practicalEvidences)
+        //        {
+        //            var isEvaluated = await IsStudentEvidenceExistsAsync(studentClass.Student_Id, evidence.Id, tryId);
 
-                    studentRow.EvidenceStatuses.Add(new EvidenceStatusViewModel
-                    {
-                        EvidenceId = evidence.Id,
-                        EvidenceName = evidence.Name,
-                        IsEvaluated = isEvaluated,
-                        StudentId = studentClass.Student_Id,
-                        TryId = tryId
-                    });
-                }
+        //            studentRow.EvidenceStatuses.Add(new EvidenceStatusViewModel
+        //            {
+        //                EvidenceId = evidence.Id,
+        //                EvidenceName = evidence.Name,
+        //                IsEvaluated = isEvaluated,
+        //                StudentId = studentClass.Student_Id,
+        //                TryId = tryId
+        //            });
+        //        }
 
-                evaluationMatrix.Add(studentRow);
-            }
+        //        evaluationMatrix.Add(studentRow);
+        //    }
 
-            return new EvaluationMatrixViewModel
-            {
-                ClassId = classId,
-                CompetencyId = competencyId,
-                TryId = tryId,
-                ClassName = classInfo.Name,
-                PracticalEvidences = practicalEvidences,
-                StudentEvaluationRows = evaluationMatrix
-            };
-        }
+        //    return new EvaluationMatrixViewModel
+        //    {
+        //        ClassId = classId,
+        //        CompetencyId = competencyId,
+        //        TryId = tryId,
+        //        ClassName = classInfo.Name,
+        //        PracticalEvidences = practicalEvidences,
+        //        StudentEvaluationRows = evaluationMatrix
+        //    };
+        //}
 
         public async Task<List<Evidence>> GetPracticalEvidencesByCompetencyId(int competencyId)
         {
@@ -92,7 +93,20 @@ namespace StudentManagementSystem.Services
                 .ThenBy(e => e.Name)
                 .ToListAsync();
         }
-
+        public async Task<Student_Tasks> GetStudentTaskEvaluation(int studentId, int taskId, int tryId)
+        {
+            try
+            {
+                return await _context.Student_Tasks
+                    .FirstOrDefaultAsync(st => st.Student_Id == studentId
+                                             && st.Task_Id == taskId
+                                             && st.Try_Id == tryId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"خطأ في الحصول على التقييم: {ex.Message}");
+            }
+        }
         public async Task<bool> IsStudentEvidenceExistsAsync(int studentId, int evidenceId, int tryId)
         {
             return await _context.Student_Tasks
@@ -185,6 +199,197 @@ namespace StudentManagementSystem.Services
                 .Where(o => o.Competency_Id == competencyId && o.IsActive)
                 .OrderBy(o => o.Name)
                 .ToListAsync();
+        }
+        // إضافة هذه الطرق في CompetenciesService
+
+        public async Task<StudentsTasksEvaluationViewModel> GetStudentsTasksEvaluationData(int classId, int tryId)
+        {
+            try
+            {
+                var workingyear = await GetOrCreateActiveWorkingYearAsync();
+
+                // الحصول على بيانات الفصل والقسم
+                var studentClass = await _context.Student_Class_Section_Years
+                    .Include(s => s.Class)
+                    .Include(s => s.Section)
+                    .FirstOrDefaultAsync(s => s.Class_Id == classId && s.Working_Year_Id == workingyear.Id && s.IsActive);
+
+                if (studentClass == null)
+                    throw new Exception("لم يتم العثور على بيانات الفصل");
+
+                // الحصول على المحاولة
+                var selectedTry = await _context.Try.FirstOrDefaultAsync(t => t.Id == tryId);
+
+                // الحصول على المهام الخاصة بالقسم
+                var tasks = await _context.Tasks
+                    .Include(t => t.Competencies)
+                    .Where(t => t.Competencies.Section_Id == studentClass.Section_id && t.Competencies.IsActive)
+                    .OrderBy(t => t.Name)
+                    .Select(t => new TaskHeaderViewModel
+                    {
+                        TaskId = t.Id,
+                        TaskName = t.Name
+                    })
+                    .ToListAsync();
+
+                // الحصول على طلاب الفصل
+                var students = await _context.Student_Class_Section_Years
+                    .Include(s => s.Student)
+                    .Where(s => s.Class_Id == classId && s.Working_Year_Id == workingyear.Id && s.IsActive)
+                    .Select(s => new { s.Student.Id, s.Student.Name, s.Student.Code })
+                    .OrderBy(s => s.Name)
+                    .ToListAsync();
+
+                // الحصول على التقييمات الموجودة مسبقاً
+                var existingEvaluations = await _context.Student_Tasks
+                    .Where(st => students.Select(s => s.Id).Contains(st.Student_Id)
+                                && tasks.Select(t => t.TaskId).Contains(st.Task_Id)
+                                && st.Try_Id == tryId)
+                    .Select(st => new { st.Student_Id, st.Task_Id, st.CreatedDate })
+                    .ToListAsync();
+
+                // بناء الصفوف للطلاب
+                var studentsRows = new List<StudentTasksRowViewModel>();
+
+                foreach (var student in students)
+                {
+                    var studentRow = new StudentTasksRowViewModel
+                    {
+                        StudentId = student.Id,
+                        StudentName = student.Name,
+                        StudentCode = student.Code ?? "غير محدد",
+                        TasksStatus = new List<StudentTaskStatusViewModel>()
+                    };
+
+                    foreach (var task in tasks)
+                    {
+                        var evaluation = existingEvaluations.FirstOrDefault(e => e.Student_Id == student.Id && e.Task_Id == task.TaskId);
+
+                        studentRow.TasksStatus.Add(new StudentTaskStatusViewModel
+                        {
+                            TaskId = task.TaskId,
+                            StudentId = student.Id,
+                            IsEvaluated = evaluation != null,
+                            Status = evaluation != null ? "تم التقييم" : "تقييم الآن",
+                            EvaluationDate = evaluation?.CreatedDate
+                        });
+                    }
+
+                    studentsRows.Add(studentRow);
+                }
+
+                return new StudentsTasksEvaluationViewModel
+                {
+                    ClassId = classId,
+                    SelectedTryId = tryId,
+                    ClassName = studentClass.Class?.Name ?? "غير محدد",
+                    TryName = selectedTry?.Name ?? "غير محدد",
+                    Tasks = tasks,
+                    StudentsRows = studentsRows
+                };
+            }
+            catch (Exception ex)
+            {
+                // يمكنك إضافة logging هنا
+                throw new Exception($"خطأ في تحميل بيانات التقييم: {ex.Message}");
+            }
+        }
+
+        // طريقة لحفظ تقييم الطالب
+        public async Task<bool> SaveStudentTaskEvaluation(EvaluateStudentTaskViewModel model, string imagePath,int UserId)
+        {
+            try
+            {
+                var wprkingyear = await GetOrCreateActiveWorkingYearAsync();
+                var studnet = await _context.Student_Class_Section_Years.FirstOrDefaultAsync(e => e.Student_Id == model.StudentId && e.Working_Year_Id == wprkingyear.Id);
+                // التحقق من عدم وجود تقييم مسبق
+                var existingEvaluation = await _context.Student_Tasks
+                    .FirstOrDefaultAsync(st => st.Student_Id == model.StudentId
+                                             && st.Task_Id == model.TaskId
+                                             && st.Try_Id == model.TryId);
+
+                if (existingEvaluation != null)
+                    return false; // التقييم موجود مسبقاً
+
+                // إنشاء تقييم جديد
+                var studentTask = new Student_Tasks
+                {
+                    Student_Id = model.StudentId,
+                    Task_Id = model.TaskId,
+                    Try_Id = model.TryId,
+                    CreatedDate = DateTime.Now,
+                    Image_Path = imagePath,
+                    IsActive = true,
+                    CreatedBy_Id = UserId, // تحتاج لتنفيذ هذه الطريقة
+                    Class_Id = studnet.Class_Id,                       // يمكنك إضافة حقول أخرى حسب الحاجة
+                    Working_Year_Id = studnet.Working_Year_Id,
+                    Section_id = studnet.Section_id
+                };
+
+
+                _context.Student_Tasks.Add(studentTask);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // يمكنك إضافة logging هنا
+                throw new Exception($"خطأ في حفظ التقييم: {ex.Message}");
+            }
+        }
+
+
+        // طريقة للتحقق من صحة الملف المرفوع
+        public bool IsValidImageFile(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return false;
+
+            // التحقق من نوع الملف
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+            if (!allowedExtensions.Contains(extension))
+                return false;
+
+            // التحقق من حجم الملف (مثال: أقل من 5 ميجا)
+            if (file.Length > 5 * 1024 * 1024)
+                return false;
+
+            return true;
+        }
+
+        // طريقة لحفظ الصورة
+        public async Task<string> SaveEvaluationImage(IFormFile imageFile, int studentId, int taskId)
+        {
+            try
+            {
+                if (!IsValidImageFile(imageFile))
+                    throw new Exception("نوع الملف غير مدعوم أو حجم الملف كبير جداً");
+
+                // إنشاء مجلد الصور إذا لم يكن موجوداً
+                var uploadsFolder = Path.Combine("wwwroot", "uploads", "evaluations");
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                // إنشاء اسم فريد للملف
+                var fileName = $"eval_{studentId}_{taskId}_{DateTime.Now:yyyyMMdd_HHmmss}{Path.GetExtension(imageFile.FileName)}";
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                // حفظ الملف
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                }
+
+                // إرجاع المسار النسبي
+                return $"/uploads/evaluations/{fileName}";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"خطأ في حفظ الصورة: {ex.Message}");
+            }
         }
         public async Task<List<StudentEvidenceViewModel>> GetStudentToEvidences(CompetenciesSelectionViewModel model)
         {
