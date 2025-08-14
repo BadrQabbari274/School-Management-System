@@ -10,9 +10,9 @@ namespace StudentManagementSystem.Controllers
     [Authorize]
     public class AbsenceReasonsController : BaseController
     {
-        private readonly IAbsenceReasonsService2 _absenceReasonsService;
+        private readonly IAbsenceReasonsService _absenceReasonsService;
 
-        public AbsenceReasonsController(IAbsenceReasonsService2 absenceReasonsService)
+        public AbsenceReasonsController(IAbsenceReasonsService absenceReasonsService)
         {
             _absenceReasonsService = absenceReasonsService;
         }

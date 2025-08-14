@@ -33,7 +33,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization();
 
 // Register all services
-builder.Services.AddScoped<IAbsenceReasonsService2, AbsenceReasonsService>();
+builder.Services.AddScoped<IAbsenceReasonsService, AbsenceReasonsService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
@@ -52,7 +52,7 @@ builder.Services.AddScoped<ITasksService, TasksService>();
 //builder.Services.AddScoped<ITaskEvaluationService, TaskEvaluationServices>();
 
 //builder.Services.AddScoped<IAttendanceService, AttendanceService>();
-builder.Services.AddScoped<IAbsenceReasonService, AbsenceReasonService>();
+//builder.Services.AddScoped<IAbsenceReasonService, AbsenceReasonService>();
 
 
 // Add Session (optional)

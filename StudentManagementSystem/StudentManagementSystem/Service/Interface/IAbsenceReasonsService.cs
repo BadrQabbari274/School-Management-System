@@ -2,7 +2,7 @@
 
 namespace StudentManagementSystem.Service.Interface
 {
-    public interface IAbsenceReasonsService2
+    public interface IAbsenceReasonsService
     {
         Task<IEnumerable<AbsenceReasons>> GetAllAsync();
         Task<AbsenceReasons?> GetByIdAsync(int id);

@@ -5,7 +5,7 @@ using StudentManagementSystem.Service.Interface;
 
 namespace StudentManagementSystem.Service.Implementation
 {
-    public class AbsenceReasonsService : IAbsenceReasonsService2
+    public class AbsenceReasonsService : IAbsenceReasonsService
     {
         private readonly ApplicationDbContext _context;
 
