@@ -82,5 +82,54 @@ namespace StudentManagementSystem.Controllers
                 return Json(new { error = "فشل في تحديث لوحة التحكم" });
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> TodayAbsentStudents()
+        {
+            try
+            {
+                var absentStudents = await _dashboardService.GetTodayAbsentStudentsDetailsAsync();
+                var viewModel = new ViewModels.AbsentStudentsListViewModel
+                {
+                    AbsentStudents = absentStudents,
+                    AbsenceDate = DateTime.Today,
+                    TotalAbsentCount = absentStudents.Count
+                };
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "حدث خطأ في تحميل بيانات الطلاب الغائبين: " + ex.Message;
+                return View(new ViewModels.AbsentStudentsListViewModel());
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetActiveGrades()
+        {
+            try
+            {
+                var grades = await _dashboardService.GetActiveGradesAsync();
+                return Json(grades);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = "فشل في تحميل المراحل الدراسية" });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetClassesByGrade(int gradeId)
+        {
+            try
+            {
+                var classes = await _dashboardService.GetClassesByGradeAsync(gradeId);
+                return Json(classes);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = "فشل في تحميل الفصول" });
+            }
+        }
     }
 }

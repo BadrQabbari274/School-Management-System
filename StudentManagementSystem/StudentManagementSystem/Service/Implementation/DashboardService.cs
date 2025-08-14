@@ -22,10 +22,14 @@ namespace StudentManagementSystem.Services
             var monthlyData = await GetMonthlyStudentDataAsync();
             var weeklyData = await GetWeeklyStudentDataAsync();
             var dashboardCards = await GetDashboardCardsAsync();
+            var todayAbsentCount = await GetTodayAbsentStudentsCountAsync();
+            var todayPresentCount = await GetTodayPresentStudentsCountAsync();
 
             return new DashboardViewModel
             {  
                 TotalStudentsCount = statistics.ActiveStudents, // Changed from TotalStudents to ActiveStudents
+                TodayAbsentStudentsCount = todayAbsentCount,
+                TodayPresentStudentsCount = todayPresentCount,
                 MonthlyData = monthlyData,
                 WeeklyData = weeklyData,
                 DashboardCards = dashboardCards
@@ -215,6 +219,78 @@ namespace StudentManagementSystem.Services
             var currentYear = DateTime.Now.Year;
             return await _context.Students
                 .CountAsync(s => s.Date.Month == currentMonth && s.Date.Year == currentYear);
+        }
+
+        public async Task<int> GetTodayAbsentStudentsCountAsync()
+        {
+            var today = DateTime.Today;
+            return await _context.StudentAbsents
+                .Where(sa => sa.Date.Date == today && !sa.IsDeleted)
+                .CountAsync();
+        }
+
+        public async Task<int> GetTodayPresentStudentsCountAsync()
+        {
+            var today = DateTime.Today;
+            return await _context.StudentAttendances
+                .Where(sa => sa.Date.Date == today && !sa.IsDeleted)
+                .CountAsync();
+        }
+
+        public async Task<List<ViewModels.AbsentStudentsViewModel>> GetTodayAbsentStudentsDetailsAsync()
+        {
+            var today = DateTime.Today;
+            var absentStudents = await _context.StudentAbsents
+                .Where(sa => sa.Date.Date == today && !sa.IsDeleted)
+                .Include(sa => sa.StudentClassSectionYear)
+                    .ThenInclude(scsy => scsy.Student)
+                .Include(sa => sa.Class)
+                    .ThenInclude(c => c.Grade)
+                .Include(sa => sa.StudentClassSectionYear)
+                    .ThenInclude(scsy => scsy.Section)
+                        .ThenInclude(s => s.Department)
+                .Include(sa => sa.AbsenceReason)
+                .Include(sa => sa.AttendanceType)
+                .Select(sa => new ViewModels.AbsentStudentsViewModel
+                {
+                    StudentId = sa.StudentClassSectionYear.Student.Id,
+                    StudentName = sa.StudentClassSectionYear.Student.Name,
+                    StudentCode = sa.StudentClassSectionYear.Student.Code ?? "",
+                    ClassName = sa.Class.Name,
+                    SectionName = sa.StudentClassSectionYear.Section.Name_Of_Section,
+                    DepartmentName = sa.StudentClassSectionYear.Section.Department.Name,
+                    GradeName = sa.Class.Grade.Name,
+                    GradeId = sa.Class.Grade.Id,
+                    ClassId = sa.Class.Id,
+                    AbsenceReason = sa.AbsenceReason != null ? sa.AbsenceReason.Name : "",
+                    CustomReasonDetails = sa.CustomReasonDetails ?? "",
+                    AbsenceDate = sa.Date,
+                    AttendanceTypeName = sa.AttendanceType.Name,
+                    StudentProfilePicture = sa.StudentClassSectionYear.Student.Picture_Profile ?? ""
+                })
+                .ToListAsync();
+
+            return absentStudents;
+        }
+
+        public async Task<List<object>> GetActiveGradesAsync()
+        {
+            var grades = await _context.Grades
+                .Where(g => g.IsActive)
+                .Select(g => new { value = g.Id.ToString(), text = g.Name })
+                .ToListAsync();
+
+            return grades.Cast<object>().ToList();
+        }
+
+        public async Task<List<object>> GetClassesByGradeAsync(int gradeId)
+        {
+            var classes = await _context.Classes
+                .Where(c => c.IsActive && c.GradeId == gradeId)
+                .Select(c => new { value = c.Id.ToString(), text = c.Name })
+                .ToListAsync();
+
+            return classes.Cast<object>().ToList();
         }
 
         private double CalculatePercentageChange(int current, int previous)
