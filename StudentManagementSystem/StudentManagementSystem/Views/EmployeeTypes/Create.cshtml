@@ -1,0 +1,112 @@
+﻿@model StudentManagementSystem.Models.EmployeeTypes
+
+@{
+    ViewData["Title"] = "إضافة نوع موظف جديد";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-plus-circle me-2"></i>
+                            إضافة نوع موظف جديد
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        @if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                @TempData["ErrorMessage"]
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        }
+
+                        <form asp-action="Create" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-4">
+                                        <label asp-for="Name" class="form-label fw-bold">
+                                            <i class="fas fa-tag me-1"></i>
+                                            اسم نوع الموظف
+                                        </label>
+                                        <input asp-for="Name" class="form-control form-control-lg"
+                                               placeholder="أدخل اسم نوع الموظف" required />
+                                        <span asp-validation-for="Name" class="text-danger small"></span>
+                                        <div class="form-text">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            اسم واضح ومفهوم لنوع الموظف (مثال: مدير، موظف، محاسب)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                                        <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                                            <i class="fas fa-arrow-right me-1"></i>
+                                            العودة للقائمة
+                                        </a>
+                                        <button type="submit" class="btn btn-success btn-lg">
+                                            <i class="fas fa-save me-1"></i>
+                                            حفظ نوع الموظف
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- معلومات إضافية -->
+                <div class="card mt-4 border-info">
+                    <div class="card-header bg-light">
+                        <h6 class="mb-0">
+                            <i class="fas fa-lightbulb me-2 text-warning"></i>
+                            نصائح مهمة
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                اختر اسماً واضحاً ومفهوماً لنوع الموظف
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                تأكد من عدم تكرار نفس النوع
+                            </li>
+                            <li class="mb-0">
+                                <i class="fas fa-check text-success me-2"></i>
+                                يمكن تعديل أو حذف النوع لاحقاً من قائمة الأنواع
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

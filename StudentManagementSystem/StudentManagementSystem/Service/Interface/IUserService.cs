@@ -18,5 +18,14 @@ namespace StudentManagementSystem.Service.Interface
         Task<bool> DeleteUserAsync(int id);
         Task<IEnumerable<Employees>> GetActiveUsersAsync();
         Task<Employees> GetUserByNameAsync(string name);
+
+        // EmployeeTypes methods
+        Task<IEnumerable<EmployeeTypes>> GetAllEmployeeTypesAsync();
+        Task<EmployeeTypes> GetEmployeeTypeByIdAsync(int id);
+        Task<EmployeeTypes> CreateEmployeeTypeAsync(EmployeeTypes employeeType);
+        Task<EmployeeTypes> UpdateEmployeeTypeAsync(EmployeeTypes employeeType);
+        Task<bool> DeleteEmployeeTypeAsync(int id);
+        Task<IEnumerable<EmployeeTypes>> GetActiveEmployeeTypesAsync();
+        Task<bool> EmployeeTypeExistsAsync(int id);
     }
 }

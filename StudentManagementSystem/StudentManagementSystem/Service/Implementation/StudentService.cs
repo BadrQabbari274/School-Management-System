@@ -1,4 +1,4 @@
-﻿ using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Controllers;
@@ -27,6 +27,17 @@ namespace StudentManagementSystem.Service.Implementation
         {
             return await _context.Students
                 .Include(s => s.CreatedBy)
+                .Where(s => s.IsActive)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Students>> GetAllStudentsWithClassAndGradeAsync()
+        {
+            return await _context.Students
+                .Include(s => s.CreatedBy)
+                .Include(s => s.StudentClassSectionYears)
+                    .ThenInclude(scsy => scsy.Class)
+                        .ThenInclude(c => c.Grade)
                 .Where(s => s.IsActive)
                 .ToListAsync();
         }

@@ -25,6 +25,7 @@ namespace StudentManagementSystem.Data
         public DbSet<RequestExits> RequestExits { get; set; }
         public DbSet<Try> Try { get; set; }
         public DbSet<Evidence> Evidences { get; set; }
+        public DbSet<Tasks> Tasks { get; set; }
         public DbSet<StudentAbsents> StudentAbsents { get; set; }
         public DbSet<StudentAttendances> StudentAttendances { get; set; }
         public DbSet<StudentGrades> StudentGrades { get; set; }

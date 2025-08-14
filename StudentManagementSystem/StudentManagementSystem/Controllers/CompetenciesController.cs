@@ -197,42 +197,138 @@ namespace StudentManagementSystem.Controllers
                 return RedirectToAction("Index");
             }
         }
-        public async Task<IActionResult> Evaluate_V2(CompetenciesSelectionViewModel_V2 model)
+        // إضافة هذه الطرق في Controller الخاص بك
+
+        [HttpGet]
+        public async Task<IActionResult> StudentsTasksEvaluation(int classId, int tryId)
+        {
+            try
+            {
+                var viewModel = await _competenciesService.GetStudentsTasksEvaluationData(classId, tryId);
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "حدث خطأ في تحميل البيانات: " + ex.Message;
+                return RedirectToAction("SelectCompetencies_V2");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EvaluateStudentTask(EvaluateStudentTaskViewModel model)
         {
             try
             {
                 // التحقق من صحة البيانات
-                if (!model.SelectedCompetencyId.HasValue ||
-                    !model.SelectedTryId.HasValue)
+                if (model.StudentId <= 0 || model.TaskId <= 0 || model.TryId <= 0)
                 {
-                    TempData["Error"] = "يرجى تحديد جميع البيانات المطلوبة";
-                    return RedirectToAction("Index");
+                    return Json(new { success = false, message = "بيانات غير صحيحة" });
                 }
 
-                // الحصول على مصفوفة التقييم
-                var evaluationMatrix = await _competenciesService.GetEvaluationMatrixAsync(
-                    model.ClassId,
-                    model.SelectedCompetencyId.Value,
-                    model.SelectedTryId.Value);
-
-                if (evaluationMatrix == null || !evaluationMatrix.StudentEvaluationRows.Any())
+                if (model.EvaluationImage == null || model.EvaluationImage.Length == 0)
                 {
-                    TempData["Error"] = "لا توجد بيانات طلاب للفصل المحدد";
-                    return RedirectToAction("Index");
+                    return Json(new { success = false, message = "يرجى اختيار صورة للتقييم" });
                 }
 
-                // تمرير البيانات للعرض
-                ViewBag.ClassId = model.ClassId;
-                ViewBag.CompetencyId = model.SelectedCompetencyId.Value;
-                ViewBag.TryId = model.SelectedTryId.Value;
+                // التحقق من صحة الصورة
+                if (!_competenciesService.IsValidImageFile(model.EvaluationImage))
+                {
+                    return Json(new { success = false, message = "نوع الملف غير مدعوم أو حجم الملف كبير جداً" });
+                }
 
-                return View(evaluationMatrix);
+                // حفظ الصورة
+                var imagePath = await _competenciesService.SaveEvaluationImage(
+                    model.EvaluationImage,
+                    model.StudentId,
+                    model.TaskId
+                );
+
+                // حفظ التقييم في قاعدة البيانات
+                var success = await _competenciesService.SaveStudentTaskEvaluation(model, imagePath,GetCurrentUserId());
+
+                if (success)
+                {
+                    return Json(new { success = true, message = "تم حفظ التقييم بنجاح" });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "التقييم موجود مسبقاً لهذا الطالب" });
+                }
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "حدث خطأ أثناء تحميل بيانات الطلاب";
-                return RedirectToAction("Index");
+                // يمكنك إضافة logging هنا
+                return Json(new { success = false, message = "حدث خطأ أثناء حفظ التقييم: " + ex.Message });
             }
+        }
+
+        // طريقة مساعدة للانتقال من صفحة اختيار الجدارات إلى صفحة التقييم
+        [HttpGet]
+        public async Task<IActionResult> Evaluate_V2(int classId, int selectedCompetencyId, int selectedTryId)
+        {
+            try
+            {
+                // التحقق من صحة البيانات
+                if (classId <= 0 || selectedCompetencyId <= 0 || selectedTryId <= 0)
+                {
+                    TempData["Error"] = "يرجى اختيار الجدارة والمحاولة";
+                    return RedirectToAction("SelectCompetencies_V2", new { classId });
+                }
+
+                // الانتقال لصفحة التقييم
+                return RedirectToAction("StudentsTasksEvaluation", new { classId, tryId = selectedTryId });
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "حدث خطأ: " + ex.Message;
+                return RedirectToAction("SelectCompetencies_V2", new { classId });
+            }
+        }
+
+        // طريقة لعرض الصورة المحفوظة (اختيارية)
+        [HttpGet]
+        public async Task<IActionResult> ViewEvaluationImage(int studentId, int taskId, int tryId)
+        {
+            try
+            {
+                var evaluation = await _competenciesService.GetStudentTaskEvaluation(studentId, taskId, tryId);
+
+                if (evaluation == null || string.IsNullOrEmpty(evaluation.Image_Path))
+                {
+                    return NotFound("الصورة غير موجودة");
+                }
+
+                var filePath = Path.Combine("wwwroot", evaluation.Image_Path.TrimStart('/'));
+
+                if (!System.IO.File.Exists(filePath))
+                {
+                    return NotFound("ملف الصورة غير موجود");
+                }
+
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+                var contentType = GetContentType(evaluation.Image_Path);
+
+                return File(fileBytes, contentType);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("خطأ في عرض الصورة: " + ex.Message);
+            }
+        }
+
+        // طريقة مساعدة لتحديد نوع المحتوى
+        private string GetContentType(string filePath)
+        {
+            var extension = Path.GetExtension(filePath).ToLowerInvariant();
+            return extension switch
+            {
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                ".gif" => "image/gif",
+                ".bmp" => "image/bmp",
+                _ => "application/octet-stream"
+            };
         }
         private int GetGenderFromNationalId(string nationalId)
         {

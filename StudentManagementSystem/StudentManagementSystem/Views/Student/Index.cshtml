@@ -77,6 +77,83 @@
         font-style: italic;
     }
 
+    /* Filter Section Styling */
+    .filter-section {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 25px;
+    }
+
+    .filter-group {
+        margin-bottom: 15px;
+    }
+
+    .filter-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #495057;
+        font-size: 14px;
+    }
+
+    .form-text {
+        font-size: 12px;
+        line-height: 1.4;
+        color: #6c757d;
+    }
+
+    .form-text i {
+        color: #17a2b8;
+    }
+
+    .filter-select {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid #e0e6ed;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+        direction: rtl;
+    }
+
+    .filter-select:focus {
+        outline: none;
+        border-color: #007bff;
+        background-color: white;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    .filter-select:disabled {
+        background-color: #e9ecef;
+        color: #6c757d;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .filter-select:disabled + .filter-label {
+        color: #6c757d;
+        opacity: 0.6;
+    }
+
+    /* Special styling for not assigned filter */
+    .filter-select option[value="not_assigned"] {
+        font-weight: bold;
+        color: #dc3545;
+    }
+
+    .filter-actions {
+        text-align: center;
+    }
+
+    .filter-actions .btn {
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 6px;
+    }
+
     /* Enhanced student card for search highlighting */
     .student-card.search-match {
         border: 2px solid #fd7e14;
@@ -124,6 +201,25 @@
         font-size: 14px;
     }
 
+    /* Responsive design for filters */
+    .filter-section .row {
+        flex-direction: column;
+    }
+
+    .filter-section .col-md-6 {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .filter-select {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .filter-actions .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
     }
 </style>
 
@@ -148,6 +244,47 @@
             </button>
         </div>
         <div class="search-results-info" id="searchResults"></div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="filter-group">
+                    <label for="gradeFilter" class="filter-label">
+                        <i class="fas fa-graduation-cap me-2"></i>المرحلة الدراسية
+                    </label>
+                    <select id="gradeFilter" class="form-select filter-select">
+                        <option value="">اختر المرحلة الدراسية</option>
+                    </select>
+                    <small class="form-text text-muted mt-1">
+                        <i class="fas fa-info-circle me-1"></i>
+                        اختر "لم يتم تعيينهم" لعرض الطلاب الذين لم يتم تعيينهم في فصل بعد
+                    </small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="filter-group">
+                    <label for="classFilter" class="filter-label">
+                        <i class="fas fa-chalkboard me-2"></i>الفصل
+                    </label>
+                    <select id="classFilter" class="form-select filter-select" disabled>
+                        <option value="">اختر الفصل</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="filter-actions mt-3">
+            <button type="button" id="clearFilters" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-times me-2"></i>مسح الفلاتر
+            </button>
+        </div>
+        <div class="filter-status mt-2" id="filterStatus" style="display: none;">
+            <small class="text-muted">
+                <i class="fas fa-filter me-1"></i>
+                <span id="filterStatusText"></span>
+            </small>
+        </div>
     </div>
 
     <!-- Header -->
@@ -198,7 +335,9 @@
                          data-code="@(student.Code?.ToLower() ?? "")"
                          data-email="@(student.Email?.ToLower() ?? "")"
                          data-phone="@(student.Phone_Number?.ToLower() ?? "")"
-                         data-governate="@(student.Governate?.ToLower() ?? "")">
+                         data-governate="@(student.Governate?.ToLower() ?? "")"
+                         data-grade="@(student.StudentClassSectionYears?.FirstOrDefault()?.Class?.Grade?.Id.ToString() ?? "")"
+                         data-class="@(student.StudentClassSectionYears?.FirstOrDefault()?.Class?.Id.ToString() ?? "")">
                         <div class="student-card">
                             <button class="delete-btn"
                                     onclick="showDeleteModal(@student.Id, '@student.Name', '@student.Code')"
@@ -309,25 +448,42 @@
 </div>
 
 <script>
+    let classIdToDelete = 0;
+    let allRows = [];
+    let totalClasses = 0;
+
+    // Filter variables
     let allStudents = [];
     let totalStudents = 0;
+    let currentGradeFilter = '';
+    let currentClassFilter = '';
 
     // Initialize search functionality
     document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.getElementById('searchInput');
         const clearButton = document.getElementById('clearSearch');
         const searchResults = document.getElementById('searchResults');
-        const studentsGrid = document.getElementById('studentsGrid');
+        const tableBody = document.getElementById('classesTableBody');
         const noSearchResults = document.getElementById('noSearchResults');
+
+        // Get all class rows
+        allRows = Array.from(document.querySelectorAll('.class-row'));
+        totalClasses = allRows.length;
 
         // Get all student items
         allStudents = Array.from(document.querySelectorAll('.student-item'));
         totalStudents = allStudents.length;
 
+        // Initialize filters
+        initializeFilters();
+
         // Update search results info on page load
         updateSearchResultsInfo('');
+        
+        // Update filter status
+        updateFilterStatus();
 
-        // Search input event listener - real-time search
+        // Search input event listener
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.trim();
             performSearch(searchTerm);
@@ -356,26 +512,46 @@
                 clearButton.style.display = 'none';
             }
         });
+
+        // Filter event listeners
+        const gradeFilter = document.getElementById('gradeFilter');
+        const classFilter = document.getElementById('classFilter');
+        const clearFiltersBtn = document.getElementById('clearFilters');
+
+        gradeFilter.addEventListener('change', function() {
+            currentGradeFilter = this.value;
+            handleGradeChange();
+            updateFilterStatus();
+        });
+
+        classFilter.addEventListener('change', function() {
+            currentClassFilter = this.value;
+            applyFilters();
+            updateFilterStatus();
+        });
+
+        clearFiltersBtn.addEventListener('click', function() {
+            clearAllFilters();
+        });
     });
 
     function performSearch(searchTerm) {
         const searchResults = document.getElementById('searchResults');
         const noSearchResults = document.getElementById('noSearchResults');
         const studentsGrid = document.getElementById('studentsGrid');
-        const studentCount = document.getElementById('studentCount');
 
-        if (!searchTerm) {
-            // Show all students
+        if (!searchTerm && !currentGradeFilter && !currentClassFilter) {
+            // Show all rows if no search term and no filters
             allStudents.forEach(student => {
                 student.classList.remove('hidden-item');
                 const card = student.querySelector('.student-card');
-                card.classList.remove('search-match');
+                if (card) card.classList.remove('search-match');
                 removeHighlights(student);
             });
             noSearchResults.style.display = 'none';
             if (studentsGrid) studentsGrid.style.display = '';
             updateSearchResultsInfo('');
-            studentCount.textContent = totalStudents;
+            document.getElementById('studentCount').textContent = totalStudents;
             return;
         }
 
@@ -388,23 +564,43 @@
             const email = student.dataset.email || '';
             const phone = student.dataset.phone || '';
             const governate = student.dataset.governate || '';
-
-            const isMatch = name.includes(searchTermLower) ||
-                          code.includes(searchTermLower) ||
-                          email.includes(searchTermLower) ||
-                          phone.includes(searchTermLower) ||
-                          governate.includes(searchTermLower);
-
             const card = student.querySelector('.student-card');
 
-            if (isMatch) {
+            // Check if student matches search term
+            const matchesSearch = !searchTerm || 
+                name.includes(searchTermLower) ||
+                code.includes(searchTermLower) ||
+                email.includes(searchTermLower) ||
+                phone.includes(searchTermLower) ||
+                governate.includes(searchTermLower);
+
+            // Check if student matches current filters
+            let matchesFilters = true;
+            if (currentGradeFilter) {
+                if (currentGradeFilter === 'not_assigned') {
+                    // Show only students who don't have a class assigned
+                    const studentClass = student.dataset.class;
+                    matchesFilters = matchesFilters && (!studentClass || studentClass === '');
+                } else {
+                    // Show only students in the selected grade
+                    const studentGrade = student.dataset.grade;
+                    matchesFilters = matchesFilters && (studentGrade === currentGradeFilter);
+                }
+            }
+            if (currentClassFilter && matchesFilters && currentGradeFilter !== 'not_assigned') {
+                const studentClass = student.dataset.class;
+                matchesFilters = matchesFilters && (studentClass === currentClassFilter);
+            }
+
+            // Student should be visible if it matches both search and filters
+            if (matchesSearch && matchesFilters) {
                 student.classList.remove('hidden-item');
-                card.classList.add('search-match');
+                if (card) card.classList.add('search-match');
                 highlightSearchTerm(student, searchTerm);
                 visibleCount++;
             } else {
                 student.classList.add('hidden-item');
-                card.classList.remove('search-match');
+                if (card) card.classList.remove('search-match');
                 removeHighlights(student);
             }
         });
@@ -419,7 +615,10 @@
         }
 
         updateSearchResultsInfo(searchTerm, visibleCount);
-        studentCount.textContent = visibleCount;
+        document.getElementById('studentCount').textContent = visibleCount;
+        
+        // Update filter status
+        updateFilterStatus();
     }
 
     function highlightSearchTerm(student, searchTerm) {
@@ -505,5 +704,226 @@
         // Show the modal
         const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
         modal.show();
+    }
+
+    // Initialize filters by loading active grades
+    async function initializeFilters() {
+        try {
+            const response = await fetch('/Student/GetActiveGrades');
+            if (response.ok) {
+                const grades = await response.json();
+                const gradeFilter = document.getElementById('gradeFilter');
+                
+                if (gradeFilter) {
+                    // Clear existing options except the first one
+                    gradeFilter.innerHTML = '<option value="">اختر المرحلة الدراسية</option>';
+                    
+                    // Add grade options
+                    grades.forEach(grade => {
+                        const option = document.createElement('option');
+                        option.value = grade.value;
+                        option.textContent = grade.text;
+                        gradeFilter.appendChild(option);
+                    });
+                    
+                    // Add "Not Assigned" option
+                    const notAssignedOption = document.createElement('option');
+                    notAssignedOption.value = 'not_assigned';
+                    notAssignedOption.textContent = 'لم يتم تعيينهم';
+                    notAssignedOption.style.fontWeight = 'bold';
+                    notAssignedOption.style.color = '#dc3545';
+                    gradeFilter.appendChild(notAssignedOption);
+                }
+            } else {
+                console.error('Failed to load grades:', response.status);
+            }
+        } catch (error) {
+            console.error('Error loading grades:', error);
+        }
+    }
+
+    // Handle grade selection change
+    async function handleGradeChange() {
+        const classFilter = document.getElementById('classFilter');
+        
+        if (!classFilter) return;
+        
+        if (currentGradeFilter && currentGradeFilter !== 'not_assigned') {
+            try {
+                const response = await fetch(`/Student/GetClassesByGrade?gradeId=${currentGradeFilter}`);
+                if (response.ok) {
+                    const classes = await response.json();
+                    
+                    // Clear existing options except the first one
+                    classFilter.innerHTML = '<option value="">اختر الفصل</option>';
+                    
+                    // Add class options
+                    classes.forEach(cls => {
+                        const option = document.createElement('option');
+                        option.value = cls.value;
+                        option.textContent = cls.text;
+                        classFilter.appendChild(option);
+                    });
+                    
+                    // Enable class filter
+                    classFilter.disabled = false;
+                    currentClassFilter = '';
+                } else {
+                    console.error('Failed to load classes:', response.status);
+                }
+            } catch (error) {
+                console.error('Error loading classes:', error);
+            }
+        } else {
+            // Disable and clear class filter
+            classFilter.disabled = true;
+            classFilter.innerHTML = '<option value="">اختر الفصل</option>';
+            currentClassFilter = '';
+        }
+        
+        // Apply current filters
+        applyFilters();
+        
+        // Update filter status
+        updateFilterStatus();
+    }
+
+    // Apply filters to student list
+    function applyFilters() {
+        // If there's a search term, use the search function which handles both search and filters
+        const searchInput = document.getElementById('searchInput');
+        const searchTerm = searchInput.value.trim();
+        
+        if (searchTerm) {
+            performSearch(searchTerm);
+        } else {
+            let visibleCount = 0;
+            
+            allStudents.forEach(student => {
+                let shouldShow = true;
+                
+                // Apply grade filter if selected
+                if (currentGradeFilter) {
+                    if (currentGradeFilter === 'not_assigned') {
+                        // Show only students who don't have a class assigned
+                        const studentClass = student.dataset.class;
+                        if (studentClass && studentClass !== '') {
+                            shouldShow = false;
+                        }
+                    } else {
+                        // Show only students in the selected grade
+                        const studentGrade = student.dataset.grade;
+                        if (studentGrade !== currentGradeFilter) {
+                            shouldShow = false;
+                        }
+                    }
+                }
+                
+                // Apply class filter if selected (only when not "not_assigned")
+                if (currentClassFilter && shouldShow && currentGradeFilter !== 'not_assigned') {
+                    const studentClass = student.dataset.class;
+                    if (studentClass !== currentClassFilter) {
+                        shouldShow = false;
+                    }
+                }
+                
+                if (shouldShow) {
+                    student.classList.remove('hidden-item');
+                    visibleCount++;
+                } else {
+                    student.classList.add('hidden-item');
+                }
+            });
+            
+            // Update student count and show/hide no results
+            const studentCount = document.getElementById('studentCount');
+            const studentsGrid = document.getElementById('studentsGrid');
+            const noSearchResults = document.getElementById('noSearchResults');
+            
+            studentCount.textContent = visibleCount;
+            
+            if (visibleCount === 0) {
+                noSearchResults.style.display = 'block';
+                if (studentsGrid) studentsGrid.style.display = 'none';
+            } else {
+                noSearchResults.style.display = 'none';
+                if (studentsGrid) studentsGrid.style.display = '';
+            }
+            
+            // Update search results info
+            updateSearchResultsInfo('', visibleCount);
+            
+            // Update filter status
+            updateFilterStatus();
+        }
+    }
+
+    // Clear all filters
+    function clearAllFilters() {
+        const gradeFilter = document.getElementById('gradeFilter');
+        const classFilter = document.getElementById('classFilter');
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearch');
+        
+        gradeFilter.value = '';
+        classFilter.value = '';
+        classFilter.disabled = true;
+        classFilter.innerHTML = '<option value="">اختر الفصل</option>';
+        
+        // Clear search input
+        searchInput.value = '';
+        clearSearchBtn.style.display = 'none';
+        
+        currentGradeFilter = '';
+        currentClassFilter = '';
+        
+        // Show all students
+        allStudents.forEach(student => {
+            student.classList.remove('hidden-item');
+            const card = student.querySelector('.student-card');
+            if (card) card.classList.remove('search-match');
+            removeHighlights(student);
+        });
+        
+        // Update counts
+        const studentCount = document.getElementById('studentCount');
+        studentCount.textContent = totalStudents;
+        
+        // Show students grid and hide no results
+        const studentsGrid = document.getElementById('studentsGrid');
+        const noSearchResults = document.getElementById('noSearchResults');
+        if (studentsGrid) studentsGrid.style.display = '';
+        noSearchResults.style.display = 'none';
+        
+        // Update search results info
+        updateSearchResultsInfo('');
+        
+        // Update filter status
+        updateFilterStatus();
+    }
+
+    // Update filter status display
+    function updateFilterStatus() {
+        const filterStatus = document.getElementById('filterStatus');
+        const filterStatusText = document.getElementById('filterStatusText');
+        
+        if (currentGradeFilter || currentClassFilter) {
+            let statusText = '';
+            if (currentGradeFilter === 'not_assigned') {
+                statusText = 'مفعل: لم يتم تعيينهم';
+            } else if (currentGradeFilter && currentClassFilter) {
+                const gradeText = document.getElementById('gradeFilter').options[document.getElementById('gradeFilter').selectedIndex].text;
+                const classText = document.getElementById('classFilter').options[document.getElementById('classFilter').selectedIndex].text;
+                statusText = `مفعل: ${gradeText} - ${classText}`;
+            } else if (currentGradeFilter) {
+                const gradeText = document.getElementById('gradeFilter').options[document.getElementById('gradeFilter').selectedIndex].text;
+                statusText = `مفعل: ${gradeText}`;
+            }
+            
+            filterStatusText.textContent = statusText;
+            filterStatus.style.display = 'block';
+        } else {
+            filterStatus.style.display = 'none';
+        }
     }
 </script>
