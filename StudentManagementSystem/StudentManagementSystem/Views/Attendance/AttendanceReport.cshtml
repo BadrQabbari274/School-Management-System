@@ -1,0 +1,2201 @@
+﻿@model StudentManagementSystem.ViewModels.AttendanceReportViewModel
+
+@{
+
+    ViewData["Title"] = "تقرير الحضور والغياب";
+
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+<style>
+
+    .rtl {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .container-fluid {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+
+
+    /* Header Styles */
+
+    .page-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+
+
+        .page-header h2 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+
+
+    /* Filter Section */
+
+    .filter-section {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+    }
+
+
+
+    .filter-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        align-items: end;
+    }
+
+
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2d3748;
+    }
+
+
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+
+
+    .btn-primary-custom {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+
+
+    .btn-success {
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+
+
+    /* Stats Cards */
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+
+
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease;
+    }
+
+
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+
+
+        .stat-card.present {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+        }
+
+
+
+        .stat-card.absent {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+            color: white;
+        }
+
+
+
+        .stat-card.total {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+        }
+
+
+
+        .stat-card.percentage {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+            color: white;
+        }
+
+
+
+    .stat-number {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+
+
+    .stat-label {
+        font-size: 16px;
+        opacity: 0.9;
+    }
+
+
+
+    /* Tabs */
+
+    .tab-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+
+
+
+    .tab-nav {
+        display: flex;
+        background: #f7fafc;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+
+
+    .tab-btn {
+        flex: 1;
+        padding: 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        color: #4a5568;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+
+
+        .tab-btn.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+
+
+
+    .tab-content {
+        padding: 30px;
+        min-height: 400px;
+    }
+
+
+
+    .tab-pane {
+        display: none;
+    }
+
+
+
+        .tab-pane.active {
+            display: block;
+        }
+
+
+
+    /* Chart Container */
+
+    .chart-container {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        margin-bottom: 20px;
+    }
+
+
+
+    .chart-wrapper {
+        position: relative;
+        height: 400px;
+        margin-bottom: 20px;
+    }
+
+
+
+    /* Table Styles */
+
+    .table-container {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+
+
+    .table {
+        width: 100%;
+        margin: 0;
+    }
+
+
+
+        .table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+
+
+        .table th,
+        .table td {
+            padding: 15px;
+            text-align: center;
+            border: none;
+        }
+
+
+
+        .table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+
+
+        .table tbody tr:hover {
+            background: #e3f2fd;
+            transform: scale(1.01);
+            transition: all 0.2s ease;
+        }
+
+
+
+    /* Today's Attendance */
+
+    .today-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+
+
+    .today-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+
+
+        .today-card.present {
+            border-right: 5px solid #48bb78;
+        }
+
+
+
+        .today-card.absent {
+            border-right: 5px solid #f56565;
+        }
+
+
+
+    .today-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+
+
+    .today-count {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2d3748;
+    }
+
+
+
+    .student-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+
+
+    .student-item {
+        padding: 12px;
+        margin-bottom: 8px;
+        background: #f7fafc;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+
+    .student-name {
+        font-weight: 600;
+        color: #2d3748;
+    }
+
+
+
+    .student-code {
+        font-size: 12px;
+        color: #718096;
+    }
+
+
+
+    .absence-reason {
+        font-size: 12px;
+        background: #fed7d7;
+        color: #c53030;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+
+
+
+    .attendance-type {
+        font-size: 12px;
+        background: #e6f3ff;
+        color: #0066cc;
+        padding: 4px 8px;
+        border-radius: 4px;
+        margin-left: 5px;
+    }
+
+
+
+    /* Modal Styles */
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        backdrop-filter: blur(5px);
+    }
+
+
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+
+    .modal-content {
+        background: white;
+        border-radius: 20px;
+        padding: 0;
+        max-width: 900px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        animation: modalSlideIn 0.3s ease;
+    }
+
+
+
+    @@keyframes modalSlideIn {
+        from
+
+    {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    }
+
+
+
+    .modal-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 20px 20px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+
+    .modal-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+
+
+    .close-btn {
+        background: rgba(255,255,255,0.2);
+        border: none;
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+
+
+    .modal-body {
+        padding: 30px;
+    }
+
+
+
+    .detail-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+
+
+    .detail-stat {
+        text-align: center;
+        padding: 20px;
+        background: #f7fafc;
+        border-radius: 10px;
+    }
+
+
+
+    .detail-stat-number {
+        font-size: 28px;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 5px;
+    }
+
+
+
+    .detail-stat-label {
+        font-size: 14px;
+        color: #718096;
+    }
+
+
+
+    /* Responsive */
+
+    @@media (max-width: 768px) {
+        .filter-row
+
+    {
+        grid-template-columns: 1fr;
+    }
+
+
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+
+    .today-section {
+        grid-template-columns: 1fr;
+    }
+
+
+
+    .tab-nav {
+        flex-direction: column;
+    }
+
+
+
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+
+    }
+
+
+
+    /* Loading */
+
+    .loading {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        color: #718096;
+    }
+
+
+
+        .loading.show {
+            display: block;
+        }
+
+
+
+    .spinner {
+        border: 3px solid #e2e8f0;
+        border-top: 3px solid #667eea;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+    }
+
+
+
+    @@keyframes spin {
+        0%
+
+    {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+    }
+</style>
+
+<div class="container-fluid rtl">
+
+    <!-- Page Header -->
+
+    <div class="page-header">
+
+        <h2>
+
+            <i class="fas fa-chart-line"></i>
+
+            تقرير الحضور والغياب
+
+        </h2>
+
+    </div>
+
+    <!-- Filter Section -->
+
+    <div class="filter-section">
+
+        <form asp-action="AttendanceReport" method="post">
+
+            @Html.AntiForgeryToken()
+
+
+
+            <div class="filter-row">
+
+                <div class="form-group">
+
+                    <label>الصف الدراسي</label>
+
+                    <select asp-for="SelectedGradeId" asp-items="@Model.GradesList" class="form-control">
+
+                        <option value="">-- اختر الصف --</option>
+
+                    </select>
+
+                </div>
+
+                @if (Model.ClassesResult.Any())
+
+                {
+
+                    <div class="form-group">
+
+                        <label>الفصل</label>
+
+                        <select asp-for="SelectedClassId" class="form-control">
+
+                            <option value="">-- اختر الفصل --</option>
+
+                            @foreach (var cls in Model.ClassesResult)
+
+                            {
+
+                                <option value="@cls.Id" selected="@(Model.SelectedClassId == cls.Id)">@cls.Name</option>
+
+                            }
+
+                        </select>
+
+                    </div>
+
+                }
+
+                <div class="form-group">
+
+                    <label>من تاريخ</label>
+
+                    <input asp-for="StartDate" type="date" class="form-control" />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>إلى تاريخ</label>
+
+                    <input asp-for="EndDate" type="date" class="form-control" />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="SelectedAttendanceTypeId"></label>
+
+                    <select asp-for="SelectedAttendanceTypeId" asp-items="@Model.AttendanceTypesList" class="form-control">
+
+                        <option value="">-- جميع الأنواع --</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <button type="submit" class="btn-primary-custom">
+
+                        <i class="fas fa-search"></i>
+
+                        عرض التقرير
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    @if (Model.AttendanceReport != null && Model.AttendanceReport.Students.Any())
+
+    {
+
+        <!-- Statistics Cards -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card total">
+
+                <div class="stat-number">@Model.AttendanceReport.TotalStudents</div>
+
+                <div class="stat-label">إجمالي الطلاب</div>
+
+            </div>
+
+            <div class="stat-card present">
+
+                <div class="stat-number">@Model.AttendanceReport.TotalPresentDays</div>
+
+                <div class="stat-label">إجمالي أيام الحضور</div>
+
+            </div>
+
+            <div class="stat-card absent">
+
+                <div class="stat-number">@Model.AttendanceReport.TotalAbsentDays</div>
+
+                <div class="stat-label">إجمالي أيام الغياب</div>
+
+            </div>
+
+            <div class="stat-card percentage">
+
+                <div class="stat-number">@Math.Round(Model.AttendanceReport.AverageAttendancePercentage, 1)%</div>
+
+                <div class="stat-label">متوسط نسبة الحضور</div>
+
+            </div>
+
+        </div>
+
+        <!-- Export Button -->
+
+        <div style="text-align: left; margin-bottom: 20px;">
+
+            <button onclick="exportToExcel()" class="btn-success">
+
+                <i class="fas fa-file-excel"></i>
+
+                تصدير إلى Excel
+
+            </button>
+
+        </div>
+
+        <!-- Tabs Container -->
+
+        <div class="tab-container">
+
+            <div class="tab-nav">
+
+                <button class="tab-btn active" onclick="switchTab('period-report')">
+
+                    <i class="fas fa-calendar-alt"></i>
+
+                    تقرير الفترة
+
+                </button>
+
+                <button class="tab-btn" onclick="switchTab('today-attendance')">
+
+                    <i class="fas fa-calendar-day"></i>
+
+                    حضور اليوم
+
+                </button>
+
+                <button class="tab-btn" onclick="switchTab('charts')">
+
+                    <i class="fas fa-chart-pie"></i>
+
+                    الرسوم البيانية
+
+                </button>
+
+            </div>
+
+            <div class="tab-content">
+
+                <!-- Period Report Tab -->
+
+                <div id="period-report" class="tab-pane active">
+
+                    <div class="table-container">
+
+                        <table class="table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>اسم الطالب</th>
+
+                                    <th>كود الطالب</th>
+
+                                    <th>أيام الحضور</th>
+
+                                    <th>أيام الغياب</th>
+
+                                    <th>نسبة الحضور</th>
+
+                                    <th>أسباب الغياب</th>
+
+                                    <th>أنواع الحضور/الغياب</th>
+
+                                    <th>الإجراءات</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var student in Model.AttendanceReport.Students)
+
+                                {
+
+                                    <tr>
+
+                                        <td>
+
+                                            <strong>@student.StudentName</strong>
+
+                                        </td>
+
+                                        <td>@student.StudentCode</td>
+
+                                        <td>
+
+                                            <span class="badge bg-success">@student.PresentDays</span>
+
+                                        </td>
+
+                                        <td>
+
+                                            <span class="badge bg-danger">@student.AbsentDays</span>
+
+                                        </td>
+
+                                        <td>
+
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+
+                                                <div style="background: #e2e8f0; border-radius: 10px; width: 60px; height: 8px; overflow: hidden;">
+
+                                                    <div style="background: @(student.AttendancePercentage >= 80 ? "#48bb78" : student.AttendancePercentage >= 60 ? "#ed8936" : "#f56565");
+
+                                                                       height: 100%; width: @(student.AttendancePercentage)%; transition: width 0.3s ease;"></div>
+
+                                                </div>
+
+                                                <span style="font-weight: 600; color: @(student.AttendancePercentage >= 80 ? "#48bb78" : student.AttendancePercentage >= 60 ? "#ed8936" : "#f56565")">
+
+                                                    @Math.Round(student.AttendancePercentage, 1)%
+
+                                                </span>
+
+                                            </div>
+
+                                        </td>
+
+                                        <td>
+
+                                            @if (student.AbsenceReasons.Any())
+
+                                            {
+
+                                                @string.Join(", ", student.AbsenceReasons.Take(2))
+
+                                                @if (student.AbsenceReasons.Count > 2)
+
+                                                {
+
+                                                    <span>...</span>
+
+                                                }
+
+                                            }
+
+                                            else
+
+                                            {
+
+                                                <span class="text-muted">لا يوجد</span>
+
+                                            }
+
+                                        </td>
+
+                                        <td>
+
+                                            @if (student.AbsenceTypes.Any())
+
+                                            {
+
+                                                @foreach (var type in student.AbsenceTypes.Take(2))
+
+                                                {
+
+                                                    <span class="attendance-type">@type</span>
+
+                                                }
+
+                                                @if (student.AbsenceTypes.Count > 2)
+
+                                                {
+
+                                                    <span>...</span>
+
+                                                }
+
+                                            }
+
+                                            else
+
+                                            {
+
+                                                <span class="text-muted">غير محدد</span>
+
+                                            }
+
+                                        </td>
+
+                                        <td>
+
+                                            <button onclick="showStudentDetails(@student.StudentId)"
+                                                    class="btn btn-sm btn-outline-primary">
+
+                                                <i class="fas fa-eye"></i>
+
+                                                عرض التفاصيل
+
+                                            </button>
+
+                                        </td>
+
+                                    </tr>
+
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <!-- Today's Attendance Tab -->
+
+                <div id="today-attendance" class="tab-pane">
+
+                    @if (Model.TodayAttendance != null)
+
+                    {
+
+                        <div style="text-align: center; margin-bottom: 30px;">
+
+                            <h3>حضور وغياب اليوم - @Model.TodayAttendance.Date.ToString("yyyy/MM/dd")</h3>
+
+                        </div>
+
+                        <div class="today-section">
+
+                            <!-- Present Students -->
+
+                            <div class="today-card present">
+
+                                <div class="today-header">
+
+                                    <i class="fas fa-user-check" style="color: #48bb78; font-size: 24px;"></i>
+
+                                    <h4 style="margin: 0; color: #48bb78;">الطلاب الحاضرون</h4>
+
+                                    <div class="today-count" style="color: #48bb78;">@Model.TodayAttendance.PresentCount</div>
+
+                                </div>
+
+                                <div class="student-list">
+
+                                    @foreach (var student in Model.TodayAttendance.PresentStudents)
+
+                                    {
+
+                                        <div class="student-item">
+
+                                            <div>
+
+                                                <div class="student-name">@student.StudentName</div>
+
+                                                <div class="student-code">كود: @student.StudentCode</div>
+
+                                                @if (!string.IsNullOrEmpty(student.AttendanceType))
+
+                                                {
+
+                                                    <span class="attendance-type">@student.AttendanceType</span>
+
+                                                }
+
+                                            </div>
+
+                                            <i class="fas fa-check-circle" style="color: #48bb78;"></i>
+
+                                        </div>
+
+                                    }
+
+                                </div>
+
+                            </div>
+
+                            <!-- Absent Students -->
+
+                            <div class="today-card absent">
+
+                                <div class="today-header">
+
+                                    <i class="fas fa-user-times" style="color: #f56565; font-size: 24px;"></i>
+
+                                    <h4 style="margin: 0; color: #f56565;">الطلاب الغائبون</h4>
+
+                                    <div class="today-count" style="color: #f56565;">@Model.TodayAttendance.AbsentCount</div>
+
+                                </div>
+
+                                <div class="student-list">
+
+                                    @foreach (var student in Model.TodayAttendance.AbsentStudents)
+
+                                    {
+
+                                        <div class="student-item">
+
+                                            <div>
+
+                                                <div class="student-name">@student.StudentName</div>
+
+                                                <div class="student-code">كود: @student.StudentCode</div>
+
+                                                @if (!string.IsNullOrEmpty(student.AttendanceType))
+
+                                                {
+
+                                                    <span class="attendance-type">@student.AttendanceType</span>
+
+                                                }
+
+                                            </div>
+
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+
+                                                @if (!string.IsNullOrEmpty(student.Reason))
+
+                                                {
+
+                                                    <span class="absence-reason">@student.Reason</span>
+
+                                                }
+
+                                                <i class="fas fa-times-circle" style="color: #f56565;"></i>
+
+                                            </div>
+
+                                        </div>
+
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    }
+
+                    else
+
+                    {
+
+                        <div style="text-align: center; padding: 40px; color: #718096;">
+
+                            <i class="fas fa-info-circle" style="font-size: 48px; margin-bottom: 20px;"></i>
+
+                            <p>لا توجد بيانات حضور لهذا اليوم</p>
+
+                        </div>
+
+                    }
+
+                </div>
+
+                <!-- Charts Tab -->
+
+                <div id="charts" class="tab-pane">
+
+                    <div class="chart-container">
+
+                        <h4 style="text-align: center; margin-bottom: 30px;">نسب الحضور والغياب</h4>
+
+                        <div class="chart-wrapper">
+
+                            <canvas id="attendanceChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-container">
+
+                        <h4 style="text-align: center; margin-bottom: 30px;">مقارنة الطلاب</h4>
+
+                        <div class="chart-wrapper">
+
+                            <canvas id="studentComparisonChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    }
+
+    else if (Model.SelectedClassId.HasValue)
+
+    {
+
+        <div style="text-align: center; padding: 40px; color: #718096;">
+
+            <i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 20px;"></i>
+
+            <p>لا توجد بيانات حضور للفصل المحدد في هذه الفترة</p>
+
+        </div>
+
+    }
+
+</div>
+
+<!-- Student Details Modal -->
+
+<div id="studentModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3 class="modal-title">تفاصيل حضور الطالب</h3>
+
+            <button class="close-btn" onclick="closeModal()">
+
+                <i class="fas fa-times"></i>
+
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div class="loading">
+
+                <div class="spinner"></div>
+
+                <p>جاري تحميل البيانات...</p>
+
+            </div>
+
+            <div id="studentDetailsContent"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Success/Error Messages -->
+@if (TempData["Success"] != null)
+
+{
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+        <i class="fas fa-check-circle me-2"></i>
+
+        @TempData["Success"]
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+    </div>
+
+}
+
+@if (TempData["Error"] != null)
+
+{
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+        <i class="fas fa-exclamation-circle me-2"></i>
+
+        @TempData["Error"]
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+    </div>
+
+}
+
+<script>
+
+    // Global variables
+
+    let attendanceChart;
+
+    let studentComparisonChart;
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Initialize charts if data exists
+
+        @if (Model.AttendanceReport != null && Model.AttendanceReport.Students.Any())
+
+        {
+
+                <text>initializeCharts();</text>
+
+        }
+
+
+
+        // Auto-submit form when grade changes
+
+        const gradeSelect = document.querySelector('[asp-for="SelectedGradeId"]');
+
+        if (gradeSelect) {
+
+            gradeSelect.addEventListener('change', function() {
+
+                if (this.value) {
+
+                    this.closest('form').submit();
+
+                }
+
+            });
+
+        }
+
+    });
+
+    // Tab switching
+
+    function switchTab(tabName) {
+
+        // Hide all tabs
+
+        document.querySelectorAll('.tab-pane').forEach(pane => {
+
+            pane.classList.remove('active');
+
+        });
+
+
+
+        // Remove active class from all buttons
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+
+            btn.classList.remove('active');
+
+        });
+
+
+
+        // Show selected tab
+
+        document.getElementById(tabName).classList.add('active');
+
+        event.target.classList.add('active');
+
+
+
+        // Initialize charts if charts tab is selected
+
+        if (tabName === 'charts') {
+
+            setTimeout(() => initializeCharts(), 100);
+
+        }
+
+    }
+
+    // Initialize charts
+
+    function initializeCharts() {
+
+        initializeAttendanceChart();
+
+        initializeStudentComparisonChart();
+
+    }
+
+    function initializeAttendanceChart() {
+
+        const ctx = document.getElementById('attendanceChart');
+
+        if (!ctx) return;
+
+        const totalPresent = @(Model.AttendanceReport?.TotalPresentDays ?? 0);
+
+        const totalAbsent = @(Model.AttendanceReport?.TotalAbsentDays ?? 0);
+
+        if (attendanceChart) {
+
+            attendanceChart.destroy();
+
+        }
+
+        attendanceChart = new Chart(ctx, {
+
+            type: 'doughnut',
+
+            data: {
+
+                labels: ['الحضور', 'الغياب'],
+
+                datasets: [{
+
+                    data: [totalPresent, totalAbsent],
+
+                    backgroundColor: ['#48bb78', '#f56565'],
+
+                    borderWidth: 0,
+
+                    hoverOffset: 4
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+
+                        position: 'bottom',
+
+                        rtl: true,
+
+                        labels: {
+
+                            font: {
+
+                                size: 14
+
+                            },
+
+                            usePointStyle: true,
+
+                            padding: 20
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+    function initializeStudentComparisonChart() {
+
+        const ctx = document.getElementById('studentComparisonChart');
+
+        if (!ctx) return;
+
+        const students = @Html.Raw(Json.Serialize(Model.AttendanceReport?.Students.Take(10)));
+
+
+
+        if (studentComparisonChart) {
+
+            studentComparisonChart.destroy();
+
+        }
+
+        studentComparisonChart = new Chart(ctx, {
+
+            type: 'bar',
+
+            data: {
+
+                labels: students.map(s => s.studentName),
+
+                datasets: [{
+
+                    label: 'أيام الحضور',
+
+                    data: students.map(s => s.presentDays),
+
+                    backgroundColor: '#48bb78',
+
+                    borderRadius: 4
+
+                }, {
+
+                    label: 'أيام الغياب',
+
+                    data: students.map(s => s.absentDays),
+
+                    backgroundColor: '#f56565',
+
+                    borderRadius: 4
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true
+
+                    }
+
+                },
+
+                plugins: {
+
+                    legend: {
+
+                        position: 'top',
+
+                        rtl: true
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+    // Show student details modal
+
+    async function showStudentDetails(studentId) {
+
+        const modal = document.getElementById('studentModal');
+
+        const loading = modal.querySelector('.loading');
+
+        const content = document.getElementById('studentDetailsContent');
+
+
+
+        modal.classList.add('show');
+
+        loading.classList.add('show');
+
+        content.innerHTML = '';
+
+        try {
+
+            const response = await fetch(`/Attendance/GetStudentAttendanceDetails?studentId=${studentId}&classId=@Model.SelectedClassId&startDate=@Model.StartDate?.ToString("yyyy-MM-dd")&endDate=@Model.EndDate?.ToString("yyyy-MM-dd")&attendanceTypeId=@Model.SelectedAttendanceTypeId`);
+
+            const result = await response.json();
+
+            if (result.success) {
+
+                displayStudentDetails(result.data);
+
+            } else {
+
+                content.innerHTML = '<div class="alert alert-danger">حدث خطأ: ' + result.message + '</div>';
+
+            }
+
+        } catch (error) {
+
+            content.innerHTML = '<div class="alert alert-danger">حدث خطأ أثناء تحميل البيانات</div>';
+
+        } finally {
+
+            loading.classList.remove('show');
+
+        }
+
+    }
+
+    function displayStudentDetails(data) {
+
+        const content = document.getElementById('studentDetailsContent');
+
+
+
+        const html = `
+
+            <div style="text-align: center; margin-bottom: 30px;">
+
+                <h4>${data.studentName}</h4>
+
+                <p style="color: #718096;">كود الطالب: ${data.studentCode}</p>
+
+                <p style="color: #718096;">من ${data.startDate} إلى ${data.endDate}</p>
+
+            </div>
+
+            <div class="detail-stats">
+
+                <div class="detail-stat">
+
+                    <div class="detail-stat-number" style="color: #48bb78;">${data.presentDays}</div>
+
+                    <div class="detail-stat-label">أيام الحضور</div>
+
+                </div>
+
+                <div class="detail-stat">
+
+                    <div class="detail-stat-number" style="color: #f56565;">${data.absentDays}</div>
+
+                    <div class="detail-stat-label">أيام الغياب</div>
+
+                </div>
+
+                <div class="detail-stat">
+
+                    <div class="detail-stat-number" style="color: #667eea;">${Math.round(data.attendancePercentage)}%</div>
+
+                    <div class="detail-stat-label">نسبة الحضور</div>
+
+                </div>
+
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px;">
+
+                <div>
+
+                    <h5 style="margin-bottom: 20px;">
+
+                        <i class="fas fa-chart-pie"></i>
+
+                        الرسم البياني
+
+                    </h5>
+
+                    <div style="height: 200px;">
+
+                        <canvas id="studentDetailChart"></canvas>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <h5 style="margin-bottom: 20px;">
+
+                        <i class="fas fa-list"></i>
+
+                        أسباب الغياب
+
+                    </h5>
+
+                    <div id="absenceReasons"></div>
+
+                </div>
+
+                <div>
+
+                    <h5 style="margin-bottom: 20px;">
+
+                        <i class="fas fa-tags"></i>
+
+                        أنواع الحضور/الغياب
+
+                    </h5>
+
+                    <div id="attendanceTypes"></div>
+
+                </div>
+
+            </div>
+
+            <div style="margin-top: 30px;">
+
+                <h5 style="margin-bottom: 20px;">
+
+                    <i class="fas fa-history"></i>
+
+                    سجل الحضور والغياب
+
+                </h5>
+
+                <div style="max-height: 300px; overflow-y: auto;">
+
+                    <div id="attendanceHistory"></div>
+
+                </div>
+
+            </div>
+
+        `;
+
+        content.innerHTML = html;
+
+        // Display absence reasons
+
+        const absenceReasonsDiv = document.getElementById('absenceReasons');
+
+        if (data.absenceReasonStats && data.absenceReasonStats.length > 0) {
+
+            const reasonsHtml = data.absenceReasonStats.map(reason => `
+
+                <div class="student-item" style="margin-bottom: 10px;">
+
+                    <span>${reason.reasonName}</span>
+
+                    <span class="badge bg-danger">${reason.count}</span>
+
+                </div>
+
+            `).join('');
+
+            absenceReasonsDiv.innerHTML = reasonsHtml;
+
+        } else {
+
+            absenceReasonsDiv.innerHTML = '<p style="color: #718096; text-align: center;">لا توجد أسباب غياب مسجلة</p>';
+
+        }
+
+        // Display attendance types
+
+        const attendanceTypesDiv = document.getElementById('attendanceTypes');
+
+        if (data.absenceTypeStats && data.absenceTypeStats.length > 0) {
+
+            const typesHtml = data.absenceTypeStats.map(type => `
+
+                <div class="student-item" style="margin-bottom: 10px;">
+
+                    <span>${type.typeName}</span>
+
+                    <span class="badge bg-primary">${type.count}</span>
+
+                </div>
+
+            `).join('');
+
+            attendanceTypesDiv.innerHTML = typesHtml;
+
+        } else {
+
+            attendanceTypesDiv.innerHTML = '<p style="color: #718096; text-align: center;">لا توجد أنواع مسجلة</p>';
+
+        }
+
+        // Display attendance history
+
+        const historyDiv = document.getElementById('attendanceHistory');
+
+        if (data.attendanceHistory && data.attendanceHistory.length > 0) {
+
+            const historyHtml = data.attendanceHistory.map(record => `
+
+                <div class="student-item" style="margin-bottom: 8px;">
+
+                    <div>
+
+                        <span style="font-weight: 600;">${new Date(record.date).toLocaleDateString('ar-EG')}</span>
+
+                        ${record.reason ? `<br><small style="color: #718096;">${record.reason}</small>` : ''}
+
+                        ${record.attendanceType ? `<br><span class="attendance-type">${record.attendanceType}</span>` : ''}
+
+                    </div>
+
+                    <span class="badge ${record.status === 'حاضر' ? 'bg-success' : 'bg-danger'}">
+
+                        ${record.status}
+
+                    </span>
+
+                </div>
+
+            `).join('');
+
+            historyDiv.innerHTML = historyHtml;
+
+        } else {
+
+            historyDiv.innerHTML = '<p style="color: #718096; text-align: center;">لا يوجد سجل حضور</p>';
+
+        }
+
+        // Initialize student detail chart
+
+        setTimeout(() => {
+
+            const ctx = document.getElementById('studentDetailChart');
+
+            if (ctx) {
+
+                new Chart(ctx, {
+
+                    type: 'doughnut',
+
+                    data: {
+
+                        labels: ['الحضور', 'الغياب'],
+
+                        datasets: [{
+
+                            data: [data.presentDays, data.absentDays],
+
+                            backgroundColor: ['#48bb78', '#f56565'],
+
+                            borderWidth: 0,
+
+                            hoverOffset: 4
+
+                        }]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        plugins: {
+
+                            legend: {
+
+                                position: 'bottom',
+
+                                rtl: true,
+
+                                labels: {
+
+                                    font: { size: 12 },
+
+                                    usePointStyle: true,
+
+                                    padding: 15
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                });
+
+            }
+
+        }, 100);
+
+    }
+
+    // Close modal
+
+    function closeModal() {
+
+        document.getElementById('studentModal').classList.remove('show');
+
+    }
+
+    // Close modal when clicking outside
+
+    document.getElementById('studentModal').addEventListener('click', function(e) {
+
+        if (e.target === this) {
+
+            closeModal();
+
+        }
+
+    });
+
+    // Export to Excel
+
+    function exportToExcel() {
+
+        if (!@Model.SelectedClassId.HasValue) {
+
+            alert('يرجى اختيار فصل أولاً');
+
+            return;
+
+        }
+
+        const form = document.createElement('form');
+
+        form.method = 'POST';
+
+        form.action = '/Attendance/ExportToExcel';
+
+        const fields = {
+
+            'classId': @(Model.SelectedClassId ?? 0),
+
+            'startDate': '@(Model.StartDate?.ToString("yyyy-MM-dd"))',
+
+            'endDate': '@(Model.EndDate?.ToString("yyyy-MM-dd"))',
+
+            'attendanceTypeId': @(Model.SelectedAttendanceTypeId)
+
+        };
+
+        Object.keys(fields).forEach(key => {
+
+            const input = document.createElement('input');
+
+            input.type = 'hidden';
+
+            input.name = key;
+
+            input.value = fields[key];
+
+            form.appendChild(input);
+
+        });
+
+        // Add anti-forgery token
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]');
+
+        if (token) {
+
+            const tokenInput = document.createElement('input');
+
+            tokenInput.type = 'hidden';
+
+            tokenInput.name = '__RequestVerificationToken';
+
+            tokenInput.value = token.value;
+
+            form.appendChild(tokenInput);
+
+        }
+
+        document.body.appendChild(form);
+
+        form.submit();
+
+        document.body.removeChild(form);
+
+    }
+
+    // Add loading states
+
+    document.addEventListener('submit', function(e) {
+
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+
+        if (submitBtn) {
+
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
+
+            submitBtn.disabled = true;
+
+        }
+
+    });
+
+    // Auto-refresh today's attendance every 5 minutes
+
+    setInterval(function() {
+
+        const todayTab = document.getElementById('today-attendance');
+
+        if (todayTab.classList.contains('active') && @Model.SelectedClassId.HasValue) {
+
+            location.reload();
+
+        }
+
+    }, 300000); // 5 minutes
+
+</script>
+
+<style>
+
+    /* Additional styles for badges */
+
+    .badge {
+        display: inline-block;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.375rem;
+    }
+
+
+
+    .bg-success {
+        background-color: #48bb78 !important;
+    }
+
+    .bg-danger {
+        background-color: #f56565 !important;
+    }
+
+    .bg-primary {
+        background-color: #667eea !important;
+    }
+
+
+
+    .btn {
+        display: inline-block;
+        padding: 0.375rem 0.75rem;
+        margin-bottom: 0;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 0.375rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        border-radius: 0.25rem;
+    }
+
+
+
+    .btn-outline-primary {
+        color: #667eea;
+        border-color: #667eea;
+        background: transparent;
+    }
+
+
+
+        .btn-outline-primary:hover {
+            color: #fff;
+            background-color: #667eea;
+            border-color: #667eea;
+        }
+
+
+
+    /* Alert styles */
+
+    .alert {
+        position: relative;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.375rem;
+    }
+
+
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+
+
+    .alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+
+
+    .alert-dismissible {
+        padding-right: 4rem;
+    }
+
+
+
+    .btn-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        padding: 0.75rem 1.25rem;
+        background: transparent;
+        border: 0;
+        font-size: 1.125rem;
+        line-height: 1;
+        color: #000;
+        opacity: 0.5;
+        cursor: pointer;
+    }
+
+
+
+        .btn-close:hover {
+            opacity: 0.75;
+        }
+
+
+
+    .fade {
+        transition: opacity 0.15s linear;
+    }
+
+
+
+    .show {
+        opacity: 1;
+    }
+
+
+
+    /* Text utilities */
+
+    .text-muted {
+        color: #718096 !important;
+    }
+
+
+
+    .me-2 {
+        margin-right: 0.5rem;
+    }
+
+
+
+    /* Print styles */
+
+    @@media print {
+        .filter-section, .btn, .modal
+
+    {
+        display: none !important;
+    }
+
+
+
+    .page-header {
+        background: #667eea !important;
+        -webkit-print-color-adjust: exact;
+    }
+
+
+
+    .tab-nav {
+        display: none;
+    }
+
+
+
+    .tab-pane {
+        display: block !important;
+    }
+
+
+
+    .table {
+        font-size: 12px;
+    }
+
+
+
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    }
+</style>

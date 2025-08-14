@@ -1,314 +1,316 @@
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.Development.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.endpoints.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.exe
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.deps.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.runtimeconfig.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.pdb
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Core.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Identity.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.Interfaces.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Humanizer.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Mono.TextTemplating.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\OfficeOpenXml.Core.ExcelPackage.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.CodeDom.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.AttributedModel.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Convention.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Hosting.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Runtime.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.TypedParts.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Drawing.Common.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IO.Packaging.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Memory.Data.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Runtime.Caching.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Permissions.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Windows.Extensions.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.AssemblyReference.cache
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfoInputs.cache
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfo.cs
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.CoreCompileInputs.cache
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.MvcApplicationPartsAssemblyInfo.cache
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cache
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cs
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.sourcelink.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\bundle\StudentManagementSystem.styles.css
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\projectbundle\StudentManagementSystem.bundle.scp.css
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.development.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.StudentManagementSystem.Microsoft.AspNetCore.StaticWebAssets.props
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.StudentManagementSystem.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.build.StudentManagementSystem.props
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.StudentManagementSystem.props
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.StudentManagementSystem.props
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.pack.json
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentM.D74F523C.Up2Date
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\StudentManagementSystem.dll
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
-D:\MIDANY_CLONES\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.AssemblyReference.cache
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rpswa.dswa.cache.json
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfoInputs.cache
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfo.cs
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.CoreCompileInputs.cache
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.MvcApplicationPartsAssemblyInfo.cache
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cache
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cs
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.sourcelink.json
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\StudentManagementSystem.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.Development.json
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.json
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.endpoints.json
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.exe
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.deps.json
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.runtimeconfig.json
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.pdb
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Core.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Identity.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.Interfaces.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Humanizer.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Mono.TextTemplating.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\OfficeOpenXml.Core.ExcelPackage.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.CodeDom.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.AttributedModel.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Convention.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Hosting.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Runtime.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.TypedParts.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Drawing.Common.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IO.Packaging.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Memory.Data.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Runtime.Caching.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Permissions.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Windows.Extensions.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjimswa.dswa.cache.json
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\bundle\StudentManagementSystem.styles.css
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\projectbundle\StudentManagementSystem.bundle.scp.css
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json.cache
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.development.json
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentM.D74F523C.Up2Date
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
-D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.Development.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.endpoints.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.exe
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.deps.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.runtimeconfig.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.pdb
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Core.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Identity.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.Interfaces.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Humanizer.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\OfficeOpenXml.Core.ExcelPackage.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.CodeDom.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IO.Packaging.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Memory.Data.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.AssemblyReference.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfoInputs.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfo.cs
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.CoreCompileInputs.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.MvcApplicationPartsAssemblyInfo.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cs
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.sourcelink.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjimswa.dswa.cache.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\bundle\StudentManagementSystem.styles.css
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\projectbundle\StudentManagementSystem.bundle.scp.css
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.development.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentM.D74F523C.Up2Date
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\StudentManagementSystem.dll
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
+D:\7-16\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.endpoints.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.exe
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.deps.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.runtimeconfig.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.pdb
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Core.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.Interfaces.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Humanizer.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\OfficeOpenXml.Core.ExcelPackage.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IO.Packaging.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Runtime.Caching.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Permissions.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.AssemblyReference.cache
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfoInputs.cache
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfo.cs
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.CoreCompileInputs.cache
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cache
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cs
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.sourcelink.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\bundle\StudentManagementSystem.styles.css
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\projectbundle\StudentManagementSystem.bundle.scp.css
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.StudentManagementSystem.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.StudentManagementSystem.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.build.StudentManagementSystem.props
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.StudentManagementSystem.props
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.StudentManagementSystem.props
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentM.D74F523C.Up2Date
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\StudentManagementSystem.dll
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
+C:\Users\Mohamed Reda\Downloads\Work\Git\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
 C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.json
 C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
@@ -465,3 +467,632 @@ C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\
 C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
 C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
 C:\Users\sd\Source\Repos\Midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.endpoints.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.exe
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.deps.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.runtimeconfig.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.pdb
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Core.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.Interfaces.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Humanizer.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\OfficeOpenXml.Core.ExcelPackage.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IO.Packaging.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Runtime.Caching.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Permissions.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.AssemblyReference.cache
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfoInputs.cache
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfo.cs
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.CoreCompileInputs.cache
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cache
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cs
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.sourcelink.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\bundle\StudentManagementSystem.styles.css
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\projectbundle\StudentManagementSystem.bundle.scp.css
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentM.D74F523C.Up2Date
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\StudentManagementSystem.dll
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
+C:\Users\sd\source\repos\Midany\MIDANY9\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.AssemblyReference.cache
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfoInputs.cache
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfo.cs
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.CoreCompileInputs.cache
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.MvcApplicationPartsAssemblyInfo.cache
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cache
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cs
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.sourcelink.json
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\StudentManagementSystem.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.Development.json
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.json
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.endpoints.json
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.exe
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.deps.json
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.runtimeconfig.json
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.pdb
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Core.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Identity.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.Interfaces.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Humanizer.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\OfficeOpenXml.Core.ExcelPackage.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.CodeDom.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IO.Packaging.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Memory.Data.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjimswa.dswa.cache.json
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\bundle\StudentManagementSystem.styles.css
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\projectbundle\StudentManagementSystem.bundle.scp.css
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json.cache
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.development.json
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentM.D74F523C.Up2Date
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
+D:\last\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.endpoints.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.exe
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.deps.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.runtimeconfig.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.pdb
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Core.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.Interfaces.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Humanizer.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\OfficeOpenXml.Core.ExcelPackage.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.TypedParts.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IO.Packaging.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Memory.Data.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Runtime.Caching.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Permissions.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.AssemblyReference.cache
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfoInputs.cache
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfo.cs
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.CoreCompileInputs.cache
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cache
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cs
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.sourcelink.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\bundle\StudentManagementSystem.styles.css
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\projectbundle\StudentManagementSystem.bundle.scp.css
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentM.D74F523C.Up2Date
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\StudentManagementSystem.dll
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
+C:\Users\sd\Desktop\midany\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.Development.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\appsettings.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.runtime.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.staticwebassets.endpoints.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.exe
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.deps.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.runtimeconfig.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\StudentManagementSystem.pdb
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Core.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Azure.Identity.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\EPPlus.Interfaces.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Humanizer.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\OfficeOpenXml.Core.ExcelPackage.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.CodeDom.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.IO.Packaging.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Memory.Data.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.AssemblyReference.cache
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfoInputs.cache
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.AssemblyInfo.cs
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.csproj.CoreCompileInputs.cache
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.MvcApplicationPartsAssemblyInfo.cache
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cache
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cs
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.sourcelink.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjimswa.dswa.cache.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\bundle\StudentManagementSystem.styles.css
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\scopedcss\projectbundle\StudentManagementSystem.bundle.scp.css
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json.cache
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.development.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentM.D74F523C.Up2Date
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\refint\StudentManagementSystem.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
+D:\Work\StudentManagementSystem\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ClosedXML.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ClosedXML.Parser.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\ExcelNumberFormat.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\RBush.dll
+D:\Work\StudentManagementSystem\StudentManagementSystem\bin\Debug\net8.0\SixLabors.Fonts.dll
