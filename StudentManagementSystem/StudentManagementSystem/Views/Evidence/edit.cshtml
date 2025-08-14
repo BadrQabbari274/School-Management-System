@@ -62,16 +62,21 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="mb-4">
-                                        <label asp-for="Outcome_Id" class="form-label">
+                                    <div class="info-box d-flex justify-content-between align-items-center p-3 my-2 border rounded-3">
+                                        <div class="d-flex align-items-center">
                                             <i class="fas fa-bullseye me-2"></i>
-                                            نتاج التعلم <span class="text-danger">*</span>
-                                        </label>
-                                        <select asp-for="Outcome_Id" class="form-select form-control-modern" id="outcomeSelect">
-                                            <option value="">-- اختر نتاج التعلم --</option>
-                                            @* سيتم تحميل نتائج التعلم من خلال JavaScript *@
-                                        </select>
-                                        <span asp-validation-for="Outcome_Id" class="text-danger"></span>
+                                            <span class="detail-label mb-0">نتاج التعلم</span>
+                                        </div>
+                                        <div class="detail-value">
+                                            @if (Model.Learning_Outcome != null)
+                                            {
+                                                <span class="learning-outcome-badge">@Model.Learning_Outcome.Name</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">غير محدد</span>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -545,6 +550,34 @@
 
         .form-group, .row > div {
             animation: fadeInUp 0.5s ease forwards;
+        }
+
+
+        .learning-outcome-badge {
+            background-color: #ff8c00; /* A vibrant orange */
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px; /* Rounded corners for the "pill" shape */
+            font-weight: bold;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        /* Optional: To align the text and badge side-by-side */
+        .learning-outcome-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        .learning-outcome-badge {
+            background: linear-gradient(to right, #ff8c00, #ffc107); /* Orange to Yellow Gradient */
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px; /* Creates the pill shape */
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </body>
