@@ -361,6 +361,7 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
@@ -371,28 +372,40 @@ namespace StudentManagementSystem.Controllers
                 var currentUserId = GetCurrentUserId();
                 if (currentUserId == id)
                 {
-                    SetSuccessMessage("لا يمكن حذف المستخدم الحالي");
+                    SetErrorMessage("لا يمكن حذف المستخدم الحالي");
                     return RedirectToAction("ManageUsers");
                 }
+
+                // الحصول على المستخدم المراد حذفه وتحديث LastEditBy_Id قبل الحذف
+                var user = await _userService.GetUserByIdAsync(id);
+                if (user == null)
+                {
+                    SetErrorMessage("المستخدم غير موجود");
+                    return RedirectToAction("ManageUsers");
+                }
+
+                // تحديث LastEditBy_Id ليسجل من قام بحذف المستخدم
+                user.LastEditBy_Id = currentUserId;
+                await _userService.UpdateUserAsync(user);
 
                 var result = await _userService.DeleteUserAsync(id);
                 if (result)
                 {
-                    SetSuccessMessage ("تم حذف المستخدم بنجاح");
+                    SetSuccessMessage("تم حذف المستخدم بنجاح");
                 }
                 else
                 {
-                    SetSuccessMessage("فشل في حذف المستخدم");
+                    SetErrorMessage("فشل في حذف المستخدم");
                 }
             }
             catch (Exception ex)
             {
-                SetSuccessMessage("حدث خطأ أثناء حذف المستخدم");
+                SetErrorMessage("حدث خطأ أثناء حذف المستخدم");
             }
 
             return RedirectToAction("ManageUsers");
         }
-    
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]

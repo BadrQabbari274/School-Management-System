@@ -7,6 +7,7 @@
 
 <style>
     /* General Body Styles */
+    /* General Body Styles */
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #f8f9fa;
@@ -17,8 +18,8 @@
 
     /* Header Section */
     .header-section {
-        background: #fff;
-        color: #ff6b35;
+        background: linear-gradient(135deg, #ffffff, #ffffff); /* White gradient */
+        color: #ff6b35; /* Orange text color */
         text-align: center;
         padding: 25px 0;
         margin-bottom: 30px;
@@ -31,12 +32,11 @@
         font-weight: bold;
         margin: 0;
         letter-spacing: 1px;
-        color: #ff6b35;
     }
 
     /* Container */
     .container {
-        max-width: 800px;
+        max-width: 1200px; /* Increased max-width */
         margin: 0 auto;
         padding: 20px;
     }
@@ -56,7 +56,7 @@
         font-weight: bold;
         margin-bottom: 30px;
         text-align: center;
-        border-bottom: 3px solid #17a2b8;
+        border-bottom: 3px solid #fd7e14; /* Updated color */
         padding-bottom: 15px;
     }
 
@@ -70,7 +70,7 @@
         background: #f8f9fa;
         padding: 20px;
         border-radius: 10px;
-        border-left: 5px solid #17a2b8;
+        border-left: 5px solid #fd7e14; /* Updated color */
         transition: all 0.3s ease;
     }
 
@@ -90,7 +90,7 @@
 
         .detail-label i {
             margin-left: 10px;
-            color: #17a2b8;
+            color: #fd7e14; /* Updated color */
             width: 20px;
             text-align: center;
         }
@@ -106,7 +106,7 @@
         .detail-value.primary {
             font-size: 22px;
             font-weight: 600;
-            color: #17a2b8;
+            color: #fd7e14; /* Updated color */
         }
 
         .detail-value.date {
@@ -129,6 +129,7 @@
         transition: all 0.3s ease;
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
         margin: 5px;
+        color: white; /* Default text color for gradient buttons */
     }
 
         .btn i {
@@ -137,15 +138,12 @@
 
     .btn-info {
         background: linear-gradient(135deg, #17a2b8, #138496);
-        color: white;
     }
 
         .btn-info:hover {
             background: linear-gradient(135deg, #117a8b, #0e6e7e);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
-            color: white;
-            text-decoration: none;
         }
 
     .btn-warning {
@@ -157,21 +155,16 @@
             background: linear-gradient(135deg, #e0a800, #c69500);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
-            color: #333;
-            text-decoration: none;
         }
 
     .btn-danger {
         background: linear-gradient(135deg, #dc3545, #c82333);
-        color: white;
     }
 
         .btn-danger:hover {
             background: linear-gradient(135deg, #c82333, #bd2130);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
-            color: white;
-            text-decoration: none;
         }
 
     /* Button Container */
@@ -181,7 +174,6 @@
         display: flex;
         justify-content: center;
         gap: 15px;
-        flex-wrap: wrap;
     }
 
     /* Back Button */
@@ -201,12 +193,6 @@
             background: linear-gradient(135deg, #117a8b, #0e6e7e);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
-            color: white;
-            text-decoration: none;
-        }
-
-        .back-btn i {
-            margin-left: 8px;
         }
 
     /* ID Badge */
@@ -222,10 +208,6 @@
         margin-bottom: 20px;
         box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
     }
-
-        .id-badge i {
-            margin-left: 8px;
-        }
 
     /* Stats Section */
     .stats-section {
@@ -247,7 +229,7 @@
 
         .stats-title i {
             margin-left: 10px;
-            color: #17a2b8;
+            color: #fd7e14; /* Updated color */
         }
 
     .stats-item {
@@ -368,11 +350,6 @@
         العودة إلى قائمة أسباب الغياب
     </a>
 
-    <!-- ID Badge -->
-    <div class="id-badge">
-        <i class="fas fa-hashtag"></i>
-        رقم التعريف: @Model.Id
-    </div>
 
     <!-- Details Card -->
     <div class="details-card">
@@ -382,7 +359,7 @@
             <div class="detail-item">
                 <div class="detail-label">
                     <i class="fas fa-tag"></i>
-                    اسم سبب الغياب
+                     سبب الغياب
                 </div>
                 <div class="detail-value primary">@Model.Name</div>
             </div>
@@ -392,7 +369,7 @@
                     <i class="fas fa-calendar-alt"></i>
                     تاريخ الإنشاء
                 </div>
-                <div class="detail-value date">@Model.CreatedDate.ToString("dddd, dd MMMM yyyy - hh:mm tt", new System.Globalization.CultureInfo("ar-SA"))</div>
+                <div class="detail-value">@(Model.CreatedDate.ToString("MMM dd, yyyy") ?? "غير محدد")</div>
             </div>
 
             <div class="detail-item">
@@ -412,71 +389,7 @@
                 </div>
             </div>
 
-            <div class="detail-item">
-                <div class="detail-label">
-                    <i class="fas fa-info-circle"></i>
-                    الحالة
-                </div>
-                <div class="detail-value">
-                    @if (!Model.IsDeleted)
-                    {
-                        <span style="color: #28a745; font-weight: bold;">
-                            <i class="fas fa-check-circle"></i> نشط
-                        </span>
-                    }
-                    else
-                    {
-                        <span style="color: #dc3545; font-weight: bold;">
-                            <i class="fas fa-times-circle"></i> محذوف
-                        </span>
-                    }
-                </div>
-            </div>
-        </div>
 
-        <!-- Statistics Section -->
-        <div class="stats-section">
-            <div class="stats-title">
-                <i class="fas fa-chart-bar"></i>
-                إحصائيات الاستخدام
-            </div>
-
-            <div class="stats-item">
-                <span class="stats-label">عدد مرات الاستخدام:</span>
-                <span class="stats-value">
-                    @if (Model.StudentAbsents != null)
-                    {
-                        @Model.StudentAbsents.Count()
-                    }
-                    else
-                    {
-                        <span>0</span>
-                    }
-                </span>
-            </div>
-
-            @* <div class="stats-item">
-                <span class="stats-label">آخر استخدام:</span>
-                <span class="stats-value">
-                    @if (Model.StudentAbsents != null && Model.StudentAbsents.Any())
-                    {
-                        var lastUsage = Model.StudentAbsents.OrderByDescending(sa => sa.CreatedDate).FirstOrDefault();
-                        if (lastUsage != null)
-                        {
-                            @lastUsage.CreatedDate.ToString("dd/MM/yyyy")
-                        }
-                        else
-                        {
-                            <span style="color: #6c757d; font-style: italic;">لم يُستخدم بعد</span>
-                        }
-                    }
-                    else
-                    {
-                        <span style="color: #6c757d; font-style: italic;">لم يُستخدم بعد</span>
-                    }
-                </span>
-            </div> *@
-        </div>
 
         <!-- Action Buttons -->
         <div class="button-container">
