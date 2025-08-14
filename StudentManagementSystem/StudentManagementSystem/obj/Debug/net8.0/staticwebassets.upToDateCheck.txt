@@ -66,9 +66,11 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\uploads\evaluations\eval_57_1_20250813_144058.png
 wwwroot\uploads\evaluations\eval_59_1_20250813_143109.png
 wwwroot\uploads\evaluations\eval_59_1_20250813_143145.png
 wwwroot\uploads\evaluations\eval_59_1_20250813_143416.png
+wwwroot\uploads\evaluations\eval_59_1_20250813_143952.png
 wwwroot\upload\13\13_Mohamed_Reda_certificate.jpg
 wwwroot\upload\13\13_Mohamed_Reda_profile.png
 wwwroot\upload\14\14_Mohamed_Reda_certificate.jpg
