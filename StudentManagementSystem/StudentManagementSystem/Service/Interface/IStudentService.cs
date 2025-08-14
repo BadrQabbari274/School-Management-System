@@ -7,6 +7,7 @@ namespace StudentManagementSystem.Service.Interface
     public interface IStudentService
     {
         Task<IEnumerable<Students>> GetAllStudentsAsync();
+        Task<IEnumerable<Students>> GetAllStudentsWithClassAndGradeAsync();
         Task<Students> GetStudentByIdAsync(int id);
         Task<Students> CreateStudentAsync(Students student, IFormFile profileImage = null, IFormFile birthCertificate = null);
         Task<Students> UpdateStudentAsync(Students student/*, IFormFile profileImage = null, IFormFile birthCertificate = null*/);
