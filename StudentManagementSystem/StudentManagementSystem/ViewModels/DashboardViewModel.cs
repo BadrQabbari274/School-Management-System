@@ -6,6 +6,8 @@ namespace StudentManagementSystem.ViewModels
     public class DashboardViewModel
     {
         public int TotalStudentsCount { get; set; }
+        public int TodayAbsentStudentsCount { get; set; }
+        public int TodayPresentStudentsCount { get; set; }
         public List<MonthlyStudentData> MonthlyData { get; set; } = new List<MonthlyStudentData>();
         public List<DailyStudentData> WeeklyData { get; set; } = new List<DailyStudentData>();
 

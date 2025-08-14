@@ -1,0 +1,397 @@
+﻿@model StudentManagementSystem.ViewModels.AbsenceReasonViewModel
+
+@{
+    ViewData["Title"] = "تعديل سبب الغياب";
+    Layout = "_Layout";
+}
+
+<style>
+    /* General Body Styles */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        direction: rtl;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Header Section */
+    .header-section {
+        background: #fff;
+        color: #ff6b35;
+        text-align: center;
+        padding: 25px 0;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        border-radius: 0 0 20px 20px;
+    }
+
+    .header-title {
+        font-size: 32px;
+        font-weight: bold;
+        margin: 0;
+        letter-spacing: 1px;
+        color: #ff6b35;
+    }
+
+    /* Container */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Form Card */
+    .form-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        margin-bottom: 30px;
+    }
+
+    .form-title {
+        color: #333;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: center;
+        border-bottom: 3px solid #ffc107;
+        padding-bottom: 15px;
+    }
+
+    /* Form Styles */
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e6ed;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #ffc107;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc3545;
+            background-color: #fff5f5;
+        }
+
+    .invalid-feedback {
+        display: block;
+        width: 100%;
+        margin-top: 5px;
+        font-size: 14px;
+        color: #dc3545;
+        font-weight: 500;
+    }
+
+    /* Button Styles */
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        margin: 5px;
+    }
+
+        .btn i {
+            margin-left: 8px;
+        }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #ffc107, #e0a800);
+        color: #333;
+    }
+
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #e0a800, #c69500);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+        }
+
+    .btn-secondary {
+        background: linear-gradient(135deg, #6c757d, #5a6268);
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #5a6268, #495057);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(108, 117, 125, 0.3);
+        }
+
+    /* Button Container */
+    .button-container {
+        text-align: center;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    /* Alert Messages */
+    .alert {
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 8px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    /* Back Button */
+    .back-btn {
+        background: linear-gradient(135deg, #17a2b8, #138496);
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, #117a8b, #0e6e7e);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(23, 162, 184, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .back-btn i {
+            margin-left: 8px;
+        }
+
+    /* ID Display */
+    .id-display {
+        background-color: #e9ecef;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        color: #495057;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .container
+
+    {
+        padding: 15px;
+    }
+
+    .form-card {
+        padding: 25px 20px;
+    }
+
+    .header-title {
+        font-size: 24px;
+    }
+
+    .form-title {
+        font-size: 20px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    }
+</style>
+
+<!-- Header Section -->
+<div class="header-section">
+    <h1 class="header-title">تعديل سبب الغياب</h1>
+</div>
+
+<div class="container">
+    <!-- Back Button -->
+    <a href="@Url.Action("Index")" class="back-btn">
+        <i class="fas fa-arrow-right"></i>
+        العودة إلى قائمة أسباب الغياب
+    </a>
+
+    <!-- Validation Summary -->
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i>
+            يرجى تصحيح الأخطاء التالية:
+            <ul style="margin: 10px 0 0 20px;">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <!-- Form Card -->
+    <div class="form-card">
+        <h2 class="form-title">تعديل بيانات سبب الغياب</h2>
+
+        <!-- ID Display -->
+        <div class="id-display">
+            <i class="fas fa-hashtag" style="margin-left: 5px;"></i>
+            رقم التعريف: @Model.Id
+        </div>
+
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input asp-for="Id" type="hidden" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="form-label">
+                    <i class="fas fa-tag" style="margin-left: 5px; color: #ffc107;"></i>
+                    @Html.DisplayNameFor(model => model.Name)
+                    <span style="color: #dc3545;">*</span>
+                </label>
+                <input asp-for="Name"
+                       class="form-control @(Html.ViewData.ModelState["Name"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                       placeholder="أدخل اسم سبب الغياب"
+                       maxlength="100" />
+                <span asp-validation-for="Name" class="invalid-feedback"></span>
+                <small class="form-text text-muted" style="font-size: 12px; color: #6c757d; margin-top: 5px;">
+                    الحد الأقصى 100 حرف
+                </small>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" class="btn btn-warning">
+                    <i class="fas fa-save"></i>
+                    حفظ التعديلات
+                </button>
+
+                <a href="@Url.Action("Index")" class="btn btn-secondary">
+                    <i class="fas fa-times"></i>
+                    إلغاء
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Focus on the name input and select all text for easy editing
+        const nameInput = document.querySelector('input[name="Name"]');
+        if (nameInput) {
+            nameInput.focus();
+            nameInput.select();
+        }
+
+        // Character counter for name input
+        const nameField = document.querySelector('input[name="Name"]');
+        if (nameField) {
+            const maxLength = nameField.getAttribute('maxlength');
+            const formGroup = nameField.closest('.form-group');
+
+            // Create character counter element
+            const charCounter = document.createElement('small');
+            charCounter.className = 'form-text text-muted';
+            charCounter.style.cssText = 'font-size: 12px; color: #6c757d; margin-top: 5px; float: left;';
+
+            function updateCharCounter() {
+                const remaining = maxLength - nameField.value.length;
+                charCounter.textContent = `${remaining} حرف متبقي`;
+                charCounter.style.color = remaining < 20 ? '#dc3545' : '#6c757d';
+            }
+
+            nameField.addEventListener('input', updateCharCounter);
+            formGroup.appendChild(charCounter);
+            updateCharCounter();
+        }
+
+        // Form validation enhancement
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const nameInput = form.querySelector('input[name="Name"]');
+                if (nameInput && nameInput.value.trim() === '') {
+                    e.preventDefault();
+                    nameInput.focus();
+                    nameInput.classList.add('is-invalid');
+                }
+            });
+        }
+
+        // Remove invalid class on input
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                this.classList.remove('is-invalid');
+                const feedback = this.parentNode.querySelector('.invalid-feedback');
+                if (feedback) {
+                    feedback.style.display = 'none';
+                }
+            });
+        });
+
+        // Warn user about unsaved changes
+        let formChanged = false;
+        const formInputs = document.querySelectorAll('input, textarea, select');
+
+        formInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                formChanged = true;
+            });
+        });
+
+        window.addEventListener('beforeunload', function(e) {
+            if (formChanged) {
+                const message = 'لديك تغييرات غير محفوظة. هل أنت متأكد من الخروج؟';
+                e.returnValue = message;
+                return message;
+            }
+        });
+
+        // Reset formChanged when form is submitted
+        form.addEventListener('submit', function() {
+            formChanged = false;
+        });
+    });
+</script>
