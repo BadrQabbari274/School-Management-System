@@ -1,0 +1,528 @@
+﻿@model StudentManagementSystem.ViewModels.StudentsTasksEvaluationViewModel
+@{
+    ViewData["Title"] = "تقييم الطلاب - " + Model.ClassName;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    .evaluation-container {
+        padding: 20px;
+        direction: rtl;
+    }
+
+    .header-section {
+        background: linear-gradient(135deg, #2196F3, #1976D2);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .evaluation-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        font-size: 14px;
+    }
+
+        .evaluation-table th {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 10px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 2px solid #388E3C;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+            .evaluation-table th.student-header {
+                background: linear-gradient(135deg, #FF9800, #F57C00);
+                width: 200px;
+                min-width: 200px;
+            }
+
+        .evaluation-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: middle;
+        }
+
+    .student-info {
+        background: #f8f9fa;
+        font-weight: bold;
+        color: #333;
+        text-align: right;
+        padding-right: 15px;
+        border-left: 3px solid #FF9800;
+    }
+
+    .student-name {
+        color: #1976D2;
+        font-size: 15px;
+    }
+
+    .student-code {
+        color: #666;
+        font-size: 12px;
+        margin-top: 3px;
+    }
+
+    .evaluation-btn {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        min-width: 100px;
+    }
+
+    .btn-evaluate {
+        background: linear-gradient(135deg, #4CAF50, #45a049);
+        color: white;
+    }
+
+        .btn-evaluate:hover {
+            background: linear-gradient(135deg, #45a049, #388E3C);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(76, 175, 80, 0.3);
+        }
+
+    .btn-completed {
+        background: linear-gradient(135deg, #9E9E9E, #757575);
+        color: white;
+        cursor: not-allowed;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        overflow-y: auto;
+        max-height: 70vh;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+
+    .info-panel {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .info-item i {
+            color: #2196F3;
+        }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+        background-color: white;
+        margin: 10% auto;
+        padding: 30px;
+        border-radius: 15px;
+        width: 400px;
+        text-align: center;
+        position: relative;
+    }
+
+    .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .close:hover {
+            color: black;
+        }
+
+    .image-source-btn {
+        background: linear-gradient(135deg, #2196F3, #1976D2);
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        margin: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        min-width: 150px;
+    }
+
+        .image-source-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .image-source-btn.gallery {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+        }
+
+            .image-source-btn.gallery:hover {
+                box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+            }
+
+    .selected-image {
+        max-width: 300px;
+        max-height: 200px;
+        border-radius: 8px;
+        margin: 15px 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .submit-evaluation {
+        background: linear-gradient(135deg, #4CAF50, #45a049);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+
+    .loading {
+        display: none;
+        color: #666;
+        margin-top: 10px;
+    }
+
+    .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid #2196F3;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-left: 10px;
+    }
+
+    @@keyframes spin {
+        0%
+
+    {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+    }
+
+    .success-message {
+        background: #d4edda;
+        color: #155724;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+        text-align: center;
+        display: none;
+    }
+
+    .error-message {
+        background: #f8d7da;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+        text-align: center;
+        display: none;
+    }
+</style>
+
+<div class="evaluation-container">
+    <div class="header-section">
+        <h2><i class="fas fa-clipboard-check"></i> تقييم الطلاب بالمهام</h2>
+        <p>@Model.ClassName - @Model.TryName</p>
+    </div>
+
+    <div class="info-panel">
+        <div class="info-item">
+            <i class="fas fa-users"></i>
+            <span>عدد الطلاب: @Model.StudentsRows.Count</span>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-tasks"></i>
+            <span>عدد المهام: @Model.Tasks.Count</span>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-redo-alt"></i>
+            <span>المحاولة: @Model.TryName</span>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="evaluation-table">
+            <thead>
+                <tr>
+                    <th class="student-header">
+                        <i class="fas fa-user-graduate"></i>
+                        الطلاب
+                    </th>
+                    @foreach (var task in Model.Tasks)
+                    {
+                        <th title="@task.TaskName">
+                            <i class="fas fa-tasks"></i>
+                            @task.TaskName
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model.StudentsRows)
+                {
+                    <tr>
+                        <td class="student-info">
+                            <div class="student-name">@student.StudentName</div>
+                            <div class="student-code">كود: @student.StudentCode</div>
+                        </td>
+                        @foreach (var taskStatus in student.TasksStatus)
+                        {
+                            <td>
+                                @if (taskStatus.IsEvaluated)
+                                {
+                                    <button class="evaluation-btn btn-completed" disabled>
+                                        <i class="fas fa-check-circle"></i>
+                                        تم التقييم
+                                    </button>
+                                    @if (taskStatus.EvaluationDate.HasValue)
+                                    {
+                                        <div style="font-size: 10px; color: #666; margin-top: 3px;">
+                                            @taskStatus.EvaluationDate.Value.ToString("dd/MM/yyyy")
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <button class="evaluation-btn btn-evaluate"
+                                            onclick="openEvaluationModal(@student.StudentId, @taskStatus.TaskId, '@student.StudentName', '@Model.Tasks.First(t => t.TaskId == taskStatus.TaskId).TaskName')">
+                                        <i class="fas fa-camera"></i>
+                                        تقييم الآن
+                                    </button>
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- رسائل النجاح والخطأ -->
+    <div id="successMessage" class="success-message">
+        <i class="fas fa-check-circle"></i>
+        <span id="successText"></span>
+    </div>
+    <div id="errorMessage" class="error-message">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorText"></span>
+    </div>
+</div>
+
+<!-- Modal لاختيار مصدر الصورة -->
+<div id="evaluationModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEvaluationModal()">&times;</span>
+        <h3 id="modalTitle">تقييم الطالب</h3>
+        <p id="modalSubtitle">اختر مصدر الصورة:</p>
+
+        <div style="margin: 20px 0;">
+            <button class="image-source-btn" onclick="selectImageSource('camera')">
+                <i class="fas fa-camera"></i>
+                الكاميرا
+            </button>
+            <button class="image-source-btn gallery" onclick="selectImageSource('gallery')">
+                <i class="fas fa-images"></i>
+                المعرض
+            </button>
+        </div>
+
+        <input type="file" id="imageInput" style="display: none;" accept="image/*" onchange="handleImageSelect(event)">
+        <input type="file" id="cameraInput" style="display: none;" accept="image/*" capture="camera" onchange="handleImageSelect(event)">
+
+        <div id="imagePreview" style="display: none;">
+            <img id="selectedImage" class="selected-image" src="" alt="الصورة المحددة">
+            <div>
+                <button class="submit-evaluation" onclick="submitEvaluation()">
+                    <i class="fas fa-paper-plane"></i>
+                    إرسال التقييم
+                </button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading">
+            <span class="spinner"></span>
+            جاري الإرسال...
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentStudentId = 0;
+    let currentTaskId = 0;
+    let selectedImageFile = null;
+
+    function openEvaluationModal(studentId, taskId, studentName, taskName) {
+        currentStudentId = studentId;
+        currentTaskId = taskId;
+
+        document.getElementById('modalTitle').textContent = `تقييم: ${studentName}`;
+        document.getElementById('modalSubtitle').textContent = `المهمة: ${taskName}`;
+        document.getElementById('evaluationModal').style.display = 'block';
+
+        // إعادة تعيين النموذج
+        resetModal();
+    }
+
+    function closeEvaluationModal() {
+        document.getElementById('evaluationModal').style.display = 'none';
+        resetModal();
+    }
+
+    function resetModal() {
+        document.getElementById('imagePreview').style.display = 'none';
+        document.getElementById('selectedImage').src = '';
+        document.getElementById('loading').style.display = 'none';
+        selectedImageFile = null;
+    }
+
+    function selectImageSource(source) {
+        if (source === 'camera') {
+            document.getElementById('cameraInput').click();
+        } else if (source === 'gallery') {
+            document.getElementById('imageInput').click();
+        }
+    }
+
+    function handleImageSelect(event) {
+        const file = event.target.files[0];
+        if (file) {
+            selectedImageFile = file;
+
+            // عرض الصورة
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('selectedImage').src = e.target.result;
+                document.getElementById('imagePreview').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function submitEvaluation() {
+        if (!selectedImageFile) {
+            showError('يرجى اختيار صورة أولاً');
+            return;
+        }
+
+        if (!currentStudentId || !currentTaskId) {
+            showError('خطأ في البيانات');
+            return;
+        }
+
+        document.getElementById('loading').style.display = 'block';
+
+        // إنشاء FormData لإرسال البيانات
+        const formData = new FormData();
+        formData.append('StudentId', currentStudentId);
+        formData.append('TaskId', currentTaskId);
+        formData.append('TryId', @Model.SelectedTryId);
+        formData.append('ClassId', @Model.ClassId);
+        formData.append('EvaluationImage', selectedImageFile);
+
+        // إرسال البيانات
+        fetch('@Url.Action("EvaluateStudentTask", "Competencies")', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('loading').style.display = 'none';
+
+            if (data.success) {
+                showSuccess('تم حفظ التقييم بنجاح!');
+                closeEvaluationModal();
+
+                // تحديث الصفحة بعد 2 ثانية
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            } else {
+                showError(data.message || 'حدث خطأ أثناء الحفظ');
+            }
+        })
+        .catch(error => {
+            document.getElementById('loading').style.display = 'none';
+            showError('حدث خطأ في الاتصال');
+            console.error('Error:', error);
+        });
+    }
+
+    function showSuccess(message) {
+        document.getElementById('successText').textContent = message;
+        document.getElementById('successMessage').style.display = 'block';
+
+        setTimeout(() => {
+            document.getElementById('successMessage').style.display = 'none';
+        }, 5000);
+    }
+
+    function showError(message) {
+        document.getElementById('errorText').textContent = message;
+        document.getElementById('errorMessage').style.display = 'block';
+
+        setTimeout(() => {
+            document.getElementById('errorMessage').style.display = 'none';
+        }, 5000);
+    }
+
+    // إغلاق الـ modal عند النقر خارجه
+    window.onclick = function(event) {
+        const modal = document.getElementById('evaluationModal');
+        if (event.target == modal) {
+            closeEvaluationModal();
+        }
+    }
+</script>
+
+@Html.AntiForgeryToken()

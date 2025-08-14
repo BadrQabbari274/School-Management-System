@@ -3,29 +3,57 @@ using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.ViewModels
 {
-    public class EvaluationMatrixViewModel
+    // ViewModel للصفحة الرئيسية
+    public class StudentsTasksEvaluationViewModel
     {
         public int ClassId { get; set; }
-        public int CompetencyId { get; set; }
-        public int TryId { get; set; }
+        public int SelectedTryId { get; set; }
         public string ClassName { get; set; }
-        public List<Evidence> PracticalEvidences { get; set; } = new List<Evidence>();
-        public List<StudentEvaluationRowViewModel> StudentEvaluationRows { get; set; } = new List<StudentEvaluationRowViewModel>();
+        public string TryName { get; set; }
+
+        // قائمة المهام (عناوين الأعمدة)
+        public List<TaskHeaderViewModel> Tasks { get; set; } = new List<TaskHeaderViewModel>();
+
+        // قائمة الطلاب مع حالة كل مهمة
+        public List<StudentTasksRowViewModel> StudentsRows { get; set; } = new List<StudentTasksRowViewModel>();
     }
 
-    public class StudentEvaluationRowViewModel
+    // ViewModel لعناوين المهام
+    public class TaskHeaderViewModel
     {
-        public Students Student { get; set; }
-        public List<EvidenceStatusViewModel> EvidenceStatuses { get; set; } = new List<EvidenceStatusViewModel>();
+        public int TaskId { get; set; }
+        public string TaskName { get; set; }
     }
 
-    public class EvidenceStatusViewModel
+    // ViewModel لصف كل طالب
+    public class StudentTasksRowViewModel
     {
-        public int EvidenceId { get; set; }
-        public string EvidenceName { get; set; }
-        public bool IsEvaluated { get; set; }
         public int StudentId { get; set; }
+        public string StudentName { get; set; }
+        public string StudentCode { get; set; }
+
+        // حالة كل مهمة للطالب
+        public List<StudentTaskStatusViewModel> TasksStatus { get; set; } = new List<StudentTaskStatusViewModel>();
+    }
+
+    // ViewModel لحالة كل مهمة للطالب
+    public class StudentTaskStatusViewModel
+    {
+        public int TaskId { get; set; }
+        public int StudentId { get; set; }
+        public bool IsEvaluated { get; set; } // هل تم التقييم أم لا
+        public string Status { get; set; } // "تقييم الآن" أو "تم التقييم"
+        public DateTime? EvaluationDate { get; set; }
+    }
+
+    // ViewModel لإرسال بيانات التقييم
+    public class EvaluateStudentTaskViewModel
+    {
+        public int StudentId { get; set; }
+        public int TaskId { get; set; }
         public int TryId { get; set; }
+        public IFormFile EvaluationImage { get; set; }
+        public int ClassId { get; set; }
     }
 
     public class CompetenciesSelectionViewModel_V2

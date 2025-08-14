@@ -746,6 +746,13 @@
                             <span class="nav-text">Manage Users</span>
                         </a>
                     </div>
+
+                    <div class="nav-item">
+                        <a asp-controller="EmployeeTypes" asp-action="Index" class="nav-link-custom" data-page="EmployeeTypes">
+                            <i class="fas fa-user-tag"></i>
+                            <span class="nav-text">Employee Types</span>
+                        </a>
+                    </div> 
                 </div>
             }
 
@@ -871,7 +878,8 @@
                 'class': 'class',
                 'department': 'department',
                 'section': 'section',
-                'account': 'manageusers'
+                'account': 'manageusers',
+                'EmployeeTypes': 'EmployeeTypes'
             };
 
             const controller = segments[0].toLowerCase();
